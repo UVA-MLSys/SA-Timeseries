@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default">
+  <ul class="nav navbar-nav">
+    {% for item in site.data.navigation %}
+    {% 
+      assign url = site.baseurl | append: page.url 
+      assign is_current_page = item.link == url
+    %}
+    <li {% if item.link == url %} class="active" {% endif %}>
+      <a href="{{ item.link }}">
+        {{ item.name}}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if site.github.is_project_page %}
+  <ul class="nav navbar-nav navbar-right">
+      <li>
+          <a href="{{ site.github.repository_url }}">
+              <span class="glyphicon glyphicon-link"></span> GitHub
+          </a>
+      </li>
+  </ul>
+  {% endif %}
+
+</nav>

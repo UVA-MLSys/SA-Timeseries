@@ -1,0 +1,12 @@
+matplotlib
+numpy
+pandas
+pytorch-lightning==1.6.5
+pyunpack
+SALib
+shutil
+scikit-learn
+tensorflow-gpu==2.9.1
+torch==1.13.1+cu116
+tqdm
+wget

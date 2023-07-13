@@ -8,6 +8,8 @@ import numpy as np
 from utils.download import *
 from tqdm import tqdm
 
+DISABLE_PROGRESS = False
+
 # Type defintions
 class DataTypes(str, Enum):
   """Defines numerical types of each column."""
@@ -53,18 +55,23 @@ class BaseDataFormatter(ABC):
 
     data_root = 'datasets'
     """Root directory of all datasets"""
+
+    def __init__(self, data_folder:str = '') -> None:
+        super().__init__()
+
+        self.data_folder = os.path.join(self.data_root, data_folder)
+        os.makedirs(self.data_folder,exist_ok=True)
     
-    data_folder = ''
     """Directory for input files, a subdir of the data_root"""
 
     def fix_column_types(
         self, df:pd.DataFrame
     ) -> pd.DataFrame:
-        print('Feature column, Data type, Input type, Current type')
-
-        for key, values in self.column_definition.items():
-            data_type, input_type = values[0], values[1]
-            print(key, data_type, input_type, df[key].dtype.name)
+        
+        print('Feature column, Data type, Current type')
+        for item in self.column_definition:
+            key, data_type = item[0], item[1]
+            print(key, data_type, df[key].dtype.name)
             
             if data_type == DataTypes.CATEGORICAL:
                 df[key] = df[key].astype(str)
@@ -108,8 +115,12 @@ class BaseDataFormatter(ABC):
 
     @property
     @abstractmethod
-    def column_definition(self):
-        """Defines order, input type and data type of each column."""
+    def column_definition(self) -> list[tuple[Union[str, int], DataTypes, Union[InputTypes, list[InputTypes]]]]:
+        """
+        Defines feature, input type and data type of each column. 
+        It is a list of tuples of the format (feature_name, data_type, input_type) 
+        or (feature_name, data_type, list of input_types)
+        """
         # https://www.geeksforgeeks.org/extract-multidict-values-to-a-list-in-python/
         raise NotImplementedError()
     
@@ -175,19 +186,21 @@ class BaseDataFormatter(ABC):
         """
         # print(f'\nExtracting data type {data_type}, input type {input_type}.')
         columns = []
-        for key, values in self.column_definition.items():
-            # print(key, values)
+        for item in self.column_definition:
             if data_type is not None:
                 if isinstance(data_type, list):
-                    if values[0] not in data_type: continue
-                elif values[0] != data_type: continue
+                    found = [d for d in data_type if d in item]
+                    if len(found) == 0: continue
+                elif data_type not in item: continue
 
             if input_type is not None:
                 if isinstance(input_type, list):
-                    if values[1] not in input_type: continue
-                elif values[1] != input_type: continue
+                    found = [d for d in input_type if d in item]
+                    if len(found) == 0: continue
+                    
+                elif input_type not in item: continue
 
-            columns.append(key)
+            columns.append(item[0])
 
         # print(f'Extracted columns {columns}.\n')
         # if len(columns)==1:

@@ -9,7 +9,7 @@ Usage:
   python3 script_download_data {EXPT_NAME} {OUTPUT_FOLDER} {FORCE_DOWNLOAD}
 
 Command line args:
-  EXPT_NAME: Name of experiment to download data for  {e.g. volatility}
+  EXPT_NAME: Name of experiment to download data for  {e.g. electricity}
   OUTPUT_FOLDER: Path to folder in which
   FORCE_DOWNLOAD: Whether to force data download from scratch.
 

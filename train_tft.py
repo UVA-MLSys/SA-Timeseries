@@ -11,18 +11,17 @@ from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_forecasting import TemporalFusionTransformer
 from pytorch_forecasting.metrics import RMSE, MultiLoss
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-device = torch.device(device)
-
-print(f'Using {device} backend.')
-
-from argparse import ArgumentParser
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 from configurations.config import *
 
-parser = ArgumentParser(description='Train model')
+parser = ArgumentParser(
+    description='Train model', 
+    formatter_class=ArgumentDefaultsHelpFormatter
+)
+
 parser.add_argument(
    '--experiment', metavar='-e', 
-   default=ExperimentType.ELECTRICITY, 
+   default=ExperimentType.TRAFFIC, 
    choices=ExperimentType.values(),
    help='dataset name of the experiment'
 )
@@ -38,6 +37,13 @@ show_progress_bar = not arguments.disable_progress
 config = ExperimentConfig(experiment=arguments.experiment)
 formatter = config.data_formatter
 
+# Check if running on cpu or gpu
+device = "cuda" if torch.cuda.is_available() else "cpu"
+device = torch.device(device)
+
+print(f'Using {device} backend.')
+
+# Load dataset
 df = formatter.load()
 print(f'Total data shape {df.shape}')
 
@@ -86,6 +92,7 @@ trainer = pl.Trainer(
     logger = logger,
     enable_progress_bar = show_progress_bar,
     check_val_every_n_epoch = 1,
+    gradient_clip_val=parameters['gradient_clip_val'],
     max_time=pd.to_timedelta(2, unit='minutes')
 )
 

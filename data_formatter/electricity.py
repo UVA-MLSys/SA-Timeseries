@@ -13,15 +13,14 @@ class ElectricityFormatter(BaseDataFormatter):
 
     @property
     def column_definition(self):
-        return {
-            'id': [DataTypes.CATEGORICAL, InputTypes.ID],
-            'hours_from_start': [DataTypes.INTEGER, InputTypes.TIME],
-            'power_usage': [DataTypes.FLOAT, InputTypes.TARGET],
-            'hour': [DataTypes.INTEGER, InputTypes.KNOWN],
-            'day_of_week': [DataTypes.INTEGER, InputTypes.KNOWN],
-            # 'hours_from_start': [DataTypes.INTEGER, InputTypes.KNOWN],
-            'categorical_id': [DataTypes.CATEGORICAL, InputTypes.STATIC],
-        }
+        return [
+            ('id', DataTypes.INTEGER, InputTypes.ID),
+            ('hours_from_start', DataTypes.INTEGER, InputTypes.TIME, InputTypes.KNOWN),
+            ('power_usage', DataTypes.FLOAT, InputTypes.TARGET),
+            ('hour', DataTypes.INTEGER, InputTypes.KNOWN),
+            ('day_of_week', DataTypes.INTEGER, InputTypes.KNOWN),
+            ('categorical_id', DataTypes.CATEGORICAL, InputTypes.STATIC),
+        ]
     
     @property
     def parameters(self):
@@ -30,9 +29,7 @@ class ElectricityFormatter(BaseDataFormatter):
             "horizon": 24
         }
     
-    def split(
-            self, data:DataFrame, val_start=1315, test_start=1339
-        ):
+    def split(self, data:DataFrame, val_start=1315, test_start=1339):
         # this is done following Google's TFT paper
         # note that this is different from time index
         index = data['days_from_start']
@@ -46,14 +43,13 @@ class ElectricityFormatter(BaseDataFormatter):
         
         return train, validation, test
     
-    def download(self, force=False) -> pd.DataFrame:
+    def download(self, force=False) -> None:
         """Downloads electricity dataset from UCI repository."""
 
         if os.path.exists(self.data_path) and not force:
             return
 
-        if force:
-            print('Force updating current data.')
+        if force: print('Force updating current data.')
 
         url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/00321/LD2011_2014.txt.zip'
 

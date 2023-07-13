@@ -1,6 +1,7 @@
 matplotlib
-numpy
+numpy==1.23.1
 pandas
+pytorch-forecasting==0.10.2
 pytorch-lightning==1.6.5
 pyunpack
 SALib

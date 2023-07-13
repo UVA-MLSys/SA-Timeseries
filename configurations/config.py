@@ -1,10 +1,19 @@
 import os, enum
 from data_formatter.base import *
 from data_formatter.electricity import ElectricityFormatter
+from data_formatter.traffic import TrafficFormatter
+from data_formatter.favorita import FavoritaFormatter
+from data_formatter.volatility import VolatilityFormatter
 from dataclasses import dataclass
 
 class ExperimentType(str, enum.Enum):
     ELECTRICITY = 'electricity'
+    TRAFFIC = 'traffic'
+    FAVORITA = 'favorita'
+    VOLATILITY = 'volatility'
+
+    def __str__(self) -> str:
+        return super().__str__()
 
     @staticmethod
     def values():
@@ -15,6 +24,13 @@ class ModelType(enum.auto):
     TFT = "tft"
 
 class ExperimentConfig:
+    data_formatter_map = {
+        ExperimentType.ELECTRICITY: ElectricityFormatter,
+        ExperimentType.TRAFFIC: TrafficFormatter,
+        ExperimentType.FAVORITA: FavoritaFormatter,
+        # ExperimentType.VOLATILITY: VolatilityFormatter # volatility dataset unavailable 
+    }
+
     seed = 7
 
     def __init__(
@@ -31,14 +47,14 @@ class ExperimentConfig:
     
     @property
     def data_formatter(self):
-        data_formatter_map = {
-            ExperimentType.ELECTRICITY: ElectricityFormatter,
-        }
-        return data_formatter_map[self.experiment]()
+        return self.__class__.data_formatter_map[self.experiment]()
     
     def model_parameters(self, model:ModelType=None):
         model_parameter_map = {
-            ExperimentType.ELECTRICITY: ElectricModelParameters
+            ExperimentType.ELECTRICITY: ElectricModelParameters,
+            ExperimentType.TRAFFIC: TrafficModelParameters,
+            ExperimentType.FAVORITA: FavoritaModelParameters,
+            ExperimentType.VOLATILITY: VolatilityModelParameters
         }
         parameter = None
         try:
@@ -58,7 +74,50 @@ ElectricModelParameters = {
         "learning_rate": 1e-3,
         "batch_size": 64,
         "epochs": 100,
+        'gradient_clip_val': 1,
         "early_stopping_patience": 5,
         'attention_head_size': 4
+    }
+}
+
+VolatilityModelParameters = {
+    ModelType.TFT: {
+        'dropout_rate': 0.3,
+        'hidden_layer_size': 160,
+        'learning_rate': 0.01,
+        'batch_size': 64,
+        'gradient_clip_val': 1,
+        "early_stopping_patience": 5,
+        'attention_head_size': 1,
+        'stack_size': 1,
+        "epochs": 100,
+    }
+}
+
+TrafficModelParameters = {
+    ModelType.TFT: {
+        'dropout_rate': 0.3,
+        'hidden_layer_size': 320,
+        'learning_rate': 0.001,
+        'batch_size': 128,
+        'gradient_clip_val': 100.,
+        "early_stopping_patience": 5,
+        'attention_head_size': 4,
+        'stack_size': 1,
+        "epochs": 100,
+    }
+}
+
+FavoritaModelParameters = {
+    ModelType.TFT: {
+        'dropout_rate': 0.1,
+        'hidden_layer_size': 240,
+        'learning_rate': 0.001,
+        'batch_size': 128,
+        'gradient_clip_val': 100.,
+        "early_stopping_patience": 5,
+        'attention_head_size': 4,
+        'stack_size': 1,
+        "epochs": 100,
     }
 }

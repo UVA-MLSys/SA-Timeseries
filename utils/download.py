@@ -1,12 +1,22 @@
-import os, shutil, pyunpack, wget
+import os, shutil, pyunpack, wget, requests
 
 # General functions for data downloading & aggregation.
 def download_from_url(url, output_path):
   """Downloads a file froma url."""
 
-  print('Pulling data from {} to {}'.format(url, output_path))
-  wget.download(url, output_path)
-  print('done')
+  print('\nPulling data from {} to {}'.format(url, output_path))
+  # wget.download(url, output_path)
+  with requests.get(url, allow_redirects=True, stream=True) as response:
+    response.raise_for_status()
+
+    with open(output_path, 'wb') as outfile:
+      for chunk in response.iter_content(): 
+        # If you have chunk encoded response uncomment if
+        # and set chunk_size parameter to None.
+        #if chunk: 
+        outfile.write(chunk)
+
+  print('done.\n')
 
 
 def recreate_folder(path):
@@ -60,9 +70,7 @@ def download_and_unzip(url, zip_path, csv_path, data_folder):
     csv_path: Expected path to csv file
     data_folder: Folder in which data is stored.
   """
-
   download_from_url(url, zip_path)
-
   unzip(zip_path, csv_path, data_folder)
 
   print('Done.')

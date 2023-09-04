@@ -1,0 +1,6 @@
+long_term_forecast_ili_36_24_Transformer_custom_ftM_sl36_ll18_pl24_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
+mse:4.545623302459717, mae:1.408710241317749
+
+long_term_forecast_ili_36_24_DLinear_custom_ftM_sl36_ll18_pl24_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
+mse:4.793543338775635, mae:1.6582401990890503
+

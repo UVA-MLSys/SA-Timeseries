@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #SBATCH --job-name="total"
-#SBATCH --output=outputs/train.out
+#SBATCH --output=train.out
 #SBATCH --partition=gpu
-#SBATCH --time=1:00:00
-#SBATCH --account=ds--6013
+#SBATCH --time=24:00:00
+#SBATCH --account=bii_dsc_community
 #SBATCH --gres=gpu:v100:1
 #SBATCH --mem=24GB
 
@@ -12,7 +12,7 @@ source ~/.bashrc
 
 # this is for when you are using singularity
 module load cuda cudnn singularity
-singularity run --nv tft_pytorch.sif python train_tft.py
+singularity run --nv tft_pytorch.sif python run.py
 
 # singularity run --nv tft_pytorch.sif python train_tft.py --input-file=2022_May_age_groups/Total.csv --output=tft_pytorch/scratch/total
 

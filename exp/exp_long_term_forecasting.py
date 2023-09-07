@@ -36,7 +36,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         criterion = nn.MSELoss()
         return criterion
 
-    def vali(self, vali_data, vali_loader, criterion):
+    def vali(self, vali_loader, criterion):
         total_loss = []
         self.model.eval()
         with torch.no_grad():
@@ -71,15 +71,21 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
                 loss = criterion(pred, true)
 
-                total_loss.append(loss)
-        total_loss = np.average(total_loss)
+                total_loss.append(loss.item())
+        
+        if len(total_loss) == 0:
+            print('Warning: no loss values found.')
+            total_loss = np.inf
+        else:
+            total_loss = np.average(total_loss)
+        
         self.model.train()
         return total_loss
 
     def train(self, setting):
-        train_data, train_loader = self._get_data(flag='train')
-        vali_data, vali_loader = self._get_data(flag='val')
-        test_data, test_loader = self._get_data(flag='test')
+        _, train_loader = self._get_data(flag='train')
+        _, vali_loader = self._get_data(flag='val')
+        _, test_loader = self._get_data(flag='test')
 
         path = os.path.join(self.args.checkpoints, setting)
         if not os.path.exists(path):
@@ -158,8 +164,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
             print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
             train_loss = np.average(train_loss)
-            vali_loss = self.vali(vali_data, vali_loader, criterion)
-            test_loss = self.vali(test_data, test_loader, criterion)
+            vali_loss = self.vali(vali_loader, criterion)
+            test_loss = self.vali(test_loader, criterion)
 
             print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f} Test Loss: {4:.7f}".format(
                 epoch + 1, train_steps, train_loss, vali_loss, test_loss))
@@ -170,13 +176,14 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
             adjust_learning_rate(model_optim, epoch + 1, self.args)
 
+        print('Loading the best model')
         best_model_path = path + '/' + 'checkpoint.pth'
         self.model.load_state_dict(torch.load(best_model_path))
 
         return self.model
 
     def test(self, setting, test=0):
-        test_data, test_loader = self._get_data(flag='test')
+        _, test_loader = self._get_data(flag='test')
         if test:
             print('loading model')
             self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
@@ -219,26 +226,22 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                 outputs = outputs.detach().cpu().numpy()
                 batch_y = batch_y.detach().cpu().numpy()
 
-                pred = outputs
-                true = batch_y
-
-                preds.append(pred)
-                trues.append(true)
+                preds.append(outputs)
+                trues.append(batch_y)
                 
                 if i % 20 == 0:
                     input = batch_x.detach().cpu().numpy()
-                    gt = np.concatenate((input[0, :, -1], true[0, :, -1]), axis=0)
-                    pd = np.concatenate((input[0, :, -1], pred[0, :, -1]), axis=0)
+                    gt = np.concatenate((input[0, :, -1], batch_y[0, :, -1]), axis=0)
+                    pd = np.concatenate((input[0, :, -1], outputs[0, :, -1]), axis=0)
                     visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
 
         # this line handles different size of batch. E.g. last batch can be < batch_size.
         preds = np.concatenate(preds, axis=0)
         trues = np.concatenate(trues, axis=0)
-        print('test shape:', preds.shape, trues.shape)
 
-        preds = preds.reshape((-1, preds.shape[-2], preds.shape[-1]))
-        trues = trues.reshape((-1, trues.shape[-2], trues.shape[-1]))
-        print('test shape:', preds.shape, trues.shape)
+        preds = preds.reshape((-1, *preds.shape[-2:]))
+        trues = trues.reshape((-1, *trues.shape[-2:]))
+        print('Preds and Trues shape:', preds.shape, trues.shape)
 
         # result save
         folder_path = './results/' + setting + '/'
@@ -246,12 +249,10 @@ class Exp_Long_Term_Forecast(Exp_Basic):
             os.makedirs(folder_path)
 
         mae, mse, rmse, mape, mspe = metric(preds, trues)
-        print('mse:{}, mae:{}'.format(mse, mae))
+        result_string = f'mse:{mse:0.5g}, mae:{mae:0.5g}, rmse: {rmse:0.5g}, mape: {mape:0.5g}, mspe :{mspe:0.5g}.'
+        print(result_string)
         f = open("result_long_term_forecast.txt", 'a')
-        f.write(setting + "  \n")
-        f.write('mse:{}, mae:{}'.format(mse, mae))
-        f.write('\n')
-        f.write('\n')
+        f.write(setting + "  \n" + result_string + '\n\n')
         f.close()
 
         np.save(folder_path + 'metrics.npy', np.array([mae, mse, rmse, mape, mspe]))

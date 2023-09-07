@@ -19,8 +19,8 @@ class Exp_Classification(Exp_Basic):
 
     def _build_model(self):
         # model input depends on data
-        train_data, train_loader = self._get_data(flag='TRAIN')
-        test_data, test_loader = self._get_data(flag='TEST')
+        train_data, _ = self._get_data(flag='train')
+        test_data, _ = self._get_data(flag='test')
         self.args.seq_len = max(train_data.max_seq_len, test_data.max_seq_len)
         self.args.pred_len = 0
         self.args.enc_in = train_data.feature_df.shape[1]
@@ -43,7 +43,7 @@ class Exp_Classification(Exp_Basic):
         criterion = nn.CrossEntropyLoss()
         return criterion
 
-    def vali(self, vali_data, vali_loader, criterion):
+    def vali(self, vali_loader, criterion):
         total_loss = []
         preds = []
         trues = []
@@ -76,9 +76,9 @@ class Exp_Classification(Exp_Basic):
         return total_loss, accuracy
 
     def train(self, setting):
-        train_data, train_loader = self._get_data(flag='TRAIN')
-        vali_data, vali_loader = self._get_data(flag='TEST')
-        test_data, test_loader = self._get_data(flag='TEST')
+        _, train_loader = self._get_data(flag='train')
+        _, vali_loader = self._get_data(flag='val')
+        _, test_loader = self._get_data(flag='test')
 
         path = os.path.join(self.args.checkpoints, setting)
         if not os.path.exists(path):
@@ -125,8 +125,8 @@ class Exp_Classification(Exp_Basic):
 
             print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
             train_loss = np.average(train_loss)
-            vali_loss, val_accuracy = self.vali(vali_data, vali_loader, criterion)
-            test_loss, test_accuracy = self.vali(test_data, test_loader, criterion)
+            vali_loss, val_accuracy = self.vali(vali_loader, criterion)
+            test_loss, test_accuracy = self.vali(test_loader, criterion)
 
             print(
                 "Epoch: {0}, Steps: {1} | Train Loss: {2:.3f} Vali Loss: {3:.3f} Vali Acc: {4:.3f} Test Loss: {5:.3f} Test Acc: {6:.3f}"
@@ -144,7 +144,7 @@ class Exp_Classification(Exp_Basic):
         return self.model
 
     def test(self, setting, test=0):
-        test_data, test_loader = self._get_data(flag='TEST')
+        test_data, test_loader = self._get_data(flag='test')
         if test:
             print('loading model')
             self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))

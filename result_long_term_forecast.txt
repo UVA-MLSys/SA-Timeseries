@@ -4,3 +4,15 @@ mse:4.545623302459717, mae:1.408710241317749
 long_term_forecast_ili_36_24_DLinear_custom_ftM_sl36_ll18_pl24_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
 mse:4.793543338775635, mae:1.6582401990890503
 
+long_term_forecast_covid_14_14_Transformer_covid_ftMS_sl14_ll7_pl14_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
+mse:2.168884038925171, mae:0.8049907088279724
+
+long_term_forecast_covid_14_14_Transformer_covid_ftMS_sl14_ll7_pl14_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
+mse:5346124.0, mae:1320.0423583984375
+
+long_term_forecast_covid_14_14_Transformer_covid_ftMS_sl14_ll7_pl14_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
+mse:2.1817, mae:0.8029, rmse: 1.4771, mape: 1.9375, mspe :53.245.
+
+long_term_forecast_covid_14_14_Transformer_covid_ftMS_sl14_ll7_pl14_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
+mse:2.1817, mae:0.8029, rmse: 1.4771, mape: 1.9375, mspe :53.245.
+

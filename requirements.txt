@@ -7,7 +7,7 @@ pyunpack
 SALib
 shutil
 scikit-learn
-tensorflow-gpu==2.9.1
+time-interpret==0.3.0
 torch==1.13.1+cu116
 tqdm
 wget

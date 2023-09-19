@@ -1,13 +1,13 @@
 export CUDA_VISIBLE_DEVICES=0
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
   --model_id ili_36_24 \
   --model Transformer \
   --data custom \
-  --features M \
+  --features MS \
   --seq_len 36 \
   --label_len 18 \
   --pred_len 24 \
@@ -17,17 +17,17 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
   --model_id ili_36_36 \
   --model Transformer \
   --data custom \
-  --features M \
+  --features MS \
   --seq_len 36 \
   --label_len 18 \
   --pred_len 36 \
@@ -37,17 +37,17 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
   --model_id ili_36_48 \
   --model Transformer \
   --data custom \
-  --features M \
+  --features MS \
   --seq_len 36 \
   --label_len 18 \
   --pred_len 48 \
@@ -57,17 +57,17 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
   --model_id ili_36_60 \
   --model Transformer \
   --data custom \
-  --features M \
+  --features MS \
   --seq_len 36 \
   --label_len 18 \
   --pred_len 60 \
@@ -77,5 +77,5 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1

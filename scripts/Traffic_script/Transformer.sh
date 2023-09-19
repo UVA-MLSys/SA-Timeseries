@@ -1,7 +1,7 @@
 export CUDA_VISIBLE_DEVICES=5
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model_id traffic_96_96 \
@@ -17,12 +17,12 @@ python -u run.py \
   --enc_in 862 \
   --dec_in 862 \
   --c_out 862 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1 \
   --train_epochs 3
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model_id traffic_96_192 \
@@ -38,12 +38,12 @@ python -u run.py \
   --enc_in 862 \
   --dec_in 862 \
   --c_out 862 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1 \
   --train_epochs 3
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model_id traffic_96_336 \
@@ -59,12 +59,12 @@ python -u run.py \
   --enc_in 862 \
   --dec_in 862 \
   --c_out 862 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1 \
   --train_epochs 3
 
 python -u run.py \
-  --is_training 1 \
+  --is_training \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model_id traffic_96_720 \
@@ -80,6 +80,6 @@ python -u run.py \
   --enc_in 862 \
   --dec_in 862 \
   --c_out 862 \
-  --des 'Exp' \
+  --des Exp \
   --itr 1 \
   --train_epochs 3

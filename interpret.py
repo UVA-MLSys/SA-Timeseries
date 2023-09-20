@@ -28,7 +28,7 @@ args = parser.parse_args(argv)
 
 set_random_seed(args.seed)
 # Disable cudnn if using cuda accelerator.
-    # Please see https://captum.ai/docs/faq#how-can-i-resolve-cudnn-rnn-backward-error-for-rnn-or-lstm-network
+# Please see https://captum.ai/docs/faq#how-can-i-resolve-cudnn-rnn-backward-error-for-rnn-or-lstm-network
 args.use_gpu = False
     
 assert args.task_name == 'long_term_forecast', "Only long_term_forecast is supported for now"

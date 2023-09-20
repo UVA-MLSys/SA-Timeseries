@@ -1,0 +1,13 @@
+explainer,metric,area,comp,suff
+deep_lift,mae,0.1,2.347323,2.440824
+deep_lift,mae,0.2,3.207514,3.031134
+deep_lift,mae,0.5,3.75054,3.366668
+deep_lift,mse,0.1,0.305129,0.35498
+deep_lift,mse,0.2,0.558915,0.503157
+deep_lift,mse,0.5,0.750244,0.568788
+feature_ablation,mae,0.1,2.262394,2.471542
+feature_ablation,mae,0.2,3.088788,3.076889
+feature_ablation,mae,0.5,3.705861,3.591951
+feature_ablation,mse,0.1,0.27623,0.369917
+feature_ablation,mse,0.2,0.508964,0.510641
+feature_ablation,mse,0.5,0.731498,0.637684

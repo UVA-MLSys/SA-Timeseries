@@ -1,42 +1,34 @@
-# Sensitivity Analysis for Multi-Horizon Time Series Forecasting
+# Temporal Saliency Analysis for Multi-Horizon Time Series Forecasting using Deep Learning
 
-## Sensitivity Analysis
+Interpreting the model's behavior is important in understanding decision-making in practice. However, explaining complex time series forecasting models faces challenges due to temporal dependencies between subsequent time steps and the varying importance of input features over time. Many time series forecasting models use input context with a look-back window for better prediction performance. However, the existing studies (1) do not consider the temporal dependencies among the feature vectors in the input window and (2) separately consider the time dimension that the feature dimension when calculating the importance scores. In this work, we propose a novel **Windowed Temporal Saliency Analysis** method to address these issues. 
+
+## Saliency Analysis
 
 ### Definition
-According to [Wikipedia](https://en.wikipedia.org/wiki/Sensitivity_analysis)
-> Sensitivity analysis is the study of how the uncertainty in the output of a mathematical model or system (numerical or otherwise) can be apportioned to different sources of uncertainty in its inputs.
 
-The sensitivity of each input is often represented by a numeric value, called the sensitivity index. Sensitivity indices come in several forms:
+Saliency Analysis is the study of input feature importance to model output using black-box interpretation techniques. We use the following libraries to perform the saliency analysis methods.
 
-1. **First-order indices**: measures the contribution to the output variance by a single model input alone.
-2. **Second-order indices**: measures the contribution to the output variance caused by the interaction of two model inputs.
-3. **Total-order index**: measures the contribution to the output variance caused by a model input, including both its first-order effects (the input varying alone) and all higher-order interactions.
+### [Captum](https://captum.ai/docs/introduction)
+(“comprehension” in Latin) is an open source library for model interpretability built on PyTorch.
 
-### [SALib](https://salib.readthedocs.io/en/latest/user_guide/getting-started.html)
+### [Time Interpret (tint)](https://josephenguehard.github.io/time_interpret/build/html/index.html)
 
-In this work we'll use **SALib** to perform the sensitivity analysis. 
-**SALib** is an open source library written in Python for performing sensitivity analyses. SALib provides a decoupled workflow, meaning it does not directly interface with the mathematical or computational model. Instead, SALib is responsible for generating the model inputs, using one of the sample functions, and computing the sensitivity indices from the model outputs, using one of the analyze functions. A typical sensitivity analysis using SALib follows four steps:
-
-1. Determine the model inputs (parameters) and their sample range.
-
-2. Run the sample function to generate the model inputs.
-
-3. Evaluate the model using the generated inputs, saving the model outputs.
-
-4. Run the analyze function on the outputs to compute the sensitivity indices.
+This package expands the Captum library with a specific focus on time-series. As such, it includes various interpretability methods specifically designed to handle time series data.
 
 ## Multi-Horizon Forecasting
 
 ###  Definition
-Multi-horizon forecasting is the prediction of variables-of-interest at multiple future time steps. It is a crucial challenge in time series machine learning. Most real-world datasets have a time component, and forecasting the future can unlock great value. For example, retailers can use future sales to optimize their supply chain and promotions, investment managers are interested in forecasting the future prices of financial assets to maximize their performance, and healthcare institutions can use the number of future patient admissions to have sufficient personnel and equipment.
+Multi-horizon forecasting is the prediction of variables-of-interest at multiple future time steps. It is a crucial challenge in time series machine learning. Most real-world datasets have a time component, and forecasting the future can unlock great value. For example, retailers can use future sales to optimize their supply chain and promotions, investment managers are interested in forecasting the future prices of financial assets to maximize their performance, and healthcare institutions can use the number of future patient admissions to have sufficient personnel and equipment. 
 
-The current `Sensitivity Analysis` methods only count for analyzing sensitivity at a single point in time. However in this work we extend that to allow analyzing sensitivity for multiple input (window) and output (horizon) timesteps.
+We use the following library for implementing the time series models,
 
-### [PyTorch Forecasting](https://pytorch-forecasting.readthedocs.io/en/stable/getting-started.html)
+### [Time-Series-Library (TSlib)](https://github.com/thuml/Time-Series-Library)
 
-In this work we use `PyTorch Forecasting`  to implement the timeseries models. This framework aims to ease state-of-the-art timeseries forecasting with neural networks for both real-world cases and research alike. The goal is to provide a high-level API with maximum flexibility for professionals and reasonable defaults for beginners. 
+TSlib is an open-source library for deep learning researchers, especially deep time series analysis.
 
 ## How to Reproduce
+
+The module was developed using python 3.10.
 
 ### Create Virtual Environment
 First create a virtual environment with the required libraries. For example, to create an venv named `ml`, you can either use the `Anaconda` library or your locally installed `python`.

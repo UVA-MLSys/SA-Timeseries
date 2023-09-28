@@ -229,18 +229,11 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                 preds.append(outputs)
                 trues.append(batch_y)
                 
-                if i % 20 == 0:
-                    input = batch_x.detach().cpu().numpy()
-                    gt = np.concatenate((input[0, :, -1], batch_y[0, :, -1]), axis=0)
-                    pd = np.concatenate((input[0, :, -1], outputs[0, :, -1]), axis=0)
-                    visual(gt, pd, os.path.join(folder_path, str(i) + '.pdf'))
 
         # this line handles different size of batch. E.g. last batch can be < batch_size.
         preds = np.concatenate(preds, axis=0)
         trues = np.concatenate(trues, axis=0)
 
-        preds = preds.reshape((-1, *preds.shape[-2:]))
-        trues = trues.reshape((-1, *trues.shape[-2:]))
         print('Preds and Trues shape:', preds.shape, trues.shape)
 
         # result save

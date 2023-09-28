@@ -16,3 +16,39 @@ mse:2.1817, mae:0.8029, rmse: 1.4771, mape: 1.9375, mspe :53.245.
 long_term_forecast_covid_14_14_Transformer_covid_ftMS_sl14_ll7_pl14_dm512_nh8_el2_dl1_df2048_fc3_ebtimeF_dtTrue_Exp_0  
 mse:2.1817, mae:0.8029, rmse: 1.4771, mape: 1.9375, mspe :53.245.
 
+national_illness_Transformer  
+mse:3.487, mae:1.6412, rmse: 1.8673, mape: 0.52855, mspe :0.30743.
+
+national_illness_Transformer  
+mse:3.8306, mae:1.7049, rmse: 1.9572, mape: 0.53604, mspe :0.3147.
+
+national_illness_DLinear  
+mse:1.1886, mae:0.92992, rmse: 1.0902, mape: 0.36348, mspe :0.25985.
+
+national_illness_DLinear  
+mse:1.1886, mae:0.92992, rmse: 1.0902, mape: 0.36348, mspe :0.25985.
+
+national_illness_DLinear  
+mse:1.1797, mae:0.93858, rmse: 1.0862, mape: 0.34781, mspe :0.21191.
+
+national_illness_DLinear  
+mse:1.1886, mae:0.92992, rmse: 1.0902, mape: 0.36348, mspe :0.25985.
+
+national_illness_DLinear  
+mse:1.1796, mae:0.93854, rmse: 1.0861, mape: 0.34779, mspe :0.21188.
+
+national_illness_DLinear  
+mse:1.3851, mae:1.0585, rmse: 1.1769, mape: 0.40299, mspe :0.39587.
+
+national_illness_Transformer  
+mse:4.9121, mae:2.0567, rmse: 2.2163, mape: 0.5882, mspe :0.36853.
+
+national_illness_Transformer  
+mse:5.7979, mae:2.2405, rmse: 2.4079, mape: 0.62861, mspe :0.4234.
+
+national_illness_Transformer  
+mse:6.6902, mae:2.4184, rmse: 2.5865, mape: 0.67499, mspe :0.4874.
+
+national_illness_Transformer  
+mse:5.483, mae:2.1877, rmse: 2.3416, mape: 0.61515, mspe :0.40484.
+

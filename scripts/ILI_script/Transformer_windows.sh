@@ -1,1 +1,1 @@
-python run.py --is_training --root_path ./dataset/illness/ --data_path national_illness.csv --model_id ili_36_24 --model Transformer --data custom --features M --seq_len 36 --label_len 18 --pred_len 24 --e_layers 2 --d_layers 1 --factor 3 --enc_in 7 --dec_in 7 --c_out 7 --des Exp --itr 1 --task_name long_term_forecast 
+python run.py --train --use_gpu --root_path ./dataset/illness/ --data_path national_illness.csv --model Transformer --data custom --features MS --seq_len 36 --label_len 12 --pred_len 24 --enc_in 7 --dec_in 7 --c_out 7 --task_name long_term_forecast

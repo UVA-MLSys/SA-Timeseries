@@ -1,9 +1,5 @@
 from run import *
-import tint
-from tint.metrics import mae, mse
-import os, gc
-import pandas as pd
-from tqdm import tqdm
+import os
 from utils.explainer import *
 from exp.exp_interpret import Exp_Interpret
 
@@ -23,10 +19,11 @@ from tint.attr import (
 
 parser = get_parser()
 argv = """
+  --task_name long_term_forecast \
   --use_gpu \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
-  --model Transformer \
+  --model DLinear \
   --features MS \
   --seq_len 36 \
   --label_len 12 \
@@ -59,7 +56,7 @@ Exp = Exp_Long_Term_Forecast
     
 setting = stringify_setting(args)
 exp = Exp(args)  # set experiments
-flag = 'test'
+flag = 'train'
 _, dataloader = exp._get_data(flag)
 
 exp.model.load_state_dict(
@@ -67,13 +64,13 @@ exp.model.load_state_dict(
 )
 result_folder = './results/' + setting + '/'
 
-# explainers = ['deep_lift', 'gradient_shap', 'integrated_gradients', 'lime', 'feature_ablation']
-explainers = ['feature_ablation']
-areas = [0.01, 0.02, 0.05, 0.95, 0.99]
+explainers = ['deep_lift', 'gradient_shap', 'integrated_gradients', 'lime', 'feature_ablation']
+# explainers = ['integrated_gradients']
+areas = [0.03, 0.05, 0.08, 0.1, 0.2]
 interpreter = Exp_Interpret(
     exp.model, result_folder, exp.device, args, 
     explainers, explainer_name_map, areas
 ) 
 
 interpreter.interpret(dataloader, flag, baseline_mode='zeros')
-interpreter.interpret(dataloader, flag, tsr=True, baseline_mode='zeros')
+# interpreter.interpret(dataloader, flag, tsr=True, baseline_mode='zeros')

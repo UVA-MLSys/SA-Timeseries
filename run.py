@@ -3,12 +3,13 @@ import os
 import torch
 from exp.exp_long_term_forecasting import Exp_Long_Term_Forecast
 from exp.exp_classification import Exp_Classification
+from exp.exp_basic import Exp_Basic
 import random
 import numpy as np
 
 def set_gpu(args):
     args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
-
+    
     if args.use_gpu and args.use_multi_gpu:
         args.devices = args.devices.replace(' ', '')
         device_ids = args.devices.split(',')
@@ -65,7 +66,7 @@ def get_parser():
         choices=['long_term_forecast', 'classification'], help='task name')
     parser.add_argument('--train', action='store_true', help='status')
     parser.add_argument('--model', type=str, required=True, default='Transformer',
-                        choices=['Transformer', 'DLinear'], help='model name')
+        choices=list(Exp_Basic.model_dict.keys()), help='model name')
     parser.add_argument('--seed', default=7, help='random seed')
 
     # data loader

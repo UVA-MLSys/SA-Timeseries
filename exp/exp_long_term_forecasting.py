@@ -1,13 +1,8 @@
 from data_provider.data_factory import data_provider
 from exp.exp_basic import Exp_Basic
-from utils.tools import EarlyStopping, adjust_learning_rate, visual
+from utils.tools import EarlyStopping, adjust_learning_rate
 from utils.metrics import metric
-import torch
-import torch.nn as nn
-from torch import optim
-import os
-import time
-import warnings
+import torch, os, time, warnings
 import numpy as np
 
 warnings.filterwarnings('ignore')
@@ -21,7 +16,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         model = self.model_dict[self.args.model].Model(self.args).float()
 
         if self.args.use_multi_gpu and self.args.use_gpu:
-            model = nn.DataParallel(model, device_ids=self.args.device_ids)
+            model = torch.nn.DataParallel(model, device_ids=self.args.device_ids)
         return model
 
     def _get_data(self, flag):
@@ -29,11 +24,13 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         return data_set, data_loader
 
     def _select_optimizer(self):
-        model_optim = optim.Adam(self.model.parameters(), lr=self.args.learning_rate)
+        model_optim = torch.optim.Adam(
+            self.model.parameters(), lr=self.args.learning_rate
+        )
         return model_optim
 
     def _select_criterion(self):
-        criterion = nn.MSELoss()
+        criterion = torch.nn.MSELoss()
         return criterion
 
     def vali(self, vali_loader, criterion):

@@ -14,14 +14,6 @@ def min_max_scale(arr, dim:int=0):
     
     return scaled
 
-def generate_mask(input, mask_type='zero'):
-    if mask_type == 'zero':
-        return 0
-    elif mask_type == 'random':
-        return torch.randn(size=input.shape)
-        
-    return None
-
 def compute_attr(
     inputs, baselines, explainer,
     additional_forward_args, args
@@ -76,16 +68,18 @@ def compute_attr(
     return attr
 
 def compute_tsr_attr(
-    inputs, baselines, explainer, additional_forward_args, args
+    inputs, baselines, explainer, additional_forward_args, args, device
 ):
     actual_attr = compute_attr(inputs, baselines, explainer, additional_forward_args, args)
     # batch x seq_len
-    time_attr = torch.zeros((inputs.shape[0], args.seq_len), dtype=float)
+    time_attr = torch.zeros((inputs.shape[0], args.seq_len), dtype=float, device=device)
 
+    # assignment = torch.randn((inputs.shape[0], inputs.shape[-1]), dtype=float)
+    new_inputs = inputs.clone() 
     for t in range(args.seq_len):
-        new_inputs = inputs.clone() 
+        prev_value = new_inputs[:, :t]
         # batch x seq_len x features
-        new_inputs[:, t] = inputs[0, 0, -1] # test with new_inputs[:, :t+1] and other masking
+        new_inputs[:, :t] = 0 # assignment # inputs[0, 0, -1] # test with new_inputs[:, :t+1] and other masking
 
         new_attr_per_time = compute_attr(
             new_inputs, baselines, explainer, 
@@ -96,29 +90,53 @@ def compute_tsr_attr(
         # batch x seq_len x features -> batch
         time_attr[:, t] = (actual_attr - new_attr_per_time
             ).abs().sum(axis=(1, 2))
+        new_inputs[:, :t] = prev_value
     
     # for each input in the batch, normalize along the time axis
     time_attr = min_max_scale(time_attr, dim=1)
+    
+    # new_attr = (time_attr.T * actual_attr.T).T
+    # return new_attr
 
     # find median along the time axis
     # mean_time_importance = np.quantile(time_attr, .55, axis=1)   
     
     n_features = inputs.shape[-1]
-    input_attr = torch.zeros((inputs.shape[0], n_features), dtype=float)
+    input_attr = torch.zeros((inputs.shape[0], n_features), dtype=float, device=device)
     time_scaled_attr = torch.zeros_like(actual_attr)
 
+    # assignment = torch.randn((inputs.shape[0],inputs.shape[1]), dtype=float)
+    # for f in range(n_features):
+    #     prev_value = new_inputs[:, :, f]
+    #     new_inputs[:, :, f] = assignment
+    #     attr = compute_attr(
+    #         new_inputs, baselines, explainer, 
+    #         additional_forward_args, args
+    #     )
+    #     input_attr[:, f] = (actual_attr - attr).abs().sum(axis=(1, 2))
+    #     new_inputs[:, :, f] = prev_value
+        
+    # input_attr = min_max_scale(input_attr, dim=1)
+    # for t in range(args.seq_len):
+    #     for f in range(n_features):
+    #         time_scaled_attr[:, t, f] = time_attr[:, t] * input_attr[:, f]
+    # return time_scaled_attr
+    
+    # new_inputs = inputs.clone()
     for t in range(args.seq_len):
         # if time_attr[t] < mean_time_importance:
         #     featureContibution = torch.ones(input_attr, dtype=float)/n_features
         for f in range(n_features):
-            new_inputs = inputs.clone() # batch x seq_len x features
-            new_inputs[:, t, f] = inputs[0, 0, f]
+             # batch x seq_len x features
+            prev_value = new_inputs[:, :t, f]
+            new_inputs[:, :t, f] = 0 # inputs[0, 0, f] # assignment[:, f] # inputs[0, 0, f]
             
             attr = compute_attr(
                 new_inputs, baselines, explainer, 
                 additional_forward_args, args
             )
             input_attr[:, f] = (actual_attr - attr).abs().sum(axis=(1, 2))
+            new_inputs[:, :t, f] = prev_value
         
         input_attr = min_max_scale(input_attr, dim=1)
         

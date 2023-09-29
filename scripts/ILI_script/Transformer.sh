@@ -1,4 +1,5 @@
 python -u run.py \
+  --task_name long_term_forecast \
   --train \
   --use_gpu \
   --root_path ./dataset/illness/ \

@@ -52,3 +52,24 @@ mse:6.6902, mae:2.4184, rmse: 2.5865, mape: 0.67499, mspe :0.4874.
 national_illness_Transformer  
 mse:5.483, mae:2.1877, rmse: 2.3416, mape: 0.61515, mspe :0.40484.
 
+electricity_Transformer  
+mse:0.29309, mae:0.42023, rmse: 0.54138, mape: 2.6362, mspe :310.44.
+
+electricity_DLinear  
+mse:0.26226, mae:0.37358, rmse: 0.51211, mape: 1.6376, mspe :101.26.
+
+electricity_DLinear  
+mse:0.26226, mae:0.37358, rmse: 0.51211, mape: 1.6376, mspe :101.26.
+
+electricity_DLinear  
+mse:0.26226, mae:0.37357, rmse: 0.51211, mape: 1.6376, mspe :101.26.
+
+national_illness_Transformer  
+mse:5.2936, mae:2.1353, rmse: 2.3008, mape: 0.60732, mspe :0.39248.
+
+national_illness_Transformer  
+mse:5.2936, mae:2.1353, rmse: 2.3008, mape: 0.60732, mspe :0.39248.
+
+electricity_PatchTST  
+mse:0.14685, mae:0.27712, rmse: 0.38322, mape: 1.1789, mspe :44.118.
+

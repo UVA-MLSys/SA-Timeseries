@@ -1,0 +1,11 @@
+explainer,metric,area,comp,suff
+feature_ablation,mae,0.1,8.4306,13.2275
+feature_ablation,mae,0.2,11.2745,13.2326
+feature_ablation,mae,0.5,13.8868,13.8964
+feature_ablation,mae,0.8,13.1235,11.0064
+feature_ablation,mae,0.9,13.2358,8.0181
+feature_ablation,mse,0.1,4.9956,11.3525
+feature_ablation,mse,0.2,8.2629,11.8675
+feature_ablation,mse,0.5,12.5654,12.0286
+feature_ablation,mse,0.8,12.3313,7.4461
+feature_ablation,mse,0.9,11.8891,4.1971

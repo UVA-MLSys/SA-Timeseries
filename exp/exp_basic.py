@@ -1,15 +1,30 @@
 import os
 import torch
-from models import Transformer, DLinear
+from models import Autoformer, Transformer, TimesNet, Nonstationary_Transformer, DLinear, FEDformer, \
+    Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM
 
 
 class Exp_Basic(object):
+    model_dict = {
+        'TimesNet': TimesNet,
+        'Autoformer': Autoformer,
+        'Transformer': Transformer,
+        'Nonstationary_Transformer': Nonstationary_Transformer,
+        'DLinear': DLinear,
+        'FEDformer': FEDformer,
+        'Informer': Informer,
+        'LightTS': LightTS,
+        'Reformer': Reformer,
+        'ETSformer': ETSformer,
+        'PatchTST': PatchTST,
+        'Pyraformer': Pyraformer,
+        'MICN': MICN,
+        'Crossformer': Crossformer,
+        'FiLM': FiLM,
+    }
+    
     def __init__(self, args):
         self.args = args
-        self.model_dict = {
-            'Transformer': Transformer,
-            'DLinear': DLinear
-        }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
 

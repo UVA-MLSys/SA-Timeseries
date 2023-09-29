@@ -33,16 +33,15 @@ class Exp_Interpret:
             f'Supported baseline modes: zeros, aug. Found {baseline_mode}'
         
         results = []
-        baseline_mode = "aug" # "zeros", "aug"
         result_columns = ['batch_index', 'explainer', 'metric', 'area', 'comp', 'suff']
         
-        if tsr:
-            output_filename = "batch_interpretations_tsr.csv"
-        else:
-            output_filename = "batch_interpretations.csv"
+        # if tsr:
+        #     output_filename = "batch_interpretations_tsr.csv"
+        # else:
+        #     output_filename = "batch_interpretations.csv"
             
-        output_file = open(os.path.join(self.result_folder, output_filename), 'w')
-        output_file.write(','.join(result_columns))
+        # output_file = open(os.path.join(self.result_folder, output_filename), 'w')
+        # output_file.write(','.join(result_columns))
         
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), disable=False
@@ -70,7 +69,7 @@ class Exp_Interpret:
                 explainer = self.explainers_map[name]
                 if tsr:
                     attr = compute_tsr_attr(
-                        inputs, baselines, explainer, additional_forward_args, self.args
+                        inputs, baselines, explainer, additional_forward_args, self.args, self.device
                     )
                 else:
                     attr = compute_attr(
@@ -95,12 +94,12 @@ class Exp_Interpret:
                         )
                 
                         result_row = [batch_index, name, metric_name, area, error_comp, error_suff]
-                        output_file.write("\n" + ','.join([str(r) for r in result_row]))
                         results.append(result_row)
+        #                 output_file.write("\n" + ','.join([str(r) for r in result_row]))
                 
-                output_file.flush()
-            # break
-        output_file.close()
+        #         output_file.flush()
+        #     # break
+        # output_file.close()
         if tsr:
             self.dump_results(results, result_columns, f'interpretations_tsr_{flag}.csv')
         else:

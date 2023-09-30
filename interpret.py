@@ -23,14 +23,14 @@ argv = """
   --use_gpu \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
-  --model DLinear \
+  --model Autoformer \
   --features MS \
   --seq_len 36 \
   --label_len 12 \
   --pred_len 24 \
   --enc_in 7 \
   --dec_in 7 \
-  --c_out 7
+  --c_out 7 --batch_size 16
 """.split()
 args = parser.parse_args(argv)
 
@@ -56,7 +56,7 @@ Exp = Exp_Long_Term_Forecast
     
 setting = stringify_setting(args)
 exp = Exp(args)  # set experiments
-flag = 'train'
+flag = 'test'
 _, dataloader = exp._get_data(flag)
 
 exp.model.load_state_dict(
@@ -64,6 +64,7 @@ exp.model.load_state_dict(
 )
 result_folder = './results/' + setting + '/'
 
+# PatchTST doesn't work with gradient based explainers
 explainers = ['deep_lift', 'gradient_shap', 'integrated_gradients', 'lime', 'feature_ablation']
 # explainers = ['integrated_gradients']
 areas = [0.03, 0.05, 0.08, 0.1, 0.2]
@@ -72,5 +73,5 @@ interpreter = Exp_Interpret(
     explainers, explainer_name_map, areas
 ) 
 
-interpreter.interpret(dataloader, flag, baseline_mode='zeros')
+interpreter.interpret(dataloader, flag)
 # interpreter.interpret(dataloader, flag, tsr=True, baseline_mode='zeros')

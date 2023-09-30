@@ -73,3 +73,9 @@ mse:5.2936, mae:2.1353, rmse: 2.3008, mape: 0.60732, mspe :0.39248.
 electricity_PatchTST  
 mse:0.14685, mae:0.27712, rmse: 0.38322, mape: 1.1789, mspe :44.118.
 
+national_illness_PatchTST  
+mse:0.90476, mae:0.71331, rmse: 0.95119, mape: 0.35622, mspe :0.55466.
+
+national_illness_Autoformer  
+mse:1.0744, mae:0.83492, rmse: 1.0365, mape: 0.38302, mspe :0.55697.
+

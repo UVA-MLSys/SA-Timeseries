@@ -28,8 +28,8 @@ class Exp_Interpret:
         for name in explainers:
             self.explainers_map[name] = explainer_name_map[name](self.model)
     
-    def interpret(self, dataloader, flag, tsr=False, baseline_mode='aug'):
-        assert baseline_mode in ['zeros', 'aug'], \
+    def interpret(self, dataloader, flag, tsr=False, baseline_mode='random'):
+        assert baseline_mode in ['zero', 'aug', 'random'], \
             f'Supported baseline modes: zeros, aug. Found {baseline_mode}'
         
         results = []
@@ -59,7 +59,8 @@ class Exp_Interpret:
             
             inputs = batch_x
             # baseline must be a scaler or tuple of tensors with same dimension as input
-            if baseline_mode=='zeros': baselines = torch.zeros_like(inputs)
+            if baseline_mode=='zero': baselines = torch.zeros_like(inputs)
+            elif baseline_mode == 'random': baselines = torch.randn_like(inputs)
             else: baselines = torch.mean(inputs, axis=0).repeat(inputs.shape[0], 1, 1).float()
             
             additional_forward_args = (batch_x_mark, dec_inp, batch_y_mark)

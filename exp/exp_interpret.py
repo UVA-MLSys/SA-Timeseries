@@ -2,6 +2,7 @@ import os, torch
 from tqdm import tqdm 
 import pandas as pd
 from utils.explainer import *
+from utils.tsr_tunnel import *
 from tint.metrics import mae, mse
 
 expl_metric_map = {
@@ -29,19 +30,8 @@ class Exp_Interpret:
             self.explainers_map[name] = explainer_name_map[name](self.model)
     
     def interpret(self, dataloader, flag, tsr=False, baseline_mode='random'):
-        assert baseline_mode in ['zero', 'aug', 'random'], \
-            f'Supported baseline modes: zeros, aug. Found {baseline_mode}'
-        
         results = []
         result_columns = ['batch_index', 'explainer', 'metric', 'area', 'comp', 'suff']
-        
-        # if tsr:
-        #     output_filename = "batch_interpretations_tsr.csv"
-        # else:
-        #     output_filename = "batch_interpretations.csv"
-            
-        # output_file = open(os.path.join(self.result_folder, output_filename), 'w')
-        # output_file.write(','.join(result_columns))
         
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), disable=False
@@ -59,52 +49,60 @@ class Exp_Interpret:
             
             inputs = batch_x
             # baseline must be a scaler or tuple of tensors with same dimension as input
-            if baseline_mode=='zero': baselines = torch.zeros_like(inputs)
-            elif baseline_mode == 'random': baselines = torch.randn_like(inputs)
-            else: baselines = torch.mean(inputs, axis=0).repeat(inputs.shape[0], 1, 1).float()
-            
+            baselines = get_baseline(batch_x, mode=baseline_mode)
             additional_forward_args = (batch_x_mark, dec_inp, batch_y_mark)
 
             # get attributions
-            for name in self.explainers:
-                explainer = self.explainers_map[name]
-                if tsr:
-                    attr = compute_tsr_attr(
-                        inputs, baselines, explainer, additional_forward_args, self.args, self.device
-                    )
-                else:
-                    attr = compute_attr(
-                        inputs, baselines, explainer, additional_forward_args, self.args
-                    )
-            
-                # get scores
-                for area in self.areas:
-                    for metric_name, metric in expl_metric_map.items():
-                        error_comp = metric(
-                            self.model, inputs=inputs, 
-                            attributions=attr, baselines=baselines, 
-                            additional_forward_args=additional_forward_args,
-                            topk=area, mask_largest=True
-                        )
-                        
-                        error_suff = metric(
-                            self.model, inputs=inputs, 
-                            attributions=attr, baselines=baselines, 
-                            additional_forward_args=additional_forward_args,
-                            topk=area, mask_largest=False
-                        )
-                
-                        result_row = [batch_index, name, metric_name, area, error_comp, error_suff]
-                        results.append(result_row)
-        #                 output_file.write("\n" + ','.join([str(r) for r in result_row]))
-                
-        #         output_file.flush()
-        #     # break
-        # output_file.close()
+            batch_results = self.evaluate(
+                inputs, baselines, 
+                additional_forward_args, tsr, batch_index
+            )
+            results.extend(batch_results)
         if tsr:
             self.dump_results(results, result_columns, f'interpretations_tsr_{flag}.csv')
         else:
             self.dump_results(results, result_columns, f'interpretations_{flag}.csv')
+            
+    def evaluate(
+        self, inputs, baselines, 
+        additional_forward_args, tsr, batch_index
+    ):
+        results = []
+        for name in self.explainers:
+            explainer = self.explainers_map[name]
+            if tsr:
+                explainer = TSRTunnel(explainer)
+                attr = compute_tsr_attr(
+                    self.args, explainer, inputs=inputs, 
+                    sliding_window_shapes=(1,1), 
+                    strides=1, baselines=baselines,
+                    additional_forward_args=additional_forward_args
+                )
+            else:
+                attr = compute_attr(
+                    inputs, baselines, explainer, additional_forward_args, self.args
+                )
+        
+            # get scores
+            for area in self.areas:
+                for metric_name, metric in expl_metric_map.items():
+                    error_comp = metric(
+                        self.model, inputs=inputs, 
+                        attributions=attr, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                        topk=area, mask_largest=True
+                    )
+                    
+                    error_suff = metric(
+                        self.model, inputs=inputs, 
+                        attributions=attr, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                        topk=area, mask_largest=False
+                    )
+            
+                    result_row = [batch_index, name, metric_name, area, error_comp, error_suff]
+                    results.append(result_row)
+        return results
         
     def dump_results(self, results, columns, filename):
         results_df = pd.DataFrame(results, columns=columns)
@@ -113,5 +111,5 @@ class Exp_Interpret:
         ].aggregate('mean').reset_index()
         
         filepath = os.path.join(self.result_folder, filename)
-        results_df.round(4).to_csv(filepath, index=False)
+        results_df.round(6).to_csv(filepath, index=False)
         print(results_df)

@@ -1,5 +1,5 @@
 from data_provider.data_factory import data_provider
-from exp.exp_basic import Exp_Basic
+from exp.exp_basic import *
 from utils.tools import EarlyStopping, adjust_learning_rate, cal_accuracy
 import torch
 import torch.nn as nn
@@ -75,14 +75,9 @@ class Exp_Classification(Exp_Basic):
         self.model.train()
         return total_loss, accuracy
 
-    def train(self, setting):
+    def train(self):
         _, train_loader = self._get_data(flag='train')
         _, vali_loader = self._get_data(flag='val')
-        _, test_loader = self._get_data(flag='test')
-
-        path = os.path.join(self.args.checkpoints, setting)
-        if not os.path.exists(path):
-            os.makedirs(path)
 
         time_now = time.time()
 
@@ -126,34 +121,28 @@ class Exp_Classification(Exp_Basic):
             print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
             train_loss = np.average(train_loss)
             vali_loss, val_accuracy = self.vali(vali_loader, criterion)
-            test_loss, test_accuracy = self.vali(test_loader, criterion)
+            # test_loss, test_accuracy = self.vali(test_loader, criterion)
 
             print(
-                "Epoch: {0}, Steps: {1} | Train Loss: {2:.3f} Vali Loss: {3:.3f} Vali Acc: {4:.3f} Test Loss: {5:.3f} Test Acc: {6:.3f}"
-                .format(epoch + 1, train_steps, train_loss, vali_loss, val_accuracy, test_loss, test_accuracy))
-            early_stopping(-val_accuracy, self.model, path)
+                f"Epoch: {epoch + 1}, Steps: {train_steps} | \
+                    Train Loss: {train_loss:.5g} Vali Loss: {vali_loss:.5g} Vali Acc: {val_accuracy:.3f}")
+            early_stopping(-val_accuracy, self.model, self.output_folder)
             if early_stopping.early_stop:
                 print("Early stopping")
                 break
             if (epoch + 1) % 5 == 0:
                 adjust_learning_rate(model_optim, epoch + 1, self.args)
 
-        best_model_path = path + '/' + 'checkpoint.pth'
-        self.model.load_state_dict(torch.load(best_model_path))
-
+        self.load_best_model()
         return self.model
 
-    def test(self, setting, test=0):
-        test_data, test_loader = self._get_data(flag='test')
-        if test:
-            print('loading model')
-            self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
+    def test(self, load_model=True, flag='test'):
+        _, test_loader = self._get_data(flag=flag)
+        if load_model:
+            self.load_best_model()
 
         preds = []
         trues = []
-        folder_path = './test_results/' + setting + '/'
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
 
         self.model.eval()
         with torch.no_grad():
@@ -177,15 +166,15 @@ class Exp_Classification(Exp_Basic):
         accuracy = cal_accuracy(predictions, trues)
 
         # result save
-        folder_path = './results/' + setting + '/'
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
 
         print('accuracy:{}'.format(accuracy))
         f = open("result_classification.txt", 'a')
-        f.write(setting + "  \n")
+        f.write(stringify_setting(self.args, complete=True)  + "  \n")
         f.write('accuracy:{}'.format(accuracy))
         f.write('\n')
         f.write('\n')
         f.close()
+        
+        np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), preds)
+        np.save(os.path.join(self.output_folder, f'{flag}_true.npy'), trues)
         return

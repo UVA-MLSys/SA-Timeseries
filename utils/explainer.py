@@ -1,6 +1,20 @@
 import torch
 
+def get_total_data(dataloader, add_x_mark=True):
+    batch_xs, batch_x_marks = [], []
+    for batch_x, batch_y, batch_x_mark, batch_y_mark in dataloader:
+        batch_xs.append(batch_x)
+        batch_x_marks.append(batch_x_mark)
+        
+    if add_x_mark:
+        return tuple(torch.vstack(batch_xs), torch.vstack(batch_x_marks))
+    else:
+        return torch.vstack(batch_xs)
+
 def get_baseline(inputs, mode='random'):
+    if type(inputs) == tuple:
+        return tuple([get_baseline(input, mode) for input in inputs])
+    
     if mode =='zero': baselines = torch.zeros_like(inputs)
     elif mode == 'random': baselines = torch.randn_like(inputs)
     elif mode == 'aug':
@@ -9,9 +23,10 @@ def get_baseline(inputs, mode='random'):
         baselines = torch.normal(means, std).repeat(
             inputs.shape[0], inputs.shape[1], 1
         ).float()
-    elif mode == 'mean': baselines = torch.mean(
-        inputs, axis=0
-    ).repeat(inputs.shape[0], 1, 1).float()
+    elif mode == 'mean': 
+        baselines = torch.mean(
+                inputs, axis=0
+        ).repeat(inputs.shape[0], 1, 1).float()
     else:
         print(f'baseline mode options: [zero, random, aug, mean]')
         raise NotImplementedError
@@ -36,11 +51,7 @@ def compute_attr(
     inputs, baselines, explainer,
     additional_forward_args, args
 ):
-    assert type(inputs) == torch.Tensor, \
-        f'Only input type tensor supported, found {type(inputs)} instead.'
     name = explainer.get_name()
-    
-    # these methods don't support having multiple outputs at the same time
     if name in ['Deep Lift', 'Lime', 'Integrated Gradients', 'Gradient Shap']:
         attr_list = []
         for target in range(args.pred_len):
@@ -50,38 +61,64 @@ def compute_attr(
             )
             attr_list.append(score)
         
-        attr = torch.stack(attr_list)
-        # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
-        attr = attr.permute(1, 0, 2, 3)
+        if type(inputs) == tuple:
+            attr = []
+            for input_index in range(len(inputs)):
+                attr_per_input = torch.stack([score[input_index] for score in attr_list])
+                # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+                attr_per_input = attr_per_input.permute(1, 0, 2, 3)
+                attr.append(attr_per_input)
+                
+            attr = tuple(attr)
+        else:
+            attr = torch.stack(attr_list)
+            # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+            attr = attr.permute(1, 0, 2, 3)
         
     elif name == 'Feature Ablation':
         attr = explainer.attribute(
             inputs=inputs, baselines=baselines,
             additional_forward_args=additional_forward_args
         )
-    elif name == 'Occlusion':
-        attr = explainer.attribute(
-            inputs=inputs,
-            baselines=baselines,
-            sliding_window_shapes = (1,1),
-            additional_forward_args=additional_forward_args
-        )
-    elif name == 'Augmented Occlusion':
-        attr = explainer.attribute(
-            inputs=inputs,
-            sliding_window_shapes = (1,1),
-            additional_forward_args=additional_forward_args
-        )
+    elif name == 'Occlusion' or name=='Augmented Occlusion':
+        if type(inputs) == tuple:
+            sliding_window_shapes = tuple([(1,1) for _ in inputs])
+        else:
+            sliding_window_shapes = (1,1)
+            
+        if name == 'Occlusion':
+            attr = explainer.attribute(
+                inputs=inputs,
+                baselines=baselines,
+                sliding_window_shapes = sliding_window_shapes,
+                additional_forward_args=additional_forward_args
+            )
+        else:
+            attr = explainer.attribute(
+                inputs=inputs,
+                sliding_window_shapes = sliding_window_shapes,
+                additional_forward_args=additional_forward_args
+            )
     else:
-        print(f'{name} not supported.')
         raise NotImplementedError
     
-    # batch x seq_len x features
-    attr = attr.reshape(
+    if type(inputs) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            score.reshape(
+                # batch x pred_len x seq_len x features
+                (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
+            # take mean over the output horizon
+            ).mean(axis=1) for score in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
             # batch x pred_len x seq_len x features
-            (inputs.shape[0], args.pred_len, args.seq_len, attr.shape[-1])
+            (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
         # take mean over the output horizon
         ).mean(axis=1)
+        
     
     return attr
 
@@ -100,17 +137,38 @@ def compute_tsr_attr(
             threshold=threshold, normalize=normalize
         )
         attr_list.append(score)
+        
+    if type(inputs) == tuple:
+            attr = []
+            for input_index in range(len(inputs)):
+                attr_per_input = torch.stack([score[input_index] for score in attr_list])
+                # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+                attr_per_input = attr_per_input.permute(1, 0, 2, 3)
+                attr.append(attr_per_input)
+                
+            attr = tuple(attr)
+    else:
+        attr = torch.stack(attr_list)
+        # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+        attr = attr.permute(1, 0, 2, 3)
     
-    attr = torch.stack(attr_list)
-    # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
-    attr = attr.permute(1, 0, 2, 3)
     
-    # batch x seq_len x features
-    attr = attr.reshape(
-        # batch x pred_len x seq_len x features
-        (inputs.shape[0], args.pred_len, args.seq_len, attr.shape[-1])
-    # take mean over the output horizon
-    ).mean(axis=1)
+    if type(inputs) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            score.reshape(
+                # batch x pred_len x seq_len x features
+                (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
+            # take mean over the output horizon
+            ).mean(axis=1) for score in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
+            # batch x pred_len x seq_len x features
+            (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
+        # take mean over the output horizon
+        ).mean(axis=1)
     
     return attr
 

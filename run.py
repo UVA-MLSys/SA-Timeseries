@@ -3,11 +3,15 @@ import os
 import torch
 from exp.exp_long_term_forecasting import Exp_Long_Term_Forecast
 from exp.exp_classification import Exp_Classification
-from exp.exp_basic import Exp_Basic
+from exp.exp_basic import *
 import random
 import numpy as np
 
-def set_gpu(args):
+def initial_setup(args):
+    random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    np.random.seed(args.seed)
+    
     args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
     
     if args.use_gpu and args.use_multi_gpu:
@@ -18,42 +22,28 @@ def set_gpu(args):
     
     return args
 
+
 def main(args):
-    set_random_seed(args.seed)
-    args = set_gpu(args)
+    initial_setup(args)
 
     print('Args in experiment:')
     print(args)
 
     if args.task_name == 'classification': Exp = Exp_Classification
     else: Exp = Exp_Long_Term_Forecast
+    exp = Exp(args)  # set experiments
 
     if args.train:
-        # setting record of experiments
-        setting = stringify_setting(args)
+        print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        exp.train()
 
-        exp = Exp(args)  # set experiments
-        print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>'.format(setting))
-        exp.train(setting)
-
-        print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
-        exp.test(setting)
+        print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+        exp.test(load_model=False)
     else:
-        setting = stringify_setting(args)
-
-        exp = Exp(args)  # set experiments
-        print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
-        exp.test(setting, test=1)
+        print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+        exp.test()
         
     torch.cuda.empty_cache()
-
-
-def stringify_setting(args):
-    setting = f"{args.data_path.split('.')[0]}_{args.model}"
-    if args.des:
-        setting += '_' + args.des
-    
-    return setting
 
 def get_parser():
     parser = argparse.ArgumentParser(
@@ -71,6 +61,7 @@ def get_parser():
 
     # data loader
     parser.add_argument('--data', type=str, default='custom', help='dataset type')
+    parser.add_argument('--result_path', type=str, default='./results', help='root result output folder')
     parser.add_argument('--root_path', type=str, default='./dataset/illness/', help='root path of the data file')
     parser.add_argument('--data_path', type=str, default='national_illness.csv', help='data file')
     parser.add_argument('--features', type=str, default='MS', choices=['M', 'S', 'MS'],
@@ -109,6 +100,8 @@ def get_parser():
                         help='time features encoding, options:[timeF, fixed, learned]')
     parser.add_argument('--activation', type=str, default='gelu', help='activation')
     parser.add_argument('--output_attention', action='store_true', help='whether to output attention in ecoder')
+    parser.add_argument('--conv_kernel', default=None, nargs="*", type=int,
+        help='convolution kernel size list for MICN')
 
     # optimization
     parser.add_argument('--num_workers', type=int, default=0, help='data loader num workers')
@@ -133,11 +126,6 @@ def get_parser():
     parser.add_argument('--p_hidden_layers', type=int, default=2, help='number of hidden layers in projector')
     
     return parser
-
-def set_random_seed(seed):
-    random.seed(seed)
-    torch.manual_seed(seed)
-    np.random.seed(seed)
 
 if __name__ == '__main__':
     parser = get_parser()

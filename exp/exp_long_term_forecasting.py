@@ -1,9 +1,11 @@
 from data_provider.data_factory import data_provider
-from exp.exp_basic import Exp_Basic
+from exp.exp_basic import *
 from utils.tools import EarlyStopping, adjust_learning_rate
 from utils.metrics import metric
 import torch, os, time, warnings
 import numpy as np
+import pandas as pd
+from os.path import join
 
 warnings.filterwarnings('ignore')
 
@@ -79,14 +81,11 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         self.model.train()
         return total_loss
 
-    def train(self, setting):
+    def train(self):
         _, train_loader = self._get_data(flag='train')
         _, vali_loader = self._get_data(flag='val')
-        _, test_loader = self._get_data(flag='test')
 
-        path = os.path.join(self.args.checkpoints, setting)
-        if not os.path.exists(path):
-            os.makedirs(path)
+        path = self.output_folder
 
         time_now = time.time()
 
@@ -159,37 +158,32 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                     loss.backward()
                     model_optim.step()
 
-            print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
+            print(f"Epoch: {epoch + 1} cost time: { time.time() - epoch_time}")
             train_loss = np.average(train_loss)
             vali_loss = self.vali(vali_loader, criterion)
-            test_loss = self.vali(test_loader, criterion)
 
-            print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f} Test Loss: {4:.7f}".format(
-                epoch + 1, train_steps, train_loss, vali_loss, test_loss))
+            print(f"Epoch: {epoch + 1}, Steps: {train_steps} | Train Loss: {train_loss:.5g} Vali Loss: {vali_loss:.5g}")
             early_stopping(vali_loss, self.model, path)
             if early_stopping.early_stop:
                 print("Early stopping")
                 break
+            elif early_stopping.counter > 0:
+                # resume training from last best model
+                self.load_best_model()
 
             adjust_learning_rate(model_optim, epoch + 1, self.args)
 
-        print('Loading the best model')
-        best_model_path = path + '/' + 'checkpoint.pth'
-        self.model.load_state_dict(torch.load(best_model_path))
-
+        self.load_best_model()
         return self.model
 
-    def test(self, setting, test=0):
-        _, test_loader = self._get_data(flag='test')
-        if test:
-            print('loading model')
-            self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
+    def test(
+        self, load_model:bool=False, flag:str='test'
+    ):
+        _, test_loader = self._get_data(flag=flag)
+        if load_model: self.load_best_model()
 
         preds = []
         trues = []
-        folder_path = './test_results/' + setting + '/'
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
 
         self.model.eval()
         with torch.no_grad():
@@ -233,20 +227,21 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
         print('Preds and Trues shape:', preds.shape, trues.shape)
 
-        # result save
-        folder_path = './results/' + setting + '/'
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-
-        mae, mse, rmse, mape, mspe = metric(preds, trues)
-        result_string = f'mse:{mse:0.5g}, mae:{mae:0.5g}, rmse: {rmse:0.5g}, mape: {mape:0.5g}, mspe :{mspe:0.5g}.'
+        mae, mse, rmse = metric(preds, trues)
+        result_string = f'mse:{mse:0.5g}, mae:{mae:0.5g}, rmse: {rmse:0.5g}.'
         print(result_string)
         f = open("result_long_term_forecast.txt", 'a')
-        f.write(setting + "  \n" + result_string + '\n\n')
+        f.write(stringify_setting(self.args, complete=True) + "  \n")
+        f.write(result_string + '\n\n')
         f.close()
+        
+        results = pd.DataFrame({
+            'metric': ['mae', 'mse', 'rmse'], 
+            'score':[mae, mse, rmse]
+        })
 
-        np.save(folder_path + 'metrics.npy', np.array([mae, mse, rmse, mape, mspe]))
-        np.save(folder_path + 'pred.npy', preds)
-        np.save(folder_path + 'true.npy', trues)
+        results.to_csv(join(self.output_folder, f'{flag}_metrics.csv'), index=False)
+        np.save(join(self.output_folder, f'{flag}_pred.npy'), preds)
+        np.save(join(self.output_folder, f'{flag}_true.npy'), trues)
 
         return

@@ -4,6 +4,7 @@ lightning_logs
 checkpoints
 # some file sizes are too large for git
 dataset
+scratch
 *.npy
 
 # Byte-compiled / optimized / DLL files

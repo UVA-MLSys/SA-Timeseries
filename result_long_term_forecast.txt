@@ -79,3 +79,15 @@ mse:0.90476, mae:0.71331, rmse: 0.95119, mape: 0.35622, mspe :0.55466.
 national_illness_Autoformer  
 mse:1.0744, mae:0.83492, rmse: 1.0365, mape: 0.38302, mspe :0.55697.
 
+long_term_forecast_TimesNet_custom_ftMS_sl36_ll12_pl24_dm128_nh8_el2_dl1_df512_fc3_ebtimeF_dtTrue_None  
+mse:1.7047, mae:1.1141, rmse: 1.3056, mape: 0.4421, mspe :0.53352.
+
+long_term_forecast_TimesNet_custom_ftMS_sl36_ll12_pl24_dm128_nh8_el2_dl1_df512_fc3_ebtimeF_dtTrue_None  
+mse:1.7047, mae:1.1141, rmse: 1.3056.
+
+long_term_forecast_MICN_custom_ftMS_sl36_ll36_pl24_dm768_nh8_el2_dl1_df768_fc3_ebtimeF_dtTrue_None  
+mse:1.6355, mae:0.78728, rmse: 1.2789.
+
+long_term_forecast_DLinear_national_illness.csv_custom_ftMS_sl36_ll12_pl24_dm128_nh8_el2_dl1_df512_fc3_ebtimeF_dtTrue_None  
+mse:1.4751, mae:1.06, rmse: 1.2145.
+

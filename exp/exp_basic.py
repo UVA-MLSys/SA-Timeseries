@@ -3,6 +3,34 @@ import torch
 from models import Autoformer, Transformer, TimesNet, Nonstationary_Transformer, DLinear, FEDformer, \
     Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM
 
+def stringify_setting(args, complete=False):
+    if not complete:
+        setting = f"{args.data_path.split('.')[0]}_{args.model}"
+        if args.des:
+            setting += '_' + args.des
+        return setting
+    
+    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}'.format(
+        args.task_name,
+        args.model,
+        args.data_path,
+        args.data,
+        args.features,
+        args.seq_len,
+        args.label_len,
+        args.pred_len,
+        args.d_model,
+        args.n_heads,
+        args.e_layers,
+        args.d_layers,
+        args.d_ff,
+        args.factor,
+        args.embed,
+        args.distil,
+        args.des
+    )
+    
+    return setting
 
 class Exp_Basic(object):
     model_dict = {
@@ -27,10 +55,25 @@ class Exp_Basic(object):
         self.args = args
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
+        
+        self.setting = stringify_setting(args)
+        self.output_folder = os.path.join(args.result_path, self.setting)
+        if not os.path.exists(self.output_folder):
+            os.makedirs(self.output_folder, exist_ok=True)
+        print(f'Experiments will be saved in {self.output_folder}')
 
     def _build_model(self):
         raise NotImplementedError
         return None
+    
+    def load_best_model(self):
+        best_model_path = os.path.join(self.output_folder, 'checkpoint.pth')
+        if os.path.exists(best_model_path):
+            print(f'Loading model from {best_model_path}')
+            self.model.load_state_dict(torch.load(best_model_path))
+        else:
+            print(f'{best_model_path} file does not exit')
+            raise
 
     def _acquire_device(self):
         if self.args.use_gpu:

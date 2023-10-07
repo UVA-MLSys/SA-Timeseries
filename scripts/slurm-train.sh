@@ -12,9 +12,9 @@ source ~/.bashrc
 
 # this is for when you are using singularity
 module load cuda cudnn singularity
-singularity run --nv tft_pytorch.sif python run.py
+singularity run --nv timeseries.sif python run.py
 
-# singularity run --nv tft_pytorch.sif python train_tft.py --input-file=2022_May_age_groups/Total.csv --output=tft_pytorch/scratch/total
+# singularity run --nv timeseries.sif python run.py
 
 # # this is for when you have a working virtual env
 # module load cuda cudnn anaconda
@@ -23,4 +23,4 @@ singularity run --nv tft_pytorch.sif python run.py
 # conda activate ml
 
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
-# python train.py
+# python run.py

@@ -113,6 +113,8 @@ class Model(nn.Module):
         conv_kernel: downsampling and upsampling convolution kernel_size
         """
         super(Model, self).__init__()
+        if configs.conv_kernel is not None:
+            conv_kernel = configs.conv_kernel
 
         decomp_kernel = []  # kernel of decomposition operation
         isometric_kernel = []  # kernel of isometric convolution
@@ -136,11 +138,14 @@ class Model(nn.Module):
         self.dec_embedding = DataEmbedding(configs.enc_in, configs.d_model, configs.embed, configs.freq,
                                            configs.dropout)
 
-        self.conv_trans = SeasonalPrediction(embedding_size=configs.d_model, n_heads=configs.n_heads,
-                                             dropout=configs.dropout,
-                                             d_layers=configs.d_layers, decomp_kernel=decomp_kernel,
-                                             c_out=configs.c_out, conv_kernel=conv_kernel,
-                                             isometric_kernel=isometric_kernel, device=torch.device('cuda:0'))
+        self.conv_trans = SeasonalPrediction(
+            embedding_size=configs.d_model, n_heads=configs.n_heads,
+            dropout=configs.dropout,
+            d_layers=configs.d_layers, decomp_kernel=decomp_kernel,
+            c_out=configs.c_out, conv_kernel=conv_kernel,
+            isometric_kernel=isometric_kernel, 
+            device=torch.device('cuda:0') # need to refactor to use the same device as the data
+        )
         if self.task_name == 'long_term_forecast' or self.task_name == 'short_term_forecast':
             # refer to DLinear
             self.regression = nn.Linear(configs.seq_len, configs.pred_len)

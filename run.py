@@ -57,7 +57,7 @@ def get_parser():
     parser.add_argument('--train', action='store_true', help='status')
     parser.add_argument('--model', type=str, required=True, default='Transformer',
         choices=list(Exp_Basic.model_dict.keys()), help='model name')
-    parser.add_argument('--seed', default=7, help='random seed')
+    parser.add_argument('--seed', default=2021, help='random seed')
 
     # data loader
     parser.add_argument('--data', type=str, default='custom', help='dataset type')
@@ -65,7 +65,7 @@ def get_parser():
     parser.add_argument('--root_path', type=str, default='./dataset/illness/', help='root path of the data file')
     parser.add_argument('--data_path', type=str, default='national_illness.csv', help='data file')
     parser.add_argument('--features', type=str, default='MS', choices=['M', 'S', 'MS'],
-                        help='forecasting task, options:[M, S, MS]; M:multivariate predict multivariate, S:univariate predict univariate, MS:multivariate predict univariate')
+                        help='forecasting task; M: multivariate predict multivariate, S: univariate predict univariate, MS: multivariate predict univariate')
     parser.add_argument('--target', type=str, default='OT', help='target feature in S or MS task')
     parser.add_argument('--freq', type=str, default='h',
                         help='freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h')
@@ -86,10 +86,10 @@ def get_parser():
     parser.add_argument('--dec_in', type=int, default=7, help='decoder input size, same as enc_in')
     parser.add_argument('--c_out', type=int, default=7, help='output size, same as enc_in')
     parser.add_argument('--d_model', type=int, default=128, help='dimension of model')
-    parser.add_argument('--n_heads', type=int, default=8, help='num of heads')
+    parser.add_argument('--n_heads', type=int, default=4, help='num of heads')
     parser.add_argument('--e_layers', type=int, default=2, help='num of encoder layers')
     parser.add_argument('--d_layers', type=int, default=1, help='num of decoder layers')
-    parser.add_argument('--d_ff', type=int, default=512, help='dimension of fcn')
+    parser.add_argument('--d_ff', type=int, default=256, help='dimension of fcn')
     parser.add_argument('--moving_avg', type=int, default=25, help='window size of moving average')
     parser.add_argument('--factor', type=int, default=3, help='attn factor')
     parser.add_argument('--distil', action='store_false',

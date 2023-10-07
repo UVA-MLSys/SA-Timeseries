@@ -47,6 +47,8 @@ def get_parser():
         help='interpretation evaluation metrics')
     parser.add_argument('--flag', type=str, default='test', choices=['train', 'val', 'test'],
         help='data split type')
+    parser.add_argument('--threshold', type=float, default=0, 
+        help='Threshold for the feature step computation')
     # parser.add_argument('--batch_size', type=int, default=16, help='batch size of train input data')
     
     return parser

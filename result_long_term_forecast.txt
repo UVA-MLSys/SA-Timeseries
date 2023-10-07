@@ -91,3 +91,15 @@ mse:1.6355, mae:0.78728, rmse: 1.2789.
 long_term_forecast_DLinear_national_illness.csv_custom_ftMS_sl36_ll12_pl24_dm128_nh8_el2_dl1_df512_fc3_ebtimeF_dtTrue_None  
 mse:1.4751, mae:1.06, rmse: 1.2145.
 
+long_term_forecast_DLinear_electricity.csv_custom_ftS_sl96_ll12_pl24_dm128_nh8_el2_dl1_df512_fc3_ebtimeF_dtTrue_None  
+mse:0.26225, mae:0.37356, rmse: 0.5121.
+
+long_term_forecast_Autoformer_electricity.csv_custom_ftS_sl96_ll12_pl24_dm128_nh8_el2_dl1_df512_fc3_ebtimeF_dtTrue_None  
+mse:0.44943, mae:0.52224, rmse: 0.67039.
+
+long_term_forecast_DLinear_traffic.csv_custom_ftS_sl96_ll48_pl96_dm128_nh8_el2_dl1_df512_fc3_ebtimeF_dtTrue_None  
+mse:0.32299, mae:0.40775, rmse: 0.56832.
+
+long_term_forecast_MICN_traffic.csv_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue_None  
+mse:0.21058, mae:0.3006, rmse: 0.45889.
+

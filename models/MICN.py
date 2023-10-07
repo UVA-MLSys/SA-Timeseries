@@ -54,7 +54,8 @@ class MIC(nn.Module):
         x = x1
 
         # isometric convolution
-        zeros = torch.zeros((x.shape[0], x.shape[1], x.shape[2] - 1), device=self.device)
+        # original code had torch.zeros((x.shape[0], x.shape[1], x.shape[2]-1)
+        zeros = torch.zeros((x.shape[0], x.shape[1], x.shape[2]), device=self.device)
         x = torch.cat((zeros, x), dim=-1)
         x = self.drop(self.act(isometric(x)))
         x = self.norm((x + x1).permute(0, 2, 1)).permute(0, 2, 1)
@@ -129,6 +130,7 @@ class Model(nn.Module):
         self.task_name = configs.task_name
         self.pred_len = configs.pred_len
         self.seq_len = configs.seq_len
+        self.label_len = configs.label_len
         self.configs = configs
 
         # Multiple Series decomposition block from FEDformer
@@ -168,7 +170,9 @@ class Model(nn.Module):
 
         # embedding
         zeros = torch.zeros([x_dec.shape[0], self.pred_len, x_dec.shape[2]], device=x_enc.device)
-        seasonal_init_dec = torch.cat([seasonal_init_enc[:, -self.seq_len:, :], zeros], dim=1)
+        # seasonal_init_enc[:, -self.seq_len:, :] was wrong
+        seasonal_init_dec = torch.cat([seasonal_init_enc[:, -self.label_len:, :], zeros], dim=1)
+
         dec_out = self.dec_embedding(seasonal_init_dec, x_mark_dec)
         dec_out = self.conv_trans(dec_out)
         dec_out = dec_out[:, -self.pred_len:, :] + trend[:, -self.pred_len:, :]

@@ -17,7 +17,7 @@ from captum.attr import (
 from tint.attr import (
     AugmentedOcclusion,
     DynaMask,
-    Fit,
+    Fit, TimeForwardTunnel,
     Occlusion, 
     FeatureAblation
 )
@@ -62,7 +62,11 @@ class Exp_Interpret:
                 all_inputs = get_total_data(dataloader, self.device)
                 self.explainers_map[name] = explainer_name_map[name](self.model, all_inputs)
             else:
-                self.explainers_map[name] = explainer_name_map[name](self.model)
+                explainer = explainer_name_map[name](self.model)
+                if isinstance(explainer, GradientAttribution):
+                    explainer = TimeForwardTunnel(explainer)
+                self.explainers_map[name] = explainer
+                
     
     def interpret(self, dataloader, flag, tsr=False, baseline_mode='random'):
         result_columns = ['batch_index', 'metric', 'area', 'comp', 'suff']
@@ -74,7 +78,8 @@ class Exp_Interpret:
             start = datetime.now()
             print(f'Running {name} from {start}')
             progress_bar = tqdm(
-                enumerate(dataloader), total=len(dataloader), disable=False
+                enumerate(dataloader), total=len(dataloader), 
+                disable=self.args.disable_progress
             )
             
             for batch_index, (batch_x, batch_y, batch_x_mark, batch_y_mark) in progress_bar:
@@ -118,7 +123,7 @@ class Exp_Interpret:
                 sliding_window_shapes = tuple([(1,1) for _ in inputs])
                 strides = tuple([1 for _ in inputs])
             else:
-                sliding_window_shapes = (1,1)
+                sliding_window_shapes = (1, 1)
                 strides = 1
                 
             attr = compute_tsr_attr(

@@ -52,12 +52,11 @@ class MIC(nn.Module):
         # downsampling convolution
         x1 = self.drop(self.act(conv1d(x)))
         x = x1
+        
         # isometric convolution
         zeros = torch.zeros((x.shape[0], x.shape[1], x.shape[2]-1), device=self.device)
         x = torch.cat((zeros, x), dim=-1)
-        print(x.shape, zeros.shape)
         x = self.drop(self.act(isometric(x)))
-        print(x.shape, zeros.shape)
         x = self.norm((x + x1).permute(0, 2, 1)).permute(0, 2, 1)
 
         # upsampling convolution

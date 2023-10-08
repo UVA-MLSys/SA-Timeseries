@@ -68,12 +68,8 @@ class Exp_Basic(object):
     
     def load_best_model(self):
         best_model_path = os.path.join(self.output_folder, 'checkpoint.pth')
-        if os.path.exists(best_model_path):
-            print(f'Loading model from {best_model_path}')
-            self.model.load_state_dict(torch.load(best_model_path))
-        else:
-            print(f'{best_model_path} file does not exit')
-            raise
+        print(f'Loading model from {best_model_path}')
+        self.model.load_state_dict(torch.load(best_model_path))
 
     def _acquire_device(self):
         if self.args.use_gpu:

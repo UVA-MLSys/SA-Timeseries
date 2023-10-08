@@ -126,6 +126,7 @@ def get_parser():
     parser.add_argument('--p_hidden_dims', type=int, nargs='+', default=[128, 128],
                         help='hidden layer dimensions of projector (List)')
     parser.add_argument('--p_hidden_layers', type=int, default=2, help='number of hidden layers in projector')
+    parser.add_argument('--disable_progress', action='store_true', help='disble progress bar')
     
     return parser
 

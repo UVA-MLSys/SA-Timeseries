@@ -118,3 +118,9 @@ mse:1.4888, mae:1.0636, rmse: 1.2202.
 long_term_forecast_MICN_national_illness.csv_custom_ftMS_sl36_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue_None  
 mse:1.5452, mae:0.78325, rmse: 1.2431.
 
+long_term_forecast_TimesNet_national_illness.csv_custom_ftMS_sl36_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue_None  
+mse:1.6373, mae:0.93694, rmse: 1.2796.
+
+long_term_forecast_Autoformer_traffic.csv_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue_None  
+mse:0.33502, mae:0.4369, rmse: 0.57881.
+

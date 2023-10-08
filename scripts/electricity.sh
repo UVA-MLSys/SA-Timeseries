@@ -33,18 +33,18 @@ python run.py \
   --use_gpu \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model TimesNet \
+  --model MICN \
   --features S \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1
+  --n_features 1 \
+  --conv_kernel 18 12
 
 # feature_ablation augmented_occlusion deep_lift gradient_shap integrated_gradients lime
 python interpret.py \
   --task_name long_term_forecast \
-  --explainer augmented_occlusion deep_lift\
-  --result_path scratch \
+  --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model Autoformer \

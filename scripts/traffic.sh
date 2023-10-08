@@ -36,7 +36,7 @@ python interpret.py \
   --n_features 1 \
 
 python interpret.py \
-  --explainer feature_ablation lime \
+  --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
   --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \

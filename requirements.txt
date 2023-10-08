@@ -1,13 +1,11 @@
 matplotlib
-numpy==1.23.1
+numpy
 pandas
-pytorch-forecasting==0.10.2
-pytorch-lightning==1.6.5
 pyunpack
-SALib
+reformer_pytorch
 shutil
 scikit-learn
-time-interpret==0.3.0
-torch==1.13.1+cu116
+sympy
+time-interpret # ==0.3.0
+torch # ==1.13.1+cu116
 tqdm
-wget

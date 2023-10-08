@@ -12,19 +12,6 @@ The sensitivity of each input is often represented by a numeric value, called th
 2. **Second-order indices**: measures the contribution to the output variance caused by the interaction of two model inputs.
 3. **Total-order index**: measures the contribution to the output variance caused by a model input, including both its first-order effects (the input varying alone) and all higher-order interactions.
 
-### [SALib](https://salib.readthedocs.io/en/latest/user_guide/getting-started.html)
-
-In this work we'll use **SALib** to perform the sensitivity analysis. 
-**SALib** is an open source library written in Python for performing sensitivity analyses. SALib provides a decoupled workflow, meaning it does not directly interface with the mathematical or computational model. Instead, SALib is responsible for generating the model inputs, using one of the sample functions, and computing the sensitivity indices from the model outputs, using one of the analyze functions. A typical sensitivity analysis using SALib follows four steps:
-
-1. Determine the model inputs (parameters) and their sample range.
-
-2. Run the sample function to generate the model inputs.
-
-3. Evaluate the model using the generated inputs, saving the model outputs.
-
-4. Run the analyze function on the outputs to compute the sensitivity indices.
-
 ## Multi-Horizon Forecasting
 
 ###  Definition

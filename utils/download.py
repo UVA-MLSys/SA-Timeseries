@@ -1,11 +1,10 @@
-import os, shutil, pyunpack, wget, requests
+import os, shutil, pyunpack, requests
 
 # General functions for data downloading & aggregation.
 def download_from_url(url, output_path):
   """Downloads a file froma url."""
 
   print('\nPulling data from {} to {}'.format(url, output_path))
-  # wget.download(url, output_path)
   with requests.get(url, allow_redirects=True, stream=True) as response:
     response.raise_for_status()
 

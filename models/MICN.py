@@ -127,7 +127,7 @@ class Model(nn.Module):
                 decomp_kernel.append(ii)
                 # original had configs.seq_len + configs.pred_len + ii - 1
                 isometric_kernel.append((configs.label_len + configs.pred_len + ii - 1) // ii)
-        print(f'kernels {isometric_kernel}, {decomp_kernel}')
+        
         self.task_name = configs.task_name
         self.pred_len = configs.pred_len
         self.seq_len = configs.seq_len

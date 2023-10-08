@@ -36,12 +36,12 @@ class FourierBlock(nn.Module):
         # get modes on frequency domain
         self.index = get_frequency_modes(seq_len, modes=modes, mode_select_method=mode_select_method)
         print('modes={}, index={}'.format(modes, self.index))
-
+        n_heads = 4
         self.scale = (1 / (in_channels * out_channels))
         self.weights1 = nn.Parameter(
-            self.scale * torch.rand(8, in_channels // 8, out_channels // 8, len(self.index), dtype=torch.float))
+            self.scale * torch.rand(n_heads, in_channels // n_heads, out_channels //n_heads, len(self.index), dtype=torch.float))
         self.weights2 = nn.Parameter(
-            self.scale * torch.rand(8, in_channels // 8, out_channels // 8, len(self.index), dtype=torch.float))
+            self.scale * torch.rand(n_heads, in_channels // n_heads, out_channels // n_heads, len(self.index), dtype=torch.float))
 
     # Complex multiplication
     def compl_mul1d(self, order, x, weights):
@@ -96,11 +96,12 @@ class FourierCrossAttention(nn.Module):
         print('modes_q={}, index_q={}'.format(len(self.index_q), self.index_q))
         print('modes_kv={}, index_kv={}'.format(len(self.index_kv), self.index_kv))
 
+        n_heads = 4
         self.scale = (1 / (in_channels * out_channels))
         self.weights1 = nn.Parameter(
-            self.scale * torch.rand(8, in_channels // 8, out_channels // 8, len(self.index_q), dtype=torch.float))
+            self.scale * torch.rand(n_heads, in_channels // n_heads, out_channels //n_heads, len(self.index_q), dtype=torch.float))
         self.weights2 = nn.Parameter(
-            self.scale * torch.rand(8, in_channels // 8, out_channels // 8, len(self.index_q), dtype=torch.float))
+            self.scale * torch.rand(n_heads, in_channels // n_heads, out_channels // n_heads, len(self.index_q), dtype=torch.float))
 
     # Complex multiplication
     def compl_mul1d(self, order, x, weights):

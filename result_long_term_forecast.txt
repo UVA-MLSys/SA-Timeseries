@@ -130,3 +130,6 @@ mse:0.33968, mae:0.44083, rmse: 0.58282.
 long_term_forecast_MICN_traffic.csv_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue_None  
 mse:0.20604, mae:0.29668, rmse: 0.45392.
 
+long_term_forecast_FEDformer_traffic.csv_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue_None  
+mse:0.22868, mae:0.32586, rmse: 0.47821.
+

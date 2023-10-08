@@ -1,0 +1,18 @@
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_MICN
+test 2607
+Loading model from ./results/electricity_MICN/checkpoint.pth
+Traceback (most recent call last):
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/interpret.py", line 60, in <module>
+    main(args)
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/interpret.py", line 20, in main
+    exp.load_best_model()
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_basic.py", line 72, in load_best_model
+    self.model.load_state_dict(torch.load(best_model_path))
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/torch/serialization.py", line 771, in load
+    with _open_file_like(f, 'rb') as opened_file:
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/torch/serialization.py", line 270, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/torch/serialization.py", line 251, in __init__
+    super(_open_file, self).__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: './results/electricity_MICN/checkpoint.pth'

@@ -1,0 +1,17 @@
+Use GPU: cuda:0
+kernels [4, 4], [49, 49]
+Experiments will be saved in ./results/traffic_MICN
+test 1659
+Loading model from ./results/traffic_MICN/checkpoint.pth
+Traceback (most recent call last):
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/interpret.py", line 60, in <module>
+    main(args)
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/interpret.py", line 20, in main
+    exp.load_best_model()
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_basic.py", line 72, in load_best_model
+    self.model.load_state_dict(torch.load(best_model_path))
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1671, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for Model:
+	size mismatch for conv_trans.mic.0.isometric_conv.0.weight: copying a param with shape torch.Size([128, 128, 5]) from checkpoint, the shape in current model is torch.Size([128, 128, 4]).
+	size mismatch for conv_trans.mic.0.isometric_conv.1.weight: copying a param with shape torch.Size([128, 128, 5]) from checkpoint, the shape in current model is torch.Size([128, 128, 4]).

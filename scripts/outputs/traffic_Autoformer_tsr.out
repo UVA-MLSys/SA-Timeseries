@@ -1,0 +1,11 @@
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_Autoformer
+test 1659
+Loading model from ./results/traffic_Autoformer/checkpoint.pth
+explainers: ['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation']
+ areas: [0.05, 0.075, 0.1, 0.15]
+ metrics: ['mae', 'mse']
+
+Interpreting with TSR enabled.
+Running feature_ablation from 2023-10-08 12:32:57.739216
+  0%|          | 0/52 [00:00<?, ?it/s]  2%|▏         | 1/52 [13:57<11:51:41, 837.28s/it]  4%|▍         | 2/52 [27:44<11:32:39, 831.18s/it]

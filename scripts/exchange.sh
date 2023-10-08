@@ -8,6 +8,4 @@ python -u run.py \
   --seq_len 96 \
   --label_len 48 \
   --pred_len 96 \
-  --enc_in 8 \
-  --dec_in 8 \
-  --c_out 8
+  --n_feature 8

@@ -19,9 +19,8 @@ def initial_setup(args):
         device_ids = args.devices.split(',')
         args.device_ids = [int(id_) for id_ in device_ids]
         args.gpu = args.device_ids[0]
-    
-    return args
-
+        
+    args.enc_in = args.dec_in = args.c_out = args.n_features
 
 def main(args):
     initial_setup(args)
@@ -34,13 +33,13 @@ def main(args):
     exp = Exp(args)  # set experiments
 
     if args.train:
-        print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        print('>>>>>>> training : >>>>>>>>>')
         exp.train()
 
-        print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+        print('>>>>>>> testing : <<<<<<<<<<<')
         exp.test(load_model=False)
     else:
-        print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+        print('>>>>>>> testing : <<<<<<<<<<<<')
         exp.test()
         
     torch.cuda.empty_cache()
@@ -82,9 +81,12 @@ def get_parser():
     # model define
     parser.add_argument('--top_k', type=int, default=5, help='for TimesBlock')
     parser.add_argument('--num_kernels', type=int, default=6, help='for Inception')
-    parser.add_argument('--enc_in', type=int, default=7, help='encoder input size, equal to number of input fetures.')
-    parser.add_argument('--dec_in', type=int, default=7, help='decoder input size, same as enc_in')
-    parser.add_argument('--c_out', type=int, default=7, help='output size, same as enc_in')
+    
+    parser.add_argument('--n_features', type=int, default=1, help='number of input fetures.')
+    # parser.add_argument('--enc_in', type=int, default=7, help='encoder input size, equal to number of input fetures.')
+    # parser.add_argument('--dec_in', type=int, default=7, help='decoder input size, same as enc_in')
+    # parser.add_argument('--c_out', type=int, default=7, help='output size, same as enc_in')
+    
     parser.add_argument('--d_model', type=int, default=128, help='dimension of model')
     parser.add_argument('--n_heads', type=int, default=4, help='num of heads')
     parser.add_argument('--e_layers', type=int, default=2, help='num of encoder layers')
@@ -101,7 +103,7 @@ def get_parser():
     parser.add_argument('--activation', type=str, default='gelu', help='activation')
     parser.add_argument('--output_attention', action='store_true', help='whether to output attention in ecoder')
     parser.add_argument('--conv_kernel', default=None, nargs="*", type=int,
-        help='convolution kernel size list for MICN')
+        help='convolution kernel size list for MICN. Can be [seq_len/2, pred_len].')
 
     # optimization
     parser.add_argument('--num_workers', type=int, default=0, help='data loader num workers')

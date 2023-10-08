@@ -1,13 +1,13 @@
 import torch
 
-def get_total_data(dataloader, add_x_mark=True):
+def get_total_data(dataloader, device, add_x_mark=True):
     batch_xs, batch_x_marks = [], []
     for batch_x, batch_y, batch_x_mark, batch_y_mark in dataloader:
-        batch_xs.append(batch_x)
-        batch_x_marks.append(batch_x_mark)
+        batch_xs.append(batch_x.float().to(device))
+        batch_x_marks.append(batch_x_mark.float().to(device))
         
     if add_x_mark:
-        return tuple(torch.vstack(batch_xs), torch.vstack(batch_x_marks))
+        return (torch.vstack(batch_xs), torch.vstack(batch_x_marks))
     else:
         return torch.vstack(batch_xs)
 
@@ -15,8 +15,9 @@ def get_baseline(inputs, mode='random'):
     if type(inputs) == tuple:
         return tuple([get_baseline(input, mode) for input in inputs])
     
-    if mode =='zero': baselines = torch.zeros_like(inputs)
-    elif mode == 'random': baselines = torch.randn_like(inputs)
+    device = inputs.device
+    if mode =='zero': baselines = torch.zeros_like(inputs, device=device).float()
+    elif mode == 'random': baselines = torch.randn_like(inputs, device=device).float()
     elif mode == 'aug':
         means = torch.mean(inputs, dim=(0, 1))
         std = torch.std(inputs, dim=(0, 1))
@@ -75,9 +76,14 @@ def compute_attr(
             # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
             attr = attr.permute(1, 0, 2, 3)
         
-    elif name == 'Feature Ablation':
+    elif name in ['Feature Ablation']:
         attr = explainer.attribute(
             inputs=inputs, baselines=baselines,
+            additional_forward_args=additional_forward_args
+        )
+    elif name == 'Feature Permutation':
+        attr = explainer.attribute(
+            inputs=inputs,
             additional_forward_args=additional_forward_args
         )
     elif name == 'Occlusion' or name=='Augmented Occlusion':

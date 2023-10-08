@@ -8,9 +8,7 @@ python -u run.py \
   --seq_len 96 \
   --label_len 48 \
   --pred_len 96 \
-  --enc_in 1 \
-  --dec_in 1 \
-  --c_out 1
+  --n_features 1 \
 
 python -u run.py \
   --train \
@@ -22,9 +20,7 @@ python -u run.py \
   --seq_len 96 \
   --label_len 48 \
   --pred_len 96 \
-  --enc_in 1 \
-  --dec_in 1 \
-  --c_out 1 \
+  --n_features 1 \
   --conv_kernel 48 48
 
 python interpret.py \
@@ -37,6 +33,17 @@ python interpret.py \
   --seq_len 96 \
   --label_len 48 \
   --pred_len 96 \
-  --enc_in 1 \
-  --dec_in 1 \
-  --c_out 1
+  --n_features 1 \
+
+python interpret.py \
+  --explainer feature_ablation lime \
+  --use_gpu \
+  --root_path ./dataset/traffic/ \
+  --data_path traffic.csv \
+  --model MICN \
+  --features S \
+  --seq_len 96 \
+  --label_len 48 \
+  --pred_len 96 \
+  --n_features 1 \
+  --conv_kernel 48 48

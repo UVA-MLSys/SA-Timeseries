@@ -1,5 +1,6 @@
 from run import initial_setup, get_parser as get_main_parser
 import os
+from typing import Union
 from exp.exp_long_term_forecasting import *
 from utils.explainer import *
 from exp.exp_interpret import Exp_Interpret, explainer_name_map
@@ -38,7 +39,7 @@ def get_parser():
     parser.add_argument('--explainers', nargs='*', default=['feature_ablation'], 
         choices=list(explainer_name_map.keys()),
         help='explaination method names')
-    parser.add_argument('--areas', nargs='*', type=float, default=[0.05, 0.075, 0.1, 0.2],
+    parser.add_argument('--areas', nargs='*', type=float, default=[0.05, 0.075, 0.1, 0.15],
         help='top k features to keep or mask during evaluation')
     parser.add_argument('--baseline_mode', type=str, default='random',
         choices=['random', 'aug', 'zero', 'mean'],

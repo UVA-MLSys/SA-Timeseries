@@ -52,12 +52,12 @@ class MIC(nn.Module):
         # downsampling convolution
         x1 = self.drop(self.act(conv1d(x)))
         x = x1
-
         # isometric convolution
-        # original code had torch.zeros((x.shape[0], x.shape[1], x.shape[2]-1)
-        zeros = torch.zeros((x.shape[0], x.shape[1], x.shape[2]), device=self.device)
+        zeros = torch.zeros((x.shape[0], x.shape[1], x.shape[2]-1), device=self.device)
         x = torch.cat((zeros, x), dim=-1)
+        print(x.shape, zeros.shape)
         x = self.drop(self.act(isometric(x)))
+        print(x.shape, zeros.shape)
         x = self.norm((x + x1).permute(0, 2, 1)).permute(0, 2, 1)
 
         # upsampling convolution
@@ -122,11 +122,13 @@ class Model(nn.Module):
         for ii in conv_kernel:
             if ii % 2 == 0:  # the kernel of decomposition operation must be odd
                 decomp_kernel.append(ii + 1)
-                isometric_kernel.append((configs.seq_len + configs.pred_len + ii) // ii)
+                # original had configs.seq_len + configs.pred_len + ii
+                isometric_kernel.append((configs.label_len + configs.pred_len + ii) // ii)
             else:
                 decomp_kernel.append(ii)
-                isometric_kernel.append((configs.seq_len + configs.pred_len + ii - 1) // ii)
-
+                # original had configs.seq_len + configs.pred_len + ii - 1
+                isometric_kernel.append((configs.label_len + configs.pred_len + ii - 1) // ii)
+        print(f'kernels {isometric_kernel}, {decomp_kernel}')
         self.task_name = configs.task_name
         self.pred_len = configs.pred_len
         self.seq_len = configs.seq_len
@@ -170,7 +172,7 @@ class Model(nn.Module):
 
         # embedding
         zeros = torch.zeros([x_dec.shape[0], self.pred_len, x_dec.shape[2]], device=x_enc.device)
-        # seasonal_init_enc[:, -self.seq_len:, :] was wrong
+        # original had seasonal_init_enc[:, -self.seq_len:, :] which was wrong
         seasonal_init_dec = torch.cat([seasonal_init_enc[:, -self.label_len:, :], zeros], dim=1)
 
         dec_out = self.dec_embedding(seasonal_init_dec, x_mark_dec)

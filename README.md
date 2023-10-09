@@ -100,14 +100,14 @@ The datasets are available at this [Google Drive](https://drive.google.com/drive
 
 ### Electricity
 
-The electricity dataset <sup id="a1">[1](#traffic)</sup> was collected in 15-minute intervals from 2011 to 2014. We select the records from 2012 to 2014 since many
+The electricity dataset [^1] was collected in 15-minute intervals from 2011 to 2014. We select the records from 2012 to 2014 since many
 zero values exist in 2011. The processed dataset contains
 the hourly electricity consumption of 321 clients. We use
 ’MT 321’ as the target, and the train/val/test is 12/2/2 months. We aggregated it to 1h intervals following prior works.  
 
 ### Traffic
 
-This dataset <sup id="a2">[2](#traffic)</sup> records the road occupancy rates from different sensors on San Francisco freeways.
+This dataset [^2] records the road occupancy rates from different sensors on San Francisco freeways.
 
 ### Mimic-III
 
@@ -148,6 +148,8 @@ This repository currently has the following models collected from [Time-Series-L
 
 
 ## References
-<b id="electricity">1.</b> https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014. [↩](#a1) 
+<!-- https://docs.github.com/en/enterprise-cloud@latest/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#footnotes -->
 
-<b id="traffic">2.</b> https://pems.dot.ca.gov/. [↩](#a2) 
+[^1]: https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014.
+
+[^2]: https://pems.dot.ca.gov/.

@@ -10,10 +10,10 @@ def stringify_setting(args, complete=False):
             setting += '_' + args.des
         return setting
     
-    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}'.format(
+    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}'.format(
         args.task_name,
         args.model,
-        args.data_path,
+        args.data_path.split('.')[0],
         args.data,
         args.features,
         args.seq_len,
@@ -26,8 +26,7 @@ def stringify_setting(args, complete=False):
         args.d_ff,
         args.factor,
         args.embed,
-        args.distil,
-        args.des
+        args.distil
     )
     
     return setting

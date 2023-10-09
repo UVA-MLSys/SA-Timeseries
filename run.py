@@ -36,8 +36,9 @@ def main(args):
         print('>>>>>>> training : >>>>>>>>>')
         exp.train()
 
+        exp.test(load_model=False, flag='val')
         print('>>>>>>> testing : <<<<<<<<<<<')
-        exp.test(load_model=False)
+        exp.test(load_model=False, flag='test')
     else:
         print('>>>>>>> testing : <<<<<<<<<<<<')
         exp.test()

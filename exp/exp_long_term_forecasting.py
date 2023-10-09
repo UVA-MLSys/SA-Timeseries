@@ -1,4 +1,4 @@
-from data_provider.data_factory import data_provider
+from data.data_factory import data_provider
 from exp.exp_basic import *
 from utils.tools import EarlyStopping, adjust_learning_rate
 from utils.metrics import metric

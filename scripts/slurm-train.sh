@@ -15,12 +15,13 @@ module load cuda cudnn
 # module load singularity
 # singularity run --nv timeseries.sif python run.py
 
-# # this is for when you have a working virtual env
-
+# this is for when you have a working virtual env
 conda deactivate
 conda activate ml
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
+# # replace the computing id `mi3se`` and venv name `ml` with your own
+# # if you face the library linking error for anaconda
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
 python interpret.py \
   --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
   --use_gpu \
@@ -33,4 +34,4 @@ python interpret.py \
   --pred_len 24 \
   --n_features 1 \
   --conv_kernel 18 12 \
- --num_workers 6 --tsr
+  --tsr  

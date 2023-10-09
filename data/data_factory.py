@@ -1,4 +1,4 @@
-from data_provider.data_loader import Dataset_Custom, Dataset_Pred, MultiTimeSeries
+from data.data_loader import Dataset_Custom, Dataset_Pred, MultiTimeSeries
 from torch.utils.data import DataLoader
 
 data_dict = {

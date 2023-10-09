@@ -1,6 +1,7 @@
 matplotlib
 numpy
 pandas
+# psycopg2
 pyunpack
 reformer_pytorch
 shutil
@@ -8,4 +9,4 @@ scikit-learn
 sympy
 time-interpret # ==0.3.0
 torch # ==1.13.1+cu116
-tqdm
+tqdm 

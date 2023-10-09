@@ -4,8 +4,6 @@ Interpreting the model's behavior is important in understanding decision-making 
 
 ## Saliency Analysis
 
-### Definition
-
 Saliency Analysis is the study of input feature importance to model output using black-box interpretation techniques. We use the following libraries to perform the saliency analysis methods.
 
 ### [Captum](https://captum.ai/docs/introduction)
@@ -16,8 +14,6 @@ Saliency Analysis is the study of input feature importance to model output using
 This package expands the Captum library with a specific focus on time-series. As such, it includes various interpretability methods specifically designed to handle time series data.
 
 ## Multi-Horizon Forecasting
-
-###  Definition
 Multi-horizon forecasting is the prediction of variables-of-interest at multiple future time steps. It is a crucial challenge in time series machine learning. Most real-world datasets have a time component, and forecasting the future can unlock great value. For example, retailers can use future sales to optimize their supply chain and promotions, investment managers are interested in forecasting the future prices of financial assets to maximize their performance, and healthcare institutions can use the number of future patient admissions to have sufficient personnel and equipment. 
 
 We use the following library for implementing the time series models,
@@ -98,3 +94,23 @@ In such case, replace existing CUDA with the folowing version. Anything newer di
 ```bash
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 ```
+## Datasets
+
+### Mimic-III
+
+MIMIC-III is a private dataset. Refer
+to [the official MIMIC-III documentation](https://mimic.mit.edu/iii/gettingstarted/dbsetup/).
+(ReadMe and datagen of MIMIC is from [Dynamask Repo](https://github.com/JonathanCrabbe/Dynamask).
+
+- Run this command to acquire the data and store it:
+   ```shell
+   python -m data.mimic_iii.icu_mortality --sqluser YOUR_USER --sqlpass YOUR_PASSWORD
+   ```
+  If everything happens properly, two files named ``adult_icu_vital.gz`` and `adult_icu_lab.gz`
+  are stored in `dataset/mimic_iii`.
+
+- Run this command to preprocess the data:
+   ```shell
+   python -m data.mimic_iii.data_preprocess
+   ```
+  If everything happens properly, a file `patient_vital_preprocessed.pkl` is stored in `dataset/mimic_iii`.

@@ -40,7 +40,12 @@ class Exp_Classification(Exp_Basic):
         return model_optim
 
     def _select_criterion(self):
-        criterion = nn.CrossEntropyLoss()
+        if self.args.num_class == 1:
+            # binary classifier
+            criterion = nn.BCEWithLogitsLoss()
+        else:
+            # multiclass 
+            criterion = nn.CrossEntropyLoss()
         return criterion
 
     def vali(self, vali_loader, criterion):
@@ -65,15 +70,8 @@ class Exp_Classification(Exp_Basic):
 
         total_loss = np.average(total_loss)
 
-        preds = torch.cat(preds, 0)
-        trues = torch.cat(trues, 0)
-        probs = torch.nn.functional.softmax(preds)  # (total_samples, num_classes) est. prob. for each class and sample
-        predictions = torch.argmax(probs, dim=1).cpu().numpy()  # (total_samples,) int class index for each sample
-        trues = trues.flatten().cpu().numpy()
-        accuracy = cal_accuracy(predictions, trues)
-
         self.model.train()
-        return total_loss, accuracy
+        return total_loss
 
     def train(self):
         _, train_loader = self._get_data(flag='train')
@@ -120,13 +118,13 @@ class Exp_Classification(Exp_Basic):
 
             print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
             train_loss = np.average(train_loss)
-            vali_loss, val_accuracy = self.vali(vali_loader, criterion)
+            vali_loss = self.vali(vali_loader, criterion)
             # test_loss, test_accuracy = self.vali(test_loader, criterion)
 
             print(
                 f"Epoch: {epoch + 1}, Steps: {train_steps} | \
-                    Train Loss: {train_loss:.5g} Vali Loss: {vali_loss:.5g} Vali Acc: {val_accuracy:.3f}")
-            early_stopping(-val_accuracy, self.model, self.output_folder)
+                    Train Loss: {train_loss:.5g} Vali Loss: {vali_loss:.5g}")
+            early_stopping(vali_loss, self.model, self.output_folder)
             if early_stopping.early_stop:
                 print("Early stopping")
                 break
@@ -159,14 +157,18 @@ class Exp_Classification(Exp_Basic):
         preds = torch.cat(preds, 0)
         trues = torch.cat(trues, 0)
         print('test shape:', preds.shape, trues.shape)
+        
+        if self.args.num_class > 1:
+            probs = torch.nn.functional.softmax(preds, dim=1)  # (total_samples, num_classes) est. prob. for each class and sample
+            predictions = torch.argmax(probs, dim=1).cpu().numpy()  # (total_samples,) int class index for each sample
+        else:
+            probs = torch.nn.functional.sigmoid(preds)
+            predictions = torch.round(probs).cpu().numpy()
 
-        probs = torch.nn.functional.softmax(preds)  # (total_samples, num_classes) est. prob. for each class and sample
-        predictions = torch.argmax(probs, dim=1).cpu().numpy()  # (total_samples,) int class index for each sample
         trues = trues.flatten().cpu().numpy()
         accuracy = cal_accuracy(predictions, trues)
 
         # result save
-
         print('accuracy:{}'.format(accuracy))
         f = open("result_classification.txt", 'a')
         f.write(stringify_setting(self.args, complete=True)  + "  \n")

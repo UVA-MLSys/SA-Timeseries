@@ -26,10 +26,7 @@ def main(args):
         exp.model, exp.output_folder, exp.device, args, dataloader
     ) 
 
-    interpreter.interpret(
-        dataloader, args.flag, tsr=args.tsr, 
-        baseline_mode=args.baseline_mode
-    )
+    interpreter.interpret(dataloader)
     
     
 def get_parser():

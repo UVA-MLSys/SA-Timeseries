@@ -1,0 +1,13 @@
+python -u run.py \
+  --task_name classification \
+  --train \
+  --result_path scratch \
+  --use_gpu \
+  --root_path ./dataset/mimic_iii/ \
+  --data_path patient_vital_preprocessed.csv \
+  --model DLinear \
+  --features MS \
+  --seq_len 48 \
+  --label_len 0 \
+  --pred_len 1 \
+  --n_features 31

@@ -111,7 +111,9 @@ This dataset [^2] records the road occupancy rates from different sensors on San
 
 ### Mimic-III
 
-MIMIC-III is a private dataset. Refer to [the official MIMIC-III documentation](https://mimic.mit.edu/iii/gettingstarted/dbsetup/). ReadMe and datagen of MIMIC is from [Dynamask Repo](https://github.com/JonathanCrabbe/Dynamask). This repository followed the database setup instructions from [the offficial site here](https://mimic.mit.edu/docs/gettingstarted/local/install-mimic-locally-windows/).
+MIMIC-III is a multivariate clinical time series dataset with a range of vital and lab measurements taken over time for around 40,000 patients at the Beth Israel Deaconess Medical Center in Boston, MA (Johnson et al. [^3], 2016). It is widely used in healthcare and medical AI-related research. There are multiple tasks associated, including mortality, length-of-stay prediction, and phenotyping. We follow the pre-processing procedure described in Tonekaboni et al. (2020) [^4] and use 8 vitals and 20 lab measurements hourly over a 48-hour period to predict patient mortality.
+
+This is a private dataset. Refer to [the official MIMIC-III documentation](https://mimic.mit.edu/iii/gettingstarted/dbsetup/). ReadMe and datagen of MIMIC is from [Dynamask Repo](https://github.com/JonathanCrabbe/Dynamask). This repository followed the database setup instructions from [the offficial site here](https://mimic.mit.edu/docs/gettingstarted/local/install-mimic-locally-windows/). 
 
 - Run this command to acquire the data and store it:
    ```shell
@@ -153,3 +155,7 @@ This repository currently has the following models collected from [Time-Series-L
 [^1]: https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014.
 
 [^2]: https://pems.dot.ca.gov/.
+
+[^3]: Alistair EW Johnson, Tom J Pollard, Lu Shen, Li-wei H Lehman, Mengling Feng, Mohammad Ghassemi, Benjamin Moody, Peter Szolovits, Leo Anthony Celi, and Roger G Mark. MIMIC-III, a freely accessible critical care database. Scientific Data, 3, 2016.
+
+[^4]: Sana Tonekaboni, Shalmali Joshi, Kieran Campbell, David K Duvenaud, and Anna Goldenberg. What went wrong and when? Instance-wise feature importance for time-series black-box models. In Neural Information Processing Systems, 2020.

@@ -3,7 +3,7 @@ from tqdm import tqdm
 import pandas as pd
 from utils.explainer import *
 from utils.tsr_tunnel import *
-from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max
+from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds, sufficiency, comprehensiveness
 from datetime import datetime
 
 from captum.attr import (
@@ -24,7 +24,10 @@ from tint.attr import (
 
 expl_metric_map = {
     'mae': mae, 'mse': mse, 'accuracy': accuracy, 
-    'cross_entropy':cross_entropy, 'lipschitz_max': lipschitz_max
+    'cross_entropy':cross_entropy, 'lipschitz_max': lipschitz_max,
+    'log_odds': log_odds, 'sufficiency': sufficiency, 
+    'comprehensiveness': comprehensiveness
+    
 }
 
 explainer_name_map = {
@@ -68,9 +71,8 @@ class Exp_Interpret:
                 self.explainers_map[name] = explainer
                 
     
-    def interpret(self, dataloader, flag, tsr=False, baseline_mode='random'):
-        result_columns = ['batch_index', 'metric', 'area', 'comp', 'suff']
-        if tsr:
+    def interpret(self, dataloader):
+        if self.args.tsr:
             print('Interpreting with TSR enabled.')
         
         for name in self.args.explainers:
@@ -95,29 +97,29 @@ class Exp_Interpret:
                 
                 inputs = (batch_x, batch_x_mark)
                 # baseline must be a scaler or tuple of tensors with same dimension as input
-                baselines = get_baseline(inputs, mode=baseline_mode)
+                baselines = get_baseline(inputs, mode=self.args.baseline_mode)
                 additional_forward_args = (dec_inp, batch_y_mark)
 
                 # get attributions
                 batch_results = self.evaluate(
                     name, inputs, baselines, 
-                    additional_forward_args, tsr, batch_index
+                    additional_forward_args, batch_index
                 )
                 results.extend(batch_results)
             
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
-            if tsr:
-                self.dump_results(results, result_columns, f'tsr_{name}.csv')
+            if self.args.tsr:
+                self.dump_results(results, f'tsr_{name}.csv')
             else:
-                self.dump_results(results, result_columns, f'{name}.csv')
+                self.dump_results(results, f'{name}.csv')
             
     def evaluate(
         self, name, inputs, baselines, 
-        additional_forward_args, tsr, batch_index
+        additional_forward_args, batch_index
     ):
         explainer = self.explainers_map[name]
-        if tsr:
+        if self.args.tsr:
             explainer = TSRTunnel(explainer)
             if type(inputs) == tuple:
                 sliding_window_shapes = tuple([(1,1) for _ in inputs])
@@ -140,31 +142,52 @@ class Exp_Interpret:
         results = []
         # get scores
         for area in self.args.areas:
-            for metric_name in self.args.metrics:
-                metric = expl_metric_map[metric_name]
-                error_comp = metric(
-                    self.model, inputs=inputs, 
-                    attributions=attr, baselines=baselines, 
-                    additional_forward_args=additional_forward_args,
-                    topk=area, mask_largest=True
-                )
-                
-                error_suff = metric(
-                    self.model, inputs=inputs, 
-                    attributions=attr, baselines=baselines, 
-                    additional_forward_args=additional_forward_args,
-                    topk=area, mask_largest=False
-                )
-        
-                result_row = [batch_index, metric_name, area, error_comp, error_suff]
-                results.append(result_row)
+            if self.args.task_name == 'classification':
+                # otherwise it is classification
+                # ['accuracy', 'comprehensiveness', 'sufficiency', 'log_odds', 'cross_entropy']
+                for metric_name in self.args.metrics:
+                    metric = expl_metric_map[metric_name]
+                    error_value = metric(
+                        self.model, inputs=inputs, topk=area,
+                        attributions=attr, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                    )
+                    result_row = [batch_index, metric_name, area, error_value]
+                    results.append(result_row)
+            else: 
+                for metric_name in self.args.metrics: # ['mae', 'mse']
+                    metric = expl_metric_map[metric_name]
+                    error_comp = metric(
+                        self.model, inputs=inputs, 
+                        attributions=attr, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                        topk=area, mask_largest=True
+                    )
+                    
+                    error_suff = metric(
+                        self.model, inputs=inputs, 
+                        attributions=attr, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                        topk=area, mask_largest=False
+                    )
+            
+                    result_row = [batch_index, metric_name, area, error_comp, error_suff]
+                    results.append(result_row)
+    
         return results
         
-    def dump_results(self, results, columns, filename):
-        results_df = pd.DataFrame(results, columns=columns)
-        results_df = results_df.groupby(['metric', 'area'])[
-            ['comp', 'suff']
-        ].aggregate('mean').reset_index()
+    def dump_results(self, results, filename):
+        if self.args.task_name == 'classification':
+            columns = ['batch_index', 'metric', 'area', 'value']
+            results_df = pd.DataFrame(results, columns=columns)
+            results_df = results_df.groupby(['metric', 'area'])[
+                ['value']].aggregate('mean').reset_index()
+        else:
+            columns = ['batch_index', 'metric', 'area', 'comp', 'suff']
+            results_df = pd.DataFrame(results, columns=columns)
+            results_df = results_df.groupby(['metric', 'area'])[
+                ['comp', 'suff']
+            ].aggregate('mean').reset_index()
         
         filepath = os.path.join(self.result_folder, filename)
         results_df.round(6).to_csv(filepath, index=False)

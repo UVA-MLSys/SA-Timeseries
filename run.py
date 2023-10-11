@@ -41,7 +41,7 @@ def main(args):
         exp.test(load_model=False, flag='test')
     else:
         print('>>>>>>> testing : <<<<<<<<<<<<')
-        exp.test()
+        exp.test(load_model=True, flag=args.flag)
         
     torch.cuda.empty_cache()
 
@@ -64,6 +64,8 @@ def get_parser():
     parser.add_argument('--result_path', type=str, default='./results', help='root result output folder')
     parser.add_argument('--root_path', type=str, default='./dataset/illness/', help='root path of the data file')
     parser.add_argument('--data_path', type=str, default='national_illness.csv', help='data file')
+    parser.add_argument('--flag', type=str, default='test', choices=['train', 'val', 'test'],
+        help='data split type')
     parser.add_argument('--features', type=str, default='MS', choices=['M', 'S', 'MS'],
                         help='forecasting task; M: multivariate predict multivariate, S: univariate predict univariate, MS: multivariate predict univariate')
     parser.add_argument('--target', type=str, default='OT', help='target feature in S or MS task')

@@ -126,8 +126,10 @@ This is a private dataset. Refer to [the official MIMIC-III documentation](https
    ```shell
    python -m data.mimic_iii.data_preprocess
    ```
-  If everything happens properly, a file `patient_vital_preprocessed.pkl` is stored in `dataset/mimic_iii`.
+  If everything happens properly, a file `mimic_iii.pkl` is stored in `dataset/mimic_iii`.
 
+From the [source description](https://physionet.org/content/mimiciii/1.4/): 
+> Before data was incorporated into the MIMIC-III database, it was first deidentified in accordance with Health Insurance Portability and Accountability Act (HIPAA) standards using structured data cleansing and date shifting. The deidentification process for structured data required the removal of all eighteen of the identifying data elements listed in HIPAA, including fields such as patient name, telephone number, address, and dates. In particular, dates were shifted into the future by a random offset for each individual patient in a consistent manner to preserve intervals, resulting in stays which occur sometime between the years 2100 and 2200. Time of day, day of the week, and approximate seasonality were conserved during date shifting. Dates of birth for patients aged over 89 were shifted to obscure their true age and comply with HIPAA regulations: these patients appear in the database with ages of over 300 years.
 
 ## Models 
 This repository currently has the following models collected from [Time-Series-Library](https://github.com/thuml/Time-Series-Library).

@@ -1,4 +1,4 @@
-import os, re
+import os, re, pickle
 import pandas as pd
 import numpy as np
 import os, torch, glob
@@ -27,7 +27,7 @@ def add_time_features(dates, timeenc=0, freq='h'):
 
 class Dataset_Custom(Dataset):
     def __init__(self, root_path, flag='train', size=None,
-                 features='S', data_path='ETTh1.csv',
+                 features='S', data_path='electricity.csv',
                  target='OT', scale=True, timeenc=0, freq='h'):
         # size [seq_len, label_len, pred_len]
         # info
@@ -360,8 +360,10 @@ class MultiTimeSeries(Dataset):
                 print(i + 1, 'of', max_samples, 'samples done...')
             identifier, start_idx = tup
             sliced = split_data_map[identifier].iloc[start_idx:start_idx + time_steps]
-            self.data[i, :, :] = sliced[selected_columns]
-            self.data_stamp[i, :, :] = self._add_time_features(sliced[[self.time_col]])
+            self.data[i] = sliced[selected_columns]
+            self.data_stamp[i] = add_time_features(
+                sliced[[self.time_col]], self.timeenc, self.freq
+            )
         
     def __getitem__(self, index):
         s_end = self.seq_len
@@ -374,20 +376,6 @@ class MultiTimeSeries(Dataset):
         seq_x_mark = self.data_stamp[index][:s_end]
         seq_y_mark = self.data_stamp[index][r_begin:r_end]
         return seq_x, seq_y, seq_x_mark, seq_y_mark
-    
-    def _add_time_features(self, df):
-        df_stamp = pd.DataFrame()
-        df_stamp['date'] = pd.to_datetime(df[self.time_col])
-        if self.timeenc == 0:
-            df_stamp['month'] = df_stamp.date.apply(lambda row: row.month, 1)
-            df_stamp['day'] = df_stamp.date.apply(lambda row: row.day, 1)
-            df_stamp['weekday'] = df_stamp.date.apply(lambda row: row.weekday(), 1)
-            df_stamp['hour'] = df_stamp.date.apply(lambda row: row.hour, 1)
-            data_stamp = df_stamp.drop(['date'], 1).values
-        elif self.timeenc == 1:
-            data_stamp = time_features(pd.to_datetime(df_stamp['date'].values), freq=self.freq)
-            data_stamp = data_stamp.transpose(1, 0)
-        return data_stamp
 
     def __len__(self):
         return len(self.data) # - self.seq_len - self.pred_len + 1
@@ -518,3 +506,80 @@ class UEAloader(Dataset):
 
     def __len__(self):
         return len(self.all_IDs)
+    
+class MimicIII(Dataset):
+    def __init__(
+        self, root_path='./dataset/mimic_iii', flag='train', 
+        data_path='patient_vital_preprocessed.pkl', 
+        scale=True, size= [0.8, 0.1, 0.1]
+    ):
+        # init
+        assert flag in ['train', 'test', 'val']
+        type_map = {'train': 0, 'val': 1, 'test': 2}
+        self.set_type = type_map[flag]
+
+        self.scale = scale
+        self.size = size
+        
+        self.num_classes = 1
+        self.class_names = [0]
+
+        self.root_path = root_path
+        self.data_path = data_path
+        self.scaler = StandardScaler()
+        self.__read_data__()
+
+    def __read_data__(self):
+        filepath = os.path.join(self.root_path, self.data_path)
+        with open(filepath, 'rb') as input_file:
+            data = pickle.load(input_file)
+
+        X = np.array([row[0] for row in data])
+        # batch x features x seq_len -> batch x seq_len x features
+        X = X.transpose((0, 2, 1))
+        
+        Y = np.array([int(row[1]) for row in data])
+        Y = Y.reshape((-1, 1))
+ 
+        n_total, self.max_seq_len, self.n_features = X.shape
+         
+        num_vali = round(n_total * self.size[1])
+        num_test= round(n_total * self.size[2])
+        num_train = n_total - num_vali - num_test
+        # print(num_train, num_vali, num_test)
+        
+        border1s = [0, num_train , num_train + num_vali]
+        border2s = [num_train, num_train + num_vali, n_total]
+        border1 = border1s[self.set_type]
+        border2 = border2s[self.set_type]
+
+        # select data split
+        feature_df = X[border1:border2]
+        self.y = Y[border1:border2]
+
+        if self.scale:
+            train_data = X[border1s[0]:border2s[0]]
+            self.scaler.fit(train_data.reshape((train_data.shape[0], -1)))
+            
+            original_shape = feature_df.shape
+            feature_df = self.scaler.transform(
+                feature_df.reshape((feature_df.shape[0], -1))
+            ).reshape(original_shape)
+        
+        self.feature_df = feature_df
+
+    def __getitem__(self, index):
+        return torch.from_numpy(self.feature_df[index]), \
+            torch.from_numpy(self.y[index])
+    
+    def __len__(self):
+        return self.feature_df.shape[0]
+
+    def inverse_transform(self, data):
+        if self.scale:
+            original_shape = data.shape
+            return self.scaler.inverse_transform(
+                data.reshape((data.shape[0], -1))
+            ).reshape(original_shape)
+            
+        return data

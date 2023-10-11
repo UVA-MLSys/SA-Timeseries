@@ -1,11 +1,12 @@
-from data.data_loader import Dataset_Custom, Dataset_Pred, MultiTimeSeries, UEAloader
+from data.data_loader import Dataset_Custom, Dataset_Pred, MultiTimeSeries, UEAloader, MimicIII
 from torch.utils.data import DataLoader
 from data.uea import collate_fn
 
 data_dict = {
     'custom': Dataset_Custom,
     'covid': MultiTimeSeries,
-    'UEA': UEAloader
+    'UEA': UEAloader,
+    'mimic': MimicIII
 }
 
 
@@ -26,7 +27,7 @@ def data_provider(args, flag):
         drop_last = False
         data_set = Data(
             root_path=args.root_path,
-            flag=flag,
+            flag=flag, data_path=args.data_path
         )
         print(flag, len(data_set))
         data_loader = DataLoader(

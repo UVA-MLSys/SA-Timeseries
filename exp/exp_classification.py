@@ -1,6 +1,8 @@
 from data.data_factory import data_provider
 from exp.exp_basic import *
 from utils.tools import EarlyStopping, adjust_learning_rate, cal_accuracy
+from sklearn.metrics import roc_auc_score, recall_score, precision_score, accuracy_score
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 import torch
 import torch.nn as nn
 from torch import optim
@@ -23,8 +25,12 @@ class Exp_Classification(Exp_Basic):
         test_data, _ = self._get_data(flag='test')
         self.args.seq_len = max(train_data.max_seq_len, test_data.max_seq_len)
         self.args.pred_len = 0
-        self.args.enc_in = train_data.feature_df.shape[1]
+        
+        #TODO: make these more generalized
+        self.args.enc_in = train_data.feature_df.shape[-1]    
         self.args.num_class = len(train_data.class_names)
+        self.multiclass = (self.args.num_class > 1)
+        
         # model init
         model = self.model_dict[self.args.model].Model(self.args).float()
         if self.args.use_multi_gpu and self.args.use_gpu:
@@ -32,6 +38,7 @@ class Exp_Classification(Exp_Basic):
         return model
 
     def _get_data(self, flag):
+        
         data_set, data_loader = data_provider(self.args, flag)
         return data_set, data_loader
 
@@ -40,35 +47,28 @@ class Exp_Classification(Exp_Basic):
         return model_optim
 
     def _select_criterion(self):
-        if self.args.num_class == 1:
-            # binary classifier
-            criterion = nn.BCEWithLogitsLoss()
-        else:
-            # multiclass 
-            criterion = nn.CrossEntropyLoss()
+        if self.multiclass: criterion = nn.CrossEntropyLoss()
+        else: criterion = nn.BCEWithLogitsLoss()
+            
         return criterion
 
     def vali(self, vali_loader, criterion):
         total_loss = []
-        preds = []
-        trues = []
         self.model.eval()
         with torch.no_grad():
             for i, (batch_x, label, padding_mask) in enumerate(vali_loader):
                 batch_x = batch_x.float().to(self.device)
                 padding_mask = padding_mask.float().to(self.device)
+                label = label.long() if self.multiclass else label.float()
                 label = label.to(self.device)
 
                 outputs = self.model(batch_x, padding_mask, None, None)
 
-                pred = outputs.detach().cpu()
-                loss = criterion(pred, label.long().squeeze().cpu())
+                pred = outputs.squeeze()
+                loss = criterion(pred, label.squeeze())
                 total_loss.append(loss)
 
-                preds.append(outputs.detach())
-                trues.append(label)
-
-        total_loss = np.average(total_loss)
+        total_loss = torch.vstack(total_loss).mean().item()
 
         self.model.train()
         return total_loss
@@ -83,6 +83,10 @@ class Exp_Classification(Exp_Basic):
         early_stopping = EarlyStopping(patience=self.args.patience, verbose=True)
 
         model_optim = self._select_optimizer()
+        scheduler = ReduceLROnPlateau(
+            model_optim, 'min', 
+            patience=3, min_lr=1e-6
+        )
         criterion = self._select_criterion()
 
         for epoch in range(self.args.train_epochs):
@@ -98,10 +102,12 @@ class Exp_Classification(Exp_Basic):
 
                 batch_x = batch_x.float().to(self.device)
                 padding_mask = padding_mask.float().to(self.device)
+                
+                label = label.long() if self.multiclass else label.float()
                 label = label.to(self.device)
 
                 outputs = self.model(batch_x, padding_mask, None, None)
-                loss = criterion(outputs, label.long().squeeze(-1))
+                loss = criterion(outputs.squeeze(), label.squeeze(-1))
                 train_loss.append(loss.item())
 
                 if (i + 1) % 100 == 0:
@@ -128,8 +134,10 @@ class Exp_Classification(Exp_Basic):
             if early_stopping.early_stop:
                 print("Early stopping")
                 break
-            if (epoch + 1) % 5 == 0:
-                adjust_learning_rate(model_optim, epoch + 1, self.args)
+            
+            scheduler.step(vali_loss)
+            # if (epoch + 1) % 5 == 0:
+            #     adjust_learning_rate(model_optim, epoch + 1, self.args)
 
         self.load_best_model()
         return self.model
@@ -147,7 +155,6 @@ class Exp_Classification(Exp_Basic):
             for i, (batch_x, label, padding_mask) in enumerate(test_loader):
                 batch_x = batch_x.float().to(self.device)
                 padding_mask = padding_mask.float().to(self.device)
-                label = label.to(self.device)
 
                 outputs = self.model(batch_x, padding_mask, None, None)
 
@@ -155,28 +162,26 @@ class Exp_Classification(Exp_Basic):
                 trues.append(label)
 
         preds = torch.cat(preds, 0)
-        trues = torch.cat(trues, 0)
-        print('test shape:', preds.shape, trues.shape)
+        trues = np.concatenate(trues, axis=0)
         
-        if self.args.num_class > 1:
+        if self.multiclass:
             probs = torch.nn.functional.softmax(preds, dim=1)  # (total_samples, num_classes) est. prob. for each class and sample
             predictions = torch.argmax(probs, dim=1).cpu().numpy()  # (total_samples,) int class index for each sample
+            
         else:
             probs = torch.nn.functional.sigmoid(preds)
-            predictions = torch.round(probs).cpu().numpy()
+            predictions = torch.round(probs).squeeze().cpu().numpy()
 
-        trues = trues.flatten().cpu().numpy()
-        accuracy = cal_accuracy(predictions, trues)
+        probs = probs.detach().cpu().numpy()
+        # trues = trues.flatten().cpu().numpy()
+        accuracy = accuracy_score(predictions, trues)
 
-        # result save
-        print('accuracy:{}'.format(accuracy))
-        f = open("result_classification.txt", 'a')
-        f.write(stringify_setting(self.args, complete=True)  + "  \n")
-        f.write('accuracy:{}'.format(accuracy))
-        f.write('\n')
-        f.write('\n')
-        f.close()
+        # save results
+        print(f'accuracy:{accuracy:0.5f}')
+        with open("result_classification.txt", 'a') as f:
+            f.write(stringify_setting(self.args, complete=True)  + "  \n")
+            f.write(f'flag {flag}, accuracy:{accuracy:0.5f}\n\n')
         
-        np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), preds)
+        np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), predictions)
         np.save(os.path.join(self.output_folder, f'{flag}_true.npy'), trues)
         return

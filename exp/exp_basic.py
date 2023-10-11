@@ -1,5 +1,6 @@
 import os
 import torch
+from data.data_factory import data_provider
 from models import Autoformer, Transformer, TimesNet, Nonstationary_Transformer, DLinear, FEDformer, \
     Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM
 
@@ -60,10 +61,11 @@ class Exp_Basic(object):
         if not os.path.exists(self.output_folder):
             os.makedirs(self.output_folder, exist_ok=True)
         print(f'Experiments will be saved in {self.output_folder}')
+        
+        self.dataset_map = {}
 
     def _build_model(self):
         raise NotImplementedError
-        return None
     
     def load_best_model(self):
         best_model_path = os.path.join(self.output_folder, 'checkpoint.pth')
@@ -81,8 +83,11 @@ class Exp_Basic(object):
             print('Use CPU')
         return device
 
-    def _get_data(self):
-        pass
+    def _get_data(self, flag='test'):
+        if flag not in self.dataset_map:
+            self.dataset_map[flag] = data_provider(self.args, flag)
+            
+        return self.dataset_map[flag] 
 
     def vali(self):
         pass

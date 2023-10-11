@@ -51,17 +51,18 @@ def compute_classifier_attr(
     additional_forward_args, args
 ):
     name = explainer.get_name()
-    task = 'multiclass' if args.num_class > 1 else 'binary'
     
     if name in ['Deep Lift', 'Lime', 'Integrated Gradients', 'Gradient Shap', 'Feature Ablation']:
         attr = explainer.attribute(
-            inputs=inputs, baselines=baselines, 
-            additional_forward_args=additional_forward_args
+            inputs=inputs, baselines=baselines,
+            additional_forward_args=additional_forward_args,
+            attributions_fn=abs
         )
+    
         
     elif name == 'Feature Permutation':
         attr = explainer.attribute(
-            inputs=inputs,
+            inputs=inputs, attributions_fn=abs,
             additional_forward_args=additional_forward_args
         )
     elif name == 'Occlusion' or name=='Augmented Occlusion':
@@ -74,11 +75,12 @@ def compute_classifier_attr(
             attr = explainer.attribute(
                 inputs=inputs, baselines=baselines,
                 sliding_window_shapes = sliding_window_shapes,
-                additional_forward_args=additional_forward_args
+                additional_forward_args=additional_forward_args,
+                attributions_fn=abs
             )
         else:
             attr = explainer.attribute(
-                inputs=inputs, 
+                inputs=inputs, attributions_fn=abs,
                 sliding_window_shapes = sliding_window_shapes,
                 additional_forward_args=additional_forward_args
             )
@@ -89,19 +91,18 @@ def compute_classifier_attr(
         # tuple of batch x seq_len x features
         attr = tuple([
             score.reshape(
-                # batch x seq_len x features
-                (inputs[0].shape[0], args.seq_len, score.shape[-1])
+                # batch x num_class, seq_len x features
+                (inputs[0].shape[0], args.num_class, args.seq_len, score.shape[-1])
             # take mean over the output horizon
             ).mean(axis=1) for score in attr
         ])
     else:
         # batch x seq_len x features
         attr = attr.reshape(
-            # batch x seq_len x features
-            (inputs.shape[0], args.seq_len, attr.shape[-1])
+            # batch x num_class x seq_len x features
+            (inputs.shape[0], args.num_class, args.seq_len, attr.shape[-1])
         # take mean over the output horizon
         ).mean(axis=1)
-    
     
     return attr
 

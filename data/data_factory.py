@@ -25,6 +25,8 @@ def data_provider(args, flag):
     
     if args.task_name == 'classification':
         drop_last = False
+        shuffle_flag = True
+        
         data_set = Data(
             root_path=args.root_path,
             flag=flag, data_path=args.data_path

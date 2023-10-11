@@ -4,6 +4,7 @@ import pandas as pd
 from utils.explainer import *
 from utils.tsr_tunnel import *
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds, sufficiency, comprehensiveness
+from utils.auc import auc
 from datetime import datetime
 
 from captum.attr import (
@@ -25,9 +26,8 @@ from tint.attr import (
 expl_metric_map = {
     'mae': mae, 'mse': mse, 'accuracy': accuracy, 
     'cross_entropy':cross_entropy, 'lipschitz_max': lipschitz_max,
-    'log_odds': log_odds, 'sufficiency': sufficiency, 
-    'comprehensiveness': comprehensiveness
-    
+    'log_odds': log_odds, 'auc': auc, 
+    # 'comprehensiveness': comprehensiveness, 'sufficiency': sufficiency    
 }
 
 explainer_name_map = {
@@ -71,7 +71,8 @@ class Exp_Interpret:
                 self.explainers_map[name] = explainer
                 
     def run_classifier(self, dataloader, name):
-        results = [['batch_index', 'metric', 'area', 'value']]
+        # results = [['batch_index', 'metric', 'area', 'value']]
+        results = [['batch_index', 'metric', 'area', 'comp', 'suff']]
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), 
             disable=self.args.disable_progress
@@ -79,10 +80,11 @@ class Exp_Interpret:
         for batch_index, (batch_x, label, padding_mask) in progress_bar:
             batch_x = batch_x.float().to(self.device)
             padding_mask = padding_mask.float().to(self.device)
-            
+            # print('label', label)
             # label = label.long() if self.multiclass else label.float()
             # label = label.to(self.device) 
-                
+            # output = self.model(batch_x, padding_mask, None, None)
+             
             inputs = batch_x
             # baseline must be a scaler or tuple of tensors with same dimension as input
             baselines = get_baseline(inputs, mode=self.args.baseline_mode)
@@ -94,7 +96,7 @@ class Exp_Interpret:
                 additional_forward_args, batch_index
             )
             results.extend(batch_results)  
-        
+
         return results
                 
     def run_regressor(self, dataloader, name):
@@ -181,15 +183,29 @@ class Exp_Interpret:
         # get scores
         for area in self.args.areas:
             # otherwise it is classification
-            # ['accuracy', 'comprehensiveness', 'sufficiency', 'log_odds', 'cross_entropy']
+            # ['accuracy', 'log_odds', 'cross_entropy']
             for metric_name in self.args.metrics:
                 metric = expl_metric_map[metric_name]
-                error_value = metric(
-                    self.model, inputs=inputs, topk=area,
+                # masks top k% features
+                error_comp = metric(
+                    self.model, inputs=inputs, 
                     attributions=attr, baselines=baselines, 
                     additional_forward_args=additional_forward_args,
+                    topk=area
                 )
-                result_row = [batch_index, metric_name, area, error_value]
+                
+                if metric_name in ['comprehensiveness', 'sufficiency', 'log_odds']:
+                    # these metrics has not mask_largest parameter
+                    error_suff = 0
+                else:
+                    error_suff = metric(
+                        self.model, inputs=inputs, 
+                        attributions=attr, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                        topk=area, mask_largest=False
+                    )
+        
+                result_row = [batch_index, metric_name, area, error_comp, error_suff]
                 results.append(result_row)
     
         return results
@@ -222,50 +238,37 @@ class Exp_Interpret:
         results = []
         # get scores
         for area in self.args.areas:
-            if self.args.task_name == 'classification':
-                # otherwise it is classification
-                # ['accuracy', 'comprehensiveness', 'sufficiency', 'log_odds', 'cross_entropy']
-                for metric_name in self.args.metrics:
-                    metric = expl_metric_map[metric_name]
-                    error_value = metric(
-                        self.model, inputs=inputs, topk=area,
-                        attributions=attr, baselines=baselines, 
-                        additional_forward_args=additional_forward_args,
-                    )
-                    result_row = [batch_index, metric_name, area, error_value]
-                    results.append(result_row)
-            else: 
-                for metric_name in self.args.metrics: # ['mae', 'mse']
-                    metric = expl_metric_map[metric_name]
-                    error_comp = metric(
-                        self.model, inputs=inputs, 
-                        attributions=attr, baselines=baselines, 
-                        additional_forward_args=additional_forward_args,
-                        topk=area, mask_largest=True
-                    )
-                    
-                    error_suff = metric(
-                        self.model, inputs=inputs, 
-                        attributions=attr, baselines=baselines, 
-                        additional_forward_args=additional_forward_args,
-                        topk=area, mask_largest=False
-                    )
-            
-                    result_row = [batch_index, metric_name, area, error_comp, error_suff]
-                    results.append(result_row)
+            for metric_name in self.args.metrics: # ['mae', 'mse']
+                metric = expl_metric_map[metric_name]
+                error_comp = metric(
+                    self.model, inputs=inputs, 
+                    attributions=attr, baselines=baselines, 
+                    additional_forward_args=additional_forward_args,
+                    topk=area, mask_largest=True
+                )
+                
+                error_suff = metric(
+                    self.model, inputs=inputs, 
+                    attributions=attr, baselines=baselines, 
+                    additional_forward_args=additional_forward_args,
+                    topk=area, mask_largest=False
+                )
+        
+                result_row = [batch_index, metric_name, area, error_comp, error_suff]
+                results.append(result_row)
     
         return results
         
     def dump_results(self, results, filename):
-        if self.args.task_name == 'classification':
-            results_df = pd.DataFrame(results[1:], columns=results[0])
-            results_df = results_df.groupby(['metric', 'area'])[
-                ['value']].aggregate('mean').reset_index()
-        else:
-            results_df = pd.DataFrame(results[1:], columns=results[0])
-            results_df = results_df.groupby(['metric', 'area'])[
-                ['comp', 'suff']
-            ].aggregate('mean').reset_index()
+        # if self.args.task_name == 'classification':
+        #     results_df = pd.DataFrame(results[1:], columns=results[0])
+        #     results_df = results_df.groupby(['metric', 'area'])[
+        #         ['value']].aggregate('mean').reset_index()
+        # else:
+        results_df = pd.DataFrame(results[1:], columns=results[0])
+        results_df = results_df.groupby(['metric', 'area'])[
+            ['comp', 'suff']
+        ].aggregate('mean').reset_index()
         
         filepath = os.path.join(self.result_folder, filename)
         results_df.round(6).to_csv(filepath, index=False)

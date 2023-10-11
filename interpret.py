@@ -26,9 +26,7 @@ def main(args):
     # explainers = ['lime', 'feature_ablation', 'deep_lift', 'gradient_shap', 'integrated_gradients']
 
     interpreter = Exp_Interpret(exp, dataloader) 
-
     interpreter.interpret(dataloader)
-    
     
 def get_parser():
     parser = get_main_parser()

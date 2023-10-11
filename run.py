@@ -43,7 +43,7 @@ def main(args):
         print('>>>>>>> testing : <<<<<<<<<<<<')
         exp.test(load_model=True, flag=args.flag)
         
-    torch.cuda.empty_cache()
+    # torch.cuda.empty_cache()
 
 def get_parser():
     parser = argparse.ArgumentParser(

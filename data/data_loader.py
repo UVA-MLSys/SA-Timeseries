@@ -521,8 +521,8 @@ class MimicIII(Dataset):
         self.scale = scale
         self.size = size
         
-        self.num_classes = 1
-        self.class_names = [0]
+        self.num_classes = 2
+        self.class_names = [0, 1]
 
         self.root_path = root_path
         self.data_path = data_path
@@ -539,7 +539,10 @@ class MimicIII(Dataset):
         X = X.transpose((0, 2, 1))
         
         Y = np.array([int(row[1]) for row in data])
-        Y = Y.reshape((-1, 1))
+        
+        labels = pd.Series(Y, dtype='category')
+        self.class_names = labels.cat.categories
+        Y = pd.DataFrame(labels.cat.codes, dtype=np.int8)
  
         n_total, self.max_seq_len, self.n_features = X.shape
          
@@ -550,15 +553,21 @@ class MimicIII(Dataset):
         
         border1s = [0, num_train , num_train + num_vali]
         border2s = [num_train, num_train + num_vali, n_total]
+        
+        # to randomize train, val, test splits
+        shuffled_indices = np.arange(n_total)
+        # does inplace shuffling
+        np.random.shuffle(shuffled_indices)
+        
         border1 = border1s[self.set_type]
         border2 = border2s[self.set_type]
 
         # select data split
-        feature_df = X[border1:border2]
-        self.y = Y[border1:border2]
+        feature_df = X[shuffled_indices[border1:border2]]
+        self.Y = Y.iloc[shuffled_indices[border1:border2]].values
 
         if self.scale:
-            train_data = X[border1s[0]:border2s[0]]
+            train_data = X[shuffled_indices[border1s[0]:border2s[0]]]
             self.scaler.fit(train_data.reshape((train_data.shape[0], -1)))
             
             original_shape = feature_df.shape
@@ -570,7 +579,7 @@ class MimicIII(Dataset):
 
     def __getitem__(self, index):
         return torch.from_numpy(self.feature_df[index]), \
-            torch.from_numpy(self.y[index])
+            torch.from_numpy(self.Y[index])
     
     def __len__(self):
         return self.feature_df.shape[0]

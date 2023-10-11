@@ -2,7 +2,8 @@ import os
 import torch
 from data.data_factory import data_provider
 from models import Autoformer, Transformer, TimesNet, Nonstationary_Transformer, DLinear, FEDformer, \
-    Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM
+    Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM, LSTM, TCN
+    
 
 def stringify_setting(args, complete=False):
     if not complete:
@@ -49,6 +50,8 @@ class Exp_Basic(object):
         'MICN': MICN,
         'Crossformer': Crossformer,
         'FiLM': FiLM,
+        'LSTM': LSTM,
+        'TCN': TCN
     }
     
     def __init__(self, args):

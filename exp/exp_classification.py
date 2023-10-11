@@ -1,7 +1,7 @@
 from data.data_factory import data_provider
 from exp.exp_basic import *
 from utils.tools import EarlyStopping, adjust_learning_rate, cal_accuracy
-from sklearn.metrics import roc_auc_score, recall_score, precision_score, accuracy_score
+from sklearn.metrics import roc_auc_score, recall_score, precision_score, accuracy_score, f1_score
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import torch
 import torch.nn as nn
@@ -172,15 +172,24 @@ class Exp_Classification(Exp_Basic):
             probs = torch.nn.functional.sigmoid(preds)
             predictions = torch.round(probs).squeeze().cpu().numpy()
 
+        print(probs.shape, trues.shape)
         probs = probs.detach().cpu().numpy()
         # trues = trues.flatten().cpu().numpy()
+        auc = (
+            0
+            if len(np.unique(trues)) < 2 or self.multiclass
+            else roc_auc_score(trues.reshape(-1), probs.reshape(-1))
+        )
+        
+        f1 = f1_score(predictions, trues)
         accuracy = accuracy_score(predictions, trues)
 
         # save results
-        print(f'accuracy:{accuracy:0.5f}')
+        result_string = f'acc {accuracy:0.5f}, f1 {f1:0.5f}, auc {auc:0.5f}'
+        print(result_string)
         with open("result_classification.txt", 'a') as f:
             f.write(stringify_setting(self.args, complete=True)  + "  \n")
-            f.write(f'flag {flag}, accuracy:{accuracy:0.5f}\n\n')
+            f.write(f'flag {flag}, {result_string}\n\n')
         
         np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), predictions)
         np.save(os.path.join(self.output_folder, f'{flag}_true.npy'), trues)

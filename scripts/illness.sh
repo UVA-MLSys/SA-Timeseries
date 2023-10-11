@@ -38,7 +38,7 @@ python interpret.py \
   --use_gpu \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
-  --model TimesNet \
+  --model DLinear \
   --features MS \
   --seq_len 36 \
   --label_len 12 \

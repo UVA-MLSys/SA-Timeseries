@@ -139,3 +139,27 @@ mse:0.3855, mae:0.46277, rmse: 0.62088.
 long_term_forecast_FEDformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue_None  
 mse:0.25046, mae:0.3817, rmse: 0.50046.
 
+long_term_forecast_LSTM_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.2247, mae:0.361, rmse: 0.47403.
+
+long_term_forecast_LSTM_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14613, mae:0.28573, rmse: 0.38227.
+
+long_term_forecast_LSTM_national_illness_custom_ftMS_sl36_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:1.1523, mae:0.90108, rmse: 1.0735.
+
+long_term_forecast_LSTM_national_illness_custom_ftMS_sl36_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:5.2916, mae:2.1028, rmse: 2.3004.
+
+long_term_forecast_LSTM_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.2247, mae:0.361, rmse: 0.47403.
+
+long_term_forecast_LSTM_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14613, mae:0.28573, rmse: 0.38227.
+
+long_term_forecast_LSTM_traffic_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.13591, mae:0.2706, rmse: 0.36866.
+
+long_term_forecast_LSTM_traffic_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.27023, mae:0.35343, rmse: 0.51984.
+

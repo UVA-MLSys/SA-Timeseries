@@ -6,7 +6,7 @@ python -u run.py \
   --use_gpu \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --model DLinear
+  --model MICN
 
 python -u run.py \
   --task_name classification \
@@ -25,17 +25,17 @@ python interpret.py \
   --use_gpu \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --metrics 'accuracy' 'comprehensiveness' 'sufficiency' 'log_odds' 'cross_entropy' \
+  --metrics auc 'accuracy' 'cross_entropy' \
   --model DLinear 
 
 python interpret.py \
-  --explainer feature_permutation\
+  --explainer feature_ablation augmented_occlusion\
   --task_name classification \
   --data mimic \
   --result_path scratch \
   --use_gpu \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --areas 0.05 0.075 0.1 0.15 0.5 0.8 \
+  --areas 0.05 0.075 0.1 0.15 \
   --metrics auc 'accuracy' 'cross_entropy' \
   --model DLinear

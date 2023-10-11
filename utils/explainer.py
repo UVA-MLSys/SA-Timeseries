@@ -191,34 +191,51 @@ def compute_classifier_tsr_attr(
     strides=None, baselines=None,
     additional_forward_args=None, threshold=0.0, normalize=True
 ):
-    attr = explainer.attribute(
-        inputs=inputs, sliding_window_shapes=sliding_window_shapes,
-        strides=strides,
-        baselines=baselines, 
-        additional_forward_args=additional_forward_args,
-        threshold=threshold, normalize=normalize
-    )
+    attr_list = []
+    for target in range(args.num_class):
+        score = explainer.attribute(
+            inputs=inputs, sliding_window_shapes=sliding_window_shapes,
+            strides=strides,
+            baselines=baselines, target=target,
+            additional_forward_args=additional_forward_args,
+            threshold=threshold, normalize=normalize
+        )
+        attr_list.append(score)
+        
+    if type(inputs) == tuple:
+            attr = []
+            for input_index in range(len(inputs)):
+                attr_per_input = torch.stack([score[input_index] for score in attr_list])
+                # num_class x batch x seq_len x features -> batch x num_class x seq_len x features
+                attr_per_input = attr_per_input.permute(1, 0, 2, 3)
+                attr.append(attr_per_input)
+                
+            attr = tuple(attr)
+    else:
+        attr = torch.stack(attr_list)
+        # num_class x batch x seq_len x features -> batch x num_class x seq_len x features
+        attr = attr.permute(1, 0, 2, 3)
         
     if type(inputs) == tuple:
         # tuple of batch x seq_len x features
         attr = tuple([
             score.reshape(
-                # batch x seq_len x features
-                (inputs[0].shape[0], args.seq_len, score.shape[-1])
+                # batch x num_class x seq_len x features
+                (inputs[0].shape[0], args.num_class, args.seq_len, score.shape[-1])
             # take mean over the output horizon
             ).mean(axis=1) for score in attr
         ])
     else:
         # batch x seq_len x features
         attr = attr.reshape(
-            # batch x seq_len x features
-            (inputs.shape[0], args.seq_len, attr.shape[-1])
+            # batch x num_class x seq_len x features
+            (inputs.shape[0], args.num_class, args.seq_len, attr.shape[-1])
         # take mean over the output horizon
         ).mean(axis=1)
     
     return attr
 
-def compute_tsr_attr(
+def compute_regressor_tsr_attr(
     args, explainer, inputs, sliding_window_shapes, 
     strides=None, baselines=None,
     additional_forward_args=None, threshold=0.0, normalize=True

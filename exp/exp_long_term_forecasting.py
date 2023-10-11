@@ -6,6 +6,7 @@ import torch, os, time, warnings
 import numpy as np
 import pandas as pd
 from os.path import join
+from datetime import datetime
 
 warnings.filterwarnings('ignore')
 
@@ -88,6 +89,8 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         path = self.output_folder
 
         time_now = time.time()
+        start = datetime.now()
+        print(f'Training started at {start}.')
 
         train_steps = len(train_loader)
         early_stopping = EarlyStopping(patience=self.args.patience, verbose=True)
@@ -173,6 +176,9 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
             adjust_learning_rate(model_optim, epoch + 1, self.args)
 
+        end = datetime.now()
+        epochs_run = epoch + early_stopping.early_stop
+        print(f'Training ended at {end}, time taken {end-start}, per epoch {(end-start)/epochs_run}')
         self.load_best_model()
         return self.model
 
@@ -228,7 +234,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         print('Preds and Trues shape:', preds.shape, trues.shape)
 
         mae, mse, rmse = metric(preds, trues)
-        result_string = f'mse:{mse:0.5g}, mae:{mae:0.5g}, rmse: {rmse:0.5g}.'
+        result_string = f'flag:{flag}, mse:{mse:0.5g}, mae:{mae:0.5g}, rmse: {rmse:0.5g}.'
         print(result_string)
         f = open("result_long_term_forecast.txt", 'a')
         f.write(stringify_setting(self.args, complete=True) + "  \n")

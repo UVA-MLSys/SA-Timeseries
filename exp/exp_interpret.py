@@ -224,7 +224,7 @@ class Exp_Interpret:
                 sliding_window_shapes = (1, 1)
                 strides = 1
                 
-            attr = compute_tsr_attr(
+            attr = compute_regressor_tsr_attr(
                 self.args, explainer, inputs=inputs, 
                 sliding_window_shapes=sliding_window_shapes, 
                 strides=strides, baselines=baselines,

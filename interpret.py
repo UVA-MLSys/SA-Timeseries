@@ -2,6 +2,7 @@ from run import initial_setup, get_parser as get_main_parser
 import os
 from typing import Union
 from exp.exp_long_term_forecasting import *
+from exp.exp_classification import Exp_Classification
 from utils.explainer import *
 from exp.exp_interpret import Exp_Interpret, explainer_name_map
 
@@ -12,7 +13,9 @@ def main(args):
     # Please see https://captum.ai/docs/faq#how-can-i-resolve-cudnn-rnn-backward-error-for-rnn-or-lstm-network
     # args.use_gpu = False
         
-    assert args.task_name == 'long_term_forecast', "Only long_term_forecast is supported for now"
+    if args.task_name == 'classification': Exp = Exp_Classification
+    else: Exp = Exp_Long_Term_Forecast
+    exp = Exp(args)  # set experiments
 
     exp = Exp_Long_Term_Forecast(args)  # set experiments
     _, dataloader = exp._get_data(args.flag)
@@ -22,9 +25,7 @@ def main(args):
     # PatchTST doesn't work with gradient based explainers
     # explainers = ['lime', 'feature_ablation', 'deep_lift', 'gradient_shap', 'integrated_gradients']
 
-    interpreter = Exp_Interpret(
-        exp.model, exp.output_folder, exp.device, args, dataloader
-    ) 
+    interpreter = Exp_Interpret(exp, dataloader) 
 
     interpreter.interpret(dataloader)
     

@@ -122,7 +122,7 @@ class Exp_Classification(Exp_Basic):
                 nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=4.0)
                 model_optim.step()
 
-            print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
+            print(f"Epoch: {epoch + 1} cost time: {time.time() - epoch_time:0.2f}")
             train_loss = np.average(train_loss)
             vali_loss = self.vali(vali_loader, criterion)
             # test_loss, test_accuracy = self.vali(test_loader, criterion)

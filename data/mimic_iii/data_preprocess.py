@@ -80,7 +80,7 @@ lab_data = lab_data.dropna(subset=['label'])
 
 icu_id = list(vital_data.icustay_id.unique())
 seq_len = 48
-sample_size = 100
+sample_size = None
 if sample_size is not None:
     seed = 7
     np.random.seed(seed)

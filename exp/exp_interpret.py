@@ -45,24 +45,24 @@ explainer_name_map = {
 
 class Exp_Interpret:
     def __init__(
-        self, model, result_folder, device, args, dataloader
+        self, exp, dataloader
     ) -> None:
-        assert not args.output_attention, 'Model needs to output target only'
+        assert not exp.args.output_attention, 'Model needs to output target only'
+        self.exp = exp
+        self.args = exp.args
+        self.result_folder = exp.output_folder
+        self.device = exp.device
         
-        self.args = args
-        self.result_folder = result_folder
-        self.device = device
+        print(f'explainers: {exp.args.explainers}\n areas: {exp.args.areas}\n metrics: {exp.args.metrics}\n')
         
-        print(f'explainers: {args.explainers}\n areas: {args.areas}\n metrics: {args.metrics}\n')
-        
-        model.eval()
-        model.zero_grad()
-        self.model = model
+        exp.model.eval().zero_grad()
+        self.model = exp.model
         
         self.explainers_map = dict()
-        for name in args.explainers:
+        for name in exp.args.explainers:
             if name == 'augmented_occlusion':
-                all_inputs = get_total_data(dataloader, self.device)
+                add_x_mark = exp.args.task_name != 'classification'
+                all_inputs = get_total_data(dataloader, self.device, add_x_mark=add_x_mark)
                 self.explainers_map[name] = explainer_name_map[name](self.model, all_inputs)
             else:
                 explainer = explainer_name_map[name](self.model)
@@ -70,42 +70,79 @@ class Exp_Interpret:
                     explainer = TimeForwardTunnel(explainer)
                 self.explainers_map[name] = explainer
                 
+    def run_classifier(self, dataloader, name):
+        results = [['batch_index', 'metric', 'area', 'value']]
+        progress_bar = tqdm(
+            enumerate(dataloader), total=len(dataloader), 
+            disable=self.args.disable_progress
+        )
+        for batch_index, (batch_x, label, padding_mask) in progress_bar:
+            batch_x = batch_x.float().to(self.device)
+            padding_mask = padding_mask.float().to(self.device)
+            
+            # label = label.long() if self.multiclass else label.float()
+            # label = label.to(self.device) 
+                
+            inputs = batch_x
+            # baseline must be a scaler or tuple of tensors with same dimension as input
+            baselines = get_baseline(inputs, mode=self.args.baseline_mode)
+            additional_forward_args = (padding_mask, None, None)
+
+            # get attributions
+            batch_results = self.evaluate_classifier(
+                name, inputs, baselines, 
+                additional_forward_args, batch_index
+            )
+            results.extend(batch_results)  
+        
+        return results
+                
+    def run_regressor(self, dataloader, name):
+        results = [['batch_index', 'metric', 'area', 'comp', 'suff']]
+        progress_bar = tqdm(
+            enumerate(dataloader), total=len(dataloader), 
+            disable=self.args.disable_progress
+        )
+        for batch_index, (batch_x, batch_y, batch_x_mark, batch_y_mark) in progress_bar:
+            batch_x = batch_x.float().to(self.device)
+            batch_y = batch_y.float().to(self.device)
+
+            batch_x_mark = batch_x_mark.float().to(self.device)
+            batch_y_mark = batch_y_mark.float().to(self.device)
+            # decoder input
+            dec_inp = torch.zeros_like(batch_y[:, -self.args.pred_len:, :]).float()
+            dec_inp = torch.cat([batch_y[:, :self.args.label_len, :], dec_inp], dim=1).float()
+            # outputs = model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+            
+            inputs = (batch_x, batch_x_mark)
+            # baseline must be a scaler or tuple of tensors with same dimension as input
+            baselines = get_baseline(inputs, mode=self.args.baseline_mode)
+            additional_forward_args = (dec_inp, batch_y_mark)
+
+            # get attributions
+            batch_results = self.evaluate_regressor(
+                name, inputs, baselines, 
+                additional_forward_args, batch_index
+            )
+            results.extend(batch_results)
+        
+        return results
     
     def interpret(self, dataloader):
         if self.args.tsr:
             print('Interpreting with TSR enabled.')
+            
+        task = self.args.task_name
         
         for name in self.args.explainers:
             results = []
             start = datetime.now()
             print(f'Running {name} from {start}')
-            progress_bar = tqdm(
-                enumerate(dataloader), total=len(dataloader), 
-                disable=self.args.disable_progress
-            )
             
-            for batch_index, (batch_x, batch_y, batch_x_mark, batch_y_mark) in progress_bar:
-                batch_x = batch_x.float().to(self.device)
-                batch_y = batch_y.float().to(self.device)
-
-                batch_x_mark = batch_x_mark.float().to(self.device)
-                batch_y_mark = batch_y_mark.float().to(self.device)
-                # decoder input
-                dec_inp = torch.zeros_like(batch_y[:, -self.args.pred_len:, :]).float()
-                dec_inp = torch.cat([batch_y[:, :self.args.label_len, :], dec_inp], dim=1).float()
-                # outputs = model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
-                
-                inputs = (batch_x, batch_x_mark)
-                # baseline must be a scaler or tuple of tensors with same dimension as input
-                baselines = get_baseline(inputs, mode=self.args.baseline_mode)
-                additional_forward_args = (dec_inp, batch_y_mark)
-
-                # get attributions
-                batch_results = self.evaluate(
-                    name, inputs, baselines, 
-                    additional_forward_args, batch_index
-                )
-                results.extend(batch_results)
+            if task == 'classification':
+                results = self.run_classifier(dataloader, name)
+            else:
+                results = self.run_regressor(dataloader, name)
             
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
@@ -113,8 +150,51 @@ class Exp_Interpret:
                 self.dump_results(results, f'tsr_{name}.csv')
             else:
                 self.dump_results(results, f'{name}.csv')
+                
+    def evaluate_classifier(
+        self, name, inputs, baselines, 
+        additional_forward_args, batch_index
+    ):
+        explainer = self.explainers_map[name]
+        if self.args.tsr:
+            explainer = TSRTunnel(explainer)
+            if type(inputs) == tuple:
+                sliding_window_shapes = tuple([(1,1) for _ in inputs])
+                strides = tuple([1 for _ in inputs])
+            else:
+                sliding_window_shapes = (1, 1)
+                strides = 1
+                
+            attr = compute_classifier_tsr_attr(
+                self.args, explainer, inputs=inputs, 
+                sliding_window_shapes=sliding_window_shapes, 
+                strides=strides, baselines=baselines,
+                additional_forward_args=additional_forward_args
+            )
+        else:
+            attr = compute_classifier_attr(
+                inputs, baselines, explainer, 
+                additional_forward_args, self.args
+            )
+    
+        results = []
+        # get scores
+        for area in self.args.areas:
+            # otherwise it is classification
+            # ['accuracy', 'comprehensiveness', 'sufficiency', 'log_odds', 'cross_entropy']
+            for metric_name in self.args.metrics:
+                metric = expl_metric_map[metric_name]
+                error_value = metric(
+                    self.model, inputs=inputs, topk=area,
+                    attributions=attr, baselines=baselines, 
+                    additional_forward_args=additional_forward_args,
+                )
+                result_row = [batch_index, metric_name, area, error_value]
+                results.append(result_row)
+    
+        return results
             
-    def evaluate(
+    def evaluate_regressor(
         self, name, inputs, baselines, 
         additional_forward_args, batch_index
     ):
@@ -178,13 +258,11 @@ class Exp_Interpret:
         
     def dump_results(self, results, filename):
         if self.args.task_name == 'classification':
-            columns = ['batch_index', 'metric', 'area', 'value']
-            results_df = pd.DataFrame(results, columns=columns)
+            results_df = pd.DataFrame(results[1:], columns=results[0])
             results_df = results_df.groupby(['metric', 'area'])[
                 ['value']].aggregate('mean').reset_index()
         else:
-            columns = ['batch_index', 'metric', 'area', 'comp', 'suff']
-            results_df = pd.DataFrame(results, columns=columns)
+            results_df = pd.DataFrame(results[1:], columns=results[0])
             results_df = results_df.groupby(['metric', 'area'])[
                 ['comp', 'suff']
             ].aggregate('mean').reset_index()

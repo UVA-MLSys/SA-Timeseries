@@ -1,15 +1,13 @@
 import torch
 
-def get_total_data(dataloader, device, add_x_mark=True):
-    batch_xs, batch_x_marks = [], []
-    for batch_x, batch_y, batch_x_mark, batch_y_mark in dataloader:
-        batch_xs.append(batch_x.float().to(device))
-        batch_x_marks.append(batch_x_mark.float().to(device))
-        
+def get_total_data(dataloader, device, add_x_mark=True):        
     if add_x_mark:
-        return (torch.vstack(batch_xs), torch.vstack(batch_x_marks))
+        return (
+            torch.vstack([item[0] for item in dataloader]).float().to(device), 
+            torch.vstack([item[1] for item in dataloader]).float().to(device)
+        )
     else:
-        return torch.vstack(batch_xs)
+        return torch.vstack([item[0] for item in dataloader]).float().to(device)
 
 def get_baseline(inputs, mode='random'):
     if type(inputs) == tuple:
@@ -47,6 +45,65 @@ def min_max_scale(arr, dim:int=0):
     scaled[scaled != scaled] = 0
     
     return scaled
+
+def compute_classifier_attr(
+    inputs, baselines, explainer,
+    additional_forward_args, args
+):
+    name = explainer.get_name()
+    task = 'multiclass' if args.num_class > 1 else 'binary'
+    
+    if name in ['Deep Lift', 'Lime', 'Integrated Gradients', 'Gradient Shap', 'Feature Ablation']:
+        attr = explainer.attribute(
+            inputs=inputs, baselines=baselines, 
+            additional_forward_args=additional_forward_args
+        )
+        
+    elif name == 'Feature Permutation':
+        attr = explainer.attribute(
+            inputs=inputs,
+            additional_forward_args=additional_forward_args
+        )
+    elif name == 'Occlusion' or name=='Augmented Occlusion':
+        if type(inputs) == tuple:
+            sliding_window_shapes = tuple([(1,1) for _ in inputs])
+        else:
+            sliding_window_shapes = (1,1)
+            
+        if name == 'Occlusion':
+            attr = explainer.attribute(
+                inputs=inputs, baselines=baselines,
+                sliding_window_shapes = sliding_window_shapes,
+                additional_forward_args=additional_forward_args
+            )
+        else:
+            attr = explainer.attribute(
+                inputs=inputs, 
+                sliding_window_shapes = sliding_window_shapes,
+                additional_forward_args=additional_forward_args
+            )
+    else:
+        raise NotImplementedError
+    
+    if type(inputs) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            score.reshape(
+                # batch x seq_len x features
+                (inputs[0].shape[0], args.seq_len, score.shape[-1])
+            # take mean over the output horizon
+            ).mean(axis=1) for score in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
+            # batch x seq_len x features
+            (inputs.shape[0], args.seq_len, attr.shape[-1])
+        # take mean over the output horizon
+        ).mean(axis=1)
+    
+    
+    return attr
 
 def compute_attr(
     inputs, baselines, explainer,
@@ -121,10 +178,42 @@ def compute_attr(
         # batch x seq_len x features
         attr = attr.reshape(
             # batch x pred_len x seq_len x features
-            (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
+            (inputs.shape[0], args.pred_len, args.seq_len, attr.shape[-1])
         # take mean over the output horizon
         ).mean(axis=1)
         
+    
+    return attr
+
+def compute_classifier_tsr_attr(
+    args, explainer, inputs, sliding_window_shapes, 
+    strides=None, baselines=None,
+    additional_forward_args=None, threshold=0.0, normalize=True
+):
+    attr = explainer.attribute(
+        inputs=inputs, sliding_window_shapes=sliding_window_shapes,
+        strides=strides,
+        baselines=baselines, 
+        additional_forward_args=additional_forward_args,
+        threshold=threshold, normalize=normalize
+    )
+        
+    if type(inputs) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            score.reshape(
+                # batch x seq_len x features
+                (inputs[0].shape[0], args.seq_len, score.shape[-1])
+            # take mean over the output horizon
+            ).mean(axis=1) for score in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
+            # batch x seq_len x features
+            (inputs.shape[0], args.seq_len, attr.shape[-1])
+        # take mean over the output horizon
+        ).mean(axis=1)
     
     return attr
 
@@ -172,7 +261,7 @@ def compute_tsr_attr(
         # batch x seq_len x features
         attr = attr.reshape(
             # batch x pred_len x seq_len x features
-            (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
+            (inputs.shape[0], args.pred_len, args.seq_len, attr.shape[-1])
         # take mean over the output horizon
         ).mean(axis=1)
     

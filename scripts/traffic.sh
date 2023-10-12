@@ -24,7 +24,7 @@ python -u run.py \
   --conv_kernel 48 48
 
 python interpret.py \
-  --explainer lime occlusion \
+  --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
   --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \

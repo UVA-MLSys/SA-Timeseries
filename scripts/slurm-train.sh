@@ -21,7 +21,7 @@ conda activate ml
 
 # # replace the computing id `mi3se`` and venv name `ml` with your own
 # # if you face the library linking error for anaconda
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
 python interpret.py \
   --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
   --use_gpu \

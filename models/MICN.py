@@ -162,7 +162,7 @@ class Model(nn.Module):
         if self.task_name == 'classification':
             self.act = F.gelu
             self.dropout = nn.Dropout(configs.dropout)
-            self.projection = nn.Linear(configs.c_out * configs.seq_len, configs.num_class)
+            self.projection = nn.Linear(configs.enc_in * configs.seq_len, configs.num_class)
 
     def forecast(self, x_enc, x_mark_enc, x_dec, x_mark_dec):
         # Multi-scale Hybrid Decomposition

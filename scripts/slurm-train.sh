@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#SBATCH --job-name="mimic_Autoformer"
-#SBATCH --output=scripts/outputs/mimic_Autoformer.out
+#SBATCH --job-name="mimic_DLinear_tsr"
+#SBATCH --output=scripts/outputs/mimic_DLinear_tsr.out
 #SBATCH --partition=gpu
 #SBATCH --time=24:00:00
 #SBATCH --account=bii_dsc_community
@@ -31,4 +31,4 @@ python interpret.py \
   --data_path mimic_iii.pkl \
   --areas 0.05 0.075 0.1 0.15 \
   --metrics auc 'accuracy' 'cross_entropy' \
-  --model Autoformer
+  --model DLinear --tsr

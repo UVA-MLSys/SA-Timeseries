@@ -231,7 +231,7 @@ class Exp_Interpret:
                 additional_forward_args=additional_forward_args
             )
         else:
-            attr = compute_attr(
+            attr = compute_regressor_attr(
                 inputs, baselines, explainer, additional_forward_args, self.args
             )
     

@@ -59,7 +59,6 @@ def compute_classifier_attr(
             attributions_fn=abs
         )
     
-        
     elif name == 'Feature Permutation':
         attr = explainer.attribute(
             inputs=inputs, attributions_fn=abs,
@@ -87,26 +86,9 @@ def compute_classifier_attr(
     else:
         raise NotImplementedError
     
-    if type(inputs) == tuple:
-        # tuple of batch x seq_len x features
-        attr = tuple([
-            score.reshape(
-                # batch x num_class, seq_len x features
-                (inputs[0].shape[0], args.num_class, args.seq_len, score.shape[-1])
-            # take mean over the output horizon
-            ).mean(axis=1) for score in attr
-        ])
-    else:
-        # batch x seq_len x features
-        attr = attr.reshape(
-            # batch x num_class x seq_len x features
-            (inputs.shape[0], args.num_class, args.seq_len, attr.shape[-1])
-        # take mean over the output horizon
-        ).mean(axis=1)
-    
-    return attr
+    return avg_over_output_horizon(attr, inputs, args)
 
-def compute_attr(
+def compute_regressor_attr(
     inputs, baselines, explainer,
     additional_forward_args, args
 ):
@@ -165,24 +147,26 @@ def compute_attr(
             )
     else:
         raise NotImplementedError
-    
+        
+    return avg_over_output_horizon(attr, inputs, args)
+
+def avg_over_output_horizon(attr, inputs, args):
     if type(inputs) == tuple:
         # tuple of batch x seq_len x features
         attr = tuple([
-            score.reshape(
+            attr_.reshape(
                 # batch x pred_len x seq_len x features
-                (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
+                (inputs[0].shape[0], -1, args.seq_len, attr_.shape[-1])
             # take mean over the output horizon
-            ).mean(axis=1) for score in attr
+            ).mean(axis=1) for attr_ in attr
         ])
     else:
         # batch x seq_len x features
         attr = attr.reshape(
             # batch x pred_len x seq_len x features
-            (inputs.shape[0], args.pred_len, args.seq_len, attr.shape[-1])
+            (inputs.shape[0], -1, args.seq_len, attr.shape[-1])
         # take mean over the output horizon
         ).mean(axis=1)
-        
     
     return attr
 
@@ -215,25 +199,8 @@ def compute_classifier_tsr_attr(
         attr = torch.stack(attr_list)
         # num_class x batch x seq_len x features -> batch x num_class x seq_len x features
         attr = attr.permute(1, 0, 2, 3)
-        
-    if type(inputs) == tuple:
-        # tuple of batch x seq_len x features
-        attr = tuple([
-            score.reshape(
-                # batch x num_class x seq_len x features
-                (inputs[0].shape[0], args.num_class, args.seq_len, score.shape[-1])
-            # take mean over the output horizon
-            ).mean(axis=1) for score in attr
-        ])
-    else:
-        # batch x seq_len x features
-        attr = attr.reshape(
-            # batch x num_class x seq_len x features
-            (inputs.shape[0], args.num_class, args.seq_len, attr.shape[-1])
-        # take mean over the output horizon
-        ).mean(axis=1)
     
-    return attr
+    return avg_over_output_horizon(attr, inputs, args)
 
 def compute_regressor_tsr_attr(
     args, explainer, inputs, sliding_window_shapes, 
@@ -250,6 +217,8 @@ def compute_regressor_tsr_attr(
             threshold=threshold, normalize=normalize
         )
         attr_list.append(score)
+        # temporarily added to increase speed
+        # break 
         
     if type(inputs) == tuple:
             attr = []
@@ -265,101 +234,4 @@ def compute_regressor_tsr_attr(
         # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
         attr = attr.permute(1, 0, 2, 3)
     
-    
-    if type(inputs) == tuple:
-        # tuple of batch x seq_len x features
-        attr = tuple([
-            score.reshape(
-                # batch x pred_len x seq_len x features
-                (inputs[0].shape[0], args.pred_len, args.seq_len, score.shape[-1])
-            # take mean over the output horizon
-            ).mean(axis=1) for score in attr
-        ])
-    else:
-        # batch x seq_len x features
-        attr = attr.reshape(
-            # batch x pred_len x seq_len x features
-            (inputs.shape[0], args.pred_len, args.seq_len, attr.shape[-1])
-        # take mean over the output horizon
-        ).mean(axis=1)
-    
-    return attr
-
-
-# def compute_tsr_attr(
-#     inputs, baselines, explainer, additional_forward_args, args, device
-# ):
-#     actual_attr = compute_attr(inputs, baselines, explainer, additional_forward_args, args)
-#     # batch x seq_len
-#     time_attr = torch.zeros((inputs.shape[0], args.seq_len), dtype=float, device=device)
-
-#     # assignment = torch.randn((inputs.shape[0], inputs.shape[-1]), dtype=float)
-#     new_inputs = inputs.clone() 
-#     for t in range(args.seq_len):
-#         prev_value = new_inputs[:, :t]
-#         # batch x seq_len x features
-#         new_inputs[:, :t] = 0 # assignment # inputs[0, 0, -1] # test with new_inputs[:, :t+1] and other masking
-
-#         new_attr_per_time = compute_attr(
-#             new_inputs, baselines, explainer, 
-#             additional_forward_args, args
-#         )
-        
-#         # sum the attr difference for each input in the batch
-#         # batch x seq_len x features -> batch
-#         time_attr[:, t] = (actual_attr - new_attr_per_time
-#             ).abs().sum(axis=(1, 2))
-#         new_inputs[:, :t] = prev_value
-    
-#     # for each input in the batch, normalize along the time axis
-#     time_attr = min_max_scale(time_attr, dim=1)
-    
-#     # new_attr = (time_attr.T * actual_attr.T).T
-#     # return new_attr
-
-#     # find median along the time axis
-#     # mean_time_importance = np.quantile(time_attr, .55, axis=1)   
-    
-#     n_features = inputs.shape[-1]
-#     input_attr = torch.zeros((inputs.shape[0], n_features), dtype=float, device=device)
-#     time_scaled_attr = torch.zeros_like(actual_attr)
-
-#     # assignment = torch.randn((inputs.shape[0],inputs.shape[1]), dtype=float)
-#     # for f in range(n_features):
-#     #     prev_value = new_inputs[:, :, f]
-#     #     new_inputs[:, :, f] = assignment
-#     #     attr = compute_attr(
-#     #         new_inputs, baselines, explainer, 
-#     #         additional_forward_args, args
-#     #     )
-#     #     input_attr[:, f] = (actual_attr - attr).abs().sum(axis=(1, 2))
-#     #     new_inputs[:, :, f] = prev_value
-        
-#     # input_attr = min_max_scale(input_attr, dim=1)
-#     # for t in range(args.seq_len):
-#     #     for f in range(n_features):
-#     #         time_scaled_attr[:, t, f] = time_attr[:, t] * input_attr[:, f]
-#     # return time_scaled_attr
-    
-#     # new_inputs = inputs.clone()
-#     for t in range(args.seq_len):
-#         # if time_attr[t] < mean_time_importance:
-#         #     featureContibution = torch.ones(input_attr, dtype=float)/n_features
-#         for f in range(n_features):
-#              # batch x seq_len x features
-#             prev_value = new_inputs[:, :t, f]
-#             new_inputs[:, :t, f] = 0 # inputs[0, 0, f] # assignment[:, f] # inputs[0, 0, f]
-            
-#             attr = compute_attr(
-#                 new_inputs, baselines, explainer, 
-#                 additional_forward_args, args
-#             )
-#             input_attr[:, f] = (actual_attr - attr).abs().sum(axis=(1, 2))
-#             new_inputs[:, :t, f] = prev_value
-        
-#         input_attr = min_max_scale(input_attr, dim=1)
-        
-#         for f in range(n_features):
-#             time_scaled_attr[:, t, f] = time_attr[:, t] * input_attr[:, f]
-            
-#     return time_scaled_attr
+    return avg_over_output_horizon(attr, inputs, args)

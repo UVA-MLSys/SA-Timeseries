@@ -17,7 +17,7 @@ def _auc(
     prob_pert: Tensor,
     target: Tensor
 ) -> Tensor:
-    preds = _select_targets(prob_pert, target)
+    # preds = _select_targets(prob_pert, target)
     
     # https://torchmetrics.readthedocs.io/en/stable/classification/auroc.html
     if len(target.unique()) > 2:
@@ -30,7 +30,7 @@ def _auc(
     auroc = AUROC(task=task)
     # return excepts a tensor array to concat
     # hence reshaping
-    return auroc(preds, target).reshape((-1, 1))
+    return auroc(prob_pert[:, -1], target).reshape((-1, 1))
 
 
 @log_usage()

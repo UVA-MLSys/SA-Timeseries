@@ -4,7 +4,7 @@ def get_total_data(dataloader, device, add_x_mark=True):
     if add_x_mark:
         return (
             torch.vstack([item[0] for item in dataloader]).float().to(device), 
-            torch.vstack([item[1] for item in dataloader]).float().to(device)
+            torch.vstack([item[2] for item in dataloader]).float().to(device)
         )
     else:
         return torch.vstack([item[0] for item in dataloader]).float().to(device)

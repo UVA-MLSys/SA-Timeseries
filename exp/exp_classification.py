@@ -10,7 +10,7 @@ import os
 import time
 import warnings
 import numpy as np
-import pdb
+from captum._utils.common import _select_targets
 
 warnings.filterwarnings('ignore')
 
@@ -172,13 +172,14 @@ class Exp_Classification(Exp_Basic):
             probs = torch.nn.functional.sigmoid(preds)
             predictions = torch.round(probs).squeeze().cpu().numpy()
 
-        print(probs.shape, trues.shape)
+        print(trues.shape, probs.shape)
         probs = probs.detach().cpu().numpy()
-        # trues = trues.flatten().cpu().numpy()
+        
+        # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html
         auc = (
             0
-            if len(np.unique(trues)) < 2 or self.multiclass
-            else roc_auc_score(trues.reshape(-1), probs.reshape(-1))
+            if len(np.unique(trues)) < 2 or self.args.num_class > 2
+            else roc_auc_score(trues, probs[:, 1])
         )
         
         f1 = f1_score(predictions, trues)

@@ -6,7 +6,6 @@ from utils.tsr_tunnel import *
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds, sufficiency, comprehensiveness
 from utils.auc import auc
 from datetime import datetime
-
 from captum.attr import (
     DeepLift,
     GradientShap,
@@ -63,7 +62,9 @@ class Exp_Interpret:
             if name == 'augmented_occlusion':
                 add_x_mark = exp.args.task_name != 'classification'
                 all_inputs = get_total_data(dataloader, self.device, add_x_mark=add_x_mark)
-                self.explainers_map[name] = explainer_name_map[name](self.model, all_inputs)
+                self.explainers_map[name] = explainer_name_map[name](
+                    self.model, data=all_inputs
+                )
             else:
                 explainer = explainer_name_map[name](self.model)
                 if isinstance(explainer, GradientAttribution):

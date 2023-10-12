@@ -1,0 +1,13 @@
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_LSTM
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_LSTM
+test 1659
+Loading model from ./results/traffic_LSTM/checkpoint.pth
+explainers: ['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation']
+ areas: [0.05, 0.075, 0.1, 0.15]
+ metrics: ['mae', 'mse']
+
+Interpreting with TSR enabled.
+Running feature_ablation from 2023-10-12 00:48:47.091537
+  0%|          | 0/52 [00:00<?, ?it/s]  2%|▏         | 1/52 [03:54<3:19:01, 234.14s/it]  4%|▍         | 2/52 [07:47<3:14:50, 233.81s/it]  6%|▌         | 3/52 [11:42<3:11:26, 234.42s/it]  8%|▊         | 4/52 [15:38<3:08:00, 235.02s/it] 10%|▉         | 5/52 [19:34<3:04:23, 235.40s/it] 12%|█▏        | 6/52 [23:30<3:00:35, 235.55s/it] 13%|█▎        | 7/52 [27:26<2:56:40, 235.56s/it] 15%|█▌        | 8/52 [31:19<2:52:12, 234.82s/it] 17%|█▋        | 9/52 [35:05<2:46:12, 231.93s/it] 19%|█▉        | 10/52 [38:51<2:41:13, 230.32s/it] 21%|██        | 11/52 [42:38<2:36:33, 229.10s/it]

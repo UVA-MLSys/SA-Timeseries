@@ -1,0 +1,15 @@
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_Autoformer
+Use GPU: cuda:0
+Experiments will be saved in ./results/mimic_iii_Autoformer
+test 2299
+Loading model from ./results/mimic_iii_Autoformer/checkpoint.pth
+explainers: ['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation']
+ areas: [0.05, 0.075, 0.1, 0.15]
+ metrics: ['auc', 'accuracy', 'cross_entropy']
+
+Interpreting with TSR enabled.
+Running feature_ablation from 2023-10-12 01:26:48.849147
+  0%|          | 0/72 [00:00<?, ?it/s]  1%|▏         | 1/72 [00:22<27:02, 22.85s/it]  3%|▎         | 2/72 [00:45<26:12, 22.46s/it]  4%|▍         | 3/72 [01:07<25:38, 22.30s/it]  6%|▌         | 4/72 [01:29<25:10, 22.21s/it]  7%|▋         | 5/72 [01:51<24:46, 22.19s/it]  8%|▊         | 6/72 [02:13<24:21, 22.14s/it] 10%|▉         | 7/72 [02:35<23:59, 22.14s/it] 11%|█         | 8/72 [02:57<23:38, 22.16s/it] 12%|█▎        | 9/72 [03:20<23:17, 22.18s/it] 14%|█▍        | 10/72 [03:42<22:54, 22.17s/it] 15%|█▌        | 11/72 [04:04<22:32, 22.17s/it] 17%|█▋        | 12/72 [04:26<22:11, 22.18s/it] 18%|█▊        | 13/72 [04:48<21:48, 22.18s/it] 19%|█▉        | 14/72 [05:10<21:26, 22.18s/it] 21%|██        | 15/72 [05:32<21:03, 22.16s/it] 22%|██▏       | 16/72 [05:55<20:41, 22.17s/it]

@@ -1,0 +1,13 @@
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_Autoformer
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_Autoformer
+test 1659
+Loading model from ./results/traffic_Autoformer/checkpoint.pth
+explainers: ['feature_permutation', 'augmented_occlusion']
+ areas: [0.05, 0.075, 0.1, 0.15]
+ metrics: ['mae', 'mse']
+
+Interpreting with TSR enabled.
+Running feature_permutation from 2023-10-11 21:23:50.282673
+  0%|          | 0/52 [00:00<?, ?it/s]  2%|▏         | 1/52 [14:02<11:55:48, 842.12s/it]  4%|▍         | 2/52 [28:01<11:40:20, 840.42s/it]  6%|▌         | 3/52 [41:47<11:21:07, 834.03s/it]  8%|▊         | 4/52 [55:30<11:03:29, 829.37s/it] 10%|▉         | 5/52 [1:09:19<10:49:43, 829.44s/it] 12%|█▏        | 6/52 [1:23:16<10:37:54, 832.05s/it] 13%|█▎        | 7/52 [1:37:10<10:24:35, 832.78s/it] 15%|█▌        | 8/52 [1:51:07<10:11:36, 834.02s/it] 17%|█▋        | 9/52 [2:04:52<9:55:41, 831.19s/it]  19%|█▉        | 10/52 [2:18:41<9:41:25, 830.60s/it] 21%|██        | 11/52 [2:32:30<9:27:09, 829.99s/it] 23%|██▎       | 12/52 [2:46:29<9:15:03, 832.59s/it] 25%|██▌       | 13/52 [3:00:13<8:59:37, 830.18s/it] 27%|██▋       | 14/52 [3:14:00<8:45:12, 829.29s/it] 29%|██▉       | 15/52 [3:27:49<8:31:14, 829.03s/it] 31%|███       | 16/52 [3:41:39<8:17:33, 829.26s/it] 33%|███▎      | 17/52 [3:55:05<7:59:41, 822.33s/it] 35%|███▍      | 18/52 [4:08:16<7:40:44, 813.08s/it]

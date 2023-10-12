@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#SBATCH --job-name="electricity_MICN_tsr"
-#SBATCH --output=scripts/outputs/electricity_MICN_tsr.out
+#SBATCH --job-name="mimic_Autoformer"
+#SBATCH --output=scripts/outputs/mimic_Autoformer.out
 #SBATCH --partition=gpu
 #SBATCH --time=24:00:00
 #SBATCH --account=bii_dsc_community
@@ -23,15 +23,12 @@ conda activate ml
 # # if you face the library linking error for anaconda
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
 python interpret.py \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
+  --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
+  --task_name classification \
+  --data mimic \
   --use_gpu \
-  --root_path ./dataset/electricity/ \
-  --data_path electricity.csv \
-  --model MICN \
-  --features S \
-  --seq_len 96 \
-  --label_len 12 \
-  --pred_len 24 \
-  --n_features 1 \
-  --conv_kernel 18 12 \
-  --tsr  
+  --root_path ./dataset/mimic_iii/ \
+  --data_path mimic_iii.pkl \
+  --areas 0.05 0.075 0.1 0.15 \
+  --metrics auc 'accuracy' 'cross_entropy' \
+  --model Autoformer

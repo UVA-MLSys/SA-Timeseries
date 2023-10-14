@@ -39,7 +39,9 @@ class WinIT:
 
         """
         if self.metric == "kl":
-            return torch.sum(torch.nn.KLDivLoss(reduction="none")(torch.log(p_y_hat), p_y_exp), -1)
+            kl_loss = torch.nn.KLDivLoss(reduction="none")(torch.log(p_y_hat), p_y_exp)
+            # return torch.sum(kl_loss, -1)
+            return kl_loss
         if self.metric == "js":
             average = (p_y_hat + p_y_exp) / 2
             lhs = torch.nn.KLDivLoss(reduction="none")(torch.log(average), p_y_hat)
@@ -55,8 +57,11 @@ class WinIT:
         raise Exception(f"unknown metric. {self.metric}")
     
     def generate_counterfactuals(self, batch_size, input_index, feature_index):
-        
-        choices = self.data[input_index][:][:, :, feature_index].reshape(-1)
+        if input_index is None:
+            choices = self.data[:, :, feature_index].reshape(-1)
+        else:
+            choices = self.data[input_index][:][:, :, feature_index].reshape(-1)
+
         sampled_index = np.random.choice(range(len(choices)), size=(batch_size*self.seq_len))
         samples = choices[sampled_index].reshape((batch_size, self.seq_len))
         
@@ -69,15 +74,87 @@ class WinIT:
             f_dim = -1 if self.args.features == 'MS' else 0
             outputs = outputs[:, -self.args.pred_len:, f_dim:]
             return outputs
-            
-    def attribute(
+        
+    def _attribute(
         self, inputs, additional_forward_args, 
         attributions_fn=None
     ):
         model = self.model
-        y_original = self.format_output(model(*inputs, *additional_forward_args))
-        attr = []
+        if type(additional_forward_args) == tuple:
+            y_original = self.format_output(
+                model(inputs, *additional_forward_args)
+            )
+        else:
+            y_original = self.format_output(
+                model(inputs, additional_forward_args)
+            )
         
+        batch_size, seq_len, n_features = inputs.shape
+        
+        if self.task_name == 'classification':
+            iS_array = torch.zeros(size=(
+                batch_size, self.args.num_class, seq_len, n_features
+            ))
+        else:
+            iS_array = torch.zeros(size=(
+                batch_size, self.args.pred_len, seq_len, n_features
+            ))
+        
+        for feature in range(n_features):
+            inputs_hat = inputs.clone()
+            counterfactuals = self.generate_counterfactuals(
+                batch_size, None, feature
+            )
+            
+            for t in range(seq_len)[::-1]:
+                # mask last t timesteps
+                inputs_hat[:, t:, feature] = counterfactuals[:, t:]
+            
+                if type(additional_forward_args) == tuple:
+                    y_perturbed = self.format_output(
+                        model(inputs_hat, *additional_forward_args)
+                    )
+                else:
+                    y_perturbed = self.format_output(
+                        model(inputs_hat, additional_forward_args)
+                    )
+                
+                iSab = self._compute_metric(y_original, y_perturbed)
+                iSab = torch.clip(iSab, -1e6, 1e6)
+                iS_array[:, :, t, feature] = iSab
+                    
+        iS_array[:, :, 1:] -= iS_array[:, :, :-1]
+        
+        if attributions_fn is not None:
+            attr = attributions_fn(iS_array)
+        else: attr = iS_array
+            
+        return attr
+    
+    def attribute(
+        self, inputs, additional_forward_args, 
+        attributions_fn=None
+    ):
+        if type(inputs) == tuple:
+            return self._attribute_tuple(
+                inputs, additional_forward_args, attributions_fn
+            )
+        else:
+            return self._attribute(
+                inputs, additional_forward_args, attributions_fn
+            )
+            
+    def _attribute_tuple(
+        self, inputs, additional_forward_args, 
+        attributions_fn=None
+    ):
+        model = self.model
+        if type(additional_forward_args) == tuple:
+            y_original = self.format_output(model(*inputs, *additional_forward_args))
+        else:
+            y_original = self.format_output(model(*inputs, additional_forward_args))
+            
+        attr = []
         for input_index, input in enumerate(inputs):
             batch_size, seq_len, n_features = input.shape
             
@@ -104,8 +181,15 @@ class WinIT:
                     for i in range(len(inputs)):
                         if i == input_index: inputs_hat.append(cloned)
                         else: inputs_hat.append(inputs[i])
-                
-                    y_perturbed = self.format_output(model(*tuple(inputs_hat), *additional_forward_args))
+                    
+                    if type(additional_forward_args) == tuple:
+                        y_perturbed = self.format_output(
+                            model(*tuple(inputs_hat), *additional_forward_args)
+                        )
+                    else:
+                        y_perturbed = self.format_output(
+                            model(*tuple(inputs_hat), additional_forward_args)
+                        )
                     
                     iSab = self._compute_metric(y_original, y_perturbed)
                     iSab = torch.clip(iSab, -1e6, 1e6)

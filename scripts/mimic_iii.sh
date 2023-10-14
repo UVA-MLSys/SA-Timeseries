@@ -26,6 +26,7 @@ python run.py \
   --data_path mimic_iii.pkl \
   --model LSTM
 
+# feature_ablation occlusion augmented_occlusion feature_permutation
 python interpret.py \
   --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
   --task_name classification \

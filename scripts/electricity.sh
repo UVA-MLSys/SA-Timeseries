@@ -41,7 +41,7 @@ python run.py \
   --n_features 1 \
   --conv_kernel 18 12
 
-# feature_ablation augmented_occlusion deep_lift gradient_shap integrated_gradients lime
+# feature_ablation occlusion augmented_occlusion feature_permutation
 python interpret.py \
   --task_name long_term_forecast \
   --explainer feature_ablation occlusion augmented_occlusion feature_permutation\

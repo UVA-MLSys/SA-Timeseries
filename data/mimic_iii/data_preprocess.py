@@ -11,8 +11,11 @@ warnings.filterwarnings('ignore')
 from tqdm import tqdm
 
 vital_IDs = ['HeartRate' , 'SysBP' , 'DiasBP' , 'MeanBP' , 'RespRate' , 'SpO2' , 'Glucose' ,'Temp']
-lab_IDs = ['ANION GAP', 'ALBUMIN', 'BICARBONATE', 'BILIRUBIN', 'CREATININE', 'CHLORIDE', 'GLUCOSE', 'HEMATOCRIT', 'HEMOGLOBIN'
-          'LACTATE', 'MAGNESIUM', 'PHOSPHATE', 'PLATELET', 'POTASSIUM', 'PTT', 'INR', 'PT', 'SODIUM', 'BUN', 'WBC']
+lab_IDs = [
+    'ANION GAP', 'ALBUMIN', 'BICARBONATE', 'BILIRUBIN', 
+    'CREATININE', 'CHLORIDE', 'GLUCOSE', 'HEMATOCRIT', 
+    'HEMOGLOBIN', 'LACTATE', 'MAGNESIUM', 'PHOSPHATE', 
+    'PLATELET', 'POTASSIUM', 'PTT', 'INR', 'PT', 'SODIUM', 'BUN', 'WBC']
 eth_list = ['white', 'black', 'hispanic', 'asian', 'other']
 
 def quantize_signal(signal, start, step_size, n_steps, value_column, charttime_column):
@@ -87,7 +90,9 @@ if sample_size is not None:
     icu_id_subsampled = np.random.choice(icu_id, size=sample_size)
     icu_id = icu_id_subsampled
 
-## features for every patient will be the list of vital IDs, gender(male=1, female=0), age, ethnicity(unknown=0 ,white=1, black=2, hispanic=3, asian=4, other=5), first_icu_stay(True=1, False=0)
+## features for every patient will be the list of vital IDs, 
+# gender(male=1, female=0), age, ethnicity(unknown=0 ,white=1, 
+# black=2, hispanic=3, asian=4, other=5), first_icu_stay(True=1, False=0)
 x = np.zeros((len(icu_id), 12 , seq_len))
 x_lab = np.zeros((len(icu_id), len(lab_IDs) , seq_len))
 x_impute = np.zeros((len(icu_id), 12, seq_len))

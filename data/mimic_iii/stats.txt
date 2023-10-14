@@ -1,0 +1,118 @@
+
+ ******************* Before removing missing *********************
+ Number of patients: 27174
+ Number of patients who died within their stay: 2671
+Missingness report for Vital signals
+Missingness for HeartRate: 0.02
+
+Missingness for SysBP: 0.02
+
+Missingness for DiasBP: 0.02
+
+Missingness for MeanBP: 0.02
+
+Missingness for RespRate: 0.02
+
+Missingness for SpO2: 0.02
+
+Missingness for Glucose: 0.00
+
+Missingness for Temp: 0.15
+
+Missingness report for Vital signals
+Missingness for ANION GAP: 0.01
+
+Missingness for ALBUMIN: 0.03
+
+Missingness for BICARBONATE: 0.01
+
+Missingness for BILIRUBIN: 0.03
+
+Missingness for CREATININE: 0.01
+
+Missingness for CHLORIDE: 0.01
+
+Missingness for GLUCOSE: 0.00
+
+Missingness for HEMATOCRIT: 0.00
+
+Missingness for HEMOGLOBINLACTATE: 0.00
+
+Missingness for MAGNESIUM: 0.01
+
+Missingness for PHOSPHATE: 0.01
+
+Missingness for PLATELET: 0.01
+
+Missingness for POTASSIUM: 0.00
+
+Missingness for PTT: 0.02
+
+Missingness for INR: 0.02
+
+Missingness for PT: 0.02
+
+Missingness for SODIUM: 0.01
+
+Missingness for BUN: 0.01
+
+Missingness for WBC: 0.01
+
+ ******************* After removing missing *********************
+ Final number of patients: 22988
+ Number of patients who died within their stay: 2290
+Missingness report for Vital signals
+Missingness for HeartRate: 0.00
+
+Missingness for SysBP: 0.00
+
+Missingness for DiasBP: 0.00
+
+Missingness for MeanBP: 0.00
+
+Missingness for RespRate: 0.00
+
+Missingness for SpO2: 0.00
+
+Missingness for Glucose: 0.00
+
+Missingness for Temp: 0.00
+
+Missingness report for Vital signals
+Missingness for ANION GAP: 0.00
+
+Missingness for ALBUMIN: 0.02
+
+Missingness for BICARBONATE: 0.00
+
+Missingness for BILIRUBIN: 0.02
+
+Missingness for CREATININE: 0.00
+
+Missingness for CHLORIDE: 0.00
+
+Missingness for GLUCOSE: 0.00
+
+Missingness for HEMATOCRIT: 0.00
+
+Missingness for HEMOGLOBINLACTATE: 0.00
+
+Missingness for MAGNESIUM: 0.00
+
+Missingness for PHOSPHATE: 0.01
+
+Missingness for PLATELET: 0.00
+
+Missingness for POTASSIUM: 0.00
+
+Missingness for PTT: 0.01
+
+Missingness for INR: 0.01
+
+Missingness for PT: 0.01
+
+Missingness for SODIUM: 0.00
+
+Missingness for BUN: 0.00
+
+Missingness for WBC: 0.00

@@ -16,8 +16,6 @@ def main(args):
     if args.task_name == 'classification': Exp = Exp_Classification
     else: Exp = Exp_Long_Term_Forecast
     exp = Exp(args)  # set experiments
-
-    exp = Exp_Long_Term_Forecast(args)  # set experiments
     _, dataloader = exp._get_data(args.flag)
 
     exp.load_best_model()

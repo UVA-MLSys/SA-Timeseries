@@ -59,7 +59,7 @@ def compute_classifier_attr(
             attributions_fn=abs
         )
     
-    elif name == 'Feature Permutation':
+    elif name in ['Feature Permutation', 'WinIT']:
         attr = explainer.attribute(
             inputs=inputs, attributions_fn=abs,
             additional_forward_args=additional_forward_args
@@ -121,7 +121,7 @@ def compute_regressor_attr(
             inputs=inputs, baselines=baselines,
             additional_forward_args=additional_forward_args
         )
-    elif name == 'Feature Permutation':
+    elif name in ['Feature Permutation', 'WinIT']:
         attr = explainer.attribute(
             inputs=inputs,
             additional_forward_args=additional_forward_args

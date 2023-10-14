@@ -3,6 +3,7 @@ from tqdm import tqdm
 import pandas as pd
 from utils.explainer import *
 from utils.tsr_tunnel import *
+from utils.winIT import WinIT
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds, sufficiency, comprehensiveness
 from utils.auc import auc
 from datetime import datetime
@@ -39,7 +40,8 @@ explainer_name_map = {
     "dyna_mask":DynaMask, # needs additional arguments when initializing
     "fit": Fit,
     "feature_ablation":FeatureAblation,
-    "feature_permutation":FeaturePermutation
+    "feature_permutation":FeaturePermutation,
+    "winIT": WinIT
 }
 
 class Exp_Interpret:
@@ -59,10 +61,15 @@ class Exp_Interpret:
         
         self.explainers_map = dict()
         for name in exp.args.explainers:
-            if name == 'augmented_occlusion':
+            if name in ['augmented_occlusion', 'winIT']:
                 add_x_mark = exp.args.task_name != 'classification'
                 all_inputs = get_total_data(dataloader, self.device, add_x_mark=add_x_mark)
-                self.explainers_map[name] = explainer_name_map[name](
+                
+                if name == 'winIT':
+                    self.explainers_map[name] = explainer_name_map[name](
+                        self.model, all_inputs, self.args
+                    )
+                else: self.explainers_map[name] = explainer_name_map[name](
                     self.model, data=all_inputs
                 )
             else:
@@ -160,6 +167,10 @@ class Exp_Interpret:
     ):
         explainer = self.explainers_map[name]
         if self.args.tsr:
+            if name == 'winIT':
+                print('Warning, winIT not supported on TSR !!')
+                return []
+                
             explainer = TSRTunnel(explainer)
             if type(inputs) == tuple:
                 sliding_window_shapes = tuple([(1,1) for _ in inputs])
@@ -217,6 +228,10 @@ class Exp_Interpret:
     ):
         explainer = self.explainers_map[name]
         if self.args.tsr:
+            if name == 'winIT':
+                print('Warning, winIT not supported on TSR !!')
+                return []
+            
             explainer = TSRTunnel(explainer)
             if type(inputs) == tuple:
                 sliding_window_shapes = tuple([(1,1) for _ in inputs])

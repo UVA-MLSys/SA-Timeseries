@@ -54,5 +54,4 @@ python interpret.py \
   --pred_len 24 \
   --n_features 1 \
   --use_gpu \
-  --result_path scratch \
   --tsr

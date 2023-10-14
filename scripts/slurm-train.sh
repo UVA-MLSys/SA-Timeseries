@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-#SBATCH --job-name="mimic_DLinear_tsr"
-#SBATCH --output=scripts/outputs/mimic_DLinear_tsr.out
+#SBATCH --job-name="traffic_Autoformer_tsr"
+#SBATCH --output=scripts/outputs/traffic_Autoformer_tsr.out
 #SBATCH --partition=gpu
-#SBATCH --time=24:00:00
+#SBATCH --time=10:00:00
 #SBATCH --account=bii_dsc_community
 #SBATCH --gres=gpu:v100:1
 #SBATCH --mem=24GB
@@ -23,12 +23,13 @@ conda activate ml
 # # if you face the library linking error for anaconda
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
 python interpret.py \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
-  --task_name classification \
-  --data mimic \
+  --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
   --use_gpu \
-  --root_path ./dataset/mimic_iii/ \
-  --data_path mimic_iii.pkl \
-  --areas 0.05 0.075 0.1 0.15 \
-  --metrics auc 'accuracy' 'cross_entropy' \
-  --model DLinear --tsr
+  --root_path ./dataset/traffic/ \
+  --data_path traffic.csv \
+  --model Autoformer \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1 --tsr

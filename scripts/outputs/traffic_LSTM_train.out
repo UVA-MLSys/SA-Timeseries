@@ -1,0 +1,140 @@
+Args in experiment:
+Namespace(task_name='long_term_forecast', train=True, model='LSTM', seed=2021, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', checkpoints='./checkpoints/', no_scale=False, group_id=None, seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=None, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.0001, des=None, loss='MSE', lradj='type1', use_amp=False, use_gpu=True, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, disable_progress=False, enc_in=1, dec_in=1, c_out=1)
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_LSTM
+>>>>>>> training : >>>>>>>>>
+train 13916
+val 1732
+Training started at 2023-10-12 20:30:27.576302.
+	iters: 100, epoch: 1 | loss: 0.2049230
+	speed: 0.0115s/iter; left time: 48.9680s
+	iters: 200, epoch: 1 | loss: 0.1759885
+	speed: 0.0052s/iter; left time: 21.3530s
+	iters: 300, epoch: 1 | loss: 0.1773727
+	speed: 0.0052s/iter; left time: 20.9070s
+	iters: 400, epoch: 1 | loss: 0.1529697
+	speed: 0.0051s/iter; left time: 20.2847s
+Epoch: 1 cost time: 2.8801522254943848
+Epoch: 1, Steps: 434 | Train Loss: 0.23942 Vali Loss: 0.15166
+Validation loss decreased (inf --> 0.151656).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 2 | loss: 0.1833621
+	speed: 0.0086s/iter; left time: 32.8651s
+	iters: 200, epoch: 2 | loss: 0.2133619
+	speed: 0.0052s/iter; left time: 19.1322s
+	iters: 300, epoch: 2 | loss: 0.1099816
+	speed: 0.0052s/iter; left time: 18.6533s
+	iters: 400, epoch: 2 | loss: 0.1447044
+	speed: 0.0052s/iter; left time: 18.1284s
+Epoch: 2 cost time: 2.2417092323303223
+Epoch: 2, Steps: 434 | Train Loss: 0.15177 Vali Loss: 0.13001
+Validation loss decreased (0.151656 --> 0.130008).  Saving model ...
+Updating learning rate to 5e-05
+	iters: 100, epoch: 3 | loss: 0.1024161
+	speed: 0.0085s/iter; left time: 28.7690s
+	iters: 200, epoch: 3 | loss: 0.1345950
+	speed: 0.0052s/iter; left time: 16.9200s
+	iters: 300, epoch: 3 | loss: 0.0986921
+	speed: 0.0052s/iter; left time: 16.3838s
+	iters: 400, epoch: 3 | loss: 0.1549903
+	speed: 0.0051s/iter; left time: 15.7802s
+Epoch: 3 cost time: 2.2412922382354736
+Epoch: 3, Steps: 434 | Train Loss: 0.13575 Vali Loss: 0.12329
+Validation loss decreased (0.130008 --> 0.123288).  Saving model ...
+Updating learning rate to 2.5e-05
+	iters: 100, epoch: 4 | loss: 0.1300406
+	speed: 0.0086s/iter; left time: 25.1664s
+	iters: 200, epoch: 4 | loss: 0.0980791
+	speed: 0.0051s/iter; left time: 14.6130s
+	iters: 300, epoch: 4 | loss: 0.1103007
+	speed: 0.0052s/iter; left time: 14.1761s
+	iters: 400, epoch: 4 | loss: 0.1642453
+	speed: 0.0052s/iter; left time: 13.6036s
+Epoch: 4 cost time: 2.2428812980651855
+Epoch: 4, Steps: 434 | Train Loss: 0.12959 Vali Loss: 0.12345
+EarlyStopping counter: 1 out of 3
+Loading model from ./results/traffic_LSTM/checkpoint.pth
+Updating learning rate to 1.25e-05
+	iters: 100, epoch: 5 | loss: 0.1168693
+	speed: 0.0084s/iter; left time: 20.9845s
+	iters: 200, epoch: 5 | loss: 0.0898786
+	speed: 0.0051s/iter; left time: 12.3660s
+	iters: 300, epoch: 5 | loss: 0.0844227
+	speed: 0.0052s/iter; left time: 11.8854s
+	iters: 400, epoch: 5 | loss: 0.1303347
+	speed: 0.0052s/iter; left time: 11.3723s
+Epoch: 5 cost time: 2.240809440612793
+Epoch: 5, Steps: 434 | Train Loss: 0.12945 Vali Loss: 0.12057
+Validation loss decreased (0.123288 --> 0.120574).  Saving model ...
+Updating learning rate to 6.25e-06
+	iters: 100, epoch: 6 | loss: 0.1883066
+	speed: 0.0086s/iter; left time: 17.7159s
+	iters: 200, epoch: 6 | loss: 0.1373799
+	speed: 0.0052s/iter; left time: 10.1969s
+	iters: 300, epoch: 6 | loss: 0.1184204
+	speed: 0.0052s/iter; left time: 9.6491s
+	iters: 400, epoch: 6 | loss: 0.0941478
+	speed: 0.0051s/iter; left time: 9.1082s
+Epoch: 6 cost time: 2.245319366455078
+Epoch: 6, Steps: 434 | Train Loss: 0.12907 Vali Loss: 0.12016
+Validation loss decreased (0.120574 --> 0.120160).  Saving model ...
+Updating learning rate to 3.125e-06
+	iters: 100, epoch: 7 | loss: 0.1264184
+	speed: 0.0085s/iter; left time: 13.9759s
+	iters: 200, epoch: 7 | loss: 0.1010941
+	speed: 0.0052s/iter; left time: 7.9235s
+	iters: 300, epoch: 7 | loss: 0.1543046
+	speed: 0.0052s/iter; left time: 7.4693s
+	iters: 400, epoch: 7 | loss: 0.1100162
+	speed: 0.0051s/iter; left time: 6.8853s
+Epoch: 7 cost time: 2.243251085281372
+Epoch: 7, Steps: 434 | Train Loss: 0.12999 Vali Loss: 0.11615
+Validation loss decreased (0.120160 --> 0.116149).  Saving model ...
+Updating learning rate to 1.5625e-06
+	iters: 100, epoch: 8 | loss: 0.1425236
+	speed: 0.0086s/iter; left time: 10.2933s
+	iters: 200, epoch: 8 | loss: 0.1248488
+	speed: 0.0051s/iter; left time: 5.6765s
+	iters: 300, epoch: 8 | loss: 0.0947261
+	speed: 0.0052s/iter; left time: 5.2040s
+	iters: 400, epoch: 8 | loss: 0.1119738
+	speed: 0.0052s/iter; left time: 4.6530s
+Epoch: 8 cost time: 2.242774248123169
+Epoch: 8, Steps: 434 | Train Loss: 0.12922 Vali Loss: 0.11802
+EarlyStopping counter: 1 out of 3
+Loading model from ./results/traffic_LSTM/checkpoint.pth
+Updating learning rate to 7.8125e-07
+	iters: 100, epoch: 9 | loss: 0.1495644
+	speed: 0.0083s/iter; left time: 6.4069s
+	iters: 200, epoch: 9 | loss: 0.1632758
+	speed: 0.0052s/iter; left time: 3.4609s
+	iters: 300, epoch: 9 | loss: 0.2577387
+	speed: 0.0052s/iter; left time: 2.9319s
+	iters: 400, epoch: 9 | loss: 0.1658988
+	speed: 0.0052s/iter; left time: 2.4235s
+Epoch: 9 cost time: 2.241060972213745
+Epoch: 9, Steps: 434 | Train Loss: 0.12755 Vali Loss: 0.12054
+EarlyStopping counter: 2 out of 3
+Loading model from ./results/traffic_LSTM/checkpoint.pth
+Updating learning rate to 3.90625e-07
+	iters: 100, epoch: 10 | loss: 0.1942558
+	speed: 0.0083s/iter; left time: 2.7819s
+	iters: 200, epoch: 10 | loss: 0.1219081
+	speed: 0.0052s/iter; left time: 1.2144s
+	iters: 300, epoch: 10 | loss: 0.1286328
+	speed: 0.0051s/iter; left time: 0.6949s
+	iters: 400, epoch: 10 | loss: 0.2004688
+	speed: 0.0052s/iter; left time: 0.1811s
+Epoch: 10 cost time: 2.2406833171844482
+Epoch: 10, Steps: 434 | Train Loss: 0.12985 Vali Loss: 0.12007
+EarlyStopping counter: 3 out of 3
+Early stopping
+Training ended at 2023-10-12 20:30:52.165009, time taken 0:00:24.588707, per epoch 0:00:02.458871
+Loading model from ./results/traffic_LSTM/checkpoint.pth
+val 1732
+Preds and Trues shape: (1732, 24, 1) (1732, 24, 1)
+flag:val, mse:0.11676, mae:0.24131, rmse: 0.34171.
+>>>>>>> testing : <<<<<<<<<<<
+test 1731
+Preds and Trues shape: (1731, 24, 1) (1731, 24, 1)
+flag:test, mse:0.25014, mae:0.31634, rmse: 0.50014.

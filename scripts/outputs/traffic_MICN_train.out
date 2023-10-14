@@ -1,0 +1,127 @@
+Args in experiment:
+Namespace(task_name='long_term_forecast', train=True, model='MICN', seed=2021, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', checkpoints='./checkpoints/', no_scale=False, group_id=None, seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.0001, des=None, loss='MSE', lradj='type1', use_amp=False, use_gpu=True, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, disable_progress=False, enc_in=1, dec_in=1, c_out=1)
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN
+>>>>>>> training : >>>>>>>>>
+train 13916
+val 1732
+Training started at 2023-10-12 20:34:17.309783.
+	iters: 100, epoch: 1 | loss: 0.4115968
+	speed: 0.0158s/iter; left time: 67.1079s
+	iters: 200, epoch: 1 | loss: 0.2086156
+	speed: 0.0095s/iter; left time: 39.2610s
+	iters: 300, epoch: 1 | loss: 0.1972280
+	speed: 0.0095s/iter; left time: 38.3692s
+	iters: 400, epoch: 1 | loss: 0.1614034
+	speed: 0.0095s/iter; left time: 37.5522s
+Epoch: 1 cost time: 4.761092185974121
+Epoch: 1, Steps: 434 | Train Loss: 0.33739 Vali Loss: 0.24609
+Validation loss decreased (inf --> 0.246092).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 2 | loss: 0.1234255
+	speed: 0.0155s/iter; left time: 58.9102s
+	iters: 200, epoch: 2 | loss: 0.1983069
+	speed: 0.0095s/iter; left time: 35.3482s
+	iters: 300, epoch: 2 | loss: 0.1174882
+	speed: 0.0095s/iter; left time: 34.4312s
+	iters: 400, epoch: 2 | loss: 0.1248401
+	speed: 0.0095s/iter; left time: 33.3671s
+Epoch: 2 cost time: 4.136310577392578
+Epoch: 2, Steps: 434 | Train Loss: 0.1136 Vali Loss: 0.11169
+Validation loss decreased (0.246092 --> 0.111685).  Saving model ...
+Updating learning rate to 5e-05
+	iters: 100, epoch: 3 | loss: 0.0711608
+	speed: 0.0152s/iter; left time: 51.1971s
+	iters: 200, epoch: 3 | loss: 0.0747983
+	speed: 0.0096s/iter; left time: 31.3144s
+	iters: 300, epoch: 3 | loss: 0.1003605
+	speed: 0.0096s/iter; left time: 30.4542s
+	iters: 400, epoch: 3 | loss: 0.0658741
+	speed: 0.0096s/iter; left time: 29.4507s
+Epoch: 3 cost time: 4.158740282058716
+Epoch: 3, Steps: 434 | Train Loss: 0.087484 Vali Loss: 0.11096
+Validation loss decreased (0.111685 --> 0.110962).  Saving model ...
+Updating learning rate to 2.5e-05
+	iters: 100, epoch: 4 | loss: 0.0922219
+	speed: 0.0152s/iter; left time: 44.6621s
+	iters: 200, epoch: 4 | loss: 0.0836196
+	speed: 0.0096s/iter; left time: 27.3486s
+	iters: 300, epoch: 4 | loss: 0.0588402
+	speed: 0.0096s/iter; left time: 26.2905s
+	iters: 400, epoch: 4 | loss: 0.0727305
+	speed: 0.0096s/iter; left time: 25.3119s
+Epoch: 4 cost time: 4.1702775955200195
+Epoch: 4, Steps: 434 | Train Loss: 0.082846 Vali Loss: 0.10718
+Validation loss decreased (0.110962 --> 0.107176).  Saving model ...
+Updating learning rate to 1.25e-05
+	iters: 100, epoch: 5 | loss: 0.0908519
+	speed: 0.0152s/iter; left time: 38.1643s
+	iters: 200, epoch: 5 | loss: 0.0679643
+	speed: 0.0096s/iter; left time: 23.0000s
+	iters: 300, epoch: 5 | loss: 0.0555118
+	speed: 0.0096s/iter; left time: 22.0731s
+	iters: 400, epoch: 5 | loss: 0.0625023
+	speed: 0.0096s/iter; left time: 21.1036s
+Epoch: 5 cost time: 4.156112909317017
+Epoch: 5, Steps: 434 | Train Loss: 0.080213 Vali Loss: 0.10106
+Validation loss decreased (0.107176 --> 0.101056).  Saving model ...
+Updating learning rate to 6.25e-06
+	iters: 100, epoch: 6 | loss: 0.0808596
+	speed: 0.0153s/iter; left time: 31.7212s
+	iters: 200, epoch: 6 | loss: 0.0725054
+	speed: 0.0096s/iter; left time: 18.9610s
+	iters: 300, epoch: 6 | loss: 0.0675473
+	speed: 0.0096s/iter; left time: 18.0026s
+	iters: 400, epoch: 6 | loss: 0.0509170
+	speed: 0.0096s/iter; left time: 16.9780s
+Epoch: 6 cost time: 4.17106556892395
+Epoch: 6, Steps: 434 | Train Loss: 0.079546 Vali Loss: 0.10091
+Validation loss decreased (0.101056 --> 0.100914).  Saving model ...
+Updating learning rate to 3.125e-06
+	iters: 100, epoch: 7 | loss: 0.0758691
+	speed: 0.0153s/iter; left time: 25.0671s
+	iters: 200, epoch: 7 | loss: 0.0752482
+	speed: 0.0095s/iter; left time: 14.6570s
+	iters: 300, epoch: 7 | loss: 0.0705671
+	speed: 0.0095s/iter; left time: 13.7013s
+	iters: 400, epoch: 7 | loss: 0.0523955
+	speed: 0.0095s/iter; left time: 12.7631s
+Epoch: 7 cost time: 4.14445948600769
+Epoch: 7, Steps: 434 | Train Loss: 0.078523 Vali Loss: 0.10213
+EarlyStopping counter: 1 out of 3
+Loading model from ./results/traffic_MICN/checkpoint.pth
+Updating learning rate to 1.5625e-06
+	iters: 100, epoch: 8 | loss: 0.0598539
+	speed: 0.0148s/iter; left time: 17.8154s
+	iters: 200, epoch: 8 | loss: 0.0875641
+	speed: 0.0095s/iter; left time: 10.5222s
+	iters: 300, epoch: 8 | loss: 0.1064214
+	speed: 0.0096s/iter; left time: 9.6054s
+	iters: 400, epoch: 8 | loss: 0.0659326
+	speed: 0.0096s/iter; left time: 8.6781s
+Epoch: 8 cost time: 4.155764818191528
+Epoch: 8, Steps: 434 | Train Loss: 0.078843 Vali Loss: 0.10125
+EarlyStopping counter: 2 out of 3
+Loading model from ./results/traffic_MICN/checkpoint.pth
+Updating learning rate to 7.8125e-07
+	iters: 100, epoch: 9 | loss: 0.1079089
+	speed: 0.0148s/iter; left time: 11.4175s
+	iters: 200, epoch: 9 | loss: 0.0446747
+	speed: 0.0096s/iter; left time: 6.3954s
+	iters: 300, epoch: 9 | loss: 0.1598706
+	speed: 0.0096s/iter; left time: 5.4387s
+	iters: 400, epoch: 9 | loss: 0.0725805
+	speed: 0.0095s/iter; left time: 4.4787s
+Epoch: 9 cost time: 4.152700901031494
+Epoch: 9, Steps: 434 | Train Loss: 0.07883 Vali Loss: 0.1013
+EarlyStopping counter: 3 out of 3
+Early stopping
+Training ended at 2023-10-12 20:34:57.366665, time taken 0:00:40.056882, per epoch 0:00:04.450765
+Loading model from ./results/traffic_MICN/checkpoint.pth
+val 1732
+Preds and Trues shape: (1732, 24, 1) (1732, 24, 1)
+flag:val, mse:0.10076, mae:0.22866, rmse: 0.31743.
+>>>>>>> testing : <<<<<<<<<<<
+test 1731
+Preds and Trues shape: (1731, 24, 1) (1731, 24, 1)
+flag:test, mse:0.22352, mae:0.29335, rmse: 0.47278.

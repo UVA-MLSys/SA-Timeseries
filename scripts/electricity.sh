@@ -42,6 +42,7 @@ python run.py \
   --conv_kernel 18 12
 
 # feature_ablation occlusion augmented_occlusion feature_permutation
+# deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
   --task_name long_term_forecast \
   --explainer feature_ablation occlusion augmented_occlusion feature_permutation\

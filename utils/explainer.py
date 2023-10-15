@@ -52,12 +52,28 @@ def compute_classifier_attr(
 ):
     name = explainer.get_name()
     
-    if name in ['Deep Lift', 'Lime', 'Integrated Gradients', 'Gradient Shap', 'Feature Ablation']:
-        attr = explainer.attribute(
-            inputs=inputs, baselines=baselines,
-            additional_forward_args=additional_forward_args,
-            attributions_fn=abs
-        )
+    if name in ['Deep Lift', 'Lime', 'Integrated Gradients', 'Gradient Shap']:
+        attr_list = []
+        for target in range(args.num_class):
+            attr = explainer.attribute(
+                inputs=inputs, baselines=baselines, target=target,
+                additional_forward_args=additional_forward_args
+            )
+            attr_list.append(attr)
+            
+        if type(inputs) == tuple:
+            attr = []
+            for input_index in range(len(inputs)):
+                attr_per_input = torch.stack([score[input_index] for score in attr_list])
+                # num_class x batch x seq_len x features -> batch x num_class x seq_len x features
+                attr_per_input = attr_per_input.permute(1, 0, 2, 3)
+                attr.append(attr_per_input)
+                
+            attr = tuple(attr)
+        else:
+            attr = torch.stack(attr_list)
+            # num_class x batch x seq_len x features -> batch x num_class x seq_len x features
+            attr = attr.permute(1, 0, 2, 3)    
     
     elif name in ['Feature Permutation', 'WinIT']:
         attr = explainer.attribute(
@@ -83,6 +99,12 @@ def compute_classifier_attr(
                 sliding_window_shapes = sliding_window_shapes,
                 additional_forward_args=additional_forward_args
             )
+    elif name in ['Feature Ablation']:
+        attr = explainer.attribute(
+            inputs=inputs, baselines=baselines,
+            attributions_fn=abs,
+            additional_forward_args=additional_forward_args
+        )    
     else:
         raise NotImplementedError
     

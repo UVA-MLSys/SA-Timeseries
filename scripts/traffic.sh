@@ -36,6 +36,7 @@ python interpret.py \
   --n_features 1 \
 
 # feature_ablation occlusion augmented_occlusion feature_permutation
+# deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
   --explainer winIT \
   --use_gpu \

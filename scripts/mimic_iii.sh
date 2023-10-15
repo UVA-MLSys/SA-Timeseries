@@ -27,6 +27,7 @@ python run.py \
   --model LSTM
 
 # feature_ablation occlusion augmented_occlusion feature_permutation
+# deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
   --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
   --task_name classification \

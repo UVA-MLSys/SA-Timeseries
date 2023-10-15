@@ -4,7 +4,7 @@ import pandas as pd
 from utils.explainer import *
 from utils.tsr_tunnel import *
 from utils.winIT import WinIT
-from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds, sufficiency, comprehensiveness
+from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds
 from utils.auc import auc
 from datetime import datetime
 from captum.attr import (
@@ -18,7 +18,7 @@ from captum.attr import (
 from tint.attr import (
     AugmentedOcclusion,
     DynaMask,
-    Fit, TimeForwardTunnel,
+    Fit,
     Occlusion, 
     FeatureAblation
 )
@@ -34,11 +34,11 @@ explainer_name_map = {
     "deep_lift":DeepLift,
     "gradient_shap":GradientShap,
     "integrated_gradients":IntegratedGradients,
-    "lime":Lime,
+    "lime":Lime, # very slow
     "occlusion":Occlusion,
     "augmented_occlusion":AugmentedOcclusion, # requires data when initializing
     "dyna_mask":DynaMask, # needs additional arguments when initializing
-    "fit": Fit,
+    "fit": Fit, # only supports classification
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT
@@ -74,8 +74,6 @@ class Exp_Interpret:
                 )
             else:
                 explainer = explainer_name_map[name](self.model)
-                if isinstance(explainer, GradientAttribution):
-                    explainer = TimeForwardTunnel(explainer)
                 self.explainers_map[name] = explainer
                 
     def run_classifier(self, dataloader, name):
@@ -248,7 +246,8 @@ class Exp_Interpret:
             )
         else:
             attr = compute_regressor_attr(
-                inputs, baselines, explainer, additional_forward_args, self.args
+                inputs, baselines, explainer, 
+                additional_forward_args, self.args
             )
     
         results = []
@@ -264,7 +263,7 @@ class Exp_Interpret:
                 )
                 
                 error_suff = metric(
-                    self.model, inputs=inputs, 
+                    self.model, inputs=inputs,
                     attributions=attr, baselines=baselines, 
                     additional_forward_args=additional_forward_args,
                     topk=area, mask_largest=False

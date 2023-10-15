@@ -187,3 +187,21 @@ flag:val, mse:0.10076, mae:0.22866, rmse: 0.31743.
 long_term_forecast_MICN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag:test, mse:0.22352, mae:0.29335, rmse: 0.47278.
 
+long_term_forecast_LightTS_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.31445, mae:0.41969, rmse: 0.56076.
+
+long_term_forecast_LightTS_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.22642, mae:0.35058, rmse: 0.47584.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.2201, mae:0.33177, rmse: 0.46915.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.12923, mae:0.25335, rmse: 0.35949.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.088908, mae:0.20552, rmse: 0.29817.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.22583, mae:0.29375, rmse: 0.47521.
+

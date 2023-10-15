@@ -155,7 +155,10 @@ class Exp_Interpret:
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
             if self.args.tsr:
-                self.dump_results(results, f'tsr_{name}.csv')
+                if self.args.threshold == 0.55:
+                    self.dump_results(results, f'tsr_{name}_orig.csv')
+                else:
+                    self.dump_results(results, f'tsr_{name}.csv')
             else:
                 self.dump_results(results, f'{name}.csv')
                 
@@ -181,7 +184,8 @@ class Exp_Interpret:
                 self.args, explainer, inputs=inputs, 
                 sliding_window_shapes=sliding_window_shapes, 
                 strides=strides, baselines=baselines,
-                additional_forward_args=additional_forward_args
+                additional_forward_args=additional_forward_args,
+                threshold=self.args.threshold
             )
         else:
             attr = compute_classifier_attr(
@@ -242,7 +246,8 @@ class Exp_Interpret:
                 self.args, explainer, inputs=inputs, 
                 sliding_window_shapes=sliding_window_shapes, 
                 strides=strides, baselines=baselines,
-                additional_forward_args=additional_forward_args
+                additional_forward_args=additional_forward_args,
+                threshold=self.args.threshold
             )
         else:
             attr = compute_regressor_attr(

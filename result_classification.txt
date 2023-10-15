@@ -70,3 +70,9 @@ flag val, acc 0.92301, f1 0.51507, auc 0.90794
 classification_MICN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag test, acc 0.92866, f1 0.45695, auc 0.90359
 
+classification_Crossformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90126, f1 0.40420, auc 0.83894
+
+classification_Crossformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90735, f1 0.37537, auc 0.83755
+

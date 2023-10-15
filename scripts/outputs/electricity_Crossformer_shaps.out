@@ -1,0 +1,32 @@
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_Crossformer
+test 2607
+Loading model from ./results/electricity_Crossformer/checkpoint.pth
+explainers: ['deep_lift', 'gradient_shap', 'integrated_gradients']
+ areas: [0.05, 0.075, 0.1, 0.15]
+ metrics: ['mae', 'mse']
+
+Running deep_lift from 2023-10-15 11:24:09.163767
+  0%|          | 0/82 [00:00<?, ?it/s]  0%|          | 0/82 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/interpret.py", line 52, in <module>
+    main(args)
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/interpret.py", line 27, in main
+    interpreter.interpret(dataloader)
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_interpret.py", line 153, in interpret
+    results = self.run_regressor(dataloader, name)
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_interpret.py", line 131, in run_regressor
+    batch_results = self.evaluate_regressor(
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_interpret.py", line 248, in evaluate_regressor
+    attr = compute_regressor_attr(
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/utils/explainer.py", line 121, in compute_regressor_attr
+    score = explainer.attribute(
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/captum/log/__init__.py", line 42, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/captum/attr/_core/deep_lift.py", line 330, in attribute
+    gradients = self.gradient_func(wrapped_forward_func, inputs)
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/captum/_utils/gradient.py", line 119, in compute_gradients
+    grads = torch.autograd.grad(torch.unbind(outputs), inputs)
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/torch/autograd/__init__.py", line 300, in grad
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: One of the differentiated Tensors appears to not have been used in the graph. Set allow_unused=True if this is the desired behavior.

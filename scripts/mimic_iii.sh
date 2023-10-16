@@ -45,7 +45,6 @@ python interpret.py \
   --use_gpu \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --areas 0.05 0.075 0.1 0.15 \
   --metrics auc 'accuracy' 'cross_entropy' \
   --model MICN \
   --conv_kernel 24 24

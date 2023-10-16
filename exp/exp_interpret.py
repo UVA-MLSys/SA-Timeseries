@@ -41,7 +41,8 @@ explainer_name_map = {
     "fit": Fit, # only supports classification
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
-    "winIT": WinIT
+    "winIT": WinIT,
+    # "ozyegen":FeatureAblation
 }
 
 class Exp_Interpret:

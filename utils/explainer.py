@@ -13,19 +13,21 @@ def get_baseline(inputs, mode='random'):
     if type(inputs) == tuple:
         return tuple([get_baseline(input, mode) for input in inputs])
     
+    batch_size = inputs.shape[0]    
     device = inputs.device
+    
     if mode =='zero': baselines = torch.zeros_like(inputs, device=device).float()
     elif mode == 'random': baselines = torch.randn_like(inputs, device=device).float()
     elif mode == 'aug':
         means = torch.mean(inputs, dim=(0, 1))
         std = torch.std(inputs, dim=(0, 1))
         baselines = torch.normal(means, std).repeat(
-            inputs.shape[0], inputs.shape[1], 1
+            batch_size, inputs.shape[1], 1
         ).float()
     elif mode == 'mean': 
         baselines = torch.mean(
                 inputs, axis=0
-        ).repeat(inputs.shape[0], 1, 1).float()
+        ).repeat(batch_size, 1, 1).float()
     else:
         print(f'baseline mode options: [zero, random, aug, mean]')
         raise NotImplementedError

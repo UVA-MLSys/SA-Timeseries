@@ -19,7 +19,7 @@ python run.py \
   --use_gpu \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model Autoformer \
+  --model Crossformer \
   --features S \
   --seq_len 96 \
   --label_len 12 \
@@ -48,7 +48,7 @@ python interpret.py \
   --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model Autoformer \
+  --model Crossformer \
   --features S \
   --seq_len 96 \
   --label_len 12 \

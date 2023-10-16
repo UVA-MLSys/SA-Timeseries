@@ -157,12 +157,6 @@ flag:val, mse:0.2247, mae:0.361, rmse: 0.47403.
 long_term_forecast_LSTM_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag:test, mse:0.14613, mae:0.28573, rmse: 0.38227.
 
-long_term_forecast_LSTM_traffic_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
-flag:val, mse:0.13591, mae:0.2706, rmse: 0.36866.
-
-long_term_forecast_LSTM_traffic_custom_ftS_sl96_ll48_pl96_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
-flag:test, mse:0.27023, mae:0.35343, rmse: 0.51984.
-
 long_term_forecast_DLinear_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag:val, mse:0.21484, mae:0.34768, rmse: 0.4635.
 

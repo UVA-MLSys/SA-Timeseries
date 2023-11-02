@@ -42,7 +42,9 @@ def get_parser():
         help='interpretation evaluation metrics')
     parser.add_argument('--threshold', type=float, default=0, 
         help='Threshold for the feature step computation')
-    # parser.add_argument('--batch_size', type=int, default=16, help='batch size of train input data')
+    parser.add_argument(
+        '--attr_by_pred', action='store_true', 
+        help='evaluate the attr by each predicted class/horizon. Otherwise take the average over the output horizon.')
     
     return parser
 

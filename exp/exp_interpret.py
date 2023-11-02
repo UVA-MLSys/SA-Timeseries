@@ -107,7 +107,7 @@ class Exp_Interpret:
         return results
                 
     def run_regressor(self, dataloader, name):
-        results = [['batch_index', 'metric', 'area', 'comp', 'suff']]
+        results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), 
             disable=self.args.disable_progress
@@ -230,6 +230,8 @@ class Exp_Interpret:
         additional_forward_args, batch_index
     ):
         explainer = self.explainers_map[name]
+        avg_attr = not self.args.attr_by_pred
+        
         if self.args.tsr:
             if name == 'winIT':
                 print('Warning, winIT not supported on TSR !!')
@@ -248,45 +250,56 @@ class Exp_Interpret:
                 sliding_window_shapes=sliding_window_shapes, 
                 strides=strides, baselines=baselines,
                 additional_forward_args=additional_forward_args,
-                threshold=self.args.threshold
+                threshold=self.args.threshold,
+                avg_attr=avg_attr
             )
         else:
             attr = compute_regressor_attr(
                 inputs, baselines, explainer, 
-                additional_forward_args, self.args
+                additional_forward_args, self.args, 
+                avg_attr=avg_attr
             )
     
         results = []
         # get scores
-        for area in self.args.areas:
-            for metric_name in self.args.metrics: # ['mae', 'mse']
-                metric = expl_metric_map[metric_name]
-                error_comp = metric(
-                    self.model, inputs=inputs, 
-                    attributions=attr, baselines=baselines, 
-                    additional_forward_args=additional_forward_args,
-                    topk=area, mask_largest=True
-                )
+        for metric_name in self.args.metrics: # ['mae', 'mse']
+            # batch x pred_len x seq_len x features
+            for tau in range(self.args.pred_len):
+                if type(attr) == tuple:
+                    attr_per_pred = tuple([
+                        attr_[:, tau] for attr_ in attr
+                    ])
+                else: attr_per_pred = attr[:, tau]
                 
-                error_suff = metric(
-                    self.model, inputs=inputs,
-                    attributions=attr, baselines=baselines, 
-                    additional_forward_args=additional_forward_args,
-                    topk=area, mask_largest=False
-                )
-        
-                result_row = [batch_index, metric_name, area, error_comp, error_suff]
-                results.append(result_row)
+                for area in self.args.areas:
+                    metric = expl_metric_map[metric_name]
+                    error_comp = metric(
+                        self.model, inputs=inputs, 
+                        attributions=attr_per_pred, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                        topk=area, mask_largest=True
+                    )
+                    
+                    error_suff = metric(
+                        self.model, inputs=inputs,
+                        attributions=attr_per_pred, baselines=baselines, 
+                        additional_forward_args=additional_forward_args,
+                        topk=area, mask_largest=False
+                    )
+            
+                    result_row = [
+                        batch_index, metric_name, tau, area, error_comp, error_suff
+                    ]
+                    results.append(result_row)
     
         return results
         
     def dump_results(self, results, filename):
-        # if self.args.task_name == 'classification':
-        #     results_df = pd.DataFrame(results[1:], columns=results[0])
-        #     results_df = results_df.groupby(['metric', 'area'])[
-        #         ['value']].aggregate('mean').reset_index()
-        # else:
         results_df = pd.DataFrame(results[1:], columns=results[0])
+        
+        batch_filename = os.path.join(self.result_folder, f'batch_{filename}')
+        results_df.round(6).to_csv(batch_filename, index=False)
+        
         results_df = results_df.groupby(['metric', 'area'])[
             ['comp', 'suff']
         ].aggregate('mean').reset_index()

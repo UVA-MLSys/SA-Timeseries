@@ -1,0 +1,18 @@
+Bootstrap: docker
+From: python:3.10
+%post 
+    apt-get -y update
+    python -m pip install --upgrade pip
+    pip install torch==1.11+cu113 -f https://download.pytorch.org/whl/torch_stable.html \
+        tqdm matplotlib numpy \
+        requests scikit-learn \
+        setuptools \
+        pandas einops scipy sympy \
+        SALib captum time-interpret reformer-pytorch
+
+%labels
+    Author Khairul
+    Version v1.2.0
+
+%help
+    A container for Time Series Forecasting.

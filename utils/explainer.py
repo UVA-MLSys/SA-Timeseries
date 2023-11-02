@@ -34,23 +34,9 @@ def get_baseline(inputs, mode='random'):
     
     return baselines
 
-def min_max_scale(arr, dim:int=0):
-    assert dim in [0, 1], f'Dimension must be 0 or 1, found {dim}'
-    mx, mn = torch.max(arr, dim=dim).values, torch.min(arr, dim=dim).values
-    denom = (mx - mn)
-    
-    if dim == 0: scaled = (arr - mn)/denom
-    else: scaled = ((arr.T - mn)/denom).T
-    
-    # replace nan values with 0
-    # possible when all values are same, hence denom is 0
-    scaled[scaled != scaled] = 0
-    
-    return scaled
-
 def compute_classifier_attr(
     inputs, baselines, explainer,
-    additional_forward_args, args
+    additional_forward_args, args, avg_attr=True
 ):
     name = explainer.get_name()
     
@@ -110,11 +96,14 @@ def compute_classifier_attr(
     else:
         raise NotImplementedError
     
-    return avg_over_output_horizon(attr, inputs, args)
+    if avg_attr:
+        return avg_over_output_horizon(attr, inputs, args)
+    else:
+        return reshape_over_output_horizon(attr, inputs, args)
 
 def compute_regressor_attr(
     inputs, baselines, explainer,
-    additional_forward_args, args
+    additional_forward_args, args, avg_attr=True
 ):
     name = explainer.get_name()
     if name in ['Deep Lift', 'Lime', 'Integrated Gradients', 'Gradient Shap']:
@@ -172,7 +161,31 @@ def compute_regressor_attr(
     else:
         raise NotImplementedError
         
-    return avg_over_output_horizon(attr, inputs, args)
+    if avg_attr:
+        attr = avg_over_output_horizon(attr, inputs, args)
+    else:
+        attr = reshape_over_output_horizon(attr, inputs, args)
+    return attr
+
+def reshape_over_output_horizon(attr, inputs, args):
+    if type(inputs) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            attr_.reshape(
+                # batch x pred_len x seq_len x features
+                (inputs[0].shape[0], -1, args.seq_len, attr_.shape[-1])
+            # take mean over the output horizon
+            ) for attr_ in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
+            # batch x pred_len x seq_len x features
+            (inputs.shape[0], -1, args.seq_len, attr.shape[-1])
+        # take mean over the output horizon
+        )
+    
+    return attr
 
 def avg_over_output_horizon(attr, inputs, args):
     if type(inputs) == tuple:
@@ -197,7 +210,8 @@ def avg_over_output_horizon(attr, inputs, args):
 def compute_classifier_tsr_attr(
     args, explainer, inputs, sliding_window_shapes, 
     strides=None, baselines=None,
-    additional_forward_args=None, threshold=0.0, normalize=True
+    additional_forward_args=None, threshold=0.0, 
+    normalize=True, avg_attr=True
 ):
     attr_list = []
     for target in range(args.num_class):
@@ -224,12 +238,16 @@ def compute_classifier_tsr_attr(
         # num_class x batch x seq_len x features -> batch x num_class x seq_len x features
         attr = attr.permute(1, 0, 2, 3)
     
-    return avg_over_output_horizon(attr, inputs, args)
+    if avg_attr:
+        return avg_over_output_horizon(attr, inputs, args)
+    else:
+        return reshape_over_output_horizon(attr, inputs, args)
 
 def compute_regressor_tsr_attr(
     args, explainer, inputs, sliding_window_shapes, 
     strides=None, baselines=None,
-    additional_forward_args=None, threshold=0.0, normalize=True
+    additional_forward_args=None, threshold=0.0, 
+    normalize=True, avg_attr=True
 ):
     attr_list = []
     for target in range(args.pred_len):
@@ -258,4 +276,21 @@ def compute_regressor_tsr_attr(
         # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
         attr = attr.permute(1, 0, 2, 3)
     
-    return avg_over_output_horizon(attr, inputs, args)
+    if avg_attr:
+        return avg_over_output_horizon(attr, inputs, args)
+    else:
+        return reshape_over_output_horizon(attr, inputs, args)
+
+def min_max_scale(arr, dim:int=0):
+    assert dim in [0, 1], f'Dimension must be 0 or 1, found {dim}'
+    mx, mn = torch.max(arr, dim=dim).values, torch.min(arr, dim=dim).values
+    denom = (mx - mn)
+    
+    if dim == 0: scaled = (arr - mn)/denom
+    else: scaled = ((arr.T - mn)/denom).T
+    
+    # replace nan values with 0
+    # possible when all values are same, hence denom is 0
+    scaled[scaled != scaled] = 0
+    
+    return scaled

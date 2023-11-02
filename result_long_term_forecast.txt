@@ -198,4 +198,3 @@ flag:val, mse:0.088908, mae:0.20552, rmse: 0.29817.
 
 long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag:test, mse:0.22583, mae:0.29375, rmse: 0.47521.
-

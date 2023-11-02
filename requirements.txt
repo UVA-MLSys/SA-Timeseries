@@ -3,10 +3,10 @@ numpy
 pandas
 # psycopg2
 pyunpack
-reformer_pytorch
+reformer-pytorch
 shutil
 scikit-learn
 sympy
 time-interpret # ==0.3.0
-torch # ==1.13.1+cu116
+captum
 tqdm 

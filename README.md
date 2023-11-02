@@ -26,62 +26,30 @@ TSlib is an open-source library for deep learning researchers, especially deep t
 
 The module was developed using python 3.10.
 
-### Create Virtual Environment
-First create a virtual environment with the required libraries. For example, to create an venv named `ml`, you can either use the `Anaconda` library or your locally installed `python`.
+### Option 1. Use Singularity Container
 
-#### Option A: Anaconda
-If you have `Anaconda` installed locally, follow the instructions [here](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). An example code,
+Ensure you have `singularity` installed. On Rivanna you might need to load singularity first with `module load singularity`. Pull the singularity container from the remote library,
+```bash
+singularity pull timeseries.sif library://khairulislam/collection/timeseries:latest
+
+## uncomment the following if you want to build it from scratch instead
+# sudo singularity build timeseries.sif singularity.def
+```
+
+This saves the pulled container with name `timeseries.sif` in the current directory. You can use the container to run the scripts. For example, 
+```bash
+singularity run --nv timeseries.sif python run.py
+```
+Here `--nv` option enforces using the NVIDIA GPU. 
+
+### Option 2. Use Virtual Environment
+First create a virtual environment with the required libraries. For example, to create an venv named `ml`, you can either use the `Anaconda` library or your locally installed `python`. An example code using Anaconda,
 
 ```
 conda create -n ml python=3.10
 conda activate ml
 ```
-This will activate the venv `ml`.
-
-
-#### Option B: Python
-
-If you only have `python` installed but no `pip`, installed pip and activate a virtual env using the following commands from [here](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/),
-
-On linux/macOS :
-
-```bash
-python3 -m pip install --user --upgrade pip
-python3 -m pip install --user virtualenv
-python3 -m venv ml
-source ml/bin/activate
-python3 -m pip install -r requirements.txt
-```
-
-On windows :
-```bash
-py -m pip install --upgrade pip
-py -m pip install --user virtualenv
-py -m venv ml
-.\env\Scripts\activate
-py -m pip install -r requirements.txt
-```
-
-Follow the instructions [here](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) to make sure you have the `pip` and `virtualenv` installed and working. Then create a virtual environement (e.g. name ml) or install required libraries in the default env, using the 
-
-### Install Libraries
-Once you have the virtual environment created and running, you can download the libraries using, the [requirement.txt](/requirements.txt) file. 
-
-On linux/macOS :
-
-```bash
-python3 -m pip install -r requirements.txt
-```
-
-On windows :
-```bash
-py -m pip install -r requirements.txt
-```
-
-You can test whether the environment has been installed properly using a small dataset in the [`train.py`](/TFT-pytorch/script/train_simple.py) file.
-
-### Installing CUDA
-The default versions installed with `pytorch-forecasting` might not work and print cpu instead for the following code. Since it doesn't install CUDA with pytorch.
+This will activate the venv `ml`. If you want to run code on your GPU, you need to have CUDA installed. Check if you already have CUDA installed. 
 
 ```python
 import torch
@@ -90,10 +58,17 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 print(f'Using {device} backend')
 ```
 
-In such case, replace existing CUDA with the folowing version. Anything newer didn't work for now.
+If this fails to detect your GPU, install CUDA using,
 ```bash
-pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+pip install torch==1.11.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 ```
+
+Then install the rest of the required libraries,
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
 ## Datasets
 
 The datasets are available at this [Google Drive](https://drive.google.com/drive/folders/13Cg1KYOlzM5C7K8gK8NfC-F3EYxkM3D2?usp=sharing) in the long-term-forecast folder. Download and keep them in the `dataset` folder here. Only `mimic-iii` dataset is private and hence must be approved to get access from [PhysioNet](https://mimic.mit.edu/docs/gettingstarted/).

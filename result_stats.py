@@ -5,9 +5,9 @@ def reduce_df(df:pd.DataFrame):
     return df.groupby('metric').aggregate('mean')[['comp', 'suff']].reset_index()
 
 metric_map = {
-    'electricity': ['mae', 'mse'],
-    'traffic': ['mae', 'mse'],
-    'mimic_iii': ['auc', 'accuracy', 'cross_entropy']
+    'electricity': ['mse','mae'],
+    'traffic': ['mse', 'mae'],
+    'mimic_iii': ['cross_entropy', 'auc', 'accuracy', ]
 }
 
 datasets = ['electricity', 'traffic', 'mimic_iii']
@@ -90,7 +90,10 @@ for dataset in datasets:
             print_row(comp)
             
         for model in models:
-            df = pd.read_csv(f'results/{dataset}_{model}/{attr_method}.csv') 
+            if attr_method == 'tsr_orig':
+                df = pd.read_csv(f'results/{dataset}_{model}/tsr_integrated_gradients_orig.csv') 
+            else:
+                df = pd.read_csv(f'results/{dataset}_{model}/{attr_method}.csv') 
             df = reduce_df(df)
             for metric in metric_map[dataset]:
                 [_, suff] = df[df['metric']==metric][['comp', 'suff']].values[0]

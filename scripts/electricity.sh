@@ -45,10 +45,11 @@ python run.py \
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
   --task_name long_term_forecast \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
+  --explainer feature_ablation\
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model Crossformer \
+  --result_path scratch \
+  --model LSTM\
   --features S \
   --seq_len 96 \
   --label_len 12 \

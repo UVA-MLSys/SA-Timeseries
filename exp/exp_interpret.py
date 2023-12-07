@@ -84,13 +84,9 @@ class Exp_Interpret:
             enumerate(dataloader), total=len(dataloader), 
             disable=self.args.disable_progress
         )
-        for batch_index, (batch_x, label, padding_mask) in progress_bar:
+        for batch_index, (batch_x, _, padding_mask) in progress_bar:
             batch_x = batch_x.float().to(self.device)
             padding_mask = padding_mask.float().to(self.device)
-            # print('label', label)
-            # label = label.long() if self.multiclass else label.float()
-            # label = label.to(self.device) 
-            # output = self.model(batch_x, padding_mask, None, None)
              
             inputs = batch_x
             # baseline must be a scaler or tuple of tensors with same dimension as input

@@ -5,8 +5,8 @@ def reduce_df(df:pd.DataFrame):
     return df.groupby('metric').aggregate('mean')[['comp', 'suff']].reset_index()
 
 metric_map = {
-    'electricity': ['mse','mae'],
-    'traffic': ['mse', 'mae'],
+    'electricity': ['mae', 'mse'],
+    'traffic': ['mae', 'mse'],
     'mimic_iii': ['cross_entropy', 'auc', 'accuracy', ]
 }
 

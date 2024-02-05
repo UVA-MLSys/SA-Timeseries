@@ -22,6 +22,7 @@ from tint.attr import (
     Occlusion, 
     FeatureAblation
 )
+from explainers import MorrisSensitivty
 
 expl_metric_map = {
     'mae': mae, 'mse': mse, 'accuracy': accuracy, 
@@ -42,6 +43,7 @@ explainer_name_map = {
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
+    "morris_sensitivity": MorrisSensitivty
     # "ozyegen":FeatureAblation
 }
 
@@ -62,11 +64,11 @@ class Exp_Interpret:
         
         self.explainers_map = dict()
         for name in exp.args.explainers:
-            if name in ['augmented_occlusion', 'winIT']:
+            if name in ['augmented_occlusion', 'winIT', 'morris_sensitivity']:
                 add_x_mark = exp.args.task_name != 'classification'
                 all_inputs = get_total_data(dataloader, self.device, add_x_mark=add_x_mark)
                 
-                if name == 'winIT':
+                if name in ['winIT', 'morris_sensitivity']:
                     self.explainers_map[name] = explainer_name_map[name](
                         self.model, all_inputs, self.args
                     )

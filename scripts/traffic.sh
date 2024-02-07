@@ -24,7 +24,7 @@ python -u run.py \
   --conv_kernel 18 12
 
 python interpret.py \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation \
   --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
@@ -38,7 +38,7 @@ python interpret.py \
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
-  --explainer winIT \
+  --explainers winIT \
   --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \

@@ -29,7 +29,7 @@ python run.py \
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation\
   --task_name classification \
   --data mimic \
   --use_gpu \
@@ -39,7 +39,7 @@ python interpret.py \
   --model LSTM 
 
 python interpret.py \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation\
   --task_name classification \
   --data mimic \
   --use_gpu \

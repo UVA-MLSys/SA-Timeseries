@@ -23,7 +23,7 @@ conda activate ml
 # # if you face the library linking error for anaconda
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
 python interpret.py \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation \
+  --explainersfeature_ablation occlusion augmented_occlusion feature_permutation \
   --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \

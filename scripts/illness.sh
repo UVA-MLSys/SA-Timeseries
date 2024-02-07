@@ -32,7 +32,7 @@ python -u run.py \
 # integrated_gradients returned out of memory error for Autoformer
 # gradient_shap, deep_lift sometimes faces " One of the differentiated Tensors appears to not have been used in the graph. Set allow_unused=True if this is the desired behavior." error
 python interpret.py \
-  --explainer feature_ablation occlusion augmented_occlusion feature_permutation\
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation\
   --task_name long_term_forecast \
   --result_path scratch \
   --use_gpu \

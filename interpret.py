@@ -43,8 +43,8 @@ def get_parser():
     parser.add_argument('--threshold', type=float, default=0, 
         help='Threshold for the feature step computation')
     parser.add_argument(
-        '--attr_by_pred', action='store_true', 
-        help='evaluate the attr by each predicted class/horizon. Otherwise take the average over the output horizon.')
+        '--avg_attr_by_pred', action='store_true', 
+        help='Take the average over the output horizon. Otherwise evaluate the attr by each predicted class/horizon.')
     
     return parser
 

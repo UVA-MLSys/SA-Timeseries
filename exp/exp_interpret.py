@@ -80,8 +80,9 @@ class Exp_Interpret:
                 self.explainers_map[name] = explainer
                 
     def run_classifier(self, dataloader, name):
-        # results = [['batch_index', 'metric', 'area', 'value']]
         results = [['batch_index', 'metric', 'area', 'comp', 'suff']]
+        attrs = []
+        
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), 
             disable=self.args.disable_progress
@@ -96,16 +97,21 @@ class Exp_Interpret:
             additional_forward_args = (padding_mask, None, None)
 
             # get attributions
-            batch_results = self.evaluate_classifier(
+            batch_results, batch_attr = self.evaluate_classifier(
                 name, inputs, baselines, 
                 additional_forward_args, batch_index
             )
+            
             results.extend(batch_results)  
+            attrs.append(batch_attr)
 
-        return results
+        attrs = torch.vstack(attrs)
+        return results, attrs
                 
     def run_regressor(self, dataloader, name):
         results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
+        attrs = []
+        
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), 
             disable=self.args.disable_progress
@@ -127,13 +133,15 @@ class Exp_Interpret:
             additional_forward_args = (dec_inp, batch_y_mark)
 
             # get attributions
-            batch_results = self.evaluate_regressor(
+            batch_results, batch_attr = self.evaluate_regressor(
                 name, inputs, baselines, 
                 additional_forward_args, batch_index
             )
             results.extend(batch_results)
+            attrs.append(batch_attr)
         
-        return results
+        attrs = tuple(torch.vstack([a[i] for a in attrs]) for i in range(2))
+        return results, attrs
     
     def interpret(self, dataloader):
         if self.args.tsr:
@@ -147,9 +155,9 @@ class Exp_Interpret:
             print(f'Running {name} from {start}')
             
             if task == 'classification':
-                results = self.run_classifier(dataloader, name)
+                results, attrs = self.run_classifier(dataloader, name)
             else:
-                results = self.run_regressor(dataloader, name)
+                results, attrs = self.run_regressor(dataloader, name)
             
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
@@ -160,6 +168,15 @@ class Exp_Interpret:
                     self.dump_results(results, f'tsr_{name}.csv')
             else:
                 self.dump_results(results, f'{name}.csv')
+                
+            attr_output_file = f'{self.args.flag}_{name}.pt' 
+            attr_output_path = os.path.join(self.result_folder, attr_output_file)
+            
+            if task == 'classification':
+                attr_numpy = [a.detach().cpu().numpy() for a in attrs]
+            else:
+                attr_numpy = tuple([a.detach().cpu().numpy() for a in attrs])
+            torch.save(attr_numpy, attr_output_path)
                 
     def evaluate_classifier(
         self, name, inputs, baselines, 
@@ -221,14 +238,14 @@ class Exp_Interpret:
                 result_row = [batch_index, metric_name, area, error_comp, error_suff]
                 results.append(result_row)
     
-        return results
+        return results, attr
             
     def evaluate_regressor(
         self, name, inputs, baselines, 
         additional_forward_args, batch_index
     ):
         explainer = self.explainers_map[name]
-        avg_attr = not self.args.attr_by_pred
+        avg_attr = self.args.avg_attr_by_pred
         
         if self.args.tsr:
             if name == 'winIT':
@@ -290,7 +307,7 @@ class Exp_Interpret:
                     ]
                     results.append(result_row)
     
-        return results
+        return results, attr
         
     def dump_results(self, results, filename):
         results_df = pd.DataFrame(results[1:], columns=results[0])

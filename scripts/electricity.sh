@@ -68,5 +68,5 @@ python interpret.py \
   --label_len 12 \
   --pred_len 24 \
   --n_features 1 \
-  --use_gpu --result_path scratch \
-  --tsr
+  --use_gpu --tsr --result_path scratch \
+  

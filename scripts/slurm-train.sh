@@ -16,6 +16,8 @@ module load cuda cudnn
 # singularity run --nv timeseries.sif python run.py
 
 # this is for when you have a working virtual env
+# module load anaconda
+# conda init
 conda deactivate
 conda activate ml
 

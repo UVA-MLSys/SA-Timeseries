@@ -10,12 +10,23 @@ warnings.filterwarnings('ignore')
 
 from tqdm import tqdm
 
+# the final feature row looks like
+# 8 vital IDs, gender, age, ethnicity, first_icu_stay, 19 lab ids
+
+# 8 patient vitals
 vital_IDs = ['HeartRate' , 'SysBP' , 'DiasBP' , 'MeanBP' , 'RespRate' , 'SpO2' , 'Glucose' ,'Temp']
+
+# 19 lab measures, should be 20 after fix
 lab_IDs = [
     'ANION GAP', 'ALBUMIN', 'BICARBONATE', 'BILIRUBIN', 
     'CREATININE', 'CHLORIDE', 'GLUCOSE', 'HEMATOCRIT', 
-    'HEMOGLOBIN', 'LACTATE', 'MAGNESIUM', 'PHOSPHATE', 
-    'PLATELET', 'POTASSIUM', 'PTT', 'INR', 'PT', 'SODIUM', 'BUN', 'WBC']
+    # 'HEMOGLOBIN' 'LACTATE' -> 'HEMOGLOBIN', 'LACTATE'. But the source preprocessing uses it like this
+    'HEMOGLOBIN' 'LACTATE', 'MAGNESIUM', 'PHOSPHATE', 
+    'PLATELET', 'POTASSIUM', 'PTT', 'INR', 
+    'PT', 'SODIUM', 'BUN', 'WBC'
+]
+
+# 5 ethnicity info
 eth_list = ['white', 'black', 'hispanic', 'asian', 'other']
 
 def quantize_signal(signal, start, step_size, n_steps, value_column, charttime_column):
@@ -115,7 +126,7 @@ for i,id in tqdm(enumerate(icu_id), total=len(icu_id), miniters=10):
     admit_time = patient_data['vitalcharttime'].min()
     #print('Patient %d admitted at '%(id),admit_time)
     n_missing_vitals = 0
-
+    
     ## Extract demographics and repeat them over time
     x[i,-4,:]= int(patient_data['gender'].iloc[0])
     x[i,-3,:]= int(patient_data['age'].iloc[0])
@@ -150,6 +161,7 @@ for i,id in tqdm(enumerate(icu_id), total=len(icu_id), miniters=10):
     ## Extract lab measurement informations
     # labs = patient_lab_data.label.unique()
     for lab, lab_measures in patient_lab_data.groupby('label'):
+        print(lab)
         try:
             lab_index = lab_IDs.index(lab)
             # lab_measures = patient_lab_data[patient_lab_data['label']==lab]
@@ -169,6 +181,7 @@ for i,id in tqdm(enumerate(icu_id), total=len(icu_id), miniters=10):
     ## Remove a patient that is missing a measurement for the entire 48 hours
     if n_missing_vitals>0:
         missing_ids.append(i)
+    break
 
 
 ## Record statistics of the dataset, remove missing samples and save the signals
@@ -194,6 +207,7 @@ nan_map = np.delete(nan_map, missing_ids, axis=0)
 x_lab_impute = impute_lab(x_lab)
 missing_map = np.delete(missing_map, missing_ids, axis=0)
 missing_map_lab = np.delete(missing_map_lab, missing_ids, axis=0)
+
 all_data = np.concatenate((x_lab_impute, x_impute), axis=1)
 print(f'All data shape {all_data.shape}')
 

@@ -105,6 +105,7 @@ class Exp_Interpret:
             results.extend(batch_results)  
             attrs.append(batch_attr)
 
+        
         attrs = torch.vstack(attrs)
         return results, attrs
                 
@@ -146,7 +147,6 @@ class Exp_Interpret:
     def interpret(self, dataloader):
         if self.args.tsr:
             print('Interpreting with TSR enabled.')
-            
         task = self.args.task_name
         
         for name in self.args.explainers:
@@ -169,7 +169,12 @@ class Exp_Interpret:
             else:
                 self.dump_results(results, f'{name}.csv')
                 
-            attr_output_file = f'{self.args.flag}_{name}.pt' 
+            attr_output_file = f'{self.args.tsr}_{self.args.flag}_{name}.pt' 
+            
+            if self.args.tsr:
+                attr_output_file = f'tsr_{self.args.flag}_{name}.pt' 
+            else:
+                attr_output_file = f'{self.args.flag}_{name}.pt' 
             attr_output_path = os.path.join(self.result_folder, attr_output_file)
             
             if task == 'classification':

@@ -21,7 +21,7 @@ from typing import Any, Callable, Tuple, Union
 from tint.attr.occlusion import FeatureAblation, Occlusion
 
 
-class TSRTunnel(Occlusion):
+class WTSR(Occlusion):
     r"""
     Two-step temporal saliency rescaling Tunnel.
     Performs a two-step interpretation method:
@@ -68,17 +68,6 @@ class TSRTunnel(Occlusion):
                     Conductance or Saliency.
     References:
         `Benchmarking Deep Learning Interpretability in Time Series Predictions <https://arxiv.org/abs/2010.13924>`_
-    Examples:
-        >>> import torch as th
-        >>> from captum.attr import Saliency
-        >>> from tint.attr import TSRTunnel
-        >>> from tint.models import MLP
-        <BLANKLINE>
-        >>> inputs = th.rand(8, 7, 5)
-        >>> mlp = MLP([5, 3, 1])
-        <BLANKLINE>
-        >>> explainer = TSRTunnel(Saliency(mlp))
-        >>> attr = explainer.attribute(inputs, target=0)
     """
 
     def __init__(
@@ -388,7 +377,7 @@ class TSRTunnel(Occlusion):
         # Merge attributions:
         # Time-Relevance Score x Feature-Relevance Score x is above threshold
         attributions = tuple(
-            tsr * frs * is_above.float()
+            (tsr * frs) * is_above.float()
             for tsr, frs, is_above in zip(
                 time_relevance_score,
                 features_relevance_score,
@@ -542,3 +531,6 @@ class TSRTunnel(Occlusion):
     def _reshape_eval_diff(eval_diff: Tensor, shapes: tuple) -> Tensor:
         # For this method, we need to reshape eval_diff to the output shapes
         return eval_diff.reshape((len(eval_diff),) + shapes)
+    
+    def get_name(self):
+        return f'WTSR + {self.attribution_method.get_name()}'

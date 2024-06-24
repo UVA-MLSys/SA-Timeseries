@@ -511,7 +511,7 @@ class MimicIII(Dataset):
     def __init__(
         self, root_path='./dataset/mimic_iii', flag='train', 
         data_path='patient_vital_preprocessed.pkl', 
-        scale=True, size= [0.8, 0.1, 0.1]
+        scale=True, size= [0.8, 0.1, 0.1], seed=7
     ):
         # init
         assert flag in ['train', 'test', 'val']
@@ -520,6 +520,7 @@ class MimicIII(Dataset):
 
         self.scale = scale
         self.size = size
+        self.seed = seed
         
         self.num_classes = 2
         self.class_names = [0, 1]
@@ -556,6 +557,7 @@ class MimicIII(Dataset):
         
         # to randomize train, val, test splits
         shuffled_indices = np.arange(n_total)
+        np.random.seed(self.seed)
         # does inplace shuffling
         np.random.shuffle(shuffled_indices)
         

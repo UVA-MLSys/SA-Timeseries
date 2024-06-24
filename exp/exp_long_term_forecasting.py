@@ -16,7 +16,12 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         super(Exp_Long_Term_Forecast, self).__init__(args)
 
     def _build_model(self):
-        model = self.model_dict[self.args.model].Model(self.args).float()
+        initializer = self.model_dict[self.args.model]
+        
+        if self.args.model == 'MICN':
+            model = initializer.Model(self.args, self.device).float()
+        else:
+            model = initializer.Model(self.args).float()
 
         if self.args.use_multi_gpu and self.args.use_gpu:
             model = torch.nn.DataParallel(model, device_ids=self.args.device_ids)

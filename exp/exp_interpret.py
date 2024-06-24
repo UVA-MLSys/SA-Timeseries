@@ -193,7 +193,7 @@ class Exp_Interpret:
                 print('Warning, winIT not supported on TSR !!')
                 return []
                 
-            explainer = TSRTunnel(explainer)
+            explainer = WTSR(explainer)
             if type(inputs) == tuple:
                 sliding_window_shapes = tuple([(1,1) for _ in inputs])
                 strides = tuple([1 for _ in inputs])
@@ -201,7 +201,7 @@ class Exp_Interpret:
                 sliding_window_shapes = (1, 1)
                 strides = 1
                 
-            attr = compute_classifier_tsr_attr(
+            attr = compute_tsr_attr(
                 self.args, explainer, inputs=inputs, 
                 sliding_window_shapes=sliding_window_shapes, 
                 strides=strides, baselines=baselines,
@@ -209,7 +209,7 @@ class Exp_Interpret:
                 threshold=self.args.threshold
             )
         else:
-            attr = compute_classifier_attr(
+            attr = compute_attr(
                 inputs, baselines, explainer, 
                 additional_forward_args, self.args
             )
@@ -257,7 +257,7 @@ class Exp_Interpret:
                 print('Warning, winIT not supported on TSR !!')
                 return []
             
-            explainer = TSRTunnel(explainer)
+            explainer = WTSR(explainer)
             if type(inputs) == tuple:
                 sliding_window_shapes = tuple([(1,1) for _ in inputs])
                 strides = tuple([1 for _ in inputs])
@@ -265,7 +265,7 @@ class Exp_Interpret:
                 sliding_window_shapes = (1, 1)
                 strides = 1
                 
-            attr = compute_regressor_tsr_attr(
+            attr = compute_tsr_attr(
                 self.args, explainer, inputs=inputs, 
                 sliding_window_shapes=sliding_window_shapes, 
                 strides=strides, baselines=baselines,
@@ -274,7 +274,7 @@ class Exp_Interpret:
                 avg_attr=avg_attr
             )
         else:
-            attr = compute_regressor_attr(
+            attr = compute_attr(
                 inputs, baselines, explainer, 
                 additional_forward_args, self.args, 
                 avg_attr=avg_attr

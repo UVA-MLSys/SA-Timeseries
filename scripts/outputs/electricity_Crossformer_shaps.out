@@ -7,7 +7,9 @@ explainers: ['deep_lift', 'gradient_shap', 'integrated_gradients']
  metrics: ['mae', 'mse']
 
 Running deep_lift from 2023-10-15 11:24:09.163767
-  0%|          | 0/82 [00:00<?, ?it/s]  0%|          | 0/82 [00:00<?, ?it/s]
+
+  0%|          | 0/82 [00:00<?, ?it/s]
+  0%|          | 0/82 [00:00<?, ?it/s]
 Traceback (most recent call last):
   File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/interpret.py", line 52, in <module>
     main(args)
@@ -16,8 +18,8 @@ Traceback (most recent call last):
   File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_interpret.py", line 153, in interpret
     results = self.run_regressor(dataloader, name)
   File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_interpret.py", line 131, in run_regressor
-    batch_results = self.evaluate_regressor(
-  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_interpret.py", line 248, in evaluate_regressor
+    batch_rcompute_attr_regressor(
+  File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/exp/exp_interpret.py", line 248, icompute_attr
     attr = compute_regressor_attr(
   File "/sfs/qumulo/qhome/mi3se/SA-Timeseries/utils/explainer.py", line 121, in compute_regressor_attr
     score = explainer.attribute(

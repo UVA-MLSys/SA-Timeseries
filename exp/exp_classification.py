@@ -32,7 +32,12 @@ class Exp_Classification(Exp_Basic):
         self.multiclass = (self.args.num_class > 1)
         
         # model init
-        model = self.model_dict[self.args.model].Model(self.args).float()
+        initializer = self.model_dict[self.args.model]
+        if self.args.model == 'MICN':
+            model = initializer.Model(self.args, self.device).float()
+        else:
+            model = initializer.Model(self.args).float()
+            
         if self.args.use_multi_gpu and self.args.use_gpu:
             model = nn.DataParallel(model, device_ids=self.args.device_ids)
         return model

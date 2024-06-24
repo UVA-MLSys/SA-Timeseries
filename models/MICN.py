@@ -108,7 +108,7 @@ class Model(nn.Module):
     """
     Paper link: https://openreview.net/pdf?id=zt53IDUR1U
     """
-    def __init__(self, configs, conv_kernel=[12, 16]):
+    def __init__(self, configs, device=torch.device('cuda:0'), conv_kernel=[12, 16]):
         """
         conv_kernel: downsampling and upsampling convolution kernel_size
         """
@@ -147,7 +147,7 @@ class Model(nn.Module):
             d_layers=configs.d_layers, decomp_kernel=decomp_kernel,
             c_out=configs.c_out, conv_kernel=conv_kernel,
             isometric_kernel=isometric_kernel, 
-            device=torch.device('cuda:0') # need to refactor to use the same device as the data
+            device=device # need to refactor to use the same device as the data
         )
         if self.task_name == 'long_term_forecast' or self.task_name == 'short_term_forecast':
             # refer to DLinear

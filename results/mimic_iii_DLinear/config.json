@@ -3,8 +3,8 @@
     "train": true,
     "model": "DLinear",
     "seed": 2024,
-    "itrs": 5,
-    "itr_no": 1,
+    "itrs": 3,
+    "itr_no": 3,
     "data": "mimic",
     "result_path": "./results",
     "root_path": "./dataset/mimic_iii/",
@@ -13,9 +13,9 @@
     "features": "MS",
     "target": "OT",
     "freq": "h",
-    "seq_len": 96,
+    "seq_len": 48,
     "label_len": 48,
-    "pred_len": 96,
+    "pred_len": 0,
     "seasonal_patterns": "Monthly",
     "top_k": 5,
     "num_kernels": 6,
@@ -55,14 +55,13 @@
     "p_hidden_layers": 2,
     "disable_progress": false,
     "use_gpu": true,
-    "enc_in": 1,
+    "enc_in": 31,
     "dec_in": 1,
     "c_out": 1,
+    "num_class": 2,
     "seeds": [
         648,
         506,
-        608,
-        640,
-        539
+        608
     ]
 }

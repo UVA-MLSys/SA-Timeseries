@@ -1,0 +1,6 @@
+classification_SegRNN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90561, f1 0.17490, auc 0.74564
+
+classification_SegRNN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.89778, f1 0.11321, auc 0.75558
+

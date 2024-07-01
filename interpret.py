@@ -38,6 +38,7 @@ def main(args):
         interpreter.interpret(dataloader)
         print()
         
+    args.seed = parent_seed
     config_filepath = os.path.join(args.result_path, stringify_setting(args), 'config_interpret.json')
     args.seeds = [int(seed) for seed in experiment_seeds]
     with open(config_filepath, 'w') as output_file:

@@ -1,7 +1,7 @@
 python -u run.py \
   --task_name classification \
   --data mimic \
-  --train --itrs 5\
+  --train \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --model DLinear

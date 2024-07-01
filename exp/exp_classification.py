@@ -196,7 +196,11 @@ class Exp_Classification(Exp_Basic):
         with open("result_classification.txt", 'a') as f:
             f.write(stringify_setting(self.args, complete=True)  + "  \n")
             f.write(f'flag {flag}, {result_string}\n\n')
+            
+        with open(os.path.join(self.output_folder, "result.txt"), 'a') as f:
+            f.write(stringify_setting(self.args, complete=True)  + "  \n")
+            f.write(f'flag {flag}, {result_string}\n\n')
         
-        np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), predictions)
+        np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), probs)
         np.save(os.path.join(self.output_folder, f'{flag}_true.npy'), trues)
         return

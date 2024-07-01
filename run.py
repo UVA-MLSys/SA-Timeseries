@@ -55,11 +55,13 @@ def main(args):
             exp.test(load_model=True, flag=args.flag)
         print()
     
+    args.seed = parent_seed
     config_filepath = os.path.join(args.result_path, stringify_setting(args), 'config.json')
     args.seeds = [int(seed) for seed in experiment_seeds]
     with open(config_filepath, 'w') as output_file:
         json.dump(vars(args), output_file, indent=4)
-    # torch.cuda.empty_cache()
+    
+    torch.cuda.empty_cache()
 
 def get_parser():
     parser = argparse.ArgumentParser(
@@ -74,7 +76,7 @@ def get_parser():
     parser.add_argument('--model', type=str, required=True, default='Transformer',
         choices=list(Exp_Basic.model_dict.keys()), help='model name')
     parser.add_argument('--seed', default=2024, help='random seed')
-    parser.add_argument('--itrs', type=int, default=5, help='experiment repetition time from 1 to itrs')
+    parser.add_argument('--itrs', type=int, default=3, help='experiment repetition time from 1 to itrs')
     parser.add_argument('--itr_no', type=int, default=None, help='experiments number among itrs. 1<= itr_no <= itrs .')
 
     # data loader

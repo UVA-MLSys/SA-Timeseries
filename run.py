@@ -89,8 +89,9 @@ def get_parser():
     parser.add_argument('--features', type=str, default='MS', choices=['M', 'S', 'MS'],
                         help='forecasting task; M: multivariate predict multivariate, S: univariate predict univariate, MS: multivariate predict univariate')
     parser.add_argument('--target', type=str, default='OT', help='target feature in S or MS task')
-    parser.add_argument('--freq', type=str, default='h',
-                        help='freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h')
+    parser.add_argument(
+        '--freq', type=str, default='h', choices=['s', 't', 'h', 'd', 'b', 'w', 'm'],
+        help='freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h')
 
     # forecasting task
     parser.add_argument('--seq_len', type=int, default=96, help='input sequence length')
@@ -118,7 +119,7 @@ def get_parser():
                         help='time features encoding, options:[timeF, fixed, learned]')
     parser.add_argument('--activation', type=str, default='gelu', help='activation')
     parser.add_argument('--output_attention', action='store_true', help='whether to output attention in ecoder')
-    parser.add_argument('--conv_kernel', default=[24, 24], nargs="+", type=int,
+    parser.add_argument('--conv_kernel', default=[18, 12], nargs="+", type=int,
         help='convolution kernel size list for MICN. Can be [seq_len/2, pred_len].')
     parser.add_argument('--seg_len', type=int, default=24,
                         help='the length of segmen-wise iteration of SegRNN')

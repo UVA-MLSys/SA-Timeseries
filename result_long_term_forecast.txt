@@ -198,3 +198,75 @@ flag:val, mse:0.088908, mae:0.20552, rmse: 0.29817.
 
 long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag:test, mse:0.22583, mae:0.29375, rmse: 0.47521.
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34937, mae:0.43419, rmse: 0.59108.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24879, mae:0.35722, rmse: 0.49879.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34926, mae:0.43416, rmse: 0.59098.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24828, mae:0.35735, rmse: 0.49827.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34861, mae:0.43359, rmse: 0.59043.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24836, mae:0.35691, rmse: 0.49835.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.31946, mae:0.42068, rmse: 0.56521.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.27606, mae:0.38658, rmse: 0.52541.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.32058, mae:0.42069, rmse: 0.56619.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.29868, mae:0.40132, rmse: 0.54651.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.31623, mae:0.41711, rmse: 0.56235.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.28951, mae:0.39442, rmse: 0.53806.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.21998, mae:0.33064, rmse: 0.46902.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14154, mae:0.26561, rmse: 0.37622.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.22603, mae:0.33905, rmse: 0.47542.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14553, mae:0.27044, rmse: 0.38149.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.21656, mae:0.32938, rmse: 0.46536.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14407, mae:0.26765, rmse: 0.37956.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.2279, mae:0.33415, rmse: 0.47739.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.11934, mae:0.24498, rmse: 0.34545.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.23818, mae:0.34246, rmse: 0.48804.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.12569, mae:0.24869, rmse: 0.35453.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.23688, mae:0.34594, rmse: 0.4867.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.13015, mae:0.25479, rmse: 0.36077.
+

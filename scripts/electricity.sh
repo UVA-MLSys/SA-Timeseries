@@ -1,15 +1,14 @@
 python run.py \
   --task_name long_term_forecast \
   --train \
-  --result_path scratch \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model DLinear \
   --features S \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1
+  --n_features 1 \
+  --model DLinear 
 
 python run.py \
   --task_name long_term_forecast \

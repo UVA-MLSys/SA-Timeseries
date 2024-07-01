@@ -26,7 +26,6 @@ conda activate ml
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mi3se/.conda/envs/ml/lib
 python interpret.py \
   --explainersfeature_ablation occlusion augmented_occlusion feature_permutation \
-  --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model Autoformer \
@@ -34,4 +33,4 @@ python interpret.py \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1 --tsr
+  --n_features 1 

@@ -1,5 +1,5 @@
-from run import initial_setup, get_parser as get_main_parser
-import os
+from run import initial_setup, get_parser as get_main_parser, set_random_seed
+import os, json
 from typing import Union
 from exp.exp_long_term_forecasting import *
 from exp.exp_classification import Exp_Classification
@@ -15,22 +15,39 @@ def main(args):
         
     if args.task_name == 'classification': Exp = Exp_Classification
     else: Exp = Exp_Long_Term_Forecast
-    exp = Exp(args)  # set experiments
-    _, dataloader = exp._get_data(args.flag)
+    
+    parent_seed = args.seed
+    np.random.seed(parent_seed)
+    experiment_seeds = np.random.randint(1e3, size=args.itrs)
+    
+    for itr_no in range(1, args.itrs+1):
+        args.seed = experiment_seeds[itr_no-1]
+        print(f'\n>>>> itr_no: {itr_no}, seed: {args.seed} <<<<<<')
+        set_random_seed(args.seed)
+        args.itr_no = itr_no
+        
+        exp = Exp(args)  # set experiments
+        _, dataloader = exp._get_data(args.flag)
 
-    exp.load_best_model()
+        exp.load_best_model()
 
-    # Some models don't work with gradient based explainers
-    # explainers = ['lime', 'feature_ablation', 'deep_lift', 'gradient_shap', 'integrated_gradients']
+        # Some models don't work with gradient based explainers
+        # explainers = ['deep_lift', 'gradient_shap', 'integrated_gradients']
 
-    interpreter = Exp_Interpret(exp, dataloader) 
-    interpreter.interpret(dataloader)
+        interpreter = Exp_Interpret(exp, dataloader) 
+        interpreter.interpret(dataloader)
+        print()
+        
+    args.seed = parent_seed
+    config_filepath = os.path.join(args.result_path, stringify_setting(args), 'config_interpret.json')
+    args.seeds = [int(seed) for seed in experiment_seeds]
+    with open(config_filepath, 'w') as output_file:
+        json.dump(vars(args), output_file, indent=4)
     
 def get_parser():
     parser = get_main_parser()
     parser.description = 'Interpret timeseries model'
-    parser.add_argument('--tsr', action='store_true', help='Run interpretation methods with TSR enabled')
-    parser.add_argument('--explainers', nargs='*', default=['feature_ablation'], 
+    parser.add_argument('--explainers', nargs='+', default=['feature_ablation'], 
         choices=list(explainer_name_map.keys()),
         help='explaination method names')
     parser.add_argument('--areas', nargs='*', type=float, default=[0.05, 0.075, 0.1, 0.15],
@@ -40,11 +57,8 @@ def get_parser():
         help='how to create the baselines for the interepretation methods')
     parser.add_argument('--metrics', nargs='*', type=str, default=['mae', 'mse'], 
         help='interpretation evaluation metrics')
-    parser.add_argument('--threshold', type=float, default=0, 
-        help='Threshold for the feature step computation')
-    parser.add_argument(
-        '--avg_attr_by_pred', action='store_true', 
-        help='Take the average over the output horizon. Otherwise evaluate the attr by each predicted class/horizon.')
+    parser.add_argument('--overwrite', action='store_true', help='overwrite previous results')
+    parser.add_argument('--dump_attrs', action='store_true', help='dump raw attributes in torch file')
     
     return parser
 

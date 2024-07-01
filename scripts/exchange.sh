@@ -1,6 +1,5 @@
 python -u run.py \
   --train \
-  --use_gpu \
   --root_path ./dataset/exchange_rate/ \
   --data_path exchange_rate.csv \
   --model Transformer \

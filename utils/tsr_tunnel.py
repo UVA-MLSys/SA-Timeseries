@@ -507,7 +507,7 @@ class WTSR(Occlusion):
 
     def _run_forward(
         self, forward_func: Callable, inputs: Any, **kwargs
-    ) -> (Tuple[Tensor, ...], Tuple[Tuple[int]]):
+    ) -> Tuple[Tuple[Tensor, ...], Tuple[Tuple[int]]]:
         attributions = self.attribution_method.attribute.__wrapped__(
             self.attribution_method, inputs, **kwargs
         )

@@ -1,6 +1,5 @@
 python -u run.py \
   --train \
-  --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model DLinear \
@@ -12,7 +11,6 @@ python -u run.py \
 
 python -u run.py \
   --train \
-  --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model MICN \
@@ -25,7 +23,6 @@ python -u run.py \
 
 python interpret.py \
   --explainers feature_ablation occlusion augmented_occlusion feature_permutation \
-  --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model DLinear \
@@ -39,7 +36,6 @@ python interpret.py \
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
   --explainers winIT \
-  --use_gpu \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model MICN \

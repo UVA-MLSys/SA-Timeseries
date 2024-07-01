@@ -6,10 +6,9 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 import torch
 import torch.nn as nn
 from torch import optim
-import os
-import time
-import warnings
+import os, time, warnings
 import numpy as np
+import pandas as pd
 from captum._utils.common import _select_targets
 
 warnings.filterwarnings('ignore')
@@ -196,7 +195,14 @@ class Exp_Classification(Exp_Basic):
         with open("result_classification.txt", 'a') as f:
             f.write(stringify_setting(self.args, complete=True)  + "  \n")
             f.write(f'flag {flag}, {result_string}\n\n')
+            
+        results = pd.DataFrame({
+                    'metric': ['mae', 'mse', 'rmse'], 
+                    'score':[accuracy, f1, auc]
+                })
+
+        results.to_csv(os.path.join(self.output_folder, f'{flag}_metrics.csv'), index=False)
         
-        np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), predictions)
+        np.save(os.path.join(self.output_folder, f'{flag}_pred.npy'), probs)
         np.save(os.path.join(self.output_folder, f'{flag}_true.npy'), trues)
         return

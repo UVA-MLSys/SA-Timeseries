@@ -51,8 +51,7 @@ def data_provider(args, flag):
             features=args.features,
             target=args.target,
             timeenc=timeenc,
-            freq=freq,
-            scale=not args.no_scale
+            freq=freq
         )
         print(flag, len(data_set))
         data_loader = DataLoader(

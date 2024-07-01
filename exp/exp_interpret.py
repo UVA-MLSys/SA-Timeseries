@@ -1,4 +1,4 @@
-import os, torch
+import os, torch, copy, gc
 from tqdm import tqdm 
 import pandas as pd
 from utils.explainer import *
@@ -43,7 +43,8 @@ explainer_name_map = {
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
-    "morris_sensitivity": MorrisSensitivty
+    "morris_sensitivity": MorrisSensitivty,
+    "tsr": WTSR, "wtsr": WTSR
     # "ozyegen":FeatureAblation
 }
 
@@ -57,28 +58,52 @@ class Exp_Interpret:
         self.result_folder = exp.output_folder
         self.device = exp.device
         
-        print(f'explainers: {exp.args.explainers}\n areas: {exp.args.areas}\n metrics: {exp.args.metrics}\n')
-        
-        exp.model.eval().zero_grad()
+        exp.model.eval()
+        # exp.model.zero_grad()
         self.model = exp.model
         
-        self.explainers_map = dict()
+        self.explainers_map = dict() 
         for name in exp.args.explainers:
-            if name in ['augmented_occlusion', 'winIT', 'morris_sensitivity']:
-                add_x_mark = exp.args.task_name != 'classification'
-                all_inputs = get_total_data(dataloader, self.device, add_x_mark=add_x_mark)
-                
-                if name in ['winIT', 'morris_sensitivity']:
-                    self.explainers_map[name] = explainer_name_map[name](
-                        self.model, all_inputs, self.args
-                    )
-                else: self.explainers_map[name] = explainer_name_map[name](
-                    self.model, data=all_inputs
+            explainer = Exp_Interpret.initialize_explainer(
+                name, exp.model, exp.args, exp.device, dataloader
+            ) 
+            self.explainers_map[name] = explainer
+    
+    @staticmethod
+    def initialize_explainer(
+        name, model, args, device, dataloader
+    ):
+        if name == 'deep_lift':
+            # torch.backends.cudnn.enabled=False
+            clone = copy.deepcopy(model)
+            clone.train() # deep lift moedl needs to be in training mode
+            explainer = explainer_name_map[name](clone)
+            
+        elif name == 'tsr':
+            explainer = WTSR(IntegratedGradients(model))
+            
+        elif name == 'wtsr':
+            base_explainer = Exp_Interpret.initialize_explainer(
+                'augmented_occlusion', model, args, device, dataloader
+            ) 
+            explainer = WTSR(base_explainer)
+            
+        elif name in ['augmented_occlusion', 'winIT', 'morris_sensitivity']:
+            add_x_mark = args.task_name != 'classification'
+            all_inputs = get_total_data(dataloader, device, add_x_mark=add_x_mark)
+            
+            if name in ['winIT', 'morris_sensitivity']:
+                explainer = explainer_name_map[name](
+                    model, all_inputs, args
                 )
-            else:
-                explainer = explainer_name_map[name](self.model)
-                self.explainers_map[name] = explainer
-                
+            else: explainer = explainer_name_map[name](
+                model, data=all_inputs
+            )
+        else:
+            explainer = explainer_name_map[name](model) 
+        
+        return explainer    
+    
     def run_classifier(self, dataloader, name):
         results = [['batch_index', 'metric', 'area', 'comp', 'suff']]
         attrs = []
@@ -104,7 +129,6 @@ class Exp_Interpret:
             
             results.extend(batch_results)  
             attrs.append(batch_attr)
-
         
         attrs = torch.vstack(attrs)
         return results, attrs
@@ -145,11 +169,14 @@ class Exp_Interpret:
         return results, attrs
     
     def interpret(self, dataloader):
-        if self.args.tsr:
-            print('Interpreting with TSR enabled.')
         task = self.args.task_name
         
         for name in self.args.explainers:
+            explainer_result_file = os.path.join(self.result_folder, f'{name}.csv')
+            if (not self.args.overwrite) and os.path.exists(explainer_result_file): 
+                print(f'{explainer_result_file} exists. Skipping ...')
+                continue
+            
             results = []
             start = datetime.now()
             print(f'Running {name} from {start}')
@@ -161,58 +188,31 @@ class Exp_Interpret:
             
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
-            if self.args.tsr:
-                if self.args.threshold == 0.55:
-                    self.dump_results(results, f'tsr_{name}_orig.csv')
-                else:
-                    self.dump_results(results, f'tsr_{name}.csv')
-            else:
-                self.dump_results(results, f'{name}.csv')
+            self.dump_results(results, f'{name}.csv')
                 
-            attr_output_file = f'{self.args.tsr}_{self.args.flag}_{name}.pt' 
-            
-            if self.args.tsr:
-                attr_output_file = f'tsr_{self.args.flag}_{name}.pt' 
-            else:
+            if self.args.dump_attrs:
                 attr_output_file = f'{self.args.flag}_{name}.pt' 
-            attr_output_path = os.path.join(self.result_folder, attr_output_file)
+                attr_output_path = os.path.join(self.result_folder, attr_output_file)
+                
+                if task == 'classification':
+                    attr_numpy = [a.detach().cpu().numpy() for a in attrs]
+                else:
+                    attr_numpy = tuple([a.detach().cpu().numpy() for a in attrs])
+                torch.save(attr_numpy, attr_output_path)
             
-            if task == 'classification':
-                attr_numpy = [a.detach().cpu().numpy() for a in attrs]
-            else:
-                attr_numpy = tuple([a.detach().cpu().numpy() for a in attrs])
-            torch.save(attr_numpy, attr_output_path)
+            gc.collect()
+            print()
                 
     def evaluate_classifier(
         self, name, inputs, baselines, 
         additional_forward_args, batch_index
     ):
         explainer = self.explainers_map[name]
-        if self.args.tsr:
-            if name == 'winIT':
-                print('Warning, winIT not supported on TSR !!')
-                return []
-                
-            explainer = WTSR(explainer)
-            if type(inputs) == tuple:
-                sliding_window_shapes = tuple([(1,1) for _ in inputs])
-                strides = tuple([1 for _ in inputs])
-            else:
-                sliding_window_shapes = (1, 1)
-                strides = 1
-                
-            attr = compute_tsr_attr(
-                self.args, explainer, inputs=inputs, 
-                sliding_window_shapes=sliding_window_shapes, 
-                strides=strides, baselines=baselines,
-                additional_forward_args=additional_forward_args,
-                threshold=self.args.threshold
-            )
-        else:
-            attr = compute_attr(
-                inputs, baselines, explainer, 
-                additional_forward_args, self.args
-            )
+        
+        attr = compute_attr(
+            name, inputs, baselines, explainer, 
+            additional_forward_args, self.args
+        )
     
         results = []
         # get scores
@@ -250,35 +250,11 @@ class Exp_Interpret:
         additional_forward_args, batch_index
     ):
         explainer = self.explainers_map[name]
-        avg_attr = self.args.avg_attr_by_pred
         
-        if self.args.tsr:
-            if name == 'winIT':
-                print('Warning, winIT not supported on TSR !!')
-                return []
-            
-            explainer = WTSR(explainer)
-            if type(inputs) == tuple:
-                sliding_window_shapes = tuple([(1,1) for _ in inputs])
-                strides = tuple([1 for _ in inputs])
-            else:
-                sliding_window_shapes = (1, 1)
-                strides = 1
-                
-            attr = compute_tsr_attr(
-                self.args, explainer, inputs=inputs, 
-                sliding_window_shapes=sliding_window_shapes, 
-                strides=strides, baselines=baselines,
-                additional_forward_args=additional_forward_args,
-                threshold=self.args.threshold,
-                avg_attr=avg_attr
-            )
-        else:
-            attr = compute_attr(
-                inputs, baselines, explainer, 
-                additional_forward_args, self.args, 
-                avg_attr=avg_attr
-            )
+        attr = compute_attr(
+            name, inputs, baselines, explainer, 
+            additional_forward_args, self.args
+        )
     
         results = []
         # get scores

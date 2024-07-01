@@ -1,1 +1,1 @@
-python run.py --train --use_gpu --root_path ./dataset/covid/ --data_path Top_20.csv --target Cases --model Transformer --data covid --features MS --seq_len 14 --label_len 7 --pred_len 14 --n_features 10 --freq d --group-id 'FIPS' --task_name long_term_forecast 
+python run.py --train --root_path ./dataset/covid/ --data_path Top_20.csv --target Cases --model Transformer --data covid --features MS --seq_len 14 --label_len 7 --pred_len 14 --n_features 10 --freq d --group-id 'FIPS' --task_name long_term_forecast 

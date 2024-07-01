@@ -35,24 +35,49 @@ def get_baseline(inputs, mode='random'):
     return baselines
 
 def compute_attr(
-    inputs, baselines, explainer,
+    name, inputs, baselines, explainer,
     additional_forward_args, 
     args, avg_attr=True
 ):
-    name = explainer.get_name()
+    # name = explainer.get_name()
     if args.task_name == 'classification':
         targets = args.num_class
-    else:
-        targets = args.pred_len
+    else: targets = args.pred_len
+        
+    if type(inputs) == tuple:
+        sliding_window_shapes = tuple([
+            (1,1) for _ in inputs
+        ])
+    else: sliding_window_shapes = (1,1)
     
-    if name in ['Deep Lift', 'Lime', 'Integrated Gradients', 'Gradient Shap']:
+    if name in [
+        'deep_lift', 'lime', 'integrated_gradients', 
+        'gradient_shap', 'tsr', 'wtsr', 'feature_ablation'
+    ]:
         attr_list = []
+        
         for target in range(targets):
-            attr = explainer.attribute(
+            if name in ['tsr', 'wtsr']:
+                threshold = 0.55 if name == 'tsr' else 0
+                attr = explainer.attribute(
+                    inputs=inputs,
+                    sliding_window_shapes=sliding_window_shapes,
+                    baselines=baselines, target=target,
+                    additional_forward_args=additional_forward_args,
+                    threshold=threshold, normalize=True
+                )
+            elif name == 'feature_ablation':
+                attr = explainer.attribute(
+                    inputs=inputs, baselines=baselines, target=target,
+                    additional_forward_args=additional_forward_args,
+                    attributions_fn=abs
+                )
+            else: attr = explainer.attribute(
                 inputs=inputs, baselines=baselines, target=target,
                 additional_forward_args=additional_forward_args
             )
-            attr_list.append(attr)
+            
+            attr_list.append(attr.abs())
         
         if type(inputs) == tuple:
             attr = []
@@ -68,38 +93,31 @@ def compute_attr(
             # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
             attr = attr.permute(1, 0, 2, 3)
         
-    elif name in ['Feature Ablation']:
-        attr = explainer.attribute(
-            inputs=inputs, baselines=baselines,attributions_fn=abs,
-            additional_forward_args=additional_forward_args
-        )
-    elif name in ['Feature Permutation', 'WinIT']:
+    # elif name == :
+    #     attr = explainer.attribute(
+    #         inputs=inputs, baselines=baselines,attributions_fn=abs,
+    #         additional_forward_args=additional_forward_args
+    #     )
+    elif name in ['feature_permutation', 'winIT']:
         attr = explainer.attribute(
             inputs=inputs, attributions_fn=abs,
             additional_forward_args=additional_forward_args
         )
-    elif name == 'Occlusion' or name=='Augmented Occlusion':
-        if type(inputs) == tuple:
-            sliding_window_shapes = tuple([
-                (1,1) for _ in inputs
-            ])
-        else: sliding_window_shapes = (1,1)
-            
-        if name == 'Occlusion':
-            attr = explainer.attribute(
-                inputs=inputs,
-                baselines=baselines,
-                sliding_window_shapes = sliding_window_shapes,
-                additional_forward_args=additional_forward_args,
-                attributions_fn=abs
-            )
-        else:
-            attr = explainer.attribute(
-                inputs=inputs,
-                sliding_window_shapes = sliding_window_shapes,
-                additional_forward_args=additional_forward_args,
-                attributions_fn=abs
-            )
+    elif name == 'occlusion':
+        attr = explainer.attribute(
+            inputs=inputs,
+            baselines=baselines,
+            sliding_window_shapes = sliding_window_shapes,
+            additional_forward_args=additional_forward_args,
+            attributions_fn=abs
+        )
+    elif name=='augmented_occlusion':
+        attr = explainer.attribute(
+            inputs=inputs,
+            sliding_window_shapes = sliding_window_shapes,
+            additional_forward_args=additional_forward_args,
+            attributions_fn=abs
+        )
     else:
         raise NotImplementedError
         

@@ -2,15 +2,12 @@ import os
 import torch
 from data.data_factory import data_provider
 from models import Autoformer, Transformer, TimesNet, Nonstationary_Transformer, DLinear, FEDformer, \
-    Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM, LSTM, TCN
+    Informer, LightTS, Reformer, ETSformer, Pyraformer, PatchTST, MICN, Crossformer, FiLM, LSTM, TCN, SegRNN
     
 
 def stringify_setting(args, complete=False):
     if not complete:
-        setting = f"{args.data_path.split('.')[0]}_{args.model}"
-        if args.des:
-            setting += '_' + args.des
-        return setting
+        return f"{args.data_path.split('.')[0]}_{args.model}"
     
     setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}'.format(
         args.task_name,
@@ -51,7 +48,8 @@ class Exp_Basic(object):
         'Crossformer': Crossformer,
         'FiLM': FiLM,
         'LSTM': LSTM,
-        'TCN': TCN
+        'TCN': TCN,
+        'SegRNN': SegRNN
     }
     
     def __init__(self, args):
@@ -60,7 +58,14 @@ class Exp_Basic(object):
         self.model = self._build_model().to(self.device)
         
         self.setting = stringify_setting(args)
-        self.output_folder = os.path.join(args.result_path, self.setting)
+        
+        if args.itr_no is not None:
+            self.output_folder = os.path.join(
+                args.result_path, self.setting, str(args.itr_no)
+            )
+        else:
+            self.output_folder = os.path.join(args.result_path, self.setting)
+            
         if not os.path.exists(self.output_folder):
             os.makedirs(self.output_folder, exist_ok=True)
         print(f'Experiments will be saved in {self.output_folder}')

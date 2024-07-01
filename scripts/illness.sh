@@ -2,7 +2,6 @@ python -u run.py \
   --task_name long_term_forecast \
   --train \
   --result_path scratch \
-  --use_gpu \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
   --model DLinear \
@@ -15,7 +14,6 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --train \
-  --use_gpu \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
   --model MICN \
@@ -35,7 +33,6 @@ python interpret.py \
   --explainers feature_ablation occlusion augmented_occlusion feature_permutation\
   --task_name long_term_forecast \
   --result_path scratch \
-  --use_gpu \
   --root_path ./dataset/illness/ \
   --data_path national_illness.csv \
   --model DLinear \
@@ -43,5 +40,4 @@ python interpret.py \
   --seq_len 36 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 7 \
-  --tsr
+  --n_features 7

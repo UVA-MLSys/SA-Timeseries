@@ -76,3 +76,51 @@ flag val, acc 0.90126, f1 0.40420, auc 0.83894
 classification_Crossformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag test, acc 0.90735, f1 0.37537, auc 0.83755
 
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90213, f1 0.20495, auc 0.76600
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90735, f1 0.19011, auc 0.78233
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90387, f1 0.21908, auc 0.79739
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90387, f1 0.17844, auc 0.75824
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90518, f1 0.19259, auc 0.76632
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.89778, f1 0.16961, auc 0.76865
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.89909, f1 0.14706, auc 0.77912
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90648, f1 0.11523, auc 0.77318
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90083, f1 0.09524, auc 0.79815
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.89909, f1 0.07937, auc 0.76215
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90170, f1 0.22069, auc 0.78050
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90170, f1 0.21528, auc 0.78247
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90909, f1 0.19305, auc 0.79612
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.89909, f1 0.15328, auc 0.76643
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90866, f1 0.16667, auc 0.76411
+
+classification_DLinear_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90605, f1 0.12903, auc 0.73140
+

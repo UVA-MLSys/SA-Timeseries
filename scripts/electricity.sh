@@ -2,7 +2,6 @@ python run.py \
   --task_name long_term_forecast \
   --train \
   --result_path scratch \
-  --use_gpu \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model DLinear \
@@ -16,7 +15,6 @@ python run.py \
   --task_name long_term_forecast \
   --train \
   --result_path scratch \
-  --use_gpu \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model Crossformer \
@@ -30,7 +28,6 @@ python run.py \
   --task_name long_term_forecast \
   --train \
   --result_path scratch \
-  --use_gpu \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model MICN \
@@ -53,9 +50,7 @@ python interpret.py \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1 \
-  --use_gpu \
-  --tsr
+  --n_features 1
 
 python interpret.py \
   --task_name long_term_forecast \
@@ -68,5 +63,5 @@ python interpret.py \
   --label_len 12 \
   --pred_len 24 \
   --n_features 1 \
-  --use_gpu --tsr --result_path scratch \
+  --result_path scratch \
   

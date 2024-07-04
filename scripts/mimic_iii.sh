@@ -38,7 +38,7 @@ python interpret.py \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --metrics auc 'accuracy' 'cross_entropy' \
+  --metrics auc accuracy cross_entropy \
   --model DLinear 
 
 python interpret.py \
@@ -47,5 +47,5 @@ python interpret.py \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --metrics auc 'accuracy' 'cross_entropy' \
+  --metrics auc accuracy cross_entropy \
   --model MICN

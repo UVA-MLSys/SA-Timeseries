@@ -35,8 +35,11 @@ def main(args):
     parent_seed = args.seed
     np.random.seed(parent_seed)
     experiment_seeds = np.random.randint(1e3, size=args.itrs)
-    
+    original_itr = args.itr_no
+        
     for itr_no in range(1, args.itrs+1):
+        if (original_itr is not None) and original_itr != itr_no: continue
+        
         args.seed = experiment_seeds[itr_no-1]
         print(f'\n>>>> itr_no: {itr_no}, seed: {args.seed} <<<<<<')
         set_random_seed(args.seed)

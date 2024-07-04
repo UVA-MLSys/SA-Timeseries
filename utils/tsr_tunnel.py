@@ -17,7 +17,7 @@ from captum._utils.typing import (
 
 from torch import Tensor
 from typing import Any, Callable, Tuple, Union
-
+from utils.tools import min_max_scale
 from tint.attr.occlusion import FeatureAblation, Occlusion
 
 
@@ -291,16 +291,17 @@ class WTSR(Occlusion):
 
         # Normalize if required
         if normalize:
+            # min max scaling
             time_relevance_score = tuple(
-                tsr / tsr.sum() for tsr in time_relevance_score
+                min_max_scale(tsr) for tsr in time_relevance_score
             )
-
+            
         # Get indexes where the Time-Relevance Score is
         # higher than the threshold
         is_above_threshold = tuple(
-            score > threshold for score in time_relevance_score
+            score > torch.quantile(score, threshold, dim=1, keepdim=True) for score in time_relevance_score
         )
-
+        
         # Formatting strides
         strides = _format_and_verify_strides(strides, inputs)
 
@@ -532,5 +533,6 @@ class WTSR(Occlusion):
         # For this method, we need to reshape eval_diff to the output shapes
         return eval_diff.reshape((len(eval_diff),) + shapes)
     
-    def get_name(self):
-        return f'WTSR + {self.attribution_method.get_name()}'
+    @staticmethod
+    def get_name():
+        return 'WTSR'

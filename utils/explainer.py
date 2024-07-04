@@ -64,7 +64,8 @@ def compute_attr(
                     sliding_window_shapes=sliding_window_shapes,
                     baselines=baselines, target=target,
                     additional_forward_args=additional_forward_args,
-                    threshold=threshold, normalize=True
+                    threshold=threshold, normalize=True,
+                    attributions_fn=abs
                 )
             elif name == 'feature_ablation':
                 attr = explainer.attribute(
@@ -77,7 +78,7 @@ def compute_attr(
                 additional_forward_args=additional_forward_args
             )
             
-            attr_list.append(attr.abs())
+            attr_list.append(attr)
         
         if type(inputs) == tuple:
             attr = []

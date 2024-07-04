@@ -7,6 +7,15 @@ import pandas as pd
 
 plt.switch_backend('agg')
 
+# min max scale a torch tensor across a dimension
+def min_max_scale(a:torch.Tensor, dim=1, absolute=True):
+    if absolute: a = a.abs()
+    min_values = a.min(dim=dim, keepdims=True).values
+    max_values = a.max(dim=dim, keepdims=True).values
+
+    scaled = (a - min_values)/(max_values - min_values)
+    scaled[scaled!=scaled] = 0
+    return scaled 
 
 def adjust_learning_rate(optimizer, epoch, args):
     # lr = args.learning_rate * (0.2 ** (epoch // 2))

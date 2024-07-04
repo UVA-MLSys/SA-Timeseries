@@ -42,7 +42,6 @@ class Exp_Classification(Exp_Basic):
         return model
 
     def _get_data(self, flag):
-        
         data_set, data_loader = data_provider(self.args, flag)
         return data_set, data_loader
 
@@ -197,7 +196,7 @@ class Exp_Classification(Exp_Basic):
             f.write(f'flag {flag}, {result_string}\n\n')
             
         results = pd.DataFrame({
-                    'metric': ['mae', 'mse', 'rmse'], 
+                    'metric': ['accuracy', 'f1', 'auc'], 
                     'score':[accuracy, f1, auc]
                 })
 

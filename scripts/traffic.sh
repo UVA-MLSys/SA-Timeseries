@@ -2,12 +2,12 @@ python -u run.py \
   --train \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
-  --model DLinear \
   --features S \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
   --n_features 1 \
+  --model DLinear 
 
 python -u run.py \
   --train \

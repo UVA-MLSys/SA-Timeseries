@@ -108,7 +108,7 @@ class WinIT:
             
             for t in range(seq_len)[::-1]:
                 # mask last t timesteps
-                inputs_hat[:, t:, feature] = counterfactuals[:, t:]
+                inputs_hat[:, t, feature] = counterfactuals[:, t]
             
                 if type(additional_forward_args) == tuple:
                     y_perturbed = self.format_output(
@@ -122,8 +122,9 @@ class WinIT:
                 iSab = self._compute_metric(y_original, y_perturbed)
                 iSab = torch.clip(iSab, -1e6, 1e6)
                 iS_array[:, :, t, feature] = iSab
-                    
-        iS_array[:, :, 1:] -= iS_array[:, :, :-1]
+        
+        # i(S, a, b) i(S)^b_a − i(S)^b_a+1
+        iS_array[:, :, :-1] -= iS_array[:, :, 1:] 
         
         if attributions_fn is not None:
             attr = attributions_fn(iS_array)
@@ -175,7 +176,7 @@ class WinIT:
                 
                 for t in range(seq_len)[::-1]:
                     # mask last t timesteps
-                    cloned[:, t:, feature] = counterfactuals[:, t:]
+                    cloned[:, t, feature] = counterfactuals[:, t]
                     
                     inputs_hat = []
                     for i in range(len(inputs)):
@@ -195,7 +196,7 @@ class WinIT:
                     iSab = torch.clip(iSab, -1e6, 1e6)
                     iS_array[:, :, t, feature] = iSab
                         
-            iS_array[:, :, 1:] -= iS_array[:, :, :-1]
+            iS_array[:, :, :-1] -= iS_array[:, :, 1:]
             
             if attributions_fn is not None:
                 attr.append(attributions_fn(iS_array))

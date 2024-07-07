@@ -22,7 +22,6 @@ from tint.attr import (
     Occlusion, 
     FeatureAblation
 )
-from explainers import MorrisSensitivty
 
 expl_metric_map = {
     'mae': mae, 'mse': mse, 'accuracy': accuracy, 
@@ -43,7 +42,6 @@ explainer_name_map = {
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
-    "morris_sensitivity": MorrisSensitivty,
     "tsr": WTSR, "wtsr": WTSR
     # "ozyegen":FeatureAblation
 }
@@ -88,11 +86,11 @@ class Exp_Interpret:
             ) 
             explainer = WTSR(base_explainer)
             
-        elif name in ['augmented_occlusion', 'winIT', 'morris_sensitivity']:
+        elif name in ['augmented_occlusion', 'winIT']:
             add_x_mark = args.task_name != 'classification'
             all_inputs = get_total_data(dataloader, device, add_x_mark=add_x_mark)
             
-            if name in ['winIT', 'morris_sensitivity']:
+            if name == 'winIT':
                 explainer = explainer_name_map[name](
                     model, all_inputs, args
                 )

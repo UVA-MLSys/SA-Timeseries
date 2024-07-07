@@ -64,6 +64,7 @@ def get_parser():
     parser.add_argument('--overwrite', action='store_true', help='overwrite previous results')
     parser.add_argument('--dump_attrs', action='store_true', help='dump raw attributes in torch file')
     
+    parser.add_argument('--disable_progress', action='store_true', help='disble progress bar')
     return parser
 
 if __name__ == '__main__':

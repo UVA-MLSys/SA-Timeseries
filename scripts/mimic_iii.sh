@@ -12,7 +12,7 @@ python -u run.py \
   --train \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --model LSTM
+  --model MICN \
 
 python -u run.py \
   --task_name classification \
@@ -20,7 +20,7 @@ python -u run.py \
   --train \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --model MICN \
+  --model SegRNN
 
 python -u run.py \
   --task_name classification \
@@ -33,19 +33,10 @@ python -u run.py \
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation gradient_shap deep_lift tsr \
+  --explainers feature_ablation augmented_occlusion deep_lift winIT tsr wtsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model DLinear 
-
-python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation\
-  --task_name classification \
-  --data mimic \
-  --root_path ./dataset/mimic_iii/ \
-  --data_path mimic_iii.pkl \
-  --metrics auc accuracy cross_entropy \
-  --model MICN
+  --model DLinear --disable_progress

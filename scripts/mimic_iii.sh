@@ -39,4 +39,13 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model DLinear --disable_progress
+  --model DLinear
+
+python interpret.py \
+  --explainers feature_ablation \
+  --task_name classification \
+  --data mimic \
+  --root_path ./dataset/mimic_iii/ \
+  --data_path mimic_iii.pkl \
+  --metrics auc accuracy cross_entropy \
+  --model DLinear

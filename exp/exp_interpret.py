@@ -103,7 +103,7 @@ class Exp_Interpret:
         return explainer    
     
     def run_classifier(self, dataloader, name):
-        results = [['batch_index', 'metric', 'area', 'comp', 'suff']]
+        results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
         attrs = []
         
         progress_bar = tqdm(
@@ -120,7 +120,7 @@ class Exp_Interpret:
             additional_forward_args = (padding_mask, None, None)
 
             # get attributions
-            batch_results, batch_attr = self.evaluate_classifier(
+            batch_results, batch_attr = self.evaluate(
                 name, inputs, baselines, 
                 additional_forward_args, batch_index
             )
@@ -156,7 +156,7 @@ class Exp_Interpret:
             additional_forward_args = (dec_inp, batch_y_mark)
 
             # get attributions
-            batch_results, batch_attr = self.evaluate_regressor(
+            batch_results, batch_attr = self.evaluate(
                 name, inputs, baselines, 
                 additional_forward_args, batch_index
             )
@@ -201,7 +201,7 @@ class Exp_Interpret:
             gc.collect()
             print()
                 
-    def evaluate_classifier(
+    def evaluate(
         self, name, inputs, baselines, 
         additional_forward_args, batch_index
     ):
@@ -209,62 +209,23 @@ class Exp_Interpret:
         
         attr = compute_attr(
             name, inputs, baselines, explainer, 
-            additional_forward_args, self.args
+            additional_forward_args, self.args, 
+            avg_attr=False
         )
     
         results = []
-        # get scores
-        for area in self.args.areas:
-            # otherwise it is classification
-            # ['accuracy', 'log_odds', 'cross_entropy']
-            for metric_name in self.args.metrics:
-                metric = expl_metric_map[metric_name]
-                # masks top k% features
-                error_comp = metric(
-                    self.model, inputs=inputs, 
-                    attributions=attr, baselines=baselines, 
-                    additional_forward_args=additional_forward_args,
-                    topk=area
-                )
-                
-                if metric_name in ['comprehensiveness', 'sufficiency', 'log_odds']:
-                    # these metrics has not mask_largest parameter
-                    error_suff = 0
-                else:
-                    error_suff = metric(
-                        self.model, inputs=inputs, 
-                        attributions=attr, baselines=baselines, 
-                        additional_forward_args=additional_forward_args,
-                        topk=area, mask_largest=False
-                    )
         
-                result_row = [batch_index, metric_name, area, error_comp, error_suff]
-                results.append(result_row)
-    
-        return results, attr
+        pred_len = self.args.num_class if self.args.task_name == 'classification' else self.args.pred_len
+        # get scores
+        for tau in range(pred_len):
+            if type(attr) == tuple:
+                # batch x pred_len x seq_len x features
+                attr_per_pred = tuple([
+                    attr_[:, tau] for attr_ in attr
+                ])
+            else: attr_per_pred = attr[:, tau]
             
-    def evaluate_regressor(
-        self, name, inputs, baselines, 
-        additional_forward_args, batch_index
-    ):
-        explainer = self.explainers_map[name]
-        
-        attr = compute_attr(
-            name, inputs, baselines, explainer, 
-            additional_forward_args, self.args
-        )
-    
-        results = []
-        # get scores
-        for metric_name in self.args.metrics: # ['mae', 'mse']
-            # batch x pred_len x seq_len x features
-            for tau in range(self.args.pred_len):
-                if type(attr) == tuple:
-                    attr_per_pred = tuple([
-                        attr_[:, tau] for attr_ in attr
-                    ])
-                else: attr_per_pred = attr[:, tau]
-                
+            for metric_name in self.args.metrics:    
                 for area in self.args.areas:
                     metric = expl_metric_map[metric_name]
                     error_comp = metric(
@@ -274,7 +235,10 @@ class Exp_Interpret:
                         topk=area, mask_largest=True
                     )
                     
-                    error_suff = metric(
+                    if metric_name in ['comprehensiveness', 'sufficiency', 'log_odds']:
+                        # these metrics doesn't have mask_largest parameter
+                        error_suff = 0
+                    else: error_suff = metric(
                         self.model, inputs=inputs,
                         attributions=attr_per_pred, baselines=baselines, 
                         additional_forward_args=additional_forward_args,

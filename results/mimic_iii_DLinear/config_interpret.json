@@ -3,8 +3,8 @@
     "train": false,
     "model": "DLinear",
     "seed": 2024,
-    "itrs": 5,
-    "itr_no": null,
+    "itrs": 3,
+    "itr_no": 1,
     "data": "mimic",
     "result_path": "./results",
     "root_path": "./dataset/mimic_iii/",
@@ -13,9 +13,9 @@
     "features": "MS",
     "target": "OT",
     "freq": "h",
-    "seq_len": 96,
+    "seq_len": 48,
     "label_len": 48,
-    "pred_len": 96,
+    "pred_len": 0,
     "seasonal_patterns": "Monthly",
     "top_k": 5,
     "num_kernels": 6,
@@ -33,8 +33,8 @@
     "activation": "gelu",
     "output_attention": false,
     "conv_kernel": [
-        24,
-        24
+        18,
+        12
     ],
     "seg_len": 24,
     "num_workers": 0,
@@ -53,15 +53,8 @@
         128
     ],
     "p_hidden_layers": 2,
-    "disable_progress": false,
     "explainers": [
-        "feature_ablation",
-        "occlusion",
-        "augmented_occlusion",
-        "feature_permutation",
-        "gradient_shap",
-        "deep_lift",
-        "tsr"
+        "feature_ablation"
     ],
     "areas": [
         0.05,
@@ -75,17 +68,17 @@
         "accuracy",
         "cross_entropy"
     ],
-    "overwrite": false,
+    "overwrite": true,
     "dump_attrs": false,
+    "disable_progress": false,
     "use_gpu": true,
-    "enc_in": 1,
+    "enc_in": 31,
     "dec_in": 1,
     "c_out": 1,
+    "num_class": 2,
     "seeds": [
         648,
         506,
-        608,
-        640,
-        539
+        608
     ]
 }

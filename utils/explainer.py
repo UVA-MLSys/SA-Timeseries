@@ -52,7 +52,7 @@ def compute_attr(
     
     if name in [
         'deep_lift', 'lime', 'integrated_gradients', 
-        'gradient_shap', 'tsr', 'wtsr', 'feature_ablation'
+        'gradient_shap', 'tsr', 'wtsr'
     ]:
         attr_list = []
         
@@ -65,12 +65,6 @@ def compute_attr(
                     baselines=baselines, target=target,
                     additional_forward_args=additional_forward_args,
                     threshold=threshold, normalize=True,
-                    attributions_fn=abs
-                )
-            elif name == 'feature_ablation':
-                attr = explainer.attribute(
-                    inputs=inputs, baselines=baselines, target=target,
-                    additional_forward_args=additional_forward_args,
                     attributions_fn=abs
                 )
             else: attr = explainer.attribute(
@@ -94,12 +88,7 @@ def compute_attr(
             # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
             attr = attr.permute(1, 0, 2, 3)
         
-    # elif name == :
-    #     attr = explainer.attribute(
-    #         inputs=inputs, baselines=baselines,attributions_fn=abs,
-    #         additional_forward_args=additional_forward_args
-    #     )
-    elif name in ['feature_permutation', 'winIT']:
+    elif name in ['feature_permutation', 'winIT', 'feature_ablation']:
         attr = explainer.attribute(
             inputs=inputs, attributions_fn=abs,
             additional_forward_args=additional_forward_args

@@ -33,7 +33,7 @@ python -u run.py \
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
-  --explainers feature_ablation augmented_occlusion deep_lift winIT tsr wtsr \
+  --explainers feature_ablation occlusion augmented_occlusion deep_lift fit winIT tsr wtsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \

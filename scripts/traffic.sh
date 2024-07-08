@@ -22,7 +22,7 @@ python -u run.py \
   --conv_kernel 18 12
 
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation \
+  --explainers feature_ablation occlusion augmented_occlusion winIT tsr \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
   --model DLinear \

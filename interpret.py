@@ -53,7 +53,7 @@ def get_parser():
     parser.description = 'Interpret timeseries model'
     parser.add_argument('--explainers', nargs='+', default=['feature_ablation'], 
         choices=list(explainer_name_map.keys()),
-        help='explaination method names')
+        help='explaination method names. Gradient based explainers are not supported yet for regression')
     parser.add_argument('--areas', nargs='*', type=float, default=[0.05, 0.075, 0.1, 0.15],
         help='top k features to keep or mask during evaluation')
     parser.add_argument('--baseline_mode', type=str, default='random',

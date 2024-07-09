@@ -80,57 +80,62 @@ class WinIT:
         attributions_fn=None
     ):
         model = self.model
-        if type(additional_forward_args) == tuple:
-            y_original = self.format_output(
-                model(inputs, *additional_forward_args)
-            )
-        else:
-            y_original = self.format_output(
-                model(inputs, additional_forward_args)
-            )
+        
+        with torch.no_grad():
+            if type(additional_forward_args) == tuple:
+                y_original = self.format_output(
+                    model(inputs, *additional_forward_args)
+                )
+            else:
+                y_original = self.format_output(
+                    model(inputs, additional_forward_args)
+                )
         
         batch_size, seq_len, n_features = inputs.shape
         
-        if self.task_name == 'classification':
-            iS_array = torch.zeros(size=(
-                batch_size, self.args.num_class, seq_len, n_features
-            ))
-        else:
-            iS_array = torch.zeros(size=(
-                batch_size, self.args.pred_len, seq_len, n_features
-            ))
+        n_output = self.args.num_class if self.task_name == 'classification' else self.args.pred_len
+        iS_array = torch.zeros(size=(
+            batch_size, n_output, seq_len, n_features
+        ), device=inputs.device)
         
-        for feature in range(n_features):
-            inputs_hat = inputs.clone()
-            counterfactuals = self.generate_counterfactuals(
-                batch_size, None, feature
-            )
-            
-            for t in range(seq_len)[::-1]:
-                # mask last t timesteps
-                inputs_hat[:, t, feature] = counterfactuals[:, t]
-            
-                if type(additional_forward_args) == tuple:
-                    y_perturbed = self.format_output(
-                        model(inputs_hat, *additional_forward_args)
-                    )
-                else:
-                    y_perturbed = self.format_output(
-                        model(inputs_hat, additional_forward_args)
-                    )
+        with torch.no_grad():
+            for feature in range(n_features):
+                inputs_hat = inputs.clone()
+                counterfactuals = self.generate_counterfactuals(
+                    batch_size, None, feature
+                )
                 
-                iSab = self._compute_metric(y_original, y_perturbed)
-                iSab = torch.clip(iSab, -1e6, 1e6)
-                iS_array[:, :, t, feature] = iSab
+                for t in range(seq_len)[::-1]:
+                    # mask last t timesteps
+                    inputs_hat[:, t, feature] = counterfactuals[:, t]
+                
+                    if type(additional_forward_args) == tuple:
+                        y_perturbed = self.format_output(
+                            model(inputs_hat, *additional_forward_args)
+                        )
+                    else:
+                        y_perturbed = self.format_output(
+                            model(inputs_hat, additional_forward_args)
+                        )
+                    
+                    iSab = self._compute_metric(y_original, y_perturbed)
+                    iSab = torch.clip(iSab, -1e6, 1e6)
+                    iS_array[:, :, t, feature] = iSab
+                    
+                    del y_perturbed, iSab
+                del counterfactuals
         
         # i(S, a, b) i(S)^b_a − i(S)^b_a+1
-        iS_array[:, :, :-1] -= iS_array[:, :, 1:] 
+        iS_array[:, :, 1:] -= iS_array[:, :, :-1] 
+        
+        # reverse order along the time axis
+        # equivalent to iS_array[:, :, ::-1] which doesn't work 
+        # sometimes since torch doesn't support it
+        iS_array = iS_array.flip(dims=(2,))
         
         if attributions_fn is not None:
-            attr = attributions_fn(iS_array)
-        else: attr = iS_array
-            
-        return attr
+            return attributions_fn(iS_array)
+        else: return iS_array
     
     def attribute(
         self, inputs, additional_forward_args, 
@@ -150,53 +155,60 @@ class WinIT:
         attributions_fn=None
     ):
         model = self.model
-        if type(additional_forward_args) == tuple:
-            y_original = self.format_output(model(*inputs, *additional_forward_args))
-        else:
-            y_original = self.format_output(model(*inputs, additional_forward_args))
+        with torch.no_grad():
+            if type(additional_forward_args) == tuple:
+                y_original = model(*inputs, *additional_forward_args)
+            else:
+                y_original = model(*inputs, additional_forward_args)
+            
+        y_original = self.format_output(y_original)
             
         attr = []
-        for input_index, input in enumerate(inputs):
-            batch_size, seq_len, n_features = input.shape
+        for input_index in range(len(inputs)):
+            batch_size, seq_len, n_features = inputs[input_index].shape
             
-            if self.task_name == 'classification':
-                iS_array = torch.zeros(size=(
-                    batch_size, self.args.num_class, seq_len, n_features
-                ))
-            else:
-                iS_array = torch.zeros(size=(
-                    batch_size, self.args.pred_len, seq_len, n_features
-                ))
+            # batch_size, n_output, seq_len, n_features
+            iS_array = torch.zeros(size=(
+                batch_size, y_original.shape[1], seq_len, n_features
+            ), device=inputs[input_index].device)
             
-            for feature in range(n_features):
-                cloned = input.clone()
-                counterfactuals = self.generate_counterfactuals(
-                    batch_size, input_index, feature
-                )
-                
-                for t in range(seq_len)[::-1]:
-                    # mask last t timesteps
-                    cloned[:, t, feature] = counterfactuals[:, t]
+            with torch.no_grad():
+                for feature in range(n_features):
+                    cloned = inputs[input_index].clone()
+                    counterfactuals = self.generate_counterfactuals(
+                        batch_size, input_index, feature
+                    )
                     
-                    inputs_hat = []
-                    for i in range(len(inputs)):
-                        if i == input_index: inputs_hat.append(cloned)
-                        else: inputs_hat.append(inputs[i])
-                    
-                    if type(additional_forward_args) == tuple:
-                        y_perturbed = self.format_output(
-                            model(*tuple(inputs_hat), *additional_forward_args)
-                        )
-                    else:
-                        y_perturbed = self.format_output(
-                            model(*tuple(inputs_hat), additional_forward_args)
-                        )
-                    
-                    iSab = self._compute_metric(y_original, y_perturbed)
-                    iSab = torch.clip(iSab, -1e6, 1e6)
-                    iS_array[:, :, t, feature] = iSab
+                    for t in range(seq_len)[::-1]:
+                        # mask last t timesteps
+                        cloned[:, t, feature] = counterfactuals[:, t]
                         
-            iS_array[:, :, :-1] -= iS_array[:, :, 1:]
+                        inputs_hat = []
+                        for i in range(len(inputs)):
+                            if i == input_index: inputs_hat.append(cloned)
+                            else: inputs_hat.append(inputs[i])
+                        
+                        if type(additional_forward_args) == tuple:
+                            y_perturbed = self.format_output(
+                                model(*tuple(inputs_hat), *additional_forward_args)
+                            )
+                        else:
+                            y_perturbed = self.format_output(
+                                model(*tuple(inputs_hat), additional_forward_args)
+                            )
+                        
+                        iSab = self._compute_metric(y_original, y_perturbed)
+                        iSab = torch.clip(iSab, -1e6, 1e6)
+                        iS_array[:, :, t, feature] = iSab
+                        
+                        del y_perturbed, inputs_hat
+                    del cloned, counterfactuals
+            
+            # batch_size, n_output, seq_len, n_features        
+            iS_array[:, :, 1:] -= iS_array[:, :, :-1] 
+            
+            # reverse order along the time axis
+            iS_array = iS_array.flip(dims=(2,))
             
             if attributions_fn is not None:
                 attr.append(attributions_fn(iS_array))

@@ -2,7 +2,8 @@ import os, torch, copy, gc
 from tqdm import tqdm 
 import pandas as pd
 from utils.explainer import *
-from utils.tsr_tunnel import *
+from utils.tsr_tunnel import TSR
+from utils.WinTSR import WinTSR
 from utils.winIT import WinIT
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds
 from utils.auc import auc
@@ -42,7 +43,7 @@ explainer_name_map = {
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
-    "tsr": WTSR, "wtsr": WTSR
+    "tsr": TSR, "wtsr": WinTSR
     # "ozyegen":FeatureAblation
 }
 
@@ -78,14 +79,13 @@ class Exp_Interpret:
             explainer = explainer_name_map[name](clone)
             
         elif name == 'tsr':
-            explainer = WTSR(IntegratedGradients(model))
+            explainer = TSR(IntegratedGradients(model))
             
         elif name == 'wtsr':
             base_explainer = Exp_Interpret.initialize_explainer(
                 'augmented_occlusion', model, args, device, dataloader
             ) 
-            explainer = WTSR(base_explainer)
-            
+            explainer = WinTSR(base_explainer)
         elif name in ['augmented_occlusion', 'winIT']:
             add_x_mark = args.task_name != 'classification'
             all_inputs = get_total_data(dataloader, device, add_x_mark=add_x_mark)

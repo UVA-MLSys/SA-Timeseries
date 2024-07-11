@@ -54,7 +54,7 @@
     ],
     "p_hidden_layers": 2,
     "explainers": [
-        "feature_ablation"
+        "wtsr"
     ],
     "areas": [
         0.05,

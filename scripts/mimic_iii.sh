@@ -42,10 +42,10 @@ python interpret.py \
   --model DLinear --n_features 31
 
 python interpret.py \
-  --explainers feature_ablation \
+  --explainers tsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model DLinear --n_features 31
+  --model DLinear --n_features 31 --overwrite --itr_no 1

@@ -1,4 +1,5 @@
 import torch
+from utils.tools import reshape_over_output_horizon
 
 def get_total_data(dataloader, device, add_x_mark=True):        
     if add_x_mark:
@@ -50,6 +51,16 @@ def compute_attr(
         ])
     else: sliding_window_shapes = (1,1)
     
+    # if name == 'wtsr':
+    #     attr = explainer.attribute(
+    #         inputs=inputs,
+    #         sliding_window_shapes=sliding_window_shapes,
+    #         baselines=baselines,
+    #         additional_forward_args=additional_forward_args,
+    #         threshold=0, normalize=True,
+    #         attributions_fn=abs
+    #     )
+    
     if name in [
         'deep_lift', 'lime', 'integrated_gradients', 
         'gradient_shap', 'tsr', 'wtsr'
@@ -58,7 +69,7 @@ def compute_attr(
         
         for target in range(targets):
             if name in ['tsr', 'wtsr']:
-                threshold = 0.55 if name == 'tsr' else 0
+                threshold = 0.55 # if name == 'tsr' else 0
                 attr = explainer.attribute(
                     inputs=inputs,
                     sliding_window_shapes=sliding_window_shapes,
@@ -88,7 +99,14 @@ def compute_attr(
             # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
             attr = attr.permute(1, 0, 2, 3)
         
-    elif name in ['feature_permutation', 'winIT', 'feature_ablation']:
+    elif name in ['feature_ablation']:
+        attr = explainer.attribute(
+            inputs=inputs, baselines=baselines, 
+            attributions_fn=abs,
+            additional_forward_args=additional_forward_args
+        )
+        
+    elif name in ['feature_permutation', 'winIT']:
         attr = explainer.attribute(
             inputs=inputs, attributions_fn=abs,
             additional_forward_args=additional_forward_args
@@ -116,26 +134,6 @@ def compute_attr(
     else:
         return reshape_over_output_horizon(attr, inputs, args)
 
-def reshape_over_output_horizon(attr, inputs, args):
-    if type(inputs) == tuple:
-        # tuple of batch x seq_len x features
-        attr = tuple([
-            attr_.reshape(
-                # batch x pred_len x seq_len x features
-                (inputs[0].shape[0], -1, args.seq_len, attr_.shape[-1])
-            # take mean over the output horizon
-            ) for attr_ in attr
-        ])
-    else:
-        # batch x seq_len x features
-        attr = attr.reshape(
-            # batch x pred_len x seq_len x features
-            (inputs.shape[0], -1, args.seq_len, attr.shape[-1])
-        # take mean over the output horizon
-        )
-    
-    return attr
-
 def avg_over_output_horizon(attr, inputs, args):
     if type(inputs) == tuple:
         # tuple of batch x seq_len x features
@@ -155,58 +153,3 @@ def avg_over_output_horizon(attr, inputs, args):
         ).mean(axis=1)
     
     return attr
-
-def compute_tsr_attr(
-    args, explainer, inputs, sliding_window_shapes, 
-    strides=None, baselines=None,
-    additional_forward_args=None, threshold=0.0, 
-    normalize=True, avg_attr=True
-):
-    attr_list = []
-    if args.task_name == 'classification':
-        targets = args.num_class
-    else:
-        targets = args.pred_len
-        
-    for target in range(targets):
-        score = explainer.attribute(
-            inputs=inputs, sliding_window_shapes=sliding_window_shapes,
-            strides=strides,
-            baselines=baselines, target=target,
-            additional_forward_args=additional_forward_args,
-            threshold=threshold, normalize=normalize
-        )
-        attr_list.append(score)
-        
-    if type(inputs) == tuple:
-            attr = []
-            for input_index in range(len(inputs)):
-                attr_per_input = torch.stack([score[input_index] for score in attr_list])
-                # targets x batch x seq_len x features -> batch x targets x seq_len x features
-                attr_per_input = attr_per_input.permute(1, 0, 2, 3)
-                attr.append(attr_per_input)
-                
-            attr = tuple(attr)
-    else:
-        attr = torch.stack(attr_list)
-        # targets x batch x seq_len x features -> batch x targets x seq_len x features
-        attr = attr.permute(1, 0, 2, 3)
-    
-    if avg_attr:
-        return avg_over_output_horizon(attr, inputs, args)
-    else:
-        return reshape_over_output_horizon(attr, inputs, args)
-
-def min_max_scale(arr, dim:int=0):
-    assert dim in [0, 1], f'Dimension must be 0 or 1, found {dim}'
-    mx, mn = torch.max(arr, dim=dim).values, torch.min(arr, dim=dim).values
-    denom = (mx - mn)
-    
-    if dim == 0: scaled = (arr - mn)/denom
-    else: scaled = ((arr.T - mn)/denom).T
-    
-    # replace nan values with 0
-    # possible when all values are same, hence denom is 0
-    scaled[scaled != scaled] = 0
-    
-    return scaled

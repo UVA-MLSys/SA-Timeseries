@@ -20,7 +20,7 @@ from typing import Any, Callable, Tuple, Union
 from utils.tools import normalize_scale, reshape_over_output_horizon
 from tint.attr.occlusion import FeatureAblation, Occlusion
 
-class TSR(Occlusion):
+class WinTSR(Occlusion):
     r"""
     Two-step temporal saliency rescaling Tunnel.
     Performs a two-step interpretation method:
@@ -262,7 +262,7 @@ class TSR(Occlusion):
             (1,) + input.shape[2:] for input in inputs
         )
 
-        # Compute the Time-Relevance Score (step 1)
+        # Compute the Time-Relevance Score (step 1). Shape ((N x O) x seq_len x features)
         time_relevance_score = super().attribute.__wrapped__(
             self,
             inputs=inputs,
@@ -277,30 +277,46 @@ class TSR(Occlusion):
             #TODO: uncomment after new release
             # kwargs_run_forward=kwargs,
         )
-
+        
         # Reshape the Time-Relevance Score and sum along the diagonal
-        assert all(
-            tsr.shape == input.shape
-            for input, tsr in zip(inputs, time_relevance_score)
-        ), "The attribution method must return a tensor of the same shape as the inputs"
+        # assert all(
+        #     tsr.shape == input.shape
+        #     for input, tsr in zip(inputs, time_relevance_score)
+        # ), "The attribution method must return a tensor of the same shape as the inputs"
         time_relevance_score = tuple(
             tsr.sum((tuple(i for i in range(2, len(tsr.shape)))))
             for tsr in time_relevance_score
         )
 
+        if target is None:
+            # time_relevance_score shape will be ((N x O) x seq_len) after previous summation
+            # reshape it to be (N x O x seq_len)
+            time_relevance_score = tuple(
+                tsr.reshape((input.shape[0], -1) + input.shape[1:-1])
+                for input, tsr in zip(inputs, time_relevance_score)
+            )
+            # take avg over the output horizon
+            # now shape is (N x seq_len x features) which can now be passsed 
+            # as is_above_threshold to Feature Ablation
+            time_relevance_score = tuple(
+                tsr.mean(dim=1) for tsr in time_relevance_score
+            )
+            
+        print('tsr shape ', [tsr.shape for tsr in time_relevance_score])
+
         # Normalize if required
         if normalize:
-            # min max scaling
+            # normalize the last dimension
             time_relevance_score = tuple(
                 normalize_scale(
-                    tsr, dim=1, norm_type="l1"
+                    tsr, dim=-1, norm_type="l1"
                 ) for tsr in time_relevance_score
             )
             
         # Get indexes where the Time-Relevance Score is
         # higher than the threshold
         is_above_threshold = tuple(
-            score > torch.quantile(score, threshold, dim=1, keepdim=True) for score in time_relevance_score
+            score > torch.quantile(score, threshold, dim=-1, keepdim=True) for score in time_relevance_score
         )
         
         # Formatting strides
@@ -428,6 +444,8 @@ class TSR(Occlusion):
             ],
             dim=0,
         ).long()
+        print('Expanded input ', expanded_input.shape, input_mask.shape)
+        
         ablated_tensor = (
             expanded_input
             * (
@@ -505,7 +523,9 @@ class TSR(Occlusion):
                 ],
             ] = 0
 
-        return is_above.unsqueeze(-1) * padded_tensor.unsqueeze(0)
+        current_mask = is_above.unsqueeze(-1) * padded_tensor.unsqueeze(0)
+        print('Mask shape ', current_mask.shape)
+        return current_mask
 
     def _run_forward(
         self, forward_func: Callable, inputs: Any, **kwargs
@@ -536,4 +556,4 @@ class TSR(Occlusion):
     
     @staticmethod
     def get_name():
-        return 'TSR'
+        return 'WinTSR'

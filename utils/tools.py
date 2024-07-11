@@ -1,11 +1,79 @@
-import os
-
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
-import pandas as pd
+
+from captum._utils.typing import (
+    TensorOrTupleOfTensorsGeneric,
+)
 
 plt.switch_backend('agg')
+
+def reshape_over_output_horizon(attr, inputs, args):
+    if type(inputs) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            attr_.reshape(
+                # batch x pred_len x seq_len x features
+                (inputs[0].shape[0], -1, args.seq_len, attr_.shape[-1])
+            # take mean over the output horizon
+            ) for attr_ in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
+            # batch x pred_len x seq_len x features
+            (inputs.shape[0], -1, args.seq_len, attr.shape[-1])
+        # take mean over the output horizon
+        )
+    
+    return attr
+
+#TODO: debug error for some cases
+def reshape_attr(
+    attr: TensorOrTupleOfTensorsGeneric, 
+    inputs: TensorOrTupleOfTensorsGeneric
+):
+    sample_size = inputs[0].shape[0] if type(inputs) == tuple  else inputs.shape[0]
+    if type(attr) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            attr_.reshape(
+                # batch x pred_len x seq_len x features
+                ((sample_size, -1) + attr_.shape[1:])
+            # take mean over the output horizon
+            ) for attr_ in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
+            # batch x pred_len x seq_len x features
+            ((sample_size, -1) + (attr.shape[1:]))
+        # take mean over the output horizon
+        )
+    
+    return attr
+
+def normalize_scale(
+    data: torch.Tensor, dim=1,
+    norm_type='standard'
+):
+    if norm_type == "standard":
+        mean = data.mean(dim=dim, keepdim=True)
+        std = data.std(dim=dim, keepdim=True)
+        return (data - mean) / (std + torch.finfo(torch.float32).eps)
+
+    elif norm_type == "minmax":
+        max_val = torch.amax(data, dim=dim, keepdim=True)[0]
+        min_val = torch.amin(data, dim=dim, keepdim=True)[0]
+        return (data - min_val) / (max_val - min_val + torch.finfo(torch.float32).eps)
+        
+    elif norm_type == "l1":
+        sum_val = data.abs().sum(dim=dim, keepdim=True)
+        
+        # this converts neg to absolute values
+        return data.abs() / (sum_val + torch.finfo(torch.float32).eps)
+    else:
+        raise (NameError(f'Normalize method "{norm_type}" not implemented'))
 
 # min max scale a torch tensor across a dimension
 def min_max_scale(a:torch.Tensor, dim=1, absolute=True):

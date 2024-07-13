@@ -47,6 +47,7 @@ def main(args):
     args.seeds = [int(seed) for seed in experiment_seeds]
     with open(config_filepath, 'w') as output_file:
         json.dump(vars(args), output_file, indent=4)
+    return
     
 def get_parser():
     parser = get_main_parser()

@@ -4,7 +4,6 @@ pandas
 # psycopg2
 pyunpack
 reformer-pytorch
-shutil
 scikit-learn
 sympy
 time-interpret # ==0.3.0

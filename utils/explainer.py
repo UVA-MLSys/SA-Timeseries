@@ -111,6 +111,11 @@ def compute_attr(
             inputs=inputs, attributions_fn=abs,
             additional_forward_args=additional_forward_args
         )
+    elif name == 'fit':
+        attr = explainer.attribute(
+            inputs=inputs,
+            additional_forward_args=additional_forward_args
+        )
     elif name == 'occlusion':
         attr = explainer.attribute(
             inputs=inputs,

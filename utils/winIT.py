@@ -104,9 +104,14 @@ class WinIT:
                     cloned = inputs[input_index].clone()
                     
                     #TODO: use baselines
-                    counterfactuals = self.generate_counterfactuals(
-                        batch_size, input_index, feature
-                    )
+                    if len(inputs) == 1:
+                        counterfactuals = self.generate_counterfactuals(
+                            batch_size, None, feature
+                        )
+                    else:
+                        counterfactuals = self.generate_counterfactuals(
+                            batch_size, input_index, feature
+                        )
                     
                     for t in range(seq_len)[::-1]:
                         # mask last t timesteps

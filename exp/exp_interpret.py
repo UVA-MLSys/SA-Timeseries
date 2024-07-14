@@ -15,7 +15,7 @@ from captum.attr import (
     Lime,
     FeaturePermutation
 )
-
+from pytorch_lightning import Trainer
 from tint.attr import (
     AugmentedOcclusion,
     DynaMask,
@@ -86,13 +86,21 @@ class Exp_Interpret:
                 'augmented_occlusion', model, args, device, dataloader
             ) 
             explainer = WinTSR(base_explainer)
-        elif name in ['augmented_occlusion', 'winIT']:
+        elif name in ['augmented_occlusion', 'winIT', 'fit']:
             add_x_mark = args.task_name != 'classification'
             all_inputs = get_total_data(dataloader, device, add_x_mark=add_x_mark)
             
             if name == 'winIT':
                 explainer = explainer_name_map[name](
                     model, all_inputs, args
+                )
+            elif name == 'fit':
+                trainer = Trainer(
+                    enable_progress_bar=False, max_epochs=10,
+                    enable_model_summary=False
+                )
+                explainer = explainer_name_map[name](
+                    model, features=all_inputs, trainer=trainer
                 )
             else: explainer = explainer_name_map[name](
                 model, data=all_inputs

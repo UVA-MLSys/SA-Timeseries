@@ -1,0 +1,607 @@
+Namespace(task_name='long_term_forecast', train=False, model='DLinear', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'winIT', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/1
+test 1731
+Loading model from ./results/traffic_DLinear/1/checkpoint.pth
+Running feature_ablation from 2024-07-11 02:30:10.238198
+Experiment ended at 2024-07-11 02:31:12.952539. Total time taken 0:01:02.714341.
+  metric   area       comp       suff
+0    mae  0.050   8.906858  23.801610
+1    mae  0.075  10.743973  21.908189
+2    mae  0.100  11.625427  20.794722
+3    mae  0.150  13.385360  18.393518
+4    mse  0.050   7.476711  32.925818
+5    mse  0.075   9.980092  28.304357
+6    mse  0.100  11.274738  25.769577
+7    mse  0.150  13.992646  20.757307
+
+Running occlusion from 2024-07-11 02:31:13.271930
+Experiment ended at 2024-07-11 02:32:14.546027. Total time taken 0:01:01.274097.
+  metric   area       comp       suff
+0    mae  0.050   8.880472  23.836892
+1    mae  0.075  10.722910  21.936242
+2    mae  0.100  11.598754  20.815978
+3    mae  0.150  13.376677  18.403154
+4    mse  0.050   7.490873  32.971936
+5    mse  0.075   9.980967  28.344340
+6    mse  0.100  11.263989  25.791973
+7    mse  0.150  14.007497  20.733713
+
+Running augmented_occlusion from 2024-07-11 02:32:14.779188
+Experiment ended at 2024-07-11 02:33:18.185599. Total time taken 0:01:03.406411.
+  metric   area       comp       suff
+0    mae  0.050   6.533247  25.233392
+1    mae  0.075   8.096771  23.940506
+2    mae  0.100   8.814842  23.175291
+3    mae  0.150  10.263437  21.480632
+4    mse  0.050   4.856399  36.841919
+5    mse  0.075   6.545293  33.414125
+6    mse  0.100   7.396363  31.485659
+7    mse  0.150   9.265201  27.463016
+
+Running winIT from 2024-07-11 02:33:18.421130
+Experiment ended at 2024-07-11 02:34:54.992481. Total time taken 0:01:36.571351.
+  metric   area      comp       suff
+0    mae  0.050  6.553377  26.541717
+1    mae  0.075  7.000458  25.839620
+2    mae  0.100  7.268025  25.358570
+3    mae  0.150  7.989259  24.078320
+4    mse  0.050  4.753993  40.739828
+5    mse  0.075  5.186252  38.877053
+6    mse  0.100  5.461979  37.622374
+7    mse  0.150  6.229899  34.311691
+
+Running tsr from 2024-07-11 02:34:55.189779
+Experiment ended at 2024-07-11 02:41:46.891350. Total time taken 0:06:51.701571.
+  metric   area       comp       suff
+0    mae  0.050   8.902649  23.887292
+1    mae  0.075  10.730479  21.990924
+2    mae  0.100  11.611991  20.876672
+3    mae  0.150  13.386272  18.465784
+4    mse  0.050   7.452185  33.097394
+5    mse  0.075   9.922167  28.471302
+6    mse  0.100  11.207833  25.922041
+7    mse  0.150  13.943130  20.843792
+
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/2
+test 1731
+Loading model from ./results/traffic_DLinear/2/checkpoint.pth
+Running feature_ablation from 2024-07-11 02:41:48.819551
+Experiment ended at 2024-07-11 02:42:47.179642. Total time taken 0:00:58.360091.
+  metric   area       comp       suff
+0    mae  0.050   8.899174  24.074435
+1    mae  0.075  10.780954  22.158107
+2    mae  0.100  11.714373  21.015499
+3    mae  0.150  13.602030  18.540000
+4    mse  0.050   7.601839  33.778549
+5    mse  0.075  10.186383  29.037203
+6    mse  0.100  11.568765  26.413138
+7    mse  0.150  14.530694  21.230772
+
+Running occlusion from 2024-07-11 02:42:47.415189
+Experiment ended at 2024-07-11 02:43:48.809687. Total time taken 0:01:01.394498.
+  metric   area       comp       suff
+0    mae  0.050   8.831106  24.065530
+1    mae  0.075  10.691318  22.138154
+2    mae  0.100  11.638838  20.990746
+3    mae  0.150  13.547958  18.504930
+4    mse  0.050   7.548242  33.757151
+5    mse  0.075  10.068457  29.003656
+6    mse  0.100  11.452163  26.368932
+7    mse  0.150  14.425934  21.161665
+
+Running augmented_occlusion from 2024-07-11 02:43:49.045363
+Experiment ended at 2024-07-11 02:44:52.393598. Total time taken 0:01:03.348235.
+  metric   area       comp       suff
+0    mae  0.050   6.701989  25.573623
+1    mae  0.075   8.230432  24.279627
+2    mae  0.100   8.973885  23.501680
+3    mae  0.150  10.470217  21.765844
+4    mse  0.050   5.114741  37.698080
+5    mse  0.075   6.794216  34.233806
+6    mse  0.100   7.684924  32.268666
+7    mse  0.150   9.616935  28.158550
+
+Running winIT from 2024-07-11 02:44:52.627176
+Experiment ended at 2024-07-11 02:46:28.939237. Total time taken 0:01:36.312061.
+  metric   area      comp       suff
+0    mae  0.050  6.736474  26.647726
+1    mae  0.075  7.144872  25.922026
+2    mae  0.100  7.385745  25.427678
+3    mae  0.150  8.088561  24.132720
+4    mse  0.050  4.888057  41.208080
+5    mse  0.075  5.301157  39.260317
+6    mse  0.100  5.558358  37.948679
+7    mse  0.150  6.325748  34.583128
+
+Running tsr from 2024-07-11 02:46:29.136026
+Experiment ended at 2024-07-11 02:53:20.476387. Total time taken 0:06:51.340361.
+  metric   area       comp       suff
+0    mae  0.050   8.957931  24.037255
+1    mae  0.075  10.841575  22.114859
+2    mae  0.100  11.776570  20.975327
+3    mae  0.150  13.662598  18.488380
+4    mse  0.050   7.716366  33.689964
+5    mse  0.075  10.290853  28.930562
+6    mse  0.100  11.672554  26.308728
+7    mse  0.150  14.638365  21.104861
+
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/3
+test 1731
+Loading model from ./results/traffic_DLinear/3/checkpoint.pth
+Running feature_ablation from 2024-07-11 02:53:22.389193
+Experiment ended at 2024-07-11 02:54:20.764021. Total time taken 0:00:58.374828.
+  metric   area       comp       suff
+0    mae  0.050   8.831478  23.734033
+1    mae  0.075  10.698158  21.817025
+2    mae  0.100  11.571381  20.695183
+3    mae  0.150  13.325112  18.285825
+4    mse  0.050   7.361574  32.648887
+5    mse  0.075   9.899256  28.016489
+6    mse  0.100  11.183820  25.477341
+7    mse  0.150  13.902099  20.458068
+
+Running occlusion from 2024-07-11 02:54:20.999360
+Experiment ended at 2024-07-11 02:55:22.534964. Total time taken 0:01:01.535604.
+  metric   area       comp       suff
+0    mae  0.050   8.838769  23.909650
+1    mae  0.075  10.752192  21.961092
+2    mae  0.100  11.645768  20.829727
+3    mae  0.150  13.446695  18.399395
+4    mse  0.050   7.321213  33.107098
+5    mse  0.075   9.920183  28.364875
+6    mse  0.100  11.240274  25.788204
+7    mse  0.150  14.035307  20.680549
+
+Running augmented_occlusion from 2024-07-11 02:55:22.770570
+Experiment ended at 2024-07-11 02:56:26.095311. Total time taken 0:01:03.324741.
+  metric   area       comp       suff
+0    mae  0.050   6.485612  25.248114
+1    mae  0.075   8.027339  23.941437
+2    mae  0.100   8.754613  23.168632
+3    mae  0.150  10.190115  21.457757
+4    mse  0.050   4.639712  36.623620
+5    mse  0.075   6.289738  33.174417
+6    mse  0.100   7.145398  31.248356
+7    mse  0.150   8.988953  27.217246
+
+Running winIT from 2024-07-11 02:56:26.330401
+Experiment ended at 2024-07-11 02:58:02.650810. Total time taken 0:01:36.320409.
+  metric   area      comp       suff
+0    mae  0.050  6.465595  26.483488
+1    mae  0.075  6.888520  25.779754
+2    mae  0.100  7.149457  25.287630
+3    mae  0.150  7.900382  23.992574
+4    mse  0.050  4.420511  40.475754
+5    mse  0.075  4.820598  38.612122
+6    mse  0.100  5.083960  37.320338
+7    mse  0.150  5.882279  33.968672
+
+Running tsr from 2024-07-11 02:58:02.846944
+Experiment ended at 2024-07-11 03:04:54.312304. Total time taken 0:06:51.465360.
+  metric   area       comp       suff
+0    mae  0.050   8.731869  23.840726
+1    mae  0.075  10.606838  21.899073
+2    mae  0.100  11.504913  20.764340
+3    mae  0.150  13.310027  18.346470
+4    mse  0.050   7.154803  33.001211
+5    mse  0.075   9.691035  28.258316
+6    mse  0.100  11.009292  25.674313
+7    mse  0.150  13.787679  20.616799
+
+
+Namespace(task_name='long_term_forecast', train=False, model='SegRNN', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'winIT', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_SegRNN/1
+test 1731
+Loading model from ./results/traffic_SegRNN/1/checkpoint.pth
+Running feature_ablation from 2024-07-11 03:05:07.591822
+Experiment ended at 2024-07-11 03:06:31.718825. Total time taken 0:01:24.127003.
+  metric   area       comp       suff
+0    mae  0.050  13.795101  19.610771
+1    mae  0.075  14.675790  17.226724
+2    mae  0.100  15.074234  15.898643
+3    mae  0.150  15.926389  13.160131
+4    mse  0.050  15.809067  22.818020
+5    mse  0.075  17.089462  17.983781
+6    mse  0.100  17.676088  15.520815
+7    mse  0.150  18.965614  10.992692
+
+Running occlusion from 2024-07-11 03:06:31.973230
+Experiment ended at 2024-07-11 03:07:59.221164. Total time taken 0:01:27.247934.
+  metric   area       comp       suff
+0    mae  0.050  13.858378  19.563840
+1    mae  0.075  14.750357  17.228705
+2    mae  0.100  15.131607  15.903019
+3    mae  0.150  15.944137  13.179395
+4    mse  0.050  15.943267  22.641354
+5    mse  0.075  17.265035  17.920483
+6    mse  0.100  17.821790  15.474356
+7    mse  0.150  19.066155  10.982992
+
+Running augmented_occlusion from 2024-07-11 03:07:59.455993
+Experiment ended at 2024-07-11 03:09:28.854095. Total time taken 0:01:29.398102.
+  metric   area       comp       suff
+0    mae  0.050  11.350196  22.029840
+1    mae  0.075  12.513637  20.356737
+2    mae  0.100  12.989958  19.376152
+3    mae  0.150  13.851195  17.222586
+4    mse  0.050  12.706435  28.682832
+5    mse  0.075  14.176955  24.827804
+6    mse  0.100  14.800493  22.709450
+7    mse  0.150  15.993176  18.349961
+
+Running winIT from 2024-07-11 03:09:29.090770
+Experiment ended at 2024-07-11 03:11:31.190401. Total time taken 0:02:02.099631.
+  metric   area       comp       suff
+0    mae  0.050  11.485732  23.656332
+1    mae  0.075  11.733961  23.037746
+2    mae  0.100  11.854512  22.609344
+3    mae  0.150  12.129918  21.452201
+4    mse  0.050  13.423209  32.614523
+5    mse  0.075  13.661576  31.062200
+6    mse  0.100  13.764209  30.014443
+7    mse  0.150  13.997519  27.265764
+
+Running tsr from 2024-07-11 03:11:31.388682
+Experiment ended at 2024-07-11 03:20:35.242413. Total time taken 0:09:03.853731.
+  metric   area       comp       suff
+0    mae  0.050  13.836093  19.669082
+1    mae  0.075  14.725242  17.333340
+2    mae  0.100  15.124830  16.021828
+3    mae  0.150  15.946707  13.306145
+4    mse  0.050  15.772843  22.888150
+5    mse  0.075  17.055986  18.141570
+6    mse  0.100  17.635868  15.709768
+7    mse  0.150  18.906720  11.196962
+
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_SegRNN/2
+test 1731
+Loading model from ./results/traffic_SegRNN/2/checkpoint.pth
+Running feature_ablation from 2024-07-11 03:20:37.154153
+Experiment ended at 2024-07-11 03:22:01.452904. Total time taken 0:01:24.298751.
+  metric   area       comp       suff
+0    mae  0.050  13.125295  19.779432
+1    mae  0.075  14.133865  17.443131
+2    mae  0.100  14.580862  16.145233
+3    mae  0.150  15.510017  13.465431
+4    mse  0.050  14.574747  23.100209
+5    mse  0.075  16.059411  18.305877
+6    mse  0.100  16.745701  15.861392
+7    mse  0.150  18.240405  11.372283
+
+Running occlusion from 2024-07-11 03:22:01.689110
+Experiment ended at 2024-07-11 03:23:29.237411. Total time taken 0:01:27.548301.
+  metric   area       comp       suff
+0    mae  0.050  12.985201  19.671933
+1    mae  0.075  14.012838  17.339479
+2    mae  0.100  14.491530  16.019156
+3    mae  0.150  15.459505  13.340732
+4    mse  0.050  14.507253  22.883804
+5    mse  0.075  15.971749  18.108024
+6    mse  0.100  16.692689  15.635645
+7    mse  0.150  18.231777  11.166939
+
+Running augmented_occlusion from 2024-07-11 03:23:29.473804
+Experiment ended at 2024-07-11 03:24:59.044682. Total time taken 0:01:29.570878.
+  metric   area       comp       suff
+0    mae  0.050  10.658209  22.040573
+1    mae  0.075  11.878700  20.393916
+2    mae  0.100  12.393444  19.450577
+3    mae  0.150  13.295601  17.363387
+4    mse  0.050  11.178663  28.598127
+5    mse  0.075  12.684551  24.752733
+6    mse  0.100  13.351801  22.681091
+7    mse  0.150  14.586665  18.424305
+
+Running winIT from 2024-07-11 03:24:59.280633
+Experiment ended at 2024-07-11 03:27:01.253408. Total time taken 0:02:01.972775.
+  metric   area       comp       suff
+0    mae  0.050  10.956021  23.106382
+1    mae  0.075  11.236287  22.484148
+2    mae  0.100  11.375587  22.050849
+3    mae  0.150  11.696984  20.904533
+4    mse  0.050  12.166409  31.065382
+5    mse  0.075  12.444272  29.509776
+6    mse  0.100  12.592058  28.452697
+7    mse  0.150  12.930235  25.760308
+
+Running tsr from 2024-07-11 03:27:01.451782
+Experiment ended at 2024-07-11 03:36:04.787064. Total time taken 0:09:03.335282.
+  metric   area       comp       suff
+0    mae  0.050  13.154169  19.642142
+1    mae  0.075  14.174026  17.324888
+2    mae  0.100  14.645917  16.017449
+3    mae  0.150  15.619377  13.338835
+4    mse  0.050  14.653378  22.895410
+5    mse  0.075  16.121187  18.143973
+6    mse  0.100  16.831314  15.691568
+7    mse  0.150  18.375839  11.209385
+
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_SegRNN/3
+test 1731
+Loading model from ./results/traffic_SegRNN/3/checkpoint.pth
+Running feature_ablation from 2024-07-11 03:36:06.781044
+Experiment ended at 2024-07-11 03:37:31.124880. Total time taken 0:01:24.343836.
+  metric   area       comp       suff
+0    mae  0.050  12.832835  19.424212
+1    mae  0.075  13.793013  17.087809
+2    mae  0.100  14.274639  15.745943
+3    mae  0.150  15.291919  13.010199
+4    mse  0.050  14.256094  21.965717
+5    mse  0.075  15.577369  17.293052
+6    mse  0.100  16.276085  14.857325
+7    mse  0.150  17.828410  10.461582
+
+Running occlusion from 2024-07-11 03:37:31.359928
+Experiment ended at 2024-07-11 03:38:58.510911. Total time taken 0:01:27.150983.
+  metric   area       comp       suff
+0    mae  0.050  12.816033  19.504878
+1    mae  0.075  13.793545  17.131497
+2    mae  0.100  14.278291  15.793964
+3    mae  0.150  15.311804  13.056568
+4    mse  0.050  14.085906  22.109117
+5    mse  0.075  15.441100  17.374891
+6    mse  0.100  16.147451  14.952272
+7    mse  0.150  17.730744  10.544478
+
+Running augmented_occlusion from 2024-07-11 03:38:58.746800
+Experiment ended at 2024-07-11 03:40:28.100164. Total time taken 0:01:29.353364.
+  metric   area       comp       suff
+0    mae  0.050  10.153866  21.783128
+1    mae  0.075  11.273104  20.144253
+2    mae  0.100  11.770282  19.171169
+3    mae  0.150  12.734243  17.080551
+4    mse  0.050  10.384056  27.527332
+5    mse  0.075  11.692758  23.805491
+6    mse  0.100  12.302063  21.730767
+7    mse  0.150  13.577503  17.598826
+
+Running winIT from 2024-07-11 03:40:28.336535
+Experiment ended at 2024-07-11 03:42:30.632478. Total time taken 0:02:02.295943.
+  metric   area       comp       suff
+0    mae  0.050  11.150224  23.114222
+1    mae  0.075  11.430126  22.463166
+2    mae  0.100  11.576514  22.010689
+3    mae  0.150  11.867922  20.843980
+4    mse  0.050  12.078448  30.496015
+5    mse  0.075  12.355130  28.907936
+6    mse  0.100  12.509615  27.829467
+7    mse  0.150  12.809647  25.150849
+
+Running tsr from 2024-07-11 03:42:30.829821
+Experiment ended at 2024-07-11 03:51:34.294113. Total time taken 0:09:03.464292.
+  metric   area       comp       suff
+0    mae  0.050  12.616792  19.507880
+1    mae  0.075  13.632979  17.099469
+2    mae  0.100  14.133429  15.748269
+3    mae  0.150  15.164901  13.005652
+4    mse  0.050  13.759546  22.147053
+5    mse  0.075  15.128060  17.332858
+6    mse  0.100  15.842981  14.880559
+7    mse  0.150  17.403688  10.471149
+
+
+Namespace(task_name='long_term_forecast', train=False, model='MICN', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'winIT', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN/1
+test 1731
+Loading model from ./results/traffic_MICN/1/checkpoint.pth
+Running feature_ablation from 2024-07-11 03:51:45.234059
+Experiment ended at 2024-07-11 03:56:21.741727. Total time taken 0:04:36.507668.
+  metric   area       comp       suff
+0    mae  0.050   8.380700  17.978208
+1    mae  0.075  10.165179  15.857968
+2    mae  0.100  11.099283  14.739280
+3    mae  0.150  12.980936  12.548561
+4    mse  0.050   5.766393  18.648387
+5    mse  0.075   7.817547  14.566744
+6    mse  0.100   8.984877  12.634782
+7    mse  0.150  11.542649   9.278852
+
+Running occlusion from 2024-07-11 03:56:21.997934
+Experiment ended at 2024-07-11 04:01:02.484229. Total time taken 0:04:40.486295.
+  metric   area       comp       suff
+0    mae  0.050   8.381658  18.088858
+1    mae  0.075  10.187778  15.955730
+2    mae  0.100  11.124847  14.825559
+3    mae  0.150  13.027996  12.605893
+4    mse  0.050   5.792357  18.848729
+5    mse  0.075   7.863328  14.737656
+6    mse  0.100   9.047897  12.774226
+7    mse  0.150  11.653265   9.359728
+
+Running augmented_occlusion from 2024-07-11 04:01:02.720918
+Experiment ended at 2024-07-11 04:05:45.860558. Total time taken 0:04:43.139640.
+  metric   area       comp       suff
+0    mae  0.050   6.477298  20.152997
+1    mae  0.075   8.087959  18.502219
+2    mae  0.100   8.821477  17.644018
+3    mae  0.150  10.202337  15.973060
+4    mse  0.050   3.878243  23.442815
+5    mse  0.075   5.452440  19.887815
+6    mse  0.100   6.243605  18.166918
+7    mse  0.150   7.846399  15.043772
+
+Running winIT from 2024-07-11 04:05:46.095737
+Experiment ended at 2024-07-11 04:10:59.239397. Total time taken 0:05:13.143660.
+  metric   area      comp       suff
+0    mae  0.050  5.263504  21.889456
+1    mae  0.075  5.699821  21.328672
+2    mae  0.100  5.977228  20.943612
+3    mae  0.150  6.741619  19.903699
+4    mse  0.050  3.487550  27.384132
+5    mse  0.075  3.813546  26.083237
+6    mse  0.100  4.017301  25.199966
+7    mse  0.150  4.593205  22.896898
+
+Running tsr from 2024-07-11 04:10:59.438407
+Experiment ended at 2024-07-11 04:36:46.873086. Total time taken 0:25:47.434679.
+  metric   area       comp       suff
+0    mae  0.050   8.426492  18.097321
+1    mae  0.075  10.242259  15.951005
+2    mae  0.100  11.174458  14.844469
+3    mae  0.150  13.061485  12.644876
+4    mse  0.050   5.779611  18.866783
+5    mse  0.075   7.871834  14.724652
+6    mse  0.100   9.037828  12.803241
+7    mse  0.150  11.607126   9.409731
+
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN/2
+test 1731
+Loading model from ./results/traffic_MICN/2/checkpoint.pth
+Running feature_ablation from 2024-07-11 04:36:48.822579
+Experiment ended at 2024-07-11 04:41:17.009509. Total time taken 0:04:28.186930.
+  metric   area       comp       suff
+0    mae  0.050   8.485664  17.784463
+1    mae  0.075  10.249892  15.690970
+2    mae  0.100  11.182837  14.579966
+3    mae  0.150  13.034296  12.406074
+4    mse  0.050   5.805711  18.267804
+5    mse  0.075   7.884190  14.304469
+6    mse  0.100   9.087422  12.399630
+7    mse  0.150  11.663042   9.101268
+
+Running occlusion from 2024-07-11 04:41:17.220663
+Experiment ended at 2024-07-11 04:45:47.289742. Total time taken 0:04:30.069079.
+  metric   area       comp       suff
+0    mae  0.050   8.403374  17.772146
+1    mae  0.075  10.134136  15.676486
+2    mae  0.100  11.042260  14.563665
+3    mae  0.150  12.907191  12.374891
+4    mse  0.050   5.708294  18.229762
+5    mse  0.075   7.691398  14.256929
+6    mse  0.100   8.826877  12.359142
+7    mse  0.150  11.362261   9.045680
+
+Running augmented_occlusion from 2024-07-11 04:45:47.498496
+Experiment ended at 2024-07-11 04:50:19.940822. Total time taken 0:04:32.442326.
+  metric   area       comp       suff
+0    mae  0.050   6.649800  19.788609
+1    mae  0.075   8.258162  18.116650
+2    mae  0.100   9.006011  17.249130
+3    mae  0.150  10.397181  15.560373
+4    mse  0.050   4.017746  22.566991
+5    mse  0.075   5.597027  19.037014
+6    mse  0.100   6.420999  17.330692
+7    mse  0.150   8.066573  14.241300
+
+Running winIT from 2024-07-11 04:50:20.149972
+Experiment ended at 2024-07-11 04:55:21.765459. Total time taken 0:05:01.615487.
+  metric   area      comp       suff
+0    mae  0.050  5.490773  21.532861
+1    mae  0.075  5.885956  21.003340
+2    mae  0.100  6.127530  20.639724
+3    mae  0.150  6.806990  19.655170
+4    mse  0.050  3.755803  26.576415
+5    mse  0.075  4.044777  25.370869
+6    mse  0.100  4.215105  24.556759
+7    mse  0.150  4.693815  22.394950
+
+Running tsr from 2024-07-11 04:55:21.960896
+Experiment ended at 2024-07-11 05:20:28.698183. Total time taken 0:25:06.737287.
+  metric   area       comp       suff
+0    mae  0.050   8.513169  17.809294
+1    mae  0.075  10.267391  15.695161
+2    mae  0.100  11.215572  14.575211
+3    mae  0.150  13.100510  12.375973
+4    mse  0.050   5.877332  18.348673
+5    mse  0.075   7.926607  14.339577
+6    mse  0.100   9.138950  12.426244
+7    mse  0.150  11.754407   9.077295
+
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN/3
+test 1731
+Loading model from ./results/traffic_MICN/3/checkpoint.pth
+Running feature_ablation from 2024-07-11 05:20:30.569210
+Experiment ended at 2024-07-11 05:24:57.029391. Total time taken 0:04:26.460181.
+  metric   area       comp       suff
+0    mae  0.050   8.582305  18.575479
+1    mae  0.075  10.483714  16.378558
+2    mae  0.100  11.462193  15.219987
+3    mae  0.150  13.466591  12.957170
+4    mse  0.050   5.938646  19.808782
+5    mse  0.075   8.164423  15.489232
+6    mse  0.100   9.421403  13.430266
+7    mse  0.150  12.212507   9.847570
+
+Running occlusion from 2024-07-11 05:24:57.238499
+Experiment ended at 2024-07-11 05:29:27.476321. Total time taken 0:04:30.237822.
+  metric   area       comp       suff
+0    mae  0.050   8.600647  18.607979
+1    mae  0.075  10.504240  16.437716
+2    mae  0.100  11.479102  15.275091
+3    mae  0.150  13.452305  13.013165
+4    mse  0.050   5.911239  19.862072
+5    mse  0.075   8.129717  15.571704
+6    mse  0.100   9.383217  13.502551
+7    mse  0.150  12.139710   9.923241
+
+Running augmented_occlusion from 2024-07-11 05:29:27.685065
+Experiment ended at 2024-07-11 05:34:00.418935. Total time taken 0:04:32.733870.
+  metric   area       comp       suff
+0    mae  0.050   6.512305  20.776761
+1    mae  0.075   8.105126  19.116356
+2    mae  0.100   8.889689  18.222629
+3    mae  0.150  10.332190  16.496718
+4    mse  0.050   3.894467  24.752146
+5    mse  0.075   5.408174  21.077400
+6    mse  0.100   6.252754  19.230942
+7    mse  0.150   7.910346  15.925609
+
+Running winIT from 2024-07-11 05:34:00.625483
+Experiment ended at 2024-07-11 05:39:02.370597. Total time taken 0:05:01.745114.
+  metric   area      comp       suff
+0    mae  0.050  5.417525  22.567315
+1    mae  0.075  5.877030  22.038752
+2    mae  0.100  6.159885  21.665318
+3    mae  0.150  6.929564  20.659727
+4    mse  0.050  3.582378  29.145221
+5    mse  0.075  3.908189  27.894873
+6    mse  0.100  4.101543  27.016345
+7    mse  0.150  4.645369  24.707689
+
+Running tsr from 2024-07-11 05:39:02.561486
+Experiment ended at 2024-07-11 06:04:12.100464. Total time taken 0:25:09.538978.
+  metric   area       comp       suff
+0    mae  0.050   8.601178  18.619026
+1    mae  0.075  10.488788  16.426663
+2    mae  0.100  11.481198  15.258038
+3    mae  0.150  13.483257  12.983323
+4    mse  0.050   5.932580  19.894763
+5    mse  0.075   8.122127  15.567641
+6    mse  0.100   9.391345  13.486120
+7    mse  0.150  12.185687   9.889820
+
+
+slurmstepd: error: *** JOB 62426271 ON udc-an33-38 CANCELLED AT 2024-07-11T12:29:02 DUE TO TIME LIMIT ***

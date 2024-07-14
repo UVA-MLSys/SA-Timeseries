@@ -4,7 +4,7 @@
     "model": "MICN",
     "seed": 2024,
     "itrs": 3,
-    "itr_no": 1,
+    "itr_no": 3,
     "data": "custom",
     "result_path": "./results",
     "root_path": "./dataset/traffic/",
@@ -54,7 +54,11 @@
     ],
     "p_hidden_layers": 2,
     "explainers": [
-        "winIT"
+        "feature_ablation",
+        "occlusion",
+        "augmented_occlusion",
+        "winIT",
+        "tsr"
     ],
     "areas": [
         0.05,
@@ -69,7 +73,7 @@
     ],
     "overwrite": true,
     "dump_attrs": false,
-    "disable_progress": false,
+    "disable_progress": true,
     "use_gpu": true,
     "enc_in": 1,
     "dec_in": 1,

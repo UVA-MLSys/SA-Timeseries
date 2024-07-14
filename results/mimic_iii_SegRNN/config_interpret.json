@@ -1,7 +1,7 @@
 {
     "task_name": "classification",
     "train": false,
-    "model": "DLinear",
+    "model": "SegRNN",
     "seed": 2024,
     "itrs": 3,
     "itr_no": 3,

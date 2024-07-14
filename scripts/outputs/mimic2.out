@@ -1,0 +1,560 @@
+Namespace(task_name='classification', train=False, model='DLinear', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'winIT', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/1
+test 2299
+Loading model from ./results/mimic_iii_DLinear/1/checkpoint.pth
+./results/mimic_iii_DLinear/1/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_DLinear/1/occlusion.csv exists. Skipping ...
+./results/mimic_iii_DLinear/1/augmented_occlusion.csv exists. Skipping ...
+Running winIT from 2024-07-13 23:41:04.774499
+Experiment ended at 2024-07-13 23:46:02.055982. Total time taken 0:04:57.281483.
+           metric   area      comp      suff
+0        accuracy  0.050  0.992147  0.984214
+1        accuracy  0.075  0.990628  0.983997
+2        accuracy  0.100  0.989977  0.983997
+3        accuracy  0.150  0.990411  0.983997
+4             auc  0.050  0.401310  0.216431
+5             auc  0.075  0.400190  0.243187
+6             auc  0.100  0.399742  0.264800
+7             auc  0.150  0.393027  0.303590
+8   cross_entropy  0.050  0.103135  0.119518
+9   cross_entropy  0.075  0.103581  0.116554
+10  cross_entropy  0.100  0.102645  0.115169
+11  cross_entropy  0.150  0.102227  0.112376
+
+./results/mimic_iii_DLinear/1/tsr.csv exists. Skipping ...
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/2
+test 2299
+Loading model from ./results/mimic_iii_DLinear/2/checkpoint.pth
+./results/mimic_iii_DLinear/2/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_DLinear/2/occlusion.csv exists. Skipping ...
+./results/mimic_iii_DLinear/2/augmented_occlusion.csv exists. Skipping ...
+Running winIT from 2024-07-13 23:46:03.753247
+Experiment ended at 2024-07-13 23:50:58.596954. Total time taken 0:04:54.843707.
+           metric   area      comp      suff
+0        accuracy  0.050  0.990017  0.971057
+1        accuracy  0.075  0.987807  0.971274
+2        accuracy  0.100  0.984295  0.972359
+3        accuracy  0.150  0.979303  0.972793
+4             auc  0.050  0.622455  0.434212
+5             auc  0.075  0.621301  0.463655
+6             auc  0.100  0.617116  0.505249
+7             auc  0.150  0.611322  0.547098
+8   cross_entropy  0.050  0.108993  0.139305
+9   cross_entropy  0.075  0.109964  0.134988
+10  cross_entropy  0.100  0.110840  0.129755
+11  cross_entropy  0.150  0.111867  0.123447
+
+./results/mimic_iii_DLinear/2/tsr.csv exists. Skipping ...
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/3
+test 2299
+Loading model from ./results/mimic_iii_DLinear/3/checkpoint.pth
+./results/mimic_iii_DLinear/3/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_DLinear/3/occlusion.csv exists. Skipping ...
+./results/mimic_iii_DLinear/3/augmented_occlusion.csv exists. Skipping ...
+Running winIT from 2024-07-13 23:51:00.223057
+Experiment ended at 2024-07-13 23:55:54.976965. Total time taken 0:04:54.753908.
+           metric   area      comp      suff
+0        accuracy  0.050  0.986979  0.971097
+1        accuracy  0.075  0.985677  0.970012
+2        accuracy  0.100  0.983941  0.970012
+3        accuracy  0.150  0.982422  0.970663
+4             auc  0.050  0.480782  0.294756
+5             auc  0.075  0.475402  0.305579
+6             auc  0.100  0.469983  0.320219
+7             auc  0.150  0.457964  0.354228
+8   cross_entropy  0.050  0.117047       inf
+9   cross_entropy  0.075  0.118064       inf
+10  cross_entropy  0.100  0.118856       inf
+11  cross_entropy  0.150  0.121890       inf
+
+./results/mimic_iii_DLinear/3/tsr.csv exists. Skipping ...
+
+Namespace(task_name='classification', train=False, model='SegRNN', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'winIT', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/1
+test 2299
+Loading model from ./results/mimic_iii_SegRNN/1/checkpoint.pth
+./results/mimic_iii_SegRNN/1/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_SegRNN/1/occlusion.csv exists. Skipping ...
+./results/mimic_iii_SegRNN/1/augmented_occlusion.csv exists. Skipping ...
+Running winIT from 2024-07-13 23:56:06.582428
+Experiment ended at 2024-07-14 00:01:34.536541. Total time taken 0:05:27.954113.
+           metric   area      comp      suff
+0        accuracy  0.050  0.933136  0.894234
+1        accuracy  0.075  0.927967  0.900270
+2        accuracy  0.100  0.913902  0.911595
+3        accuracy  0.150  0.897722  0.920493
+4             auc  0.050  0.610883  0.672645
+5             auc  0.075  0.590789  0.692206
+6             auc  0.100  0.562615  0.705598
+7             auc  0.150  0.531524  0.714440
+8   cross_entropy  0.050  0.225073  0.295186
+9   cross_entropy  0.075  0.241009  0.285041
+10  cross_entropy  0.100  0.260826  0.274667
+11  cross_entropy  0.150  0.289949  0.260968
+
+Running tsr from 2024-07-14 00:01:34.705061
+Experiment ended at 2024-07-14 00:08:33.498003. Total time taken 0:06:58.792942.
+           metric   area      comp      suff
+0        accuracy  0.050  0.828792  0.948978
+1        accuracy  0.075  0.807838  0.951799
+2        accuracy  0.100  0.794777  0.954266
+3        accuracy  0.150  0.785188  0.959692
+4             auc  0.050  0.553332  0.817042
+5             auc  0.075  0.538883  0.830069
+6             auc  0.100  0.527567  0.832647
+7             auc  0.150  0.508533  0.845993
+8   cross_entropy  0.050  0.402792  0.203755
+9   cross_entropy  0.075  0.434057  0.192774
+10  cross_entropy  0.100  0.452984  0.186377
+11  cross_entropy  0.150  0.470527  0.175863
+
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/2
+test 2299
+Loading model from ./results/mimic_iii_SegRNN/2/checkpoint.pth
+Running feature_ablation from 2024-07-14 00:08:35.142583
+Experiment ended at 2024-07-14 00:10:59.851402. Total time taken 0:02:24.708819.
+           metric   area      comp      suff
+0        accuracy  0.050  0.810298  0.975220
+1        accuracy  0.075  0.773068  0.981907
+2        accuracy  0.100  0.751977  0.985026
+3        accuracy  0.150  0.722520  0.991536
+4             auc  0.050  0.197922  0.345531
+5             auc  0.075  0.199028  0.345647
+6             auc  0.100  0.201210  0.345871
+7             auc  0.150  0.199540  0.346658
+8   cross_entropy  0.050  0.427477  0.160531
+9   cross_entropy  0.075  0.474205  0.133465
+10  cross_entropy  0.100  0.503298  0.116313
+11  cross_entropy  0.150  0.538123  0.093490
+
+Running occlusion from 2024-07-14 00:10:59.993073
+Experiment ended at 2024-07-14 00:13:26.713307. Total time taken 0:02:26.720234.
+           metric   area      comp      suff
+0        accuracy  0.050  0.809872  0.973267
+1        accuracy  0.075  0.774852  0.977390
+2        accuracy  0.100  0.753681  0.984118
+3        accuracy  0.150  0.726394  0.990845
+4             auc  0.050  0.186087  0.304557
+5             auc  0.075  0.184365  0.304948
+6             auc  0.100  0.185292  0.305108
+7             auc  0.150  0.184937  0.305332
+8   cross_entropy  0.050  0.432393  0.160520
+9   cross_entropy  0.075  0.478886  0.133891
+10  cross_entropy  0.100  0.509038  0.115274
+11  cross_entropy  0.150  0.543084  0.093056
+
+Running augmented_occlusion from 2024-07-14 00:13:26.853606
+Experiment ended at 2024-07-14 00:16:25.506609. Total time taken 0:02:58.653003.
+           metric   area      comp      suff
+0        accuracy  0.050  0.970703  0.870419
+1        accuracy  0.075  0.965929  0.883600
+2        accuracy  0.100  0.960503  0.895970
+3        accuracy  0.150  0.956123  0.915067
+4             auc  0.050  0.258763  0.338758
+5             auc  0.075  0.250422  0.341245
+6             auc  0.100  0.241200  0.342372
+7             auc  0.150  0.238807  0.342372
+8   cross_entropy  0.050  0.153895  0.365157
+9   cross_entropy  0.075  0.171917  0.340996
+10  cross_entropy  0.100  0.187167  0.322894
+11  cross_entropy  0.150  0.211151  0.293413
+
+Running winIT from 2024-07-14 00:16:25.646803
+Experiment ended at 2024-07-14 00:21:53.540561. Total time taken 0:05:27.893758.
+           metric   area      comp      suff
+0        accuracy  0.050  0.976088  0.878963
+1        accuracy  0.075  0.956179  0.898277
+2        accuracy  0.100  0.934004  0.907906
+3        accuracy  0.150  0.920726  0.929173
+4             auc  0.050  0.240647  0.313908
+5             auc  0.075  0.216648  0.322334
+6             auc  0.100  0.208408  0.328846
+7             auc  0.150  0.195370  0.330074
+8   cross_entropy  0.050  0.164907  0.358874
+9   cross_entropy  0.075  0.205352  0.329588
+10  cross_entropy  0.100  0.237624  0.310908
+11  cross_entropy  0.150  0.277083  0.279113
+
+Running tsr from 2024-07-14 00:21:53.656612
+Experiment ended at 2024-07-14 00:28:52.988494. Total time taken 0:06:59.331882.
+           metric   area      comp      suff
+0        accuracy  0.050  0.855718  0.969401
+1        accuracy  0.075  0.833325  0.970052
+2        accuracy  0.100  0.815273  0.974175
+3        accuracy  0.150  0.785639  0.978299
+4             auc  0.050  0.187153  0.290184
+5             auc  0.075  0.187478  0.290524
+6             auc  0.100  0.189291  0.290293
+7             auc  0.150  0.182352  0.289968
+8   cross_entropy  0.050  0.356813  0.202779
+9   cross_entropy  0.075  0.388979  0.185937
+10  cross_entropy  0.100  0.417262  0.170693
+11  cross_entropy  0.150  0.458202  0.150380
+
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/3
+test 2299
+Loading model from ./results/mimic_iii_SegRNN/3/checkpoint.pth
+Running feature_ablation from 2024-07-14 00:28:54.630730
+Experiment ended at 2024-07-14 00:31:19.370098. Total time taken 0:02:24.739368.
+           metric   area      comp      suff
+0        accuracy  0.050  0.418604  0.819597
+1        accuracy  0.075  0.330842  0.865725
+2        accuracy  0.100  0.270648  0.900527
+3        accuracy  0.150  0.210729  0.943536
+4             auc  0.050  0.432087  0.537468
+5             auc  0.075  0.399555  0.562949
+6             auc  0.100  0.383776  0.577689
+7             auc  0.150  0.361117  0.599616
+8   cross_entropy  0.050  1.046838  0.420200
+9   cross_entropy  0.075  1.228859  0.343188
+10  cross_entropy  0.100  1.352306  0.287561
+11  cross_entropy  0.150  1.493173  0.205854
+
+Running occlusion from 2024-07-14 00:31:19.512279
+Experiment ended at 2024-07-14 00:33:46.241964. Total time taken 0:02:26.729685.
+           metric   area      comp      suff
+0        accuracy  0.050  0.430708  0.810008
+1        accuracy  0.075  0.333365  0.856409
+2        accuracy  0.100  0.277906  0.901452
+3        accuracy  0.150  0.223412  0.945546
+4             auc  0.050  0.455843  0.547643
+5             auc  0.075  0.414360  0.574164
+6             auc  0.100  0.406691  0.592086
+7             auc  0.150  0.378307  0.608311
+8   cross_entropy  0.050  1.041251  0.426313
+9   cross_entropy  0.075  1.222600  0.345963
+10  cross_entropy  0.100  1.338390  0.285874
+11  cross_entropy  0.150  1.480801  0.204676
+
+Running augmented_occlusion from 2024-07-14 00:33:46.382815
+Experiment ended at 2024-07-14 00:36:44.900486. Total time taken 0:02:58.517671.
+           metric   area      comp      suff
+0        accuracy  0.050  0.930097  0.480236
+1        accuracy  0.075  0.913604  0.487003
+2        accuracy  0.100  0.898413  0.489133
+3        accuracy  0.150  0.860179  0.506928
+4             auc  0.050  0.458912  0.472469
+5             auc  0.075  0.428951  0.499950
+6             auc  0.100  0.422320  0.508096
+7             auc  0.150  0.409910  0.523676
+8   cross_entropy  0.050  0.228066  0.912876
+9   cross_entropy  0.075  0.261018  0.904631
+10  cross_entropy  0.100  0.288618  0.893464
+11  cross_entropy  0.150  0.350687  0.864066
+
+Running winIT from 2024-07-14 00:36:45.040691
+Experiment ended at 2024-07-14 00:42:13.240627. Total time taken 0:05:28.199936.
+           metric   area      comp      suff
+0        accuracy  0.050  0.885312  0.473364
+1        accuracy  0.075  0.841138  0.459788
+2        accuracy  0.100  0.797237  0.472319
+3        accuracy  0.150  0.735838  0.495403
+4             auc  0.050  0.437249  0.450527
+5             auc  0.075  0.430943  0.465319
+6             auc  0.100  0.420102  0.476936
+7             auc  0.150  0.403498  0.485662
+8   cross_entropy  0.050  0.317108  0.902873
+9   cross_entropy  0.075  0.375770  0.906429
+10  cross_entropy  0.100  0.433420  0.883020
+11  cross_entropy  0.150  0.521616  0.847082
+
+Running tsr from 2024-07-14 00:42:13.356509
+Experiment ended at 2024-07-14 00:49:12.631801. Total time taken 0:06:59.275292.
+           metric   area      comp      suff
+0        accuracy  0.050  0.559647  0.740893
+1        accuracy  0.075  0.481377  0.785028
+2        accuracy  0.100  0.419070  0.814284
+3        accuracy  0.150  0.351771  0.861674
+4             auc  0.050  0.386679  0.494280
+5             auc  0.075  0.365746  0.515116
+6             auc  0.100  0.342500  0.528814
+7             auc  0.150  0.333567  0.538998
+8   cross_entropy  0.050  0.800255  0.521291
+9   cross_entropy  0.075  0.950231  0.463031
+10  cross_entropy  0.100  1.070577  0.418576
+11  cross_entropy  0.150  1.240518  0.355690
+
+
+Namespace(task_name='classification', train=False, model='MICN', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'winIT', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/1
+test 2299
+Loading model from ./results/mimic_iii_MICN/1/checkpoint.pth
+Traceback (most recent call last):
+  File "/sfs/gpfs/tardis/project/bii_dsc_community/khairul/SA-Timeseries/interpret.py", line 74, in <module>
+    main(args)
+  File "/sfs/gpfs/tardis/project/bii_dsc_community/khairul/SA-Timeseries/interpret.py", line 36, in main
+    exp.load_best_model()
+  File "/sfs/gpfs/tardis/project/bii_dsc_community/khairul/SA-Timeseries/exp/exp_basic.py", line 81, in load_best_model
+    self.model.load_state_dict(torch.load(best_model_path))
+  File "/home/mi3se/.conda/envs/ml/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1671, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for Model:
+	size mismatch for conv_trans.mic.0.isometric_conv.1.weight: copying a param with shape torch.Size([128, 128, 3]) from checkpoint, the shape in current model is torch.Size([128, 128, 5]).
+	size mismatch for conv_trans.mic.0.conv.0.weight: copying a param with shape torch.Size([128, 128, 24]) from checkpoint, the shape in current model is torch.Size([128, 128, 18]).
+	size mismatch for conv_trans.mic.0.conv.1.weight: copying a param with shape torch.Size([128, 128, 24]) from checkpoint, the shape in current model is torch.Size([128, 128, 12]).
+	size mismatch for conv_trans.mic.0.conv_trans.0.weight: copying a param with shape torch.Size([128, 128, 24]) from checkpoint, the shape in current model is torch.Size([128, 128, 18]).
+	size mismatch for conv_trans.mic.0.conv_trans.1.weight: copying a param with shape torch.Size([128, 128, 24]) from checkpoint, the shape in current model is torch.Size([128, 128, 12]).
+	size mismatch for conv_trans.projection.weight: copying a param with shape torch.Size([1, 128]) from checkpoint, the shape in current model is torch.Size([31, 128]).
+	size mismatch for conv_trans.projection.bias: copying a param with shape torch.Size([1]) from checkpoint, the shape in current model is torch.Size([31]).
+Namespace(task_name='classification', train=False, model='Crossformer', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'winIT', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/1
+test 2299
+Loading model from ./results/mimic_iii_Crossformer/1/checkpoint.pth
+./results/mimic_iii_Crossformer/1/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_Crossformer/1/occlusion.csv exists. Skipping ...
+./results/mimic_iii_Crossformer/1/augmented_occlusion.csv exists. Skipping ...
+Running winIT from 2024-07-14 00:49:39.045291
+Experiment ended at 2024-07-14 00:59:55.988064. Total time taken 0:10:16.942773.
+           metric   area      comp      suff
+0        accuracy  0.050  0.993273  0.988281
+1        accuracy  0.075  0.993056  0.988281
+2        accuracy  0.100  0.992405  0.988281
+3        accuracy  0.150  0.991319  0.988498
+4             auc  0.050  0.318100  0.292305
+5             auc  0.075  0.317652  0.296901
+6             auc  0.100  0.316756  0.301165
+7             auc  0.150  0.317204  0.305481
+8   cross_entropy  0.050  0.098998  0.097815
+9   cross_entropy  0.075  0.098950  0.095875
+10  cross_entropy  0.100  0.098351  0.095179
+11  cross_entropy  0.150  0.095714  0.095065
+
+Running tsr from 2024-07-14 00:59:56.117699
+Experiment ended at 2024-07-14 01:10:41.811057. Total time taken 0:10:45.693358.
+           metric   area      comp      suff
+0        accuracy  0.050  0.988715  0.988715
+1        accuracy  0.075  0.988281  0.991102
+2        accuracy  0.100  0.988281  0.992405
+3        accuracy  0.150  0.988281  0.994358
+4             auc  0.050  0.273084  0.273006
+5             auc  0.075  0.269961  0.274300
+6             auc  0.100  0.266758  0.275392
+7             auc  0.150  0.258975  0.275624
+8   cross_entropy  0.050  0.087533  0.107225
+9   cross_entropy  0.075  0.087308  0.110262
+10  cross_entropy  0.100  0.087654  0.111467
+11  cross_entropy  0.150  0.089327  0.111803
+
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/2
+test 2299
+Loading model from ./results/mimic_iii_Crossformer/2/checkpoint.pth
+Running feature_ablation from 2024-07-14 01:10:43.606236
+Experiment ended at 2024-07-14 01:17:05.054235. Total time taken 0:06:21.447999.
+           metric   area      comp      suff
+0        accuracy  0.050  0.996962  0.996528
+1        accuracy  0.075  0.996962  0.996528
+2        accuracy  0.100  0.996745  0.996528
+3        accuracy  0.150  0.996528  0.996962
+4             auc  0.050  0.095878  0.085984
+5             auc  0.075  0.095878  0.086787
+6             auc  0.100  0.095654  0.087366
+7             auc  0.150  0.095430  0.095206
+8   cross_entropy  0.050  0.063136  0.075874
+9   cross_entropy  0.075  0.061411  0.078534
+10  cross_entropy  0.100  0.060278  0.080261
+11  cross_entropy  0.150  0.058985  0.082188
+
+Running occlusion from 2024-07-14 01:17:05.197379
+Experiment ended at 2024-07-14 01:23:35.694968. Total time taken 0:06:30.497589.
+           metric   area      comp      suff
+0        accuracy  0.050  0.996528  0.996528
+1        accuracy  0.075  0.996528  0.996528
+2        accuracy  0.100  0.996311  0.996528
+3        accuracy  0.150  0.996528  0.996962
+4             auc  0.050  0.096102  0.086089
+5             auc  0.075  0.095430  0.090651
+6             auc  0.100  0.093414  0.092242
+7             auc  0.150  0.093414  0.094952
+8   cross_entropy  0.050  0.063138  0.076611
+9   cross_entropy  0.075  0.061885  0.078623
+10  cross_entropy  0.100  0.060968  0.079795
+11  cross_entropy  0.150  0.059649  0.082158
+
+Running augmented_occlusion from 2024-07-14 01:23:35.836839
+Experiment ended at 2024-07-14 01:30:13.224784. Total time taken 0:06:37.387945.
+           metric   area      comp      suff
+0        accuracy  0.050  0.996528  0.996528
+1        accuracy  0.075  0.996745  0.996528
+2        accuracy  0.100  0.996528  0.996528
+3        accuracy  0.150  0.996528  0.996528
+4             auc  0.050  0.110215  0.083781
+5             auc  0.075  0.109095  0.087590
+6             auc  0.100  0.109991  0.091622
+7             auc  0.150  0.109543  0.096326
+8   cross_entropy  0.050  0.056699  0.078447
+9   cross_entropy  0.075  0.053865  0.084167
+10  cross_entropy  0.100  0.052262  0.087980
+11  cross_entropy  0.150  0.050076  0.094474
+
+Running winIT from 2024-07-14 01:30:13.366636
+Experiment ended at 2024-07-14 01:40:32.022890. Total time taken 0:10:18.656254.
+           metric   area      comp      suff
+0        accuracy  0.050  0.998698  0.996528
+1        accuracy  0.075  0.998481  0.996528
+2        accuracy  0.100  0.998047  0.996528
+3        accuracy  0.150  0.998047  0.996528
+4             auc  0.050  0.111111  0.094310
+5             auc  0.075  0.111111  0.097894
+6             auc  0.100  0.111111  0.098566
+7             auc  0.150  0.110887  0.101927
+8   cross_entropy  0.050  0.075677  0.062069
+9   cross_entropy  0.075  0.075319  0.062107
+10  cross_entropy  0.100  0.074982  0.062248
+11  cross_entropy  0.150  0.073872  0.062998
+
+Running tsr from 2024-07-14 01:40:32.139573
+Experiment ended at 2024-07-14 01:51:18.911429. Total time taken 0:10:46.771856.
+           metric   area      comp      suff
+0        accuracy  0.050  0.996094  0.997179
+1        accuracy  0.075  0.996094  0.997179
+2        accuracy  0.100  0.996311  0.996745
+3        accuracy  0.150  0.996528  0.996745
+4             auc  0.050  0.083109  0.079304
+5             auc  0.075  0.082885  0.080967
+6             auc  0.100  0.081830  0.081495
+7             auc  0.150  0.080522  0.082630
+8   cross_entropy  0.050  0.052548  0.085035
+9   cross_entropy  0.075  0.051596  0.089995
+10  cross_entropy  0.100  0.051627  0.092184
+11  cross_entropy  0.150  0.052646  0.093072
+
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+train 18390
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/3
+test 2299
+Loading model from ./results/mimic_iii_Crossformer/3/checkpoint.pth
+Running feature_ablation from 2024-07-14 01:51:20.652652
+Experiment ended at 2024-07-14 01:57:42.878287. Total time taken 0:06:22.225635.
+           metric   area      comp      suff
+0        accuracy  0.050  0.992839  0.991319
+1        accuracy  0.075  0.992188  0.991319
+2        accuracy  0.100  0.991753  0.991319
+3        accuracy  0.150  0.991753  0.991753
+4             auc  0.050  0.206541  0.191379
+5             auc  0.075  0.206086  0.198376
+6             auc  0.100  0.205630  0.201471
+7             auc  0.150  0.205970  0.205059
+8   cross_entropy  0.050  0.050637  0.062643
+9   cross_entropy  0.075  0.050136  0.063304
+10  cross_entropy  0.100  0.050404  0.063164
+11  cross_entropy  0.150  0.051128  0.062510
+
+Running occlusion from 2024-07-14 01:57:43.021469
+Experiment ended at 2024-07-14 02:04:13.309822. Total time taken 0:06:30.288353.
+           metric   area      comp      suff
+0        accuracy  0.050  0.991753  0.991319
+1        accuracy  0.075  0.991753  0.991319
+2        accuracy  0.100  0.991753  0.991319
+3        accuracy  0.150  0.991753  0.991536
+4             auc  0.050  0.246378  0.231340
+5             auc  0.075  0.246841  0.234931
+6             auc  0.100  0.245721  0.237186
+7             auc  0.150  0.243929  0.245049
+8   cross_entropy  0.050  0.052212  0.060957
+9   cross_entropy  0.075  0.051708  0.061534
+10  cross_entropy  0.100  0.051641  0.061672
+11  cross_entropy  0.150  0.052122  0.061533
+
+Running augmented_occlusion from 2024-07-14 02:04:13.451597
+Experiment ended at 2024-07-14 02:10:51.038731. Total time taken 0:06:37.587134.
+           metric   area      comp      suff
+0        accuracy  0.050  0.993056  0.991319
+1        accuracy  0.075  0.992405  0.991319
+2        accuracy  0.100  0.991753  0.991319
+3        accuracy  0.150  0.991319  0.991319
+4             auc  0.050  0.233531  0.211320
+5             auc  0.075  0.233871  0.223746
+6             auc  0.100  0.233871  0.228812
+7             auc  0.150  0.233647  0.232736
+8   cross_entropy  0.050  0.042484  0.071218
+9   cross_entropy  0.075  0.041454  0.073391
+10  cross_entropy  0.100  0.041071  0.076041
+11  cross_entropy  0.150  0.041535  0.080130
+
+Running winIT from 2024-07-14 02:10:51.180568
+Experiment ended at 2024-07-14 02:21:09.459496. Total time taken 0:10:18.278928.
+           metric   area      comp      suff
+0        accuracy  0.050  0.995877  0.991319
+1        accuracy  0.075  0.995877  0.991319
+2        accuracy  0.100  0.995009  0.991319
+3        accuracy  0.150  0.994141  0.991319
+4             auc  0.050  0.236111  0.193092
+5             auc  0.075  0.236111  0.199784
+6             auc  0.100  0.236111  0.206455
+7             auc  0.150  0.236111  0.215678
+8   cross_entropy  0.050  0.060523  0.057383
+9   cross_entropy  0.075  0.060414  0.056267
+10  cross_entropy  0.100  0.059736  0.055975
+11  cross_entropy  0.150  0.058084  0.055848
+
+Running tsr from 2024-07-14 02:21:09.576815
+Experiment ended at 2024-07-14 02:31:56.400795. Total time taken 0:10:46.823980.
+           metric   area      comp      suff
+0        accuracy  0.050  0.991753  0.991536
+1        accuracy  0.075  0.991319  0.991319
+2        accuracy  0.100  0.991319  0.993707
+3        accuracy  0.150  0.991319  0.995443
+4             auc  0.050  0.245072  0.244168
+5             auc  0.075  0.242608  0.246184
+6             auc  0.100  0.238344  0.248208
+7             auc  0.150  0.230488  0.249104
+8   cross_entropy  0.050  0.047664  0.064806
+9   cross_entropy  0.075  0.049136  0.067641
+10  cross_entropy  0.100  0.050711  0.069006
+11  cross_entropy  0.150  0.052802  0.070105
+
+

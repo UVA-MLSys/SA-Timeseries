@@ -232,3 +232,21 @@ flag val, acc 0.90126, f1 0.27010, auc 0.77013
 classification_SegRNN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag test, acc 0.89778, f1 0.23453, auc 0.75560
 
+classification_MICN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90039, f1 0.21306, auc 0.77544
+
+classification_MICN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90866, f1 0.21053, auc 0.77641
+
+classification_MICN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90561, f1 0.18727, auc 0.79154
+
+classification_MICN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90083, f1 0.12977, auc 0.78062
+
+classification_MICN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90431, f1 0.24138, auc 0.78139
+
+classification_MICN_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.89865, f1 0.18815, auc 0.78013
+

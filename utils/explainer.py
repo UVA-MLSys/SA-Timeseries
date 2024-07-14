@@ -51,17 +51,17 @@ def compute_attr(
         ])
     else: sliding_window_shapes = (1,1)
     
-    # if name == 'wtsr':
-    #     attr = explainer.attribute(
-    #         inputs=inputs,
-    #         sliding_window_shapes=sliding_window_shapes,
-    #         baselines=baselines,
-    #         additional_forward_args=additional_forward_args,
-    #         threshold=0, normalize=True,
-    #         attributions_fn=abs
-    #     )
+    if name == 'wtsr':
+        attr = explainer.attribute(
+            inputs=inputs,
+            sliding_window_shapes=sliding_window_shapes,
+            baselines=baselines,
+            additional_forward_args=additional_forward_args,
+            threshold=0.55, normalize=True,
+            attributions_fn=abs
+        )
     
-    if name in [
+    elif name in [
         'deep_lift', 'lime', 'integrated_gradients', 
         'gradient_shap', 'tsr', 'wtsr'
     ]:

@@ -151,3 +151,12 @@ python interpret.py \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
   --model Crossformer --n_features 31 --overwrite --disable_progress
+
+python interpret.py \
+  --result_path scratch \
+  --task_name classification \
+  --data mimic \
+  --root_path ./dataset/mimic_iii/ \
+  --data_path mimic_iii.pkl \
+  --metrics auc accuracy cross_entropy \
+  --model DLinear --n_features 31 --explainers wtsr

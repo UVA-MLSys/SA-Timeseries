@@ -262,7 +262,9 @@ class WinTSR(Occlusion):
             (1,) + input.shape[2:] for input in inputs
         )
 
-        # Compute the Time-Relevance Score (step 1). Shape ((N x O) x seq_len x features)
+        # Compute the Time-Relevance Score (step 1). 
+        # Shape ((N x O) x seq_len x features) if target is None
+        # Shape (N x seq_len) if target is not None
         time_relevance_score = super().attribute.__wrapped__(
             self,
             inputs=inputs,
@@ -288,21 +290,19 @@ class WinTSR(Occlusion):
             for tsr in time_relevance_score
         )
 
-        if target is None:
-            # time_relevance_score shape will be ((N x O) x seq_len) after previous summation
-            # reshape it to be (N x O x seq_len)
-            time_relevance_score = tuple(
-                tsr.reshape((input.shape[0], -1) + input.shape[1:-1])
-                for input, tsr in zip(inputs, time_relevance_score)
-            )
-            # take avg over the output horizon
-            # now shape is (N x seq_len x features) which can now be passsed 
-            # as is_above_threshold to Feature Ablation
-            time_relevance_score = tuple(
-                tsr.mean(dim=1) for tsr in time_relevance_score
-            )
-            
-        print('tsr shape ', [tsr.shape for tsr in time_relevance_score])
+        # if target is None:
+        #     # time_relevance_score shape will be ((N x O) x seq_len) after previous summation
+        #     # reshape it to be (N x O x seq_len)
+        #     time_relevance_score = tuple(
+        #         tsr.reshape((input.shape[0], -1) + input.shape[1:-1])
+        #         for input, tsr in zip(inputs, time_relevance_score)
+        #     )
+        #     # take avg over the output horizon
+        #     # now shape is (N x seq_len x features) which can now be passsed 
+        #     # as is_above_threshold to Feature Ablation
+        #     time_relevance_score = tuple(
+        #         tsr.mean(dim=1) for tsr in time_relevance_score
+        #     )
 
         # Normalize if required
         if normalize:
@@ -381,15 +381,15 @@ class WinTSR(Occlusion):
             #TODO: uncomment after new release
             # kwargs_run_forward=kwargs,
         )
-
+        # print('frs shape ', [tsr.shape for tsr in features_relevance_score])
         # Reshape attributions before merge
         time_relevance_score = tuple(
-            tsr.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
-            for input, tsr in zip(inputs, time_relevance_score)
+            tsr.reshape(f_imp.shape[:2] + (1,) * len(f_imp.shape[2:]))
+            for f_imp, tsr in zip(features_relevance_score, time_relevance_score)
         )
         is_above_threshold = tuple(
-            is_above.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
-            for input, is_above in zip(inputs, is_above_threshold)
+            is_above.reshape(f_imp.shape[:2] + (1,) * len(f_imp.shape[2:]))
+            for f_imp, is_above in zip(features_relevance_score, is_above_threshold)
         )
 
         # Merge attributions:
@@ -444,15 +444,15 @@ class WinTSR(Occlusion):
             ],
             dim=0,
         ).long()
-        print('Expanded input ', expanded_input.shape, input_mask.shape)
+        # print('Expanded input ', expanded_input.shape, input_mask.shape)
         
         ablated_tensor = (
             expanded_input
             * (
                 torch.ones(1, dtype=torch.long, device=expanded_input.device)
-                - input_mask
+                - input_mask[:, :expanded_input.shape[1]]
             ).to(expanded_input.dtype)
-        ) + (baseline * input_mask.to(expanded_input.dtype))
+        ) + (baseline * input_mask[:, :expanded_input.shape[1]].to(expanded_input.dtype))
 
         return ablated_tensor, input_mask
 
@@ -524,7 +524,7 @@ class WinTSR(Occlusion):
             ] = 0
 
         current_mask = is_above.unsqueeze(-1) * padded_tensor.unsqueeze(0)
-        print('Mask shape ', current_mask.shape)
+        # print('Mask shape ', current_mask.shape)
         return current_mask
 
     def _run_forward(

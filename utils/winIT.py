@@ -18,7 +18,7 @@ class WinIT:
         self.rng = np.random.default_rng(args.seed)
         
         if self.task_name =='classification':
-            self.metric = 'kl'
+            self.metric = 'js'
         else:
             self.metric = 'pd'
         

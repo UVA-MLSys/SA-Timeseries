@@ -53,7 +53,7 @@ python interpret.py \
 
 python interpret.py \
   --task_name long_term_forecast \
-  --explainers feature_ablation \
+  --explainers wtsr \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model DLinear \
@@ -62,5 +62,5 @@ python interpret.py \
   --label_len 12 \
   --pred_len 24 \
   --n_features 1 \
-  --result_path scratch \
+  --result_path scratch --overwrite --itr_no 1\
   

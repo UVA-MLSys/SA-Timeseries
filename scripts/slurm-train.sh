@@ -6,7 +6,7 @@
 #SBATCH --account=bii_dsc_community
 # -- SBATCH --gres=gpu:v100:1
 # https://www.rc.virginia.edu/userinfo/hpc/overview/#hardware-configuration
-#SBATCH --gres=gpu:RTX2080Ti:1
+#SBATCH --gres=gpu:a100:1
 #SBATCH --mem=24GB
 
 source /etc/profile.d/modules.sh

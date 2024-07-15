@@ -293,7 +293,7 @@ class TSR(Occlusion):
             # min max scaling
             time_relevance_score = tuple(
                 normalize_scale(
-                    tsr, dim=1, norm_type="l1"
+                    tsr, dim=1, norm_type="minmax"
                 ) for tsr in time_relevance_score
             )
             

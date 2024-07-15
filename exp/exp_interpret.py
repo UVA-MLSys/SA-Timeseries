@@ -85,7 +85,9 @@ class Exp_Interpret:
             base_explainer = Exp_Interpret.initialize_explainer(
                 'augmented_occlusion', model, args, device, dataloader
             ) 
-            explainer = WinTSR(base_explainer)
+            metric = 'js' if args.task_name == 'classification' else 'pd'
+            explainer = WinTSR(base_explainer, metric)
+            
         elif name in ['augmented_occlusion', 'winIT', 'fit']:
             add_x_mark = args.task_name != 'classification'
             all_inputs = get_total_data(dataloader, device, add_x_mark=add_x_mark)

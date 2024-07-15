@@ -40,7 +40,6 @@ def main(args):
 
         interpreter = Exp_Interpret(exp, dataloader) 
         interpreter.interpret(dataloader)
-        print()
         
     args.seed = parent_seed
     config_filepath = os.path.join(args.result_path, stringify_setting(args), 'config_interpret.json')

@@ -48,4 +48,4 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model DLinear --n_features 31 --overwrite --itr_no 1 --result_path scratch
+  --model MICN --n_features 31 --overwrite --itr_no 1 --result_path scratch

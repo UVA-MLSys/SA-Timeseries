@@ -54,11 +54,7 @@
     ],
     "p_hidden_layers": 2,
     "explainers": [
-        "feature_ablation",
-        "occlusion",
-        "augmented_occlusion",
-        "winIT",
-        "tsr"
+        "winIT"
     ],
     "areas": [
         0.05,
@@ -72,9 +68,9 @@
         "accuracy",
         "cross_entropy"
     ],
-    "overwrite": false,
+    "overwrite": true,
     "dump_attrs": false,
-    "disable_progress": true,
+    "disable_progress": false,
     "use_gpu": true,
     "enc_in": 31,
     "dec_in": 31,

@@ -2,9 +2,9 @@ import os, torch, copy, gc
 from tqdm import tqdm 
 import pandas as pd
 from utils.explainer import *
-from utils.tsr_tunnel import TSR
-from utils.WinTSR import WinTSR
-from utils.winIT import WinIT
+from attr.tsr import TSR
+from attr.winTSR import WinTSR
+from attr.winIT import WinIT
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds
 from utils.auc import auc
 from datetime import datetime

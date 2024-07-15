@@ -5,10 +5,16 @@ def reduce_df(df:pd.DataFrame):
     # df[df['area']==0.05]
     return df.groupby('metric').aggregate('mean')[['comp', 'suff']].reset_index()
 
-metric_map = {
+int_metric_map = {
     'electricity': ['mae', 'mse'],
     'traffic': ['mae', 'mse'],
     'mimic_iii': ['auc', 'cross_entropy', 'accuracy', ]
+}
+
+test_metric_map = {
+    'electricity': ['mae', 'mse'],
+    'traffic': ['mae', 'mse'],
+    'mimic_iii': ['auc', 'accuracy']
 }
 
 datasets = ['electricity', 'traffic', 'mimic_iii']
@@ -66,9 +72,24 @@ NUM_ITERATIONS = 3
 def print_row(item):
     print(f'& {np.round(item, 2):0.3g} ', end='')
     
+print(f"Dataset & Metric &" + " & ".join(models) + " \\\\ \\hline")
+for dataset in datasets:
+    for metric in test_metric_map[dataset]:
+        print(dataset, ' & ', metric, end='')
+        for model in models:
+            
+            scores = 0
+            for itr_no in range(1, NUM_ITERATIONS+1):
+                df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/test_metrics.csv')
+                score = df[df['metric']==metric]['score'].values[0]
+                scores += score
+                
+            print_row(scores / NUM_ITERATIONS)
+        print('\\\\')
+    
 for dataset in datasets:
     # use the first or second on
-    for metric in metric_map[dataset]:
+    for metric in int_metric_map[dataset]:
         print(f'Dataset {dataset}, metric {metric}.\n')
         print(f" & {' & '.join(models)} & {' & '.join(models)} \\\\ \\hline")
         

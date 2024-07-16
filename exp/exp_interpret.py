@@ -2,9 +2,9 @@ import os, torch, copy, gc
 from tqdm import tqdm 
 import pandas as pd
 from utils.explainer import *
-from attr.tsr import TSR
-from attr.winTSR import WinTSR
-from attr.winIT import WinIT
+from attrs.tsr import TSR
+from attrs.winTSR import WinTSR
+from attrs.winIT import WinIT
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds
 from utils.auc import auc
 from datetime import datetime
@@ -32,14 +32,14 @@ expl_metric_map = {
 }
 
 explainer_name_map = {
-    "deep_lift":DeepLift,
+    "deep_lift":DeepLift, # throws "One of the differentiated Tensors appears to not have been used in the graph"
     "gradient_shap":GradientShap,
     "integrated_gradients":IntegratedGradients,
     "lime":Lime, # very slow
     "occlusion":Occlusion,
     "augmented_occlusion":AugmentedOcclusion, # requires data when initializing
-    "dyna_mask":DynaMask, # needs additional arguments when initializing
-    "fit": Fit, # only supports classification
+    # "dyna_mask":DynaMask, # Multiple inputs are not accepted for this method
+    # "fit": Fit, # only supports classification
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
@@ -98,7 +98,8 @@ class Exp_Interpret:
                 )
             elif name == 'fit':
                 trainer = Trainer(
-                    enable_progress_bar=False, max_epochs=10,
+                    logger=False,
+                    enable_progress_bar=False, max_epochs=5,
                     enable_model_summary=False
                 )
                 explainer = explainer_name_map[name](
@@ -137,6 +138,8 @@ class Exp_Interpret:
             
             results.extend(batch_results)  
             attrs.append(batch_attr)
+            
+            if self.args.dry_run: break
         
         attrs = torch.vstack(attrs)
         return results, attrs
@@ -172,6 +175,7 @@ class Exp_Interpret:
             )
             results.extend(batch_results)
             attrs.append(batch_attr)
+            if self.args.dry_run: break
         
         attrs = tuple(torch.vstack([a[i] for a in attrs]) for i in range(2))
         return results, attrs

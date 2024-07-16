@@ -8,7 +8,7 @@ def reduce_df(df:pd.DataFrame):
 int_metric_map = {
     'electricity': ['mae', 'mse'],
     'traffic': ['mae', 'mse'],
-    'mimic_iii': ['auc', 'cross_entropy', 'accuracy', ]
+    'mimic_iii': ['auc', 'cross_entropy']
 }
 
 test_metric_map = {
@@ -86,6 +86,23 @@ for dataset in datasets:
                 
             print_row(scores / NUM_ITERATIONS)
         print('\\\\')
+        
+# results = []
+# for dataset in datasets:
+#     for attr_method in attr_methods:
+#         for metric in int_metric_map[dataset]:
+#             for model in models:
+#                 for itr_no in range(1, NUM_ITERATIONS+1):
+#                     df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv')
+#                     df = reduce_df(df)
+#                     comp, suff= df[df['metric']==metric][['comp', 'suff']].values[0]
+                    
+#                     results.append([
+#                         dataset, attr_method, metric, model, itr_no, comp, suff
+#                     ])
+
+# result_df = pd.DataFrame(results, columns=['dataset', 'attr_method', 'metric', 'model', 'itr_no', 'comp', 'suff'])
+# result_df.to_csv('results.csv', index=False)
     
 for dataset in datasets:
     # use the first or second on
@@ -93,32 +110,21 @@ for dataset in datasets:
         print(f'Dataset {dataset}, metric {metric}.\n')
         print(f" & {' & '.join(models)} & {' & '.join(models)} \\\\ \\hline")
         
-        tsr_better_comp = 0
-        tsr_better_suff = 0
-        comp_count = suff_count = 0
-        
         for attr_method in attr_methods:
             print(f'{short_form[attr_method]} ', end='')
-            for model in models:
-                comps, suffs = [], []
-                for itr_no in range(1, NUM_ITERATIONS+1):
-                    df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
-                    df = reduce_df(df)
+            for metric_type in ['comp', 'suff']:
+                for model in models:
+                    scores = []
+                    for itr_no in range(1, NUM_ITERATIONS+1):
+                        df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
+                        df = reduce_df(df)
+                    
+                        score = df[df['metric']==metric][metric_type].values[0]
+                        if metric in ['auc', 'accuracy']:
+                            score = 1-score
                 
-                    comp, _ = df[df['metric']==metric][['comp', 'suff']].values[0]
-                    if metric in ['auc', 'accuracy']:
-                        comp = 1 - comp
-                    comps.append(comp)
-
-                    df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
-                    df = reduce_df(df)
-                    _, suff = df[df['metric']==metric][['comp', 'suff']].values[0]
-                    if metric in ['auc', 'accuracy']:
-                        suff = 1 - suff
-                    suffs.append(suff)
-                
-                print_row(sum(comps)/NUM_ITERATIONS)
-                print_row(sum(suffs)/NUM_ITERATIONS)
+                        scores.append(score)
+                    
+                    print_row(sum(scores)/NUM_ITERATIONS)
             print('\\\\')
-        
-            print('\\hline\n')  
+        print('\\hline\n')

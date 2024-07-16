@@ -153,5 +153,5 @@ class WinIT:
         if len(attr) == 1: return attr[0]
         else: return tuple(attr)
     
-    def get_name(self):
+    def get_name():
         return 'WinIT'

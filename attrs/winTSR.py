@@ -116,14 +116,14 @@ class WinTSR(Occlusion):
         # Shape (N x seq_len) if target is not None
         with torch.no_grad():
             # returns (attr, attr_shape). attr_shape is (N x O) x seq_len x features
-            # y_original = self.forward_func(
-            #     *inputs, *additional_forward_args
-            # )
-            y_original = self.get_time_relevance_score(
-                inputs, baselines, target, additional_forward_args
+            y_original = self.forward_func(
+                *inputs, *additional_forward_args
             )
+            # y_original = self.get_time_relevance_score(
+            #     inputs, baselines, target, additional_forward_args
+            # )
             # print(f'y_original {y_original}')
-            num_outputs = 24 # y_original.shape[1]
+            num_outputs = y_original.shape[1]
             
             time_relevance_score = []
             
@@ -132,7 +132,7 @@ class WinTSR(Occlusion):
                 
                 if target is None:
                     score = torch.zeros(size=(
-                        y_original[0].shape[0], # batch_size * num_outputs, 
+                        batch_size * num_outputs, 
                         seq_len
                     ), device=inputs[input_index].device)
                 else:
@@ -141,9 +141,10 @@ class WinTSR(Occlusion):
                     ), device=inputs[input_index].device)
                 
                 cloned = inputs[input_index].clone()
-                for t in range(seq_len)[::-1]:
+                for t in range(seq_len):
                     # mask last t timesteps
-                    cloned[:, t] = baselines[input_index][:, t]
+                    prev_val = cloned[:, t]
+                    cloned[:, t] = baselines[input_index][:, t] # baselines[input_index][:, t]
                     
                     inputs_hat = []
                     for i in range(len(inputs)):
@@ -151,18 +152,18 @@ class WinTSR(Occlusion):
                         else: inputs_hat.append(inputs[i])
                     
                     # returns (attr, attr_shape)
-                    # y_perturbed = self.forward_func(
-                    #     *tuple(inputs_hat), *additional_forward_args
-                    # )
-                    y_perturbed = self.get_time_relevance_score(
-                        tuple(inputs_hat), baselines, target, additional_forward_args
+                    y_perturbed = self.forward_func(
+                        *tuple(inputs_hat), *additional_forward_args
                     )
+                    # y_perturbed = self.get_time_relevance_score(
+                    #     tuple(inputs_hat), baselines, target, additional_forward_args
+                    # )
                     
                     if target is None:
-                        # eval_diff = self._compute_metric(
-                        #     y_original, y_perturbed
-                        # )
-                        eval_diff = torch.sum(torch.abs(y_original[0] - y_perturbed[0]), dim=-1)
+                        eval_diff = self._compute_metric(
+                            y_original, y_perturbed
+                        )
+                        # eval_diff = torch.sum(torch.abs(y_original[0] - y_perturbed[0]), dim=-1)
                     else:
                         eval_diff = self._compute_metric(
                             y_original[:, target], y_perturbed[:, target]
@@ -175,17 +176,17 @@ class WinTSR(Occlusion):
                     eval_diff = torch.clip(eval_diff, -1e6, 1e6)
                     
                     score[:, t] = eval_diff.reshape(-1)
-                    
+                    cloned[:, t] = prev_val
                     del y_perturbed, inputs_hat
                 del cloned
                 gc.collect()
                 
                 # batch_size, n_output, seq_len, n_features        
-                score[:, 1:] -= score[:, :-1] 
+                # score[:, 1:] -= score[:, :-1] 
                 # print(f'Score {score}')
                 
                 # reverse order along the time axis
-                score = score.flip(dims=(1,))
+                # score = score.flip(dims=(1,))
                 
                 time_relevance_score.append(abs(score))
             time_relevance_score = tuple(time_relevance_score)
@@ -223,7 +224,6 @@ class WinTSR(Occlusion):
 
         # Compute sliding window for the Time-Relevance Score
         # Only the time dimension (dim 1) has a sliding window of 1
-
         # time_relevance_score = self._get_time_relevance(
         #     inputs=inputs,
         #     baselines=baselines,
@@ -240,6 +240,14 @@ class WinTSR(Occlusion):
             show_progress=show_progress
         )  
         
+        # y_original = self.forward_func(*inputs, *additional_forward_args)
+        # batch_size, num_output, _ = y_original.shape
+        
+        # time_relevance_score = tuple(
+        #     score.reshape((batch_size, num_output, -1)).mean(dim=1) 
+        #     for score in time_relevance_score
+        # )
+        
         # Normalize if required
         if normalize:
             # normalize the last dimension
@@ -249,7 +257,6 @@ class WinTSR(Occlusion):
                 ) for tsr in time_relevance_score
             )
             
-
         # print('tsr ', time_relevance_score) 
         # Get indexes where the Time-Relevance Score is
         # higher than the threshold
@@ -415,15 +422,35 @@ class WinTSR(Occlusion):
             ],
             dim=0,
         ).long()
-        # print('Expanded input ', expanded_input.shape, input_mask.shape)
+        # print('Expanded input ', expanded_input.shape, input_mask.shape, f' Start {start_feature}, end {end_feature}')
         
+        # if input_mask.shape[1] > expanded_input.shape[1]:
+        #     reduced_input_mask = input_mask.reshape((input_mask.shape[0], -1, *expanded_input.shape[1:]))
+        #     reduced_input_mask = torch.round(torch.mean(reduced_input_mask, dim=1, dtype=torch.float), dtype=torch.long)
+            
+        #     ablated_tensor = (
+        #         expanded_input
+        #             * (
+        #                 torch.ones(1, dtype=torch.long, device=expanded_input.device)
+        #                 # - reduced_input_mask
+        #                 # - input_mask[:, :expanded_input.shape[1]]
+        #                 - reduced_input_mask
+        #             ).to(expanded_input.dtype)
+        #         # ) + (baseline * reduced_input_mask.to(expanded_input.dtype))
+        #         # ) + (baseline * input_mask[:, :expanded_input.shape[1]].to(expanded_input.dtype))
+        #         ) + (baseline * reduced_input_mask.to(expanded_input.dtype))
+        # else:
         ablated_tensor = (
             expanded_input
             * (
                 torch.ones(1, dtype=torch.long, device=expanded_input.device)
+                # - reduced_input_mask
                 - input_mask[:, :expanded_input.shape[1]]
+                # - input_mask
             ).to(expanded_input.dtype)
+        # ) + (baseline * reduced_input_mask.to(expanded_input.dtype))
         ) + (baseline * input_mask[:, :expanded_input.shape[1]].to(expanded_input.dtype))
+        # ) + (baseline * input_mask.to(expanded_input.dtype))
 
         return ablated_tensor, input_mask
 

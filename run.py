@@ -75,7 +75,8 @@ def get_parser():
     # basic config
     parser.add_argument('--task_name', type=str, default='long_term_forecast', 
         choices=['long_term_forecast', 'classification'], help='task name')
-    parser.add_argument('--train', action='store_true', help='status')
+    parser.add_argument('--train', action='store_true', help='whether to train the model or test')
+    parser.add_argument('--dry_run', action='store_true', help='runs for a single batch')
     parser.add_argument('--model', type=str, required=True, default='Transformer',
         choices=list(Exp_Basic.model_dict.keys()), help='model name')
     parser.add_argument('--seed', default=2024, help='random seed')

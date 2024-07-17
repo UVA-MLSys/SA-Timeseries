@@ -26,7 +26,7 @@ class Exp_Classification(Exp_Basic):
         self.args.pred_len = 0
         
         #TODO: make these more generalized
-        self.args.enc_in = train_data.feature_df.shape[-1]    
+        self.args.enc_in = self.args.n_features    
         self.args.num_class = len(train_data.class_names)
         self.multiclass = (self.args.num_class > 1)
         

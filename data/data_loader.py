@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import os, torch, glob
 from torch.utils.data import Dataset
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.model_selection import train_test_split
 from utils.timefeatures import time_features
 from utils.sktime import load_from_tsfile_to_dataframe
 from data.uea import subsample, interpolate_missing, Normalizer
@@ -518,8 +519,7 @@ class MimicIII(Dataset):
     ):
         # init
         assert flag in ['train', 'test', 'val']
-        type_map = {'train': 0, 'val': 1, 'test': 2}
-        self.set_type = type_map[flag]
+        self.flag = flag
 
         self.scale = scale
         self.size = size
@@ -544,50 +544,47 @@ class MimicIII(Dataset):
         
         Y = np.array([int(row[1]) for row in data])
         
-        labels = pd.Series(Y, dtype='category')
-        self.class_names = labels.cat.categories
-        Y = pd.DataFrame(labels.cat.codes, dtype=np.int8)
- 
+        # split sizes
         n_total, self.max_seq_len, self.n_features = X.shape
-         
         num_vali = round(n_total * self.size[1])
         num_test= round(n_total * self.size[2])
-        num_train = n_total - num_vali - num_test
-        # print(num_train, num_vali, num_test)
         
-        border1s = [0, num_train , num_train + num_vali]
-        border2s = [num_train, num_train + num_vali, n_total]
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, Y, random_state=self.seed, shuffle=True, 
+            test_size=num_test, stratify=Y
+        )
+        X_train, X_val, y_train, y_val = train_test_split(
+            X_train, y_train, random_state=self.seed, shuffle=True, 
+            test_size=num_vali, stratify=y_train
+        )
         
-        # to randomize train, val, test splits
-        shuffled_indices = np.arange(n_total)
-        np.random.seed(self.seed)
-        # does inplace shuffling
-        np.random.shuffle(shuffled_indices)
-        
-        border1 = border1s[self.set_type]
-        border2 = border2s[self.set_type]
-
-        # select data split
-        feature_df = X[shuffled_indices[border1:border2]]
-        self.Y = Y.iloc[shuffled_indices[border1:border2]].values
-
-        if self.scale:
-            train_data = X[shuffled_indices[border1s[0]:border2s[0]]]
-            self.scaler.fit(train_data.reshape((train_data.shape[0], -1)))
+        if self.flag == 'train': X, Y = X_train, y_train
+        elif self.flag == 'val': X, Y = X_val, y_val
+        else: X, Y = X_test, y_test
+        print(f'Dead patients {sum(Y)}, percentage {100*sum(Y)/len(Y):.2f}.')
             
-            original_shape = feature_df.shape
-            feature_df = self.scaler.transform(
-                feature_df.reshape((feature_df.shape[0], -1))
+        labels = pd.Series(Y, dtype='category')
+        self.class_names = labels.cat.categories
+        self.Y = np.array(labels.cat.codes).reshape(-1, 1)
+        
+        if self.scale:
+            self.scaler.fit(X_train.reshape((X_train.shape[0], -1)))
+            
+            original_shape = X.shape
+            X = self.scaler.transform(
+                X.reshape((X.shape[0], -1))
             ).reshape(original_shape)
         
-        self.feature_df = feature_df
+        self.X = X
 
     def __getitem__(self, index):
-        return torch.from_numpy(self.feature_df[index]), \
-            torch.from_numpy(self.Y[index])
+        X = torch.from_numpy(self.X[index])
+        Y = torch.Tensor(self.Y[index])
+        return X, Y
+            
     
     def __len__(self):
-        return self.feature_df.shape[0]
+        return self.X.shape[0]
 
     def inverse_transform(self, data):
         if self.scale:

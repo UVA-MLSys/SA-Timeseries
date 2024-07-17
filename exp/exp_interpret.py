@@ -223,8 +223,7 @@ class Exp_Interpret:
         
         attr = compute_attr(
             name, inputs, baselines, explainer, 
-            additional_forward_args, self.args, 
-            avg_attr=False
+            additional_forward_args, self.args
         )
     
         results = []
@@ -246,7 +245,7 @@ class Exp_Interpret:
                         self.model, inputs=inputs, 
                         attributions=attr_per_pred, baselines=baselines, 
                         additional_forward_args=additional_forward_args,
-                        topk=area, mask_largest=True
+                        topk=area # , mask_largest=True # this is default
                     )
                     
                     if metric_name in ['comprehensiveness', 'sufficiency', 'log_odds']:

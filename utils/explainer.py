@@ -37,8 +37,7 @@ def get_baseline(inputs, mode='random'):
 
 def compute_attr(
     name, inputs, baselines, explainer,
-    additional_forward_args, 
-    args, avg_attr=True
+    additional_forward_args, args
 ):
     # name = explainer.get_name()
     if args.task_name == 'classification':
@@ -57,9 +56,14 @@ def compute_attr(
             sliding_window_shapes=sliding_window_shapes,
             baselines=baselines,
             additional_forward_args=additional_forward_args,
-            threshold=0, normalize=True,
+            threshold=0.5, normalize=True,
             attributions_fn=abs
         )
+        
+        # attr = explainer.attribute(
+        #         inputs=inputs, baselines=baselines, target=0,
+        #         additional_forward_args=additional_forward_args
+        #     )
     
     elif name in [
         'deep_lift', 'lime', 'integrated_gradients', 
@@ -101,7 +105,7 @@ def compute_attr(
         
     elif name in ['feature_ablation']:
         attr = explainer.attribute(
-            inputs=inputs, baselines=baselines, 
+            inputs=inputs,
             attributions_fn=abs,
             additional_forward_args=additional_forward_args
         )
@@ -134,10 +138,7 @@ def compute_attr(
     else:
         raise NotImplementedError
         
-    if avg_attr:
-        return avg_over_output_horizon(attr, inputs, args)
-    else:
-        return reshape_over_output_horizon(attr, inputs, args)
+    return reshape_over_output_horizon(attr, inputs, args)
 
 def avg_over_output_horizon(attr, inputs, args):
     if type(inputs) == tuple:

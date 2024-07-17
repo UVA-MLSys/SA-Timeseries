@@ -224,13 +224,14 @@ class WinTSR(Occlusion):
 
         # Compute sliding window for the Time-Relevance Score
         # Only the time dimension (dim 1) has a sliding window of 1
-        # time_relevance_score = self._get_time_relevance(
+        # shape (batch_size * n_output) x seq_len
+        # time_relevance_score = self._get_time_relevance2(
         #     inputs=inputs,
         #     baselines=baselines,
         #     target=target,
         #     additional_forward_args=additional_forward_args
-        # )
-             
+        # )  
+                
         time_relevance_score = self.get_time_relevance_score(
             inputs=inputs,
             baselines=baselines,
@@ -240,15 +241,7 @@ class WinTSR(Occlusion):
             show_progress=show_progress
         )  
         
-        # y_original = self.forward_func(*inputs, *additional_forward_args)
-        # batch_size, num_output, _ = y_original.shape
-        
-        # time_relevance_score = tuple(
-        #     score.reshape((batch_size, num_output, -1)).mean(dim=1) 
-        #     for score in time_relevance_score
-        # )
-        
-        # Normalize if required
+        # Normalize if required along the time axis
         if normalize:
             # normalize the last dimension
             time_relevance_score = tuple(
@@ -256,8 +249,7 @@ class WinTSR(Occlusion):
                     tsr, dim=-1, norm_type="l1"
                 ) for tsr in time_relevance_score
             )
-            
-        # print('tsr ', time_relevance_score) 
+        # print(time_relevance_score)   
         # Get indexes where the Time-Relevance Score is
         # higher than the threshold
         is_above_threshold = tuple(
@@ -332,6 +324,7 @@ class WinTSR(Occlusion):
             tsr.reshape(f_imp.shape[:2] + (1,) * len(f_imp.shape[2:]))
             for f_imp, tsr in zip(features_relevance_score, time_relevance_score)
         )
+        
         is_above_threshold = tuple(
             is_above.reshape(f_imp.shape[:2] + (1,) * len(f_imp.shape[2:]))
             for f_imp, is_above in zip(features_relevance_score, is_above_threshold)
@@ -340,7 +333,7 @@ class WinTSR(Occlusion):
         # Merge attributions:
         # Time-Relevance Score x Feature-Relevance Score x is above threshold
         attributions = tuple(
-            (tsr * frs) * is_above.float()
+            tsr * frs # * is_above.float()
             for tsr, frs, is_above in zip(
                 time_relevance_score,
                 features_relevance_score,
@@ -555,3 +548,94 @@ class WinTSR(Occlusion):
     @staticmethod
     def get_name():
         return 'WinTSR'
+    
+    # def _get_time_relevance2(
+    #     self, inputs: TensorOrTupleOfTensorsGeneric,
+    #     baselines: BaselineType = None,
+    #     target: TargetType = None,
+    #     additional_forward_args: Any = None
+    # ):  
+    #     if type(inputs) == Tensor:
+    #         inputs = (inputs,)
+    #         baselines = (baselines,)
+        
+    #     # Compute the Time-Relevance Score (step 1). 
+    #     # Shape ((N x O) x seq_len x features) if target is None
+    #     # Shape (N x seq_len) if target is not None
+    #     with torch.no_grad():
+    #         # returns (attr, attr_shape). attr_shape is (N x O) x seq_len x features
+    #         y_original = self.explainer.attribute(
+    #             inputs=inputs, baselines=baselines, target=target,
+    #             additional_forward_args=additional_forward_args
+    #         )
+            
+    #         time_relevance_score = []
+            
+    #         for input_index in range(len(inputs)):
+    #             batch_size, seq_len, n_features = inputs[input_index].shape
+                
+    #             score = torch.zeros(size=(
+    #                 y_original[0].shape[0], 
+    #                 seq_len
+    #             ), device=inputs[input_index].device)
+                
+    #             for t in range(seq_len):
+    #                 # mask last t timesteps
+    #                 prev_val = inputs[input_index][:, t]
+    #                 inputs[input_index][:, t] = torch.rand_like(inputs[input_index][:, t]) # baselines[input_index][:, t]
+                    
+    #                 # returns (attr, attr_shape)
+    #                 y_perturbed = self.explainer.attribute(
+    #                     inputs=inputs, baselines=baselines, target=target,
+    #                     additional_forward_args=additional_forward_args
+    #                 )
+    #                 inputs[input_index][:, t] = prev_val
+                    
+    #                 eval_diff = sum(
+    #                     [torch.sum(abs(a - b), dim=(1, 2)) for a, b in zip(y_original, y_perturbed)] 
+    #                 )
+
+    #                 eval_diff = torch.clip(eval_diff, -1e6, 1e6)
+    #                 score[:, t] = eval_diff
+                    
+    #                 del y_perturbed
+    #             gc.collect()
+                
+    #             time_relevance_score.append(abs(score))
+    #         time_relevance_score = tuple(time_relevance_score)
+        
+    #     return time_relevance_score
+    
+    # def get_feature_relevance_score(
+    #         self, inputs: TensorOrTupleOfTensorsGeneric,
+    #         baselines: BaselineType = None,
+    #         target: TargetType = None,
+    #         additional_forward_args: Any = None,
+    #         perturbations_per_eval=1,
+    #         show_progress=False
+    #     ):
+    #     tsr_sliding_window_shapes = tuple(
+    #         (input.shape[2], 1) for input in inputs
+    #     )
+    #     time_relevance_score = super().attribute.__wrapped__(
+    #         self,
+    #         inputs=inputs,
+    #         sliding_window_shapes=tsr_sliding_window_shapes,
+    #         strides=None,
+    #         baselines=baselines,
+    #         target=target,
+    #         additional_forward_args=additional_forward_args,
+    #         perturbations_per_eval=perturbations_per_eval,
+    #         attributions_fn=abs,
+    #         show_progress=show_progress,
+    #         #TODO: uncomment after new release
+    #         # kwargs_run_forward=kwargs,
+    #     )
+        
+    #     # time_relevance_score shape will be ((N x O) x seq_len) after summation
+    #     time_relevance_score = tuple(
+    #         tsr.sum(dim=1)
+    #         for tsr in time_relevance_score
+    #     )
+    #     return time_relevance_score
+    

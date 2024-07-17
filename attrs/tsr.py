@@ -365,29 +365,43 @@ class TSR(Occlusion):
             #TODO: uncomment after new release
             # kwargs_run_forward=kwargs,
         )
+        
+        features_relevance_score = tuple(
+            normalize_scale(frs, dim=0, norm_type="minmax") for frs in features_relevance_score
+        )
 
         # Reshape attributions before merge
         time_relevance_score = tuple(
             tsr.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
             for input, tsr in zip(inputs, time_relevance_score)
         )
-        is_above_threshold = tuple(
-            is_above.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
-            for input, is_above in zip(inputs, is_above_threshold)
-        )
+        
+        # is_above_threshold = tuple(
+        #     is_above.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
+        #     for input, is_above in zip(inputs, is_above_threshold)
+        # )
 
         # Merge attributions:
         # Time-Relevance Score x Feature-Relevance Score x is above threshold
-        attributions = tuple(
-            (tsr * frs) * is_above.float()
-            for tsr, frs, is_above in zip(
-                time_relevance_score,
-                features_relevance_score,
-                is_above_threshold,
-            )
-        )
+        # attributions = tuple(
+        #     (tsr * frs) * is_above.float()
+        #     for tsr, frs, is_above in zip(
+        #         time_relevance_score,
+        #         features_relevance_score,
+        #         is_above_threshold,
+        #     )
+        # )
+        for input_index in range(len(inputs)):
+            length, seq_len = is_above_threshold[input_index].shape
+            for b in range(length):
+                for t in range(seq_len):
+                    t_imp = time_relevance_score[input_index][b, t]
+                    if is_above_threshold[input_index][b, t]:
+                        features_relevance_score[input_index][b, t] *= t_imp
+                    else:
+                        features_relevance_score[input_index][b, t] = t_imp * 0.1
 
-        return _format_output(is_inputs_tuple, attributions)
+        return _format_output(is_inputs_tuple, features_relevance_score)
 
     def _construct_ablated_input(
         self,

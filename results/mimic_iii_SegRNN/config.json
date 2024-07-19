@@ -1,6 +1,7 @@
 {
     "task_name": "classification",
-    "train": false,
+    "train": true,
+    "dry_run": false,
     "model": "SegRNN",
     "seed": 2024,
     "itrs": 3,

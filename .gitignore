@@ -1,7 +1,7 @@
 # Added by me
-__init__.py
 lightning_logs
 checkpoints
+*TimesNet/
 # some file sizes are too large for git
 dataset
 scratch

@@ -1,0 +1,1438 @@
+Args in experiment:
+Namespace(task_name='classification', train=True, dry_run=False, model='DLinear', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/1
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.3330390
+	speed: 0.0297s/iter; left time: 167.5847s
+	iters: 200, epoch: 1 | loss: 0.2545690
+	speed: 0.0046s/iter; left time: 25.6460s
+	iters: 300, epoch: 1 | loss: 0.2276096
+	speed: 0.0047s/iter; left time: 25.6058s
+	iters: 400, epoch: 1 | loss: 0.2319874
+	speed: 0.0046s/iter; left time: 24.8330s
+	iters: 500, epoch: 1 | loss: 0.3265405
+	speed: 0.0039s/iter; left time: 20.6234s
+Epoch: 1 cost time: 5.00
+Epoch: 1, Steps: 575 |                     Train Loss: 0.29262 Vali Loss: 0.27503
+Validation loss decreased (inf --> 0.275031).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.4346079
+	speed: 0.0077s/iter; left time: 38.9802s
+	iters: 200, epoch: 2 | loss: 0.2380837
+	speed: 0.0033s/iter; left time: 16.4273s
+	iters: 300, epoch: 2 | loss: 0.2125605
+	speed: 0.0033s/iter; left time: 16.1258s
+	iters: 400, epoch: 2 | loss: 0.2370068
+	speed: 0.0033s/iter; left time: 15.7903s
+	iters: 500, epoch: 2 | loss: 0.2624950
+	speed: 0.0033s/iter; left time: 15.4140s
+Epoch: 2 cost time: 1.90
+Epoch: 2, Steps: 575 |                     Train Loss: 0.27698 Vali Loss: 0.2851
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 3 | loss: 0.3841325
+	speed: 0.0072s/iter; left time: 32.4181s
+	iters: 200, epoch: 3 | loss: 0.1059287
+	speed: 0.0033s/iter; left time: 14.4399s
+	iters: 300, epoch: 3 | loss: 0.2423678
+	speed: 0.0033s/iter; left time: 14.1251s
+	iters: 400, epoch: 3 | loss: 0.1287521
+	speed: 0.0033s/iter; left time: 13.8066s
+	iters: 500, epoch: 3 | loss: 0.0671609
+	speed: 0.0033s/iter; left time: 13.4357s
+Epoch: 3 cost time: 1.89
+Epoch: 3, Steps: 575 |                     Train Loss: 0.27685 Vali Loss: 0.27868
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 4 | loss: 0.2401218
+	speed: 0.0072s/iter; left time: 28.3299s
+	iters: 200, epoch: 4 | loss: 0.4424899
+	speed: 0.0033s/iter; left time: 12.5306s
+	iters: 300, epoch: 4 | loss: 0.1898990
+	speed: 0.0033s/iter; left time: 12.2375s
+	iters: 400, epoch: 4 | loss: 0.2148849
+	speed: 0.0033s/iter; left time: 11.8785s
+	iters: 500, epoch: 4 | loss: 0.3232445
+	speed: 0.0033s/iter; left time: 11.5674s
+Epoch: 4 cost time: 1.89
+Epoch: 4, Steps: 575 |                     Train Loss: 0.27422 Vali Loss: 0.27638
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_DLinear/1/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90518, f1 0.21583, auc 0.78110
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.89952, f1 0.14760, auc 0.76830
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/2
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.4373264
+	speed: 0.0033s/iter; left time: 18.7418s
+	iters: 200, epoch: 1 | loss: 0.2031060
+	speed: 0.0033s/iter; left time: 18.1466s
+	iters: 300, epoch: 1 | loss: 0.3338094
+	speed: 0.0033s/iter; left time: 17.8374s
+	iters: 400, epoch: 1 | loss: 0.2333206
+	speed: 0.0033s/iter; left time: 17.5079s
+	iters: 500, epoch: 1 | loss: 0.1445220
+	speed: 0.0033s/iter; left time: 17.1809s
+Epoch: 1 cost time: 1.89
+Epoch: 1, Steps: 575 |                     Train Loss: 0.29217 Vali Loss: 0.27334
+Validation loss decreased (inf --> 0.273343).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.2281321
+	speed: 0.0073s/iter; left time: 36.8140s
+	iters: 200, epoch: 2 | loss: 0.2561156
+	speed: 0.0033s/iter; left time: 16.3263s
+	iters: 300, epoch: 2 | loss: 0.1980329
+	speed: 0.0033s/iter; left time: 16.0097s
+	iters: 400, epoch: 2 | loss: 0.3359069
+	speed: 0.0033s/iter; left time: 15.6281s
+	iters: 500, epoch: 2 | loss: 0.1608744
+	speed: 0.0033s/iter; left time: 15.3719s
+Epoch: 2 cost time: 1.89
+Epoch: 2, Steps: 575 |                     Train Loss: 0.27478 Vali Loss: 0.27624
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 3 | loss: 0.3261587
+	speed: 0.0072s/iter; left time: 32.6098s
+	iters: 200, epoch: 3 | loss: 0.1678946
+	speed: 0.0034s/iter; left time: 14.9965s
+	iters: 300, epoch: 3 | loss: 0.4091043
+	speed: 0.0033s/iter; left time: 14.1269s
+	iters: 400, epoch: 3 | loss: 0.3580809
+	speed: 0.0033s/iter; left time: 13.7678s
+	iters: 500, epoch: 3 | loss: 0.2252340
+	speed: 0.0033s/iter; left time: 13.4458s
+Epoch: 3 cost time: 1.90
+Epoch: 3, Steps: 575 |                     Train Loss: 0.27336 Vali Loss: 0.279
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 4 | loss: 0.2345542
+	speed: 0.0072s/iter; left time: 28.3323s
+	iters: 200, epoch: 4 | loss: 0.2378965
+	speed: 0.0033s/iter; left time: 12.5769s
+	iters: 300, epoch: 4 | loss: 0.2419650
+	speed: 0.0033s/iter; left time: 12.2351s
+	iters: 400, epoch: 4 | loss: 0.1280450
+	speed: 0.0033s/iter; left time: 11.9190s
+	iters: 500, epoch: 4 | loss: 0.2122952
+	speed: 0.0033s/iter; left time: 11.5749s
+Epoch: 4 cost time: 1.89
+Epoch: 4, Steps: 575 |                     Train Loss: 0.27168 Vali Loss: 0.2884
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_DLinear/2/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90387, f1 0.14008, auc 0.78805
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90213, f1 0.17582, auc 0.76205
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/3
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.1694840
+	speed: 0.0033s/iter; left time: 18.7117s
+	iters: 200, epoch: 1 | loss: 0.4615695
+	speed: 0.0033s/iter; left time: 18.2019s
+	iters: 300, epoch: 1 | loss: 0.2105828
+	speed: 0.0033s/iter; left time: 17.8317s
+	iters: 400, epoch: 1 | loss: 0.2376260
+	speed: 0.0033s/iter; left time: 17.5975s
+	iters: 500, epoch: 1 | loss: 0.1955454
+	speed: 0.0035s/iter; left time: 18.2662s
+Epoch: 1 cost time: 1.91
+Epoch: 1, Steps: 575 |                     Train Loss: 0.2943 Vali Loss: 0.26791
+Validation loss decreased (inf --> 0.267911).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.2117171
+	speed: 0.0072s/iter; left time: 36.7673s
+	iters: 200, epoch: 2 | loss: 0.4272897
+	speed: 0.0033s/iter; left time: 16.2736s
+	iters: 300, epoch: 2 | loss: 0.1356345
+	speed: 0.0033s/iter; left time: 16.0276s
+	iters: 400, epoch: 2 | loss: 0.2456405
+	speed: 0.0033s/iter; left time: 15.6606s
+	iters: 500, epoch: 2 | loss: 0.1732142
+	speed: 0.0033s/iter; left time: 15.3025s
+Epoch: 2 cost time: 1.89
+Epoch: 2, Steps: 575 |                     Train Loss: 0.27633 Vali Loss: 0.27786
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 3 | loss: 0.3131354
+	speed: 0.0072s/iter; left time: 32.3781s
+	iters: 200, epoch: 3 | loss: 0.2021463
+	speed: 0.0033s/iter; left time: 14.4804s
+	iters: 300, epoch: 3 | loss: 0.3256128
+	speed: 0.0033s/iter; left time: 14.1051s
+	iters: 400, epoch: 3 | loss: 0.1980085
+	speed: 0.0033s/iter; left time: 13.8068s
+	iters: 500, epoch: 3 | loss: 0.4254868
+	speed: 0.0033s/iter; left time: 13.4496s
+Epoch: 3 cost time: 1.89
+Epoch: 3, Steps: 575 |                     Train Loss: 0.27551 Vali Loss: 0.27176
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 4 | loss: 0.1346946
+	speed: 0.0072s/iter; left time: 28.2647s
+	iters: 200, epoch: 4 | loss: 0.1832961
+	speed: 0.0033s/iter; left time: 12.5634s
+	iters: 300, epoch: 4 | loss: 0.2902070
+	speed: 0.0033s/iter; left time: 12.2682s
+	iters: 400, epoch: 4 | loss: 0.1630417
+	speed: 0.0033s/iter; left time: 11.9187s
+	iters: 500, epoch: 4 | loss: 0.3692127
+	speed: 0.0033s/iter; left time: 11.5757s
+Epoch: 4 cost time: 1.89
+Epoch: 4, Steps: 575 |                     Train Loss: 0.2744 Vali Loss: 0.29358
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_DLinear/3/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90561, f1 0.31111, auc 0.79955
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90344, f1 0.30625, auc 0.79040
+
+Args in experiment:
+Namespace(task_name='classification', train=True, dry_run=False, model='SegRNN', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/1
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.2854123
+	speed: 0.0264s/iter; left time: 149.3798s
+	iters: 200, epoch: 1 | loss: 0.1418725
+	speed: 0.0078s/iter; left time: 43.1016s
+	iters: 300, epoch: 1 | loss: 0.2152513
+	speed: 0.0081s/iter; left time: 43.9400s
+	iters: 400, epoch: 1 | loss: 0.2280981
+	speed: 0.0080s/iter; left time: 42.9295s
+	iters: 500, epoch: 1 | loss: 0.3937745
+	speed: 0.0078s/iter; left time: 40.7222s
+Epoch: 1 cost time: 6.39
+Epoch: 1, Steps: 575 |                     Train Loss: 0.32177 Vali Loss: 0.31223
+Validation loss decreased (inf --> 0.312226).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.1970920
+	speed: 0.0166s/iter; left time: 84.4209s
+	iters: 200, epoch: 2 | loss: 0.2372632
+	speed: 0.0079s/iter; left time: 39.4880s
+	iters: 300, epoch: 2 | loss: 0.3556594
+	speed: 0.0080s/iter; left time: 39.0248s
+	iters: 400, epoch: 2 | loss: 0.3146664
+	speed: 0.0081s/iter; left time: 38.6696s
+	iters: 500, epoch: 2 | loss: 0.2738600
+	speed: 0.0080s/iter; left time: 37.2637s
+Epoch: 2 cost time: 4.58
+Epoch: 2, Steps: 575 |                     Train Loss: 0.30615 Vali Loss: 0.29275
+Validation loss decreased (0.312226 --> 0.292749).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.2967540
+	speed: 0.0166s/iter; left time: 74.7373s
+	iters: 200, epoch: 3 | loss: 0.0799134
+	speed: 0.0079s/iter; left time: 34.7864s
+	iters: 300, epoch: 3 | loss: 0.3097751
+	speed: 0.0080s/iter; left time: 34.3538s
+	iters: 400, epoch: 3 | loss: 0.5460761
+	speed: 0.0080s/iter; left time: 33.7243s
+	iters: 500, epoch: 3 | loss: 0.5194672
+	speed: 0.0079s/iter; left time: 32.3583s
+Epoch: 3 cost time: 4.58
+Epoch: 3, Steps: 575 |                     Train Loss: 0.30501 Vali Loss: 0.31238
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 4 | loss: 0.2087040
+	speed: 0.0164s/iter; left time: 64.5289s
+	iters: 200, epoch: 4 | loss: 0.2711956
+	speed: 0.0081s/iter; left time: 31.1387s
+	iters: 300, epoch: 4 | loss: 0.5117208
+	speed: 0.0081s/iter; left time: 30.1204s
+	iters: 400, epoch: 4 | loss: 0.4260049
+	speed: 0.0079s/iter; left time: 28.6490s
+	iters: 500, epoch: 4 | loss: 0.2004076
+	speed: 0.0081s/iter; left time: 28.5443s
+Epoch: 4 cost time: 4.60
+Epoch: 4, Steps: 575 |                     Train Loss: 0.29563 Vali Loss: 0.29701
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 5 | loss: 0.3940042
+	speed: 0.0167s/iter; left time: 56.1002s
+	iters: 200, epoch: 5 | loss: 0.4150349
+	speed: 0.0082s/iter; left time: 26.5633s
+	iters: 300, epoch: 5 | loss: 0.3477084
+	speed: 0.0080s/iter; left time: 25.2174s
+	iters: 400, epoch: 5 | loss: 0.3675283
+	speed: 0.0080s/iter; left time: 24.4368s
+	iters: 500, epoch: 5 | loss: 0.2565784
+	speed: 0.0081s/iter; left time: 23.7946s
+Epoch: 5 cost time: 4.62
+Epoch: 5, Steps: 575 |                     Train Loss: 0.29279 Vali Loss: 0.29709
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_SegRNN/1/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90126, f1 0.29283, auc 0.78246
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.89691, f1 0.27964, auc 0.79171
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/2
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.3014313
+	speed: 0.0060s/iter; left time: 33.8688s
+	iters: 200, epoch: 1 | loss: 0.3801080
+	speed: 0.0060s/iter; left time: 33.1891s
+	iters: 300, epoch: 1 | loss: 0.2413461
+	speed: 0.0060s/iter; left time: 32.5950s
+	iters: 400, epoch: 1 | loss: 0.1208101
+	speed: 0.0060s/iter; left time: 31.9158s
+	iters: 500, epoch: 1 | loss: 0.2866623
+	speed: 0.0060s/iter; left time: 31.2792s
+Epoch: 1 cost time: 3.44
+Epoch: 1, Steps: 575 |                     Train Loss: 0.32564 Vali Loss: 0.29363
+Validation loss decreased (inf --> 0.293633).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.3563873
+	speed: 0.0133s/iter; left time: 67.7628s
+	iters: 200, epoch: 2 | loss: 0.1593048
+	speed: 0.0080s/iter; left time: 39.9186s
+	iters: 300, epoch: 2 | loss: 0.3610024
+	speed: 0.0079s/iter; left time: 38.5009s
+	iters: 400, epoch: 2 | loss: 0.3653188
+	speed: 0.0080s/iter; left time: 38.3409s
+	iters: 500, epoch: 2 | loss: 0.1192787
+	speed: 0.0080s/iter; left time: 37.3133s
+Epoch: 2 cost time: 4.46
+Epoch: 2, Steps: 575 |                     Train Loss: 0.31105 Vali Loss: 0.28436
+Validation loss decreased (0.293633 --> 0.284360).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.1896085
+	speed: 0.0163s/iter; left time: 73.5789s
+	iters: 200, epoch: 3 | loss: 0.4709722
+	speed: 0.0081s/iter; left time: 35.5991s
+	iters: 300, epoch: 3 | loss: 0.2726824
+	speed: 0.0079s/iter; left time: 34.0969s
+	iters: 400, epoch: 3 | loss: 0.5175367
+	speed: 0.0080s/iter; left time: 33.4384s
+	iters: 500, epoch: 3 | loss: 0.4158577
+	speed: 0.0080s/iter; left time: 32.7112s
+Epoch: 3 cost time: 4.58
+Epoch: 3, Steps: 575 |                     Train Loss: 0.3041 Vali Loss: 0.28476
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 4 | loss: 0.3730149
+	speed: 0.0167s/iter; left time: 65.7020s
+	iters: 200, epoch: 4 | loss: 0.1409758
+	speed: 0.0082s/iter; left time: 31.2298s
+	iters: 300, epoch: 4 | loss: 0.4363310
+	speed: 0.0081s/iter; left time: 30.2895s
+	iters: 400, epoch: 4 | loss: 0.1387094
+	speed: 0.0082s/iter; left time: 29.5954s
+	iters: 500, epoch: 4 | loss: 0.6332849
+	speed: 0.0080s/iter; left time: 28.0711s
+Epoch: 4 cost time: 4.64
+Epoch: 4, Steps: 575 |                     Train Loss: 0.29833 Vali Loss: 0.28782
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 5 | loss: 0.1040832
+	speed: 0.0145s/iter; left time: 48.7410s
+	iters: 200, epoch: 5 | loss: 0.5653870
+	speed: 0.0060s/iter; left time: 19.4714s
+	iters: 300, epoch: 5 | loss: 0.2241151
+	speed: 0.0060s/iter; left time: 18.8403s
+	iters: 400, epoch: 5 | loss: 0.1001114
+	speed: 0.0060s/iter; left time: 18.2660s
+	iters: 500, epoch: 5 | loss: 0.3757177
+	speed: 0.0061s/iter; left time: 17.9514s
+Epoch: 5 cost time: 3.60
+Epoch: 5, Steps: 575 |                     Train Loss: 0.29265 Vali Loss: 0.30247
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_SegRNN/2/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90039, f1 0.19649, auc 0.77846
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90474, f1 0.26756, auc 0.76804
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/3
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.2403053
+	speed: 0.0063s/iter; left time: 35.3536s
+	iters: 200, epoch: 1 | loss: 0.2477924
+	speed: 0.0060s/iter; left time: 33.2993s
+	iters: 300, epoch: 1 | loss: 0.1968694
+	speed: 0.0060s/iter; left time: 32.6475s
+	iters: 400, epoch: 1 | loss: 0.6172128
+	speed: 0.0060s/iter; left time: 32.1014s
+	iters: 500, epoch: 1 | loss: 0.2340938
+	speed: 0.0060s/iter; left time: 31.4843s
+Epoch: 1 cost time: 3.47
+Epoch: 1, Steps: 575 |                     Train Loss: 0.32325 Vali Loss: 0.30689
+Validation loss decreased (inf --> 0.306893).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.3589188
+	speed: 0.0126s/iter; left time: 63.9551s
+	iters: 200, epoch: 2 | loss: 0.4084299
+	speed: 0.0067s/iter; left time: 33.0925s
+	iters: 300, epoch: 2 | loss: 0.3450049
+	speed: 0.0078s/iter; left time: 38.1261s
+	iters: 400, epoch: 2 | loss: 0.3266693
+	speed: 0.0079s/iter; left time: 37.6670s
+	iters: 500, epoch: 2 | loss: 0.3174607
+	speed: 0.0078s/iter; left time: 36.3757s
+Epoch: 2 cost time: 4.22
+Epoch: 2, Steps: 575 |                     Train Loss: 0.30753 Vali Loss: 0.28097
+Validation loss decreased (0.306893 --> 0.280972).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.4144610
+	speed: 0.0166s/iter; left time: 74.7793s
+	iters: 200, epoch: 3 | loss: 0.4101536
+	speed: 0.0081s/iter; left time: 35.7375s
+	iters: 300, epoch: 3 | loss: 0.2869172
+	speed: 0.0079s/iter; left time: 33.9830s
+	iters: 400, epoch: 3 | loss: 0.3092790
+	speed: 0.0079s/iter; left time: 33.1742s
+	iters: 500, epoch: 3 | loss: 0.3445220
+	speed: 0.0078s/iter; left time: 32.1366s
+Epoch: 3 cost time: 4.56
+Epoch: 3, Steps: 575 |                     Train Loss: 0.30081 Vali Loss: 0.29144
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 4 | loss: 0.3620918
+	speed: 0.0145s/iter; left time: 56.7426s
+	iters: 200, epoch: 4 | loss: 0.3150469
+	speed: 0.0060s/iter; left time: 23.0162s
+	iters: 300, epoch: 4 | loss: 0.3145929
+	speed: 0.0061s/iter; left time: 22.6578s
+	iters: 400, epoch: 4 | loss: 0.5070832
+	speed: 0.0079s/iter; left time: 28.7674s
+	iters: 500, epoch: 4 | loss: 0.1103452
+	speed: 0.0077s/iter; left time: 27.2409s
+Epoch: 4 cost time: 3.98
+Epoch: 4, Steps: 575 |                     Train Loss: 0.30029 Vali Loss: 0.28945
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 5 | loss: 0.1447845
+	speed: 0.0151s/iter; left time: 50.5349s
+	iters: 200, epoch: 5 | loss: 0.3782293
+	speed: 0.0060s/iter; left time: 19.4766s
+	iters: 300, epoch: 5 | loss: 0.1370500
+	speed: 0.0060s/iter; left time: 18.9084s
+	iters: 400, epoch: 5 | loss: 0.2073989
+	speed: 0.0061s/iter; left time: 18.5041s
+	iters: 500, epoch: 5 | loss: 0.2198881
+	speed: 0.0075s/iter; left time: 22.2659s
+Epoch: 5 cost time: 3.82
+Epoch: 5, Steps: 575 |                     Train Loss: 0.29336 Vali Loss: 0.29285
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_SegRNN/3/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.89648, f1 0.32386, auc 0.79354
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.89517, f1 0.32493, auc 0.77281
+
+Args in experiment:
+Namespace(task_name='classification', train=True, dry_run=False, model='MICN', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/1
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.1857943
+	speed: 0.0698s/iter; left time: 394.1829s
+	iters: 200, epoch: 1 | loss: 0.2208519
+	speed: 0.0217s/iter; left time: 120.7154s
+	iters: 300, epoch: 1 | loss: 0.2727741
+	speed: 0.0208s/iter; left time: 113.1163s
+	iters: 400, epoch: 1 | loss: 0.3087414
+	speed: 0.0214s/iter; left time: 114.3042s
+	iters: 500, epoch: 1 | loss: 0.2164840
+	speed: 0.0231s/iter; left time: 121.5336s
+Epoch: 1 cost time: 17.35
+Epoch: 1, Steps: 575 |                     Train Loss: 0.31132 Vali Loss: 0.26939
+Validation loss decreased (inf --> 0.269388).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.1751475
+	speed: 0.0458s/iter; left time: 232.4025s
+	iters: 200, epoch: 2 | loss: 0.2542887
+	speed: 0.0201s/iter; left time: 100.2478s
+	iters: 300, epoch: 2 | loss: 0.0944439
+	speed: 0.0218s/iter; left time: 106.2915s
+	iters: 400, epoch: 2 | loss: 0.2738785
+	speed: 0.0212s/iter; left time: 101.2631s
+	iters: 500, epoch: 2 | loss: 0.2883199
+	speed: 0.0204s/iter; left time: 95.4877s
+Epoch: 2 cost time: 12.15
+Epoch: 2, Steps: 575 |                     Train Loss: 0.28062 Vali Loss: 0.26335
+Validation loss decreased (0.269388 --> 0.263348).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.4181114
+	speed: 0.0422s/iter; left time: 189.7762s
+	iters: 200, epoch: 3 | loss: 0.5591134
+	speed: 0.0215s/iter; left time: 94.7981s
+	iters: 300, epoch: 3 | loss: 0.1628835
+	speed: 0.0205s/iter; left time: 88.2946s
+	iters: 400, epoch: 3 | loss: 0.3708809
+	speed: 0.0202s/iter; left time: 85.0208s
+	iters: 500, epoch: 3 | loss: 0.4527114
+	speed: 0.0203s/iter; left time: 83.0738s
+Epoch: 3 cost time: 11.84
+Epoch: 3, Steps: 575 |                     Train Loss: 0.27331 Vali Loss: 0.27964
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 4 | loss: 0.1741366
+	speed: 0.0394s/iter; left time: 154.5068s
+	iters: 200, epoch: 4 | loss: 0.3064923
+	speed: 0.0230s/iter; left time: 87.8410s
+	iters: 300, epoch: 4 | loss: 0.2782529
+	speed: 0.0206s/iter; left time: 76.7620s
+	iters: 400, epoch: 4 | loss: 0.3312308
+	speed: 0.0216s/iter; left time: 78.4009s
+	iters: 500, epoch: 4 | loss: 0.2037455
+	speed: 0.0229s/iter; left time: 80.6227s
+Epoch: 4 cost time: 12.51
+Epoch: 4, Steps: 575 |                     Train Loss: 0.26828 Vali Loss: 0.26572
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 5 | loss: 0.1439950
+	speed: 0.0420s/iter; left time: 140.7456s
+	iters: 200, epoch: 5 | loss: 0.0832507
+	speed: 0.0216s/iter; left time: 70.0741s
+	iters: 300, epoch: 5 | loss: 0.4830177
+	speed: 0.0206s/iter; left time: 64.8939s
+	iters: 400, epoch: 5 | loss: 0.7240933
+	speed: 0.0204s/iter; left time: 62.2618s
+	iters: 500, epoch: 5 | loss: 0.1549337
+	speed: 0.0197s/iter; left time: 58.1487s
+Epoch: 5 cost time: 11.72
+Epoch: 5, Steps: 575 |                     Train Loss: 0.26213 Vali Loss: 0.26926
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_MICN/1/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90561, f1 0.20513, auc 0.80541
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.89865, f1 0.12734, auc 0.78101
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/2
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.2953246
+	speed: 0.0171s/iter; left time: 96.4004s
+	iters: 200, epoch: 1 | loss: 0.1333049
+	speed: 0.0211s/iter; left time: 116.8624s
+	iters: 300, epoch: 1 | loss: 0.2106394
+	speed: 0.0221s/iter; left time: 120.4319s
+	iters: 400, epoch: 1 | loss: 0.6021570
+	speed: 0.0203s/iter; left time: 108.6883s
+	iters: 500, epoch: 1 | loss: 0.3019294
+	speed: 0.0188s/iter; left time: 98.6277s
+Epoch: 1 cost time: 11.61
+Epoch: 1, Steps: 575 |                     Train Loss: 0.30165 Vali Loss: 0.29737
+Validation loss decreased (inf --> 0.297371).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.3105261
+	speed: 0.0460s/iter; left time: 233.7210s
+	iters: 200, epoch: 2 | loss: 0.4457176
+	speed: 0.0228s/iter; left time: 113.5531s
+	iters: 300, epoch: 2 | loss: 0.2049334
+	speed: 0.0219s/iter; left time: 106.6958s
+	iters: 400, epoch: 2 | loss: 0.2178254
+	speed: 0.0207s/iter; left time: 98.6527s
+	iters: 500, epoch: 2 | loss: 0.1408511
+	speed: 0.0218s/iter; left time: 101.7295s
+Epoch: 2 cost time: 12.65
+Epoch: 2, Steps: 575 |                     Train Loss: 0.28364 Vali Loss: 0.2896
+Validation loss decreased (0.297371 --> 0.289604).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.2831365
+	speed: 0.0429s/iter; left time: 192.9796s
+	iters: 200, epoch: 3 | loss: 0.1571103
+	speed: 0.0218s/iter; left time: 96.1043s
+	iters: 300, epoch: 3 | loss: 0.4223876
+	speed: 0.0201s/iter; left time: 86.2581s
+	iters: 400, epoch: 3 | loss: 0.4679790
+	speed: 0.0208s/iter; left time: 87.2687s
+	iters: 500, epoch: 3 | loss: 0.2647669
+	speed: 0.0226s/iter; left time: 92.6937s
+Epoch: 3 cost time: 12.06
+Epoch: 3, Steps: 575 |                     Train Loss: 0.27539 Vali Loss: 0.27911
+Validation loss decreased (0.289604 --> 0.279106).  Saving model ...
+	iters: 100, epoch: 4 | loss: 0.1957010
+	speed: 0.0421s/iter; left time: 165.3213s
+	iters: 200, epoch: 4 | loss: 0.2433377
+	speed: 0.0231s/iter; left time: 88.4252s
+	iters: 300, epoch: 4 | loss: 0.4476281
+	speed: 0.0203s/iter; left time: 75.5786s
+	iters: 400, epoch: 4 | loss: 0.3747534
+	speed: 0.0215s/iter; left time: 78.0836s
+	iters: 500, epoch: 4 | loss: 0.0938953
+	speed: 0.0206s/iter; left time: 72.6315s
+Epoch: 4 cost time: 12.46
+Epoch: 4, Steps: 575 |                     Train Loss: 0.26959 Vali Loss: 0.28006
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 5 | loss: 0.2760418
+	speed: 0.0420s/iter; left time: 140.8418s
+	iters: 200, epoch: 5 | loss: 0.1634518
+	speed: 0.0207s/iter; left time: 67.2381s
+	iters: 300, epoch: 5 | loss: 0.2686657
+	speed: 0.0236s/iter; left time: 74.4800s
+	iters: 400, epoch: 5 | loss: 0.2464471
+	speed: 0.0229s/iter; left time: 69.9802s
+	iters: 500, epoch: 5 | loss: 0.2117403
+	speed: 0.0223s/iter; left time: 65.9110s
+Epoch: 5 cost time: 12.64
+Epoch: 5, Steps: 575 |                     Train Loss: 0.26548 Vali Loss: 0.30588
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 6 | loss: 0.0905000
+	speed: 0.0413s/iter; left time: 114.6699s
+	iters: 200, epoch: 6 | loss: 0.2032691
+	speed: 0.0220s/iter; left time: 58.8976s
+	iters: 300, epoch: 6 | loss: 0.4618721
+	speed: 0.0224s/iter; left time: 57.7418s
+	iters: 400, epoch: 6 | loss: 0.4372263
+	speed: 0.0232s/iter; left time: 57.3977s
+	iters: 500, epoch: 6 | loss: 0.3373910
+	speed: 0.0225s/iter; left time: 53.4096s
+Epoch: 6 cost time: 12.64
+Epoch: 6, Steps: 575 |                     Train Loss: 0.25745 Vali Loss: 0.28679
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_MICN/2/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.89996, f1 0.18440, auc 0.76722
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.89952, f1 0.20619, auc 0.76508
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/3
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.3889935
+	speed: 0.0150s/iter; left time: 84.5540s
+	iters: 200, epoch: 1 | loss: 0.0379229
+	speed: 0.0217s/iter; left time: 120.7124s
+	iters: 300, epoch: 1 | loss: 0.4097231
+	speed: 0.0212s/iter; left time: 115.6567s
+	iters: 400, epoch: 1 | loss: 0.2036274
+	speed: 0.0207s/iter; left time: 110.7021s
+	iters: 500, epoch: 1 | loss: 0.3746840
+	speed: 0.0206s/iter; left time: 107.9816s
+Epoch: 1 cost time: 11.56
+Epoch: 1, Steps: 575 |                     Train Loss: 0.30426 Vali Loss: 0.2676
+Validation loss decreased (inf --> 0.267597).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.1491524
+	speed: 0.0442s/iter; left time: 224.4607s
+	iters: 200, epoch: 2 | loss: 0.1057297
+	speed: 0.0225s/iter; left time: 112.0863s
+	iters: 300, epoch: 2 | loss: 0.3415753
+	speed: 0.0237s/iter; left time: 115.6437s
+	iters: 400, epoch: 2 | loss: 0.3092779
+	speed: 0.0235s/iter; left time: 112.1807s
+	iters: 500, epoch: 2 | loss: 0.5921193
+	speed: 0.0243s/iter; left time: 113.8411s
+Epoch: 2 cost time: 13.37
+Epoch: 2, Steps: 575 |                     Train Loss: 0.28141 Vali Loss: 0.26959
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 3 | loss: 0.1961575
+	speed: 0.0441s/iter; left time: 198.5469s
+	iters: 200, epoch: 3 | loss: 0.3161489
+	speed: 0.0226s/iter; left time: 99.3478s
+	iters: 300, epoch: 3 | loss: 0.3530430
+	speed: 0.0228s/iter; left time: 97.9372s
+	iters: 400, epoch: 3 | loss: 0.2435116
+	speed: 0.0210s/iter; left time: 88.1788s
+	iters: 500, epoch: 3 | loss: 0.1422675
+	speed: 0.0199s/iter; left time: 81.5361s
+Epoch: 3 cost time: 12.35
+Epoch: 3, Steps: 575 |                     Train Loss: 0.27593 Vali Loss: 0.2679
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 4 | loss: 0.2388728
+	speed: 0.0409s/iter; left time: 160.6811s
+	iters: 200, epoch: 4 | loss: 0.1569553
+	speed: 0.0223s/iter; left time: 85.3073s
+	iters: 300, epoch: 4 | loss: 0.1559119
+	speed: 0.0240s/iter; left time: 89.4658s
+	iters: 400, epoch: 4 | loss: 0.1844026
+	speed: 0.0223s/iter; left time: 80.9309s
+	iters: 500, epoch: 4 | loss: 0.4119519
+	speed: 0.0222s/iter; left time: 78.2583s
+Epoch: 4 cost time: 12.70
+Epoch: 4, Steps: 575 |                     Train Loss: 0.26964 Vali Loss: 0.2773
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_MICN/3/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90257, f1 0.32530, auc 0.80129
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90083, f1 0.30909, auc 0.77849
+
+Args in experiment:
+Namespace(task_name='classification', train=True, dry_run=False, model='Crossformer', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/1
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.2444932
+	speed: 0.0343s/iter; left time: 193.7791s
+	iters: 200, epoch: 1 | loss: 0.4777881
+	speed: 0.0353s/iter; left time: 196.0214s
+	iters: 300, epoch: 1 | loss: 0.1466419
+	speed: 0.0390s/iter; left time: 212.5137s
+	iters: 400, epoch: 1 | loss: 0.4382589
+	speed: 0.0394s/iter; left time: 210.6130s
+	iters: 500, epoch: 1 | loss: 0.3822885
+	speed: 0.0400s/iter; left time: 209.8285s
+Epoch: 1 cost time: 21.69
+Epoch: 1, Steps: 575 |                     Train Loss: 0.41408 Vali Loss: 0.35929
+Validation loss decreased (inf --> 0.359290).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.1303741
+	speed: 0.0741s/iter; left time: 376.1542s
+	iters: 200, epoch: 2 | loss: 0.3320056
+	speed: 0.0357s/iter; left time: 177.6107s
+	iters: 300, epoch: 2 | loss: 0.3646512
+	speed: 0.0382s/iter; left time: 186.3050s
+	iters: 400, epoch: 2 | loss: 0.1883175
+	speed: 0.0386s/iter; left time: 184.4123s
+	iters: 500, epoch: 2 | loss: 0.3623170
+	speed: 0.0382s/iter; left time: 178.7344s
+Epoch: 2 cost time: 21.77
+Epoch: 2, Steps: 575 |                     Train Loss: 0.35878 Vali Loss: 0.35286
+Validation loss decreased (0.359290 --> 0.352864).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.3322017
+	speed: 0.0773s/iter; left time: 348.0085s
+	iters: 200, epoch: 3 | loss: 0.6810586
+	speed: 0.0386s/iter; left time: 169.7577s
+	iters: 300, epoch: 3 | loss: 0.3012909
+	speed: 0.0396s/iter; left time: 170.3325s
+	iters: 400, epoch: 3 | loss: 0.2656064
+	speed: 0.0371s/iter; left time: 155.7222s
+	iters: 500, epoch: 3 | loss: 0.4927984
+	speed: 0.0378s/iter; left time: 154.8588s
+Epoch: 3 cost time: 21.94
+Epoch: 3, Steps: 575 |                     Train Loss: 0.34643 Vali Loss: 0.32662
+Validation loss decreased (0.352864 --> 0.326622).  Saving model ...
+	iters: 100, epoch: 4 | loss: 0.2386630
+	speed: 0.0753s/iter; left time: 295.6437s
+	iters: 200, epoch: 4 | loss: 0.1441726
+	speed: 0.0357s/iter; left time: 136.6286s
+	iters: 300, epoch: 4 | loss: 0.3391322
+	speed: 0.0365s/iter; left time: 136.0506s
+	iters: 400, epoch: 4 | loss: 0.2281134
+	speed: 0.0359s/iter; left time: 130.0621s
+	iters: 500, epoch: 4 | loss: 0.1062252
+	speed: 0.0361s/iter; left time: 127.4459s
+Epoch: 4 cost time: 20.79
+Epoch: 4, Steps: 575 |                     Train Loss: 0.34169 Vali Loss: 0.34696
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 5 | loss: 0.3584858
+	speed: 0.0705s/iter; left time: 236.1084s
+	iters: 200, epoch: 5 | loss: 0.5556579
+	speed: 0.0370s/iter; left time: 120.4408s
+	iters: 300, epoch: 5 | loss: 0.2657298
+	speed: 0.0371s/iter; left time: 116.9424s
+	iters: 400, epoch: 5 | loss: 0.3142440
+	speed: 0.0361s/iter; left time: 110.0582s
+	iters: 500, epoch: 5 | loss: 0.3017185
+	speed: 0.0346s/iter; left time: 102.1868s
+Epoch: 5 cost time: 20.82
+Epoch: 5, Steps: 575 |                     Train Loss: 0.3346 Vali Loss: 0.32569
+Validation loss decreased (0.326622 --> 0.325685).  Saving model ...
+	iters: 100, epoch: 6 | loss: 0.3071678
+	speed: 0.0728s/iter; left time: 202.0329s
+	iters: 200, epoch: 6 | loss: 0.3802996
+	speed: 0.0389s/iter; left time: 104.0092s
+	iters: 300, epoch: 6 | loss: 0.4952219
+	speed: 0.0372s/iter; left time: 95.7539s
+	iters: 400, epoch: 6 | loss: 0.1371977
+	speed: 0.0371s/iter; left time: 91.9637s
+	iters: 500, epoch: 6 | loss: 0.2144774
+	speed: 0.0361s/iter; left time: 85.7080s
+Epoch: 6 cost time: 21.25
+Epoch: 6, Steps: 575 |                     Train Loss: 0.3339 Vali Loss: 0.32962
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 7 | loss: 0.3330123
+	speed: 0.0676s/iter; left time: 148.7752s
+	iters: 200, epoch: 7 | loss: 0.3925373
+	speed: 0.0370s/iter; left time: 77.7635s
+	iters: 300, epoch: 7 | loss: 0.5293828
+	speed: 0.0392s/iter; left time: 78.3577s
+	iters: 400, epoch: 7 | loss: 0.3196680
+	speed: 0.0380s/iter; left time: 72.1876s
+	iters: 500, epoch: 7 | loss: 0.3269680
+	speed: 0.0376s/iter; left time: 67.8030s
+Epoch: 7 cost time: 21.35
+Epoch: 7, Steps: 575 |                     Train Loss: 0.33175 Vali Loss: 0.32495
+Validation loss decreased (0.325685 --> 0.324953).  Saving model ...
+	iters: 100, epoch: 8 | loss: 0.3051651
+	speed: 0.0754s/iter; left time: 122.5313s
+	iters: 200, epoch: 8 | loss: 0.3039690
+	speed: 0.0359s/iter; left time: 54.7782s
+	iters: 300, epoch: 8 | loss: 0.3823961
+	speed: 0.0357s/iter; left time: 50.9375s
+	iters: 400, epoch: 8 | loss: 0.3768483
+	speed: 0.0369s/iter; left time: 48.9317s
+	iters: 500, epoch: 8 | loss: 0.5253999
+	speed: 0.0369s/iter; left time: 45.2826s
+Epoch: 8 cost time: 21.21
+Epoch: 8, Steps: 575 |                     Train Loss: 0.32998 Vali Loss: 0.32967
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 9 | loss: 0.1049809
+	speed: 0.0705s/iter; left time: 74.0652s
+	iters: 200, epoch: 9 | loss: 0.2466890
+	speed: 0.0371s/iter; left time: 35.2899s
+	iters: 300, epoch: 9 | loss: 0.1640780
+	speed: 0.0391s/iter; left time: 33.2994s
+	iters: 400, epoch: 9 | loss: 0.3906066
+	speed: 0.0378s/iter; left time: 28.3803s
+	iters: 500, epoch: 9 | loss: 0.2569427
+	speed: 0.0377s/iter; left time: 24.5432s
+Epoch: 9 cost time: 21.73
+Epoch: 9, Steps: 575 |                     Train Loss: 0.33092 Vali Loss: 0.33243
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 10 | loss: 0.0632241
+	speed: 0.0707s/iter; left time: 33.6569s
+	iters: 200, epoch: 10 | loss: 0.3783451
+	speed: 0.0349s/iter; left time: 13.1072s
+	iters: 300, epoch: 10 | loss: 0.1501784
+	speed: 0.0347s/iter; left time: 9.5764s
+	iters: 400, epoch: 10 | loss: 0.4557779
+	speed: 0.0353s/iter; left time: 6.2155s
+	iters: 500, epoch: 10 | loss: 0.4500190
+	speed: 0.0368s/iter; left time: 2.7979s
+Epoch: 10 cost time: 20.30
+Epoch: 10, Steps: 575 |                     Train Loss: 0.32848 Vali Loss: 0.33592
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_Crossformer/1/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90039, f1 0.00000, auc 0.51419
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90039, f1 0.00000, auc 0.49971
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/2
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.0571934
+	speed: 0.0303s/iter; left time: 171.2896s
+	iters: 200, epoch: 1 | loss: 0.3311859
+	speed: 0.0358s/iter; left time: 198.5286s
+	iters: 300, epoch: 1 | loss: 0.2245260
+	speed: 0.0358s/iter; left time: 195.0540s
+	iters: 400, epoch: 1 | loss: 0.3078307
+	speed: 0.0375s/iter; left time: 200.5183s
+	iters: 500, epoch: 1 | loss: 0.1565317
+	speed: 0.0357s/iter; left time: 187.5923s
+Epoch: 1 cost time: 20.11
+Epoch: 1, Steps: 575 |                     Train Loss: 0.38253 Vali Loss: 0.29391
+Validation loss decreased (inf --> 0.293914).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.3730486
+	speed: 0.0715s/iter; left time: 362.9452s
+	iters: 200, epoch: 2 | loss: 0.6715925
+	speed: 0.0393s/iter; left time: 195.6962s
+	iters: 300, epoch: 2 | loss: 0.4273297
+	speed: 0.0384s/iter; left time: 187.0509s
+	iters: 400, epoch: 2 | loss: 0.1720874
+	speed: 0.0370s/iter; left time: 176.4953s
+	iters: 500, epoch: 2 | loss: 0.4377981
+	speed: 0.0385s/iter; left time: 179.8175s
+Epoch: 2 cost time: 22.06
+Epoch: 2, Steps: 575 |                     Train Loss: 0.30933 Vali Loss: 0.27655
+Validation loss decreased (0.293914 --> 0.276553).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.2171015
+	speed: 0.0766s/iter; left time: 344.9069s
+	iters: 200, epoch: 3 | loss: 0.2904702
+	speed: 0.0373s/iter; left time: 164.0610s
+	iters: 300, epoch: 3 | loss: 0.4840134
+	speed: 0.0383s/iter; left time: 164.8685s
+	iters: 400, epoch: 3 | loss: 0.1974880
+	speed: 0.0400s/iter; left time: 168.1863s
+	iters: 500, epoch: 3 | loss: 0.3204652
+	speed: 0.0383s/iter; left time: 157.0306s
+Epoch: 3 cost time: 21.91
+Epoch: 3, Steps: 575 |                     Train Loss: 0.31676 Vali Loss: 0.29872
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 4 | loss: 0.1935442
+	speed: 0.0707s/iter; left time: 277.4404s
+	iters: 200, epoch: 4 | loss: 0.2248652
+	speed: 0.0366s/iter; left time: 139.9648s
+	iters: 300, epoch: 4 | loss: 0.3595829
+	speed: 0.0367s/iter; left time: 136.8950s
+	iters: 400, epoch: 4 | loss: 0.2255883
+	speed: 0.0384s/iter; left time: 139.0752s
+	iters: 500, epoch: 4 | loss: 0.3343697
+	speed: 0.0374s/iter; left time: 131.6984s
+Epoch: 4 cost time: 21.30
+Epoch: 4, Steps: 575 |                     Train Loss: 0.29823 Vali Loss: 0.29209
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 5 | loss: 0.3549275
+	speed: 0.0699s/iter; left time: 234.2301s
+	iters: 200, epoch: 5 | loss: 0.1868817
+	speed: 0.0391s/iter; left time: 127.2412s
+	iters: 300, epoch: 5 | loss: 0.2265369
+	speed: 0.0388s/iter; left time: 122.1455s
+	iters: 400, epoch: 5 | loss: 0.2784584
+	speed: 0.0360s/iter; left time: 109.8410s
+	iters: 500, epoch: 5 | loss: 0.3447841
+	speed: 0.0370s/iter; left time: 109.2165s
+Epoch: 5 cost time: 21.47
+Epoch: 5, Steps: 575 |                     Train Loss: 0.30073 Vali Loss: 0.33358
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_Crossformer/2/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90474, f1 0.13439, auc 0.77638
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90431, f1 0.14729, auc 0.77358
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/3
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.2861224
+	speed: 0.0323s/iter; left time: 182.5564s
+	iters: 200, epoch: 1 | loss: 0.6116697
+	speed: 0.0360s/iter; left time: 199.8760s
+	iters: 300, epoch: 1 | loss: 0.3391545
+	speed: 0.0360s/iter; left time: 196.0672s
+	iters: 400, epoch: 1 | loss: 0.4523515
+	speed: 0.0365s/iter; left time: 195.5562s
+	iters: 500, epoch: 1 | loss: 0.2225234
+	speed: 0.0371s/iter; left time: 194.6878s
+Epoch: 1 cost time: 20.63
+Epoch: 1, Steps: 575 |                     Train Loss: 0.37825 Vali Loss: 0.30599
+Validation loss decreased (inf --> 0.305988).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.4727939
+	speed: 0.0731s/iter; left time: 371.1872s
+	iters: 200, epoch: 2 | loss: 0.3785689
+	speed: 0.0397s/iter; left time: 197.7909s
+	iters: 300, epoch: 2 | loss: 0.2823870
+	speed: 0.0357s/iter; left time: 174.0601s
+	iters: 400, epoch: 2 | loss: 0.2626278
+	speed: 0.0361s/iter; left time: 172.1983s
+	iters: 500, epoch: 2 | loss: 0.4044695
+	speed: 0.0371s/iter; left time: 173.2578s
+Epoch: 2 cost time: 21.13
+Epoch: 2, Steps: 575 |                     Train Loss: 0.31088 Vali Loss: 0.30756
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 3 | loss: 0.3690686
+	speed: 0.0704s/iter; left time: 317.0950s
+	iters: 200, epoch: 3 | loss: 0.1062706
+	speed: 0.0396s/iter; left time: 174.2828s
+	iters: 300, epoch: 3 | loss: 0.5618387
+	speed: 0.0386s/iter; left time: 165.9614s
+	iters: 400, epoch: 3 | loss: 0.1546978
+	speed: 0.0380s/iter; left time: 159.8032s
+	iters: 500, epoch: 3 | loss: 0.1770310
+	speed: 0.0390s/iter; left time: 159.8484s
+Epoch: 3 cost time: 22.19
+Epoch: 3, Steps: 575 |                     Train Loss: 0.34717 Vali Loss: 0.35289
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 4 | loss: 0.1691257
+	speed: 0.0733s/iter; left time: 287.8678s
+	iters: 200, epoch: 4 | loss: 0.3056919
+	speed: 0.0387s/iter; left time: 148.1359s
+	iters: 300, epoch: 4 | loss: 0.5015202
+	speed: 0.0372s/iter; left time: 138.6706s
+	iters: 400, epoch: 4 | loss: 0.3371403
+	speed: 0.0357s/iter; left time: 129.2824s
+	iters: 500, epoch: 4 | loss: 0.1775964
+	speed: 0.0368s/iter; left time: 129.8224s
+Epoch: 4 cost time: 21.30
+Epoch: 4, Steps: 575 |                     Train Loss: 0.33939 Vali Loss: 0.32408
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_Crossformer/3/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90518, f1 0.12097, auc 0.79492
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90561, f1 0.12851, auc 0.79912
+
+Args in experiment:
+Namespace(task_name='classification', train=True, dry_run=False, model='TimesNet', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_TimesNet/1
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.1860242
+	speed: 0.6696s/iter; left time: 3784.1675s
+	iters: 200, epoch: 1 | loss: 0.2647235
+	speed: 0.5928s/iter; left time: 3290.7758s
+	iters: 300, epoch: 1 | loss: 0.2558651
+	speed: 0.5927s/iter; left time: 3230.6798s
+	iters: 400, epoch: 1 | loss: 0.4605242
+	speed: 0.5907s/iter; left time: 3160.8276s
+	iters: 500, epoch: 1 | loss: 0.3937204
+	speed: 0.5919s/iter; left time: 3108.3227s
+Epoch: 1 cost time: 349.08
+Epoch: 1, Steps: 575 |                     Train Loss: 0.30649 Vali Loss: 0.27108
+Validation loss decreased (inf --> 0.271082).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.1276728
+	speed: 1.1794s/iter; left time: 5986.6075s
+	iters: 200, epoch: 2 | loss: 0.2456133
+	speed: 0.5890s/iter; left time: 2930.7594s
+	iters: 300, epoch: 2 | loss: 0.1462229
+	speed: 0.5893s/iter; left time: 2873.4186s
+	iters: 400, epoch: 2 | loss: 0.2048058
+	speed: 0.5906s/iter; left time: 2820.5911s
+	iters: 500, epoch: 2 | loss: 0.2102288
+	speed: 0.5892s/iter; left time: 2755.2203s
+Epoch: 2 cost time: 338.77
+Epoch: 2, Steps: 575 |                     Train Loss: 0.27474 Vali Loss: 0.27836
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 3 | loss: 0.2643550
+	speed: 1.1576s/iter; left time: 5210.4061s
+	iters: 200, epoch: 3 | loss: 0.3394089
+	speed: 0.5881s/iter; left time: 2588.1794s
+	iters: 300, epoch: 3 | loss: 0.2516458
+	speed: 0.5881s/iter; left time: 2529.2772s
+	iters: 400, epoch: 3 | loss: 0.5503643
+	speed: 0.5862s/iter; left time: 2462.6319s
+	iters: 500, epoch: 3 | loss: 0.3955667
+	speed: 0.5851s/iter; left time: 2399.3687s
+Epoch: 3 cost time: 337.46
+Epoch: 3, Steps: 575 |                     Train Loss: 0.26656 Vali Loss: 0.26193
+Validation loss decreased (0.271082 --> 0.261927).  Saving model ...
+	iters: 100, epoch: 4 | loss: 0.2990273
+	speed: 1.1679s/iter; left time: 4585.1820s
+	iters: 200, epoch: 4 | loss: 0.1188251
+	speed: 0.5902s/iter; left time: 2257.9743s
+	iters: 300, epoch: 4 | loss: 0.3270356
+	speed: 0.5887s/iter; left time: 2193.5383s
+	iters: 400, epoch: 4 | loss: 0.4860771
+	speed: 0.5892s/iter; left time: 2136.4843s
+	iters: 500, epoch: 4 | loss: 0.1137241
+	speed: 0.5880s/iter; left time: 2073.4420s
+Epoch: 4 cost time: 337.63
+Epoch: 4, Steps: 575 |                     Train Loss: 0.26027 Vali Loss: 0.25999
+Validation loss decreased (0.261927 --> 0.259989).  Saving model ...
+	iters: 100, epoch: 5 | loss: 0.2772986
+	speed: 1.1682s/iter; left time: 3914.6338s
+	iters: 200, epoch: 5 | loss: 0.2920814
+	speed: 0.5886s/iter; left time: 1913.6013s
+	iters: 300, epoch: 5 | loss: 0.0416443
+	speed: 0.5871s/iter; left time: 1850.0578s
+	iters: 400, epoch: 5 | loss: 0.4052279
+	speed: 0.5882s/iter; left time: 1794.6869s
+	iters: 500, epoch: 5 | loss: 0.4742300
+	speed: 0.5886s/iter; left time: 1736.9122s
+Epoch: 5 cost time: 337.73
+Epoch: 5, Steps: 575 |                     Train Loss: 0.25271 Vali Loss: 0.26293
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 6 | loss: 0.2561662
+	speed: 1.1561s/iter; left time: 3209.2852s
+	iters: 200, epoch: 6 | loss: 0.1282176
+	speed: 0.5888s/iter; left time: 1575.6060s
+	iters: 300, epoch: 6 | loss: 0.3668305
+	speed: 0.5920s/iter; left time: 1524.9171s
+	iters: 400, epoch: 6 | loss: 0.5126041
+	speed: 0.5901s/iter; left time: 1461.1990s
+	iters: 500, epoch: 6 | loss: 0.4148780
+	speed: 0.5909s/iter; left time: 1403.9298s
+Epoch: 6 cost time: 339.41
+Epoch: 6, Steps: 575 |                     Train Loss: 0.24771 Vali Loss: 0.2616
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 7 | loss: 0.2803444
+	speed: 1.1614s/iter; left time: 2556.1334s
+	iters: 200, epoch: 7 | loss: 0.1597514
+	speed: 0.5924s/iter; left time: 1244.6145s
+	iters: 300, epoch: 7 | loss: 0.1926346
+	speed: 0.5903s/iter; left time: 1181.2480s
+	iters: 400, epoch: 7 | loss: 0.3688615
+	speed: 0.5892s/iter; left time: 1120.1432s
+	iters: 500, epoch: 7 | loss: 0.2925441
+	speed: 0.5883s/iter; left time: 1059.5640s
+Epoch: 7 cost time: 338.90
+Epoch: 7, Steps: 575 |                     Train Loss: 0.23894 Vali Loss: 0.27533
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_TimesNet/1/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90561, f1 0.21661, auc 0.81684
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90648, f1 0.20074, auc 0.80900
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_TimesNet/2
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.1271341
+	speed: 0.5828s/iter; left time: 3293.4840s
+	iters: 200, epoch: 1 | loss: 0.3133326
+	speed: 0.5947s/iter; left time: 3300.9343s
+	iters: 300, epoch: 1 | loss: 0.2364284
+	speed: 0.5923s/iter; left time: 3228.7795s
+	iters: 400, epoch: 1 | loss: 0.2468786
+	speed: 0.5915s/iter; left time: 3165.0266s
+	iters: 500, epoch: 1 | loss: 0.2202912
+	speed: 0.5914s/iter; left time: 3105.2504s
+Epoch: 1 cost time: 339.80
+Epoch: 1, Steps: 575 |                     Train Loss: 0.30311 Vali Loss: 0.29032
+Validation loss decreased (inf --> 0.290319).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.1798333
+	speed: 1.1747s/iter; left time: 5962.9834s
+	iters: 200, epoch: 2 | loss: 0.3124499
+	speed: 0.5921s/iter; left time: 2946.1992s
+	iters: 300, epoch: 2 | loss: 0.1580297
+	speed: 0.5908s/iter; left time: 2880.9067s
+	iters: 400, epoch: 2 | loss: 0.3083159
+	speed: 0.5893s/iter; left time: 2814.2820s
+	iters: 500, epoch: 2 | loss: 0.2940466
+	speed: 0.5942s/iter; left time: 2778.5873s
+Epoch: 2 cost time: 340.01
+Epoch: 2, Steps: 575 |                     Train Loss: 0.27342 Vali Loss: 0.27749
+Validation loss decreased (0.290319 --> 0.277493).  Saving model ...
+	iters: 100, epoch: 3 | loss: 0.2027002
+	speed: 1.1768s/iter; left time: 5296.8933s
+	iters: 200, epoch: 3 | loss: 0.3677236
+	speed: 0.5918s/iter; left time: 2604.4754s
+	iters: 300, epoch: 3 | loss: 0.4021068
+	speed: 0.5927s/iter; left time: 2549.0471s
+	iters: 400, epoch: 3 | loss: 0.1479969
+	speed: 0.5918s/iter; left time: 2486.0647s
+	iters: 500, epoch: 3 | loss: 0.2002051
+	speed: 0.5909s/iter; left time: 2423.1102s
+Epoch: 3 cost time: 340.04
+Epoch: 3, Steps: 575 |                     Train Loss: 0.26177 Vali Loss: 0.26422
+Validation loss decreased (0.277493 --> 0.264223).  Saving model ...
+	iters: 100, epoch: 4 | loss: 0.1644988
+	speed: 1.1806s/iter; left time: 4635.2248s
+	iters: 200, epoch: 4 | loss: 0.5358409
+	speed: 0.5956s/iter; left time: 2278.7482s
+	iters: 300, epoch: 4 | loss: 0.4432777
+	speed: 0.5940s/iter; left time: 2213.1394s
+	iters: 400, epoch: 4 | loss: 0.2630286
+	speed: 0.5924s/iter; left time: 2147.8670s
+	iters: 500, epoch: 4 | loss: 0.3724004
+	speed: 0.5953s/iter; left time: 2099.1604s
+Epoch: 4 cost time: 340.67
+Epoch: 4, Steps: 575 |                     Train Loss: 0.25589 Vali Loss: 0.2867
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 5 | loss: 0.1212895
+	speed: 1.1639s/iter; left time: 3900.0642s
+	iters: 200, epoch: 5 | loss: 0.5089131
+	speed: 0.5937s/iter; left time: 1930.0717s
+	iters: 300, epoch: 5 | loss: 0.1915614
+	speed: 0.5945s/iter; left time: 1873.2526s
+	iters: 400, epoch: 5 | loss: 0.2298327
+	speed: 0.5895s/iter; left time: 1798.6386s
+	iters: 500, epoch: 5 | loss: 0.1045132
+	speed: 0.5949s/iter; left time: 1755.6052s
+Epoch: 5 cost time: 340.64
+Epoch: 5, Steps: 575 |                     Train Loss: 0.25014 Vali Loss: 0.27313
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 6 | loss: 0.1586881
+	speed: 1.1599s/iter; left time: 3219.8830s
+	iters: 200, epoch: 6 | loss: 0.2153451
+	speed: 0.5932s/iter; left time: 1587.3864s
+	iters: 300, epoch: 6 | loss: 0.1900323
+	speed: 0.5912s/iter; left time: 1522.9339s
+	iters: 400, epoch: 6 | loss: 0.1945001
+	speed: 0.5918s/iter; left time: 1465.2261s
+	iters: 500, epoch: 6 | loss: 0.2066953
+	speed: 0.5897s/iter; left time: 1401.1062s
+Epoch: 6 cost time: 339.71
+Epoch: 6, Steps: 575 |                     Train Loss: 0.2415 Vali Loss: 0.27455
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_TimesNet/2/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90692, f1 0.14400, auc 0.80833
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90648, f1 0.15020, auc 0.79255
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_TimesNet/3
+>>>>>>> training : >>>>>>>>>
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+val 2299
+	iters: 100, epoch: 1 | loss: 0.1435810
+	speed: 0.5880s/iter; left time: 3323.0636s
+	iters: 200, epoch: 1 | loss: 0.4062049
+	speed: 0.5960s/iter; left time: 3308.1990s
+	iters: 300, epoch: 1 | loss: 0.2508996
+	speed: 0.5945s/iter; left time: 3240.4523s
+	iters: 400, epoch: 1 | loss: 0.1070839
+	speed: 0.5943s/iter; left time: 3179.8449s
+	iters: 500, epoch: 1 | loss: 0.3513838
+	speed: 0.5922s/iter; left time: 3109.7209s
+Epoch: 1 cost time: 341.06
+Epoch: 1, Steps: 575 |                     Train Loss: 0.31742 Vali Loss: 0.26934
+Validation loss decreased (inf --> 0.269344).  Saving model ...
+	iters: 100, epoch: 2 | loss: 0.4287246
+	speed: 1.1774s/iter; left time: 5976.4898s
+	iters: 200, epoch: 2 | loss: 0.1232418
+	speed: 0.5924s/iter; left time: 2947.8129s
+	iters: 300, epoch: 2 | loss: 0.3798409
+	speed: 0.5935s/iter; left time: 2893.8012s
+	iters: 400, epoch: 2 | loss: 0.3011729
+	speed: 0.5919s/iter; left time: 2826.9211s
+	iters: 500, epoch: 2 | loss: 0.1665404
+	speed: 0.5945s/iter; left time: 2779.7577s
+Epoch: 2 cost time: 340.60
+Epoch: 2, Steps: 575 |                     Train Loss: 0.27285 Vali Loss: 0.2717
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 3 | loss: 0.3179699
+	speed: 1.1628s/iter; left time: 5233.7345s
+	iters: 200, epoch: 3 | loss: 0.1275078
+	speed: 0.5867s/iter; left time: 2582.0205s
+	iters: 300, epoch: 3 | loss: 0.2257803
+	speed: 0.5913s/iter; left time: 2543.3338s
+	iters: 400, epoch: 3 | loss: 0.2097368
+	speed: 0.5897s/iter; left time: 2477.3636s
+	iters: 500, epoch: 3 | loss: 0.5006930
+	speed: 0.5896s/iter; left time: 2417.7559s
+Epoch: 3 cost time: 339.09
+Epoch: 3, Steps: 575 |                     Train Loss: 0.26128 Vali Loss: 0.26763
+Validation loss decreased (0.269344 --> 0.267631).  Saving model ...
+	iters: 100, epoch: 4 | loss: 0.0633756
+	speed: 1.1798s/iter; left time: 4631.7418s
+	iters: 200, epoch: 4 | loss: 0.3815582
+	speed: 0.5934s/iter; left time: 2270.3363s
+	iters: 300, epoch: 4 | loss: 0.2441269
+	speed: 0.5906s/iter; left time: 2200.6937s
+	iters: 400, epoch: 4 | loss: 0.1756217
+	speed: 0.5937s/iter; left time: 2152.7005s
+	iters: 500, epoch: 4 | loss: 0.2325763
+	speed: 0.5913s/iter; left time: 2084.7822s
+Epoch: 4 cost time: 339.87
+Epoch: 4, Steps: 575 |                     Train Loss: 0.25493 Vali Loss: 0.26079
+Validation loss decreased (0.267631 --> 0.260792).  Saving model ...
+	iters: 100, epoch: 5 | loss: 0.1189532
+	speed: 1.1729s/iter; left time: 3930.3881s
+	iters: 200, epoch: 5 | loss: 0.1365759
+	speed: 0.5908s/iter; left time: 1920.8410s
+	iters: 300, epoch: 5 | loss: 0.1984978
+	speed: 0.5918s/iter; left time: 1864.8473s
+	iters: 400, epoch: 5 | loss: 0.1043820
+	speed: 0.5888s/iter; left time: 1796.3735s
+	iters: 500, epoch: 5 | loss: 0.2004428
+	speed: 0.5911s/iter; left time: 1744.1999s
+Epoch: 5 cost time: 339.23
+Epoch: 5, Steps: 575 |                     Train Loss: 0.24549 Vali Loss: 0.26257
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 6 | loss: 0.1645066
+	speed: 1.1634s/iter; left time: 3229.5188s
+	iters: 200, epoch: 6 | loss: 0.1666759
+	speed: 0.5893s/iter; left time: 1577.0426s
+	iters: 300, epoch: 6 | loss: 0.3298916
+	speed: 0.5932s/iter; left time: 1528.0015s
+	iters: 400, epoch: 6 | loss: 0.2240435
+	speed: 0.5863s/iter; left time: 1451.7540s
+	iters: 500, epoch: 6 | loss: 0.2997562
+	speed: 0.5906s/iter; left time: 1403.2906s
+Epoch: 6 cost time: 338.84
+Epoch: 6, Steps: 575 |                     Train Loss: 0.23551 Vali Loss: 0.27007
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 7 | loss: 0.2073234
+	speed: 1.1552s/iter; left time: 2542.7032s
+	iters: 200, epoch: 7 | loss: 0.1140214
+	speed: 0.5894s/iter; left time: 1238.3904s
+	iters: 300, epoch: 7 | loss: 0.3078567
+	speed: 0.5879s/iter; left time: 1176.4048s
+	iters: 400, epoch: 7 | loss: 0.1121431
+	speed: 0.5918s/iter; left time: 1124.9761s
+	iters: 500, epoch: 7 | loss: 0.2240760
+	speed: 0.5858s/iter; left time: 1055.1062s
+Epoch: 7 cost time: 338.39
+Epoch: 7, Steps: 575 |                     Train Loss: 0.22617 Vali Loss: 0.28194
+EarlyStopping counter: 3 out of 3
+Early stopping
+Loading model from ./results/mimic_iii_TimesNet/3/checkpoint.pth
+Dead patients 229, percentage 9.96.
+val 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90300, f1 0.18315, auc 0.81812
+>>>>>>> testing : <<<<<<<<<<<
+Dead patients 229, percentage 9.96.
+test 2299
+(2299, 1) torch.Size([2299, 2])
+acc 0.90344, f1 0.22917, auc 0.80298
+

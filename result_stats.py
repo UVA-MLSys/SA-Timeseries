@@ -18,10 +18,10 @@ test_metric_map = {
 }
 
 datasets = ['electricity', 'traffic', 'mimic_iii']
-models = ['DLinear', 'MICN', 'SegRNN', 'Crossformer']
+models = ['DLinear', 'MICN', 'SegRNN']
 attr_methods = [
     'feature_ablation', 'occlusion', 'augmented_occlusion', 
-    'winIT', 'tsr' #,wtsr
+    'winIT', 'tsr' ,'wtsr'
 ]
 
 short_form = {
@@ -29,7 +29,8 @@ short_form = {
     'occlusion':'FO',
     'augmented_occlusion': 'AFO',
     'winIT': 'WinIT',
-    'tsr':'TSR'
+    'tsr':'TSR',
+    'wtsr': 'WinTSR'
 }
 NUM_ITERATIONS = 3
 

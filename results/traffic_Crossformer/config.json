@@ -1,6 +1,7 @@
 {
     "task_name": "long_term_forecast",
     "train": true,
+    "dry_run": false,
     "model": "Crossformer",
     "seed": 2024,
     "itrs": 3,
@@ -53,7 +54,6 @@
         128
     ],
     "p_hidden_layers": 2,
-    "disable_progress": false,
     "use_gpu": true,
     "enc_in": 1,
     "dec_in": 1,

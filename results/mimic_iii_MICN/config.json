@@ -1,6 +1,7 @@
 {
     "task_name": "classification",
     "train": true,
+    "dry_run": false,
     "model": "MICN",
     "seed": 2024,
     "itrs": 3,

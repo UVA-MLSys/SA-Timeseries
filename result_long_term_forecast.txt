@@ -321,3 +321,183 @@ flag:val, mse:0.055342, mae:0.15204, rmse: 0.23525.
 long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag:test, mse:0.18459, mae:0.24749, rmse: 0.42964.
 
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34937, mae:0.43419, rmse: 0.59108.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24879, mae:0.35722, rmse: 0.49879.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34926, mae:0.43416, rmse: 0.59098.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24828, mae:0.35735, rmse: 0.49827.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34861, mae:0.43359, rmse: 0.59043.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24836, mae:0.35691, rmse: 0.49835.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34937, mae:0.43419, rmse: 0.59108.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24879, mae:0.35722, rmse: 0.49879.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34926, mae:0.43416, rmse: 0.59098.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24828, mae:0.35735, rmse: 0.49827.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.34861, mae:0.43359, rmse: 0.59043.
+
+long_term_forecast_DLinear_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24836, mae:0.35691, rmse: 0.49835.
+
+long_term_forecast_DLinear_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.1695, mae:0.30637, rmse: 0.41171.
+
+long_term_forecast_DLinear_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.28006, mae:0.3581, rmse: 0.5292.
+
+long_term_forecast_DLinear_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.1676, mae:0.30516, rmse: 0.40939.
+
+long_term_forecast_DLinear_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.27835, mae:0.35715, rmse: 0.52759.
+
+long_term_forecast_DLinear_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.16932, mae:0.30544, rmse: 0.41149.
+
+long_term_forecast_DLinear_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.2785, mae:0.3557, rmse: 0.52773.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.22024, mae:0.33076, rmse: 0.4693.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14161, mae:0.26568, rmse: 0.37631.
+
+long_term_forecast_SegRNN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.086691, mae:0.203, rmse: 0.29443.
+
+long_term_forecast_SegRNN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24509, mae:0.29341, rmse: 0.49506.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.22559, mae:0.33877, rmse: 0.47497.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14563, mae:0.27047, rmse: 0.38162.
+
+long_term_forecast_SegRNN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.090648, mae:0.20972, rmse: 0.30108.
+
+long_term_forecast_SegRNN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.25208, mae:0.30202, rmse: 0.50208.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.21664, mae:0.32936, rmse: 0.46544.
+
+long_term_forecast_SegRNN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.14401, mae:0.26754, rmse: 0.37948.
+
+long_term_forecast_SegRNN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.088705, mae:0.20535, rmse: 0.29783.
+
+long_term_forecast_SegRNN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.24726, mae:0.29499, rmse: 0.49726.
+
+long_term_forecast_MICN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.08766, mae:0.20359, rmse: 0.29607.
+
+long_term_forecast_MICN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.20017, mae:0.27022, rmse: 0.4474.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.31872, mae:0.41769, rmse: 0.56456.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.29987, mae:0.40053, rmse: 0.5476.
+
+long_term_forecast_MICN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.08761, mae:0.20142, rmse: 0.29599.
+
+long_term_forecast_MICN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.20323, mae:0.27208, rmse: 0.45081.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.32021, mae:0.41879, rmse: 0.56587.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.29893, mae:0.39898, rmse: 0.54674.
+
+long_term_forecast_MICN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.087379, mae:0.20701, rmse: 0.2956.
+
+long_term_forecast_MICN_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.19715, mae:0.27192, rmse: 0.44402.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.31345, mae:0.41589, rmse: 0.55986.
+
+long_term_forecast_MICN_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.29314, mae:0.39644, rmse: 0.54142.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.054808, mae:0.14854, rmse: 0.23411.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.18126, mae:0.24324, rmse: 0.42574.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.22604, mae:0.33512, rmse: 0.47543.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.12114, mae:0.24736, rmse: 0.34806.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.057068, mae:0.15188, rmse: 0.23889.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.19298, mae:0.25003, rmse: 0.4393.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.22541, mae:0.33435, rmse: 0.47477.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.13013, mae:0.25186, rmse: 0.36073.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.055427, mae:0.15186, rmse: 0.23543.
+
+long_term_forecast_Crossformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.18229, mae:0.24549, rmse: 0.42696.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.23832, mae:0.34498, rmse: 0.48818.
+
+long_term_forecast_Crossformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.13057, mae:0.25578, rmse: 0.36134.
+
+long_term_forecast_TimesNet_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.0491, mae:0.13631, rmse: 0.22159.
+
+long_term_forecast_TimesNet_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.16445, mae:0.22772, rmse: 0.40552.
+
+long_term_forecast_TimesNet_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.17483, mae:0.30388, rmse: 0.41813.
+
+long_term_forecast_TimesNet_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.11034, mae:0.24128, rmse: 0.33218.
+
+long_term_forecast_TimesNet_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.18998, mae:0.31645, rmse: 0.43586.
+
+long_term_forecast_TimesNet_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.11421, mae:0.24493, rmse: 0.33794.
+

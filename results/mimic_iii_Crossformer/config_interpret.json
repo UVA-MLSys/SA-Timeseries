@@ -1,6 +1,7 @@
 {
     "task_name": "classification",
     "train": false,
+    "dry_run": false,
     "model": "Crossformer",
     "seed": 2024,
     "itrs": 3,
@@ -57,8 +58,10 @@
         "feature_ablation",
         "occlusion",
         "augmented_occlusion",
+        "feature_permutation",
         "winIT",
-        "tsr"
+        "tsr",
+        "wtsr"
     ],
     "areas": [
         0.05,
@@ -72,7 +75,7 @@
         "accuracy",
         "cross_entropy"
     ],
-    "overwrite": false,
+    "overwrite": true,
     "dump_attrs": false,
     "disable_progress": true,
     "use_gpu": true,

@@ -1,0 +1,19 @@
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='Crossformer', seed=2024, itrs=3, itr_no=3, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['wtsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_Crossformer/3
+test 2607
+Loading model from ./results/electricity_Crossformer/3/checkpoint.pth
+Running wtsr from 2024-07-19 17:59:20.263346
+Experiment ended at 2024-07-19 18:21:08.311570. Total time taken 0:21:48.048224.
+  metric   area       comp       suff
+0    mae  0.050  10.523502  14.200583
+1    mae  0.075  11.827072  13.146592
+2    mae  0.100  12.443048  12.525797
+3    mae  0.150  13.565073  11.160467
+4    mse  0.050   8.733009  13.468572
+5    mse  0.075  10.439432  11.731004
+6    mse  0.100  11.318414  10.766272
+7    mse  0.150  12.988910   8.795302
+

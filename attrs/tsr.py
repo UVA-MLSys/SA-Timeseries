@@ -366,9 +366,10 @@ class TSR(Occlusion):
             # kwargs_run_forward=kwargs,
         )
         
-        features_relevance_score = tuple(
-            normalize_scale(frs, dim=0, norm_type="minmax") for frs in features_relevance_score
-        )
+        if normalize:
+            features_relevance_score = tuple(
+                normalize_scale(frs, dim=0, norm_type="minmax") for frs in features_relevance_score
+            )
 
         # Reshape attributions before merge
         time_relevance_score = tuple(

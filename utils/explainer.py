@@ -56,30 +56,24 @@ def compute_attr(
             sliding_window_shapes=sliding_window_shapes,
             baselines=baselines,
             additional_forward_args=additional_forward_args,
-            threshold=0.5, normalize=True,
+            threshold=0, normalize=True,
             attributions_fn=abs
         )
-        
-        # attr = explainer.attribute(
-        #         inputs=inputs, baselines=baselines, target=0,
-        #         additional_forward_args=additional_forward_args
-        #     )
     
     elif name in [
         'deep_lift', 'lime', 'integrated_gradients', 
-        'gradient_shap', 'tsr', 'wtsr'
+        'gradient_shap', 'tsr'
     ]:
         attr_list = []
         
         for target in range(targets):
-            if name in ['tsr', 'wtsr']:
-                threshold = 0.55 # if name == 'tsr' else 0
+            if name == 'tsr':
                 attr = explainer.attribute(
                     inputs=inputs,
                     sliding_window_shapes=sliding_window_shapes,
                     baselines=baselines, target=target,
                     additional_forward_args=additional_forward_args,
-                    threshold=threshold, normalize=True,
+                    threshold=0.55, normalize=True,
                     attributions_fn=abs
                 )
             else: attr = explainer.attribute(

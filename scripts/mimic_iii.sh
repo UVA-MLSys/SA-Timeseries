@@ -1,4 +1,4 @@
-python -u run.py \
+python run.py \
   --task_name classification \
   --data mimic \
   --train \
@@ -6,7 +6,7 @@ python -u run.py \
   --data_path mimic_iii.pkl \
   --model DLinear --n_features 31
 
-python -u run.py \
+python run.py \
   --task_name classification \
   --data mimic \
   --train \
@@ -14,7 +14,7 @@ python -u run.py \
   --data_path mimic_iii.pkl \
   --model MICN --n_features 31
 
-python -u run.py \
+python run.py \
   --task_name classification \
   --data mimic \
   --train \
@@ -22,7 +22,7 @@ python -u run.py \
   --data_path mimic_iii.pkl \
   --model SegRNN --n_features 31
 
-python -u run.py \
+python run.py \
   --task_name classification \
   --data mimic \
   --train \

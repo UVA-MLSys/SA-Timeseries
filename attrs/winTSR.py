@@ -419,7 +419,7 @@ class WinTSR(Occlusion):
         
         # if input_mask.shape[1] > expanded_input.shape[1]:
         #     reduced_input_mask = input_mask.reshape((input_mask.shape[0], -1, *expanded_input.shape[1:]))
-        #     reduced_input_mask = torch.round(torch.mean(reduced_input_mask, dim=1, dtype=torch.float), dtype=torch.long)
+        #     reduced_input_mask = torch.round(torch.mean(reduced_input_mask, dim=1, dtype=torch.float))
             
         #     ablated_tensor = (
         #         expanded_input

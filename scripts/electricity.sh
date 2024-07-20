@@ -41,7 +41,7 @@ python run.py \
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
   --task_name long_term_forecast \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation\
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT tsr wtsr\
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model Crossformer \

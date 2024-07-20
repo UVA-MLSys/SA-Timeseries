@@ -318,6 +318,12 @@ class WinTSR(Occlusion):
             #TODO: uncomment after new release
             # kwargs_run_forward=kwargs,
         )
+        # features_relevance_score = tuple(
+        #     normalize_scale(
+        #         frs, dim=(1,2), norm_type="minmax"
+        #     ) for frs in features_relevance_score
+        # )
+        
         # print('frs shape ', [tsr.shape for tsr in features_relevance_score])
         # Reshape attributions before merge
         time_relevance_score = tuple(
@@ -437,11 +443,9 @@ class WinTSR(Occlusion):
             expanded_input
             * (
                 torch.ones(1, dtype=torch.long, device=expanded_input.device)
-                # - reduced_input_mask
                 - input_mask[:, :expanded_input.shape[1]]
                 # - input_mask
             ).to(expanded_input.dtype)
-        # ) + (baseline * reduced_input_mask.to(expanded_input.dtype))
         ) + (baseline * input_mask[:, :expanded_input.shape[1]].to(expanded_input.dtype))
         # ) + (baseline * input_mask.to(expanded_input.dtype))
 

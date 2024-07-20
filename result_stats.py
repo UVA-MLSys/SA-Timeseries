@@ -20,14 +20,15 @@ test_metric_map = {
 datasets = ['electricity', 'traffic', 'mimic_iii']
 models = ['DLinear', 'MICN', 'SegRNN', 'Crossformer']
 attr_methods = [
-    'feature_ablation', 'occlusion', 'augmented_occlusion', 
-    'winIT', 'tsr' ,'wtsr'
+    'feature_ablation', 'augmented_occlusion', 
+    'feature_permutation', 'winIT', 'tsr' ,'wtsr'
 ]
 
 short_form = {
     'feature_ablation': 'FA',
     'occlusion':'FO',
     'augmented_occlusion': 'AFO',
+    'feature_permutation': 'FP',
     'winIT': 'WinIT',
     'tsr':'TSR',
     'wtsr': 'WinTSR'

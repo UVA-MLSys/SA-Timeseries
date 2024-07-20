@@ -44,4 +44,5 @@ python interpret.py \
   --label_len 12 \
   --pred_len 24 \
   --n_features 1 \
-  --conv_kernel 18 12
+  --conv_kernel 18 12 \
+  --result_path scratch --overwrite --itr_no 1

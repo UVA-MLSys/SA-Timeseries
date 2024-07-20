@@ -56,7 +56,7 @@ def compute_attr(
             sliding_window_shapes=sliding_window_shapes,
             baselines=baselines,
             additional_forward_args=additional_forward_args,
-            threshold=0, normalize=True,
+            threshold=0.5, normalize=True,
             attributions_fn=abs
         )
     

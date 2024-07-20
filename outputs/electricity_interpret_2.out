@@ -1,0 +1,31 @@
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='Crossformer', seed=2024, itrs=3, itr_no=2, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['tsr', 'wtsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_Crossformer/2
+test 2607
+Loading model from ./results/electricity_Crossformer/2/checkpoint.pth
+Running tsr from 2024-07-19 11:52:18.308995
+Experiment ended at 2024-07-19 14:22:11.385526. Total time taken 2:29:53.076531.
+  metric   area       comp       suff
+0    mae  0.050  11.238931  13.479225
+1    mae  0.075  12.432307  12.487758
+2    mae  0.100  12.959451  11.916983
+3    mae  0.150  13.941330  10.656917
+4    mse  0.050  10.520998  12.267003
+5    mse  0.075  12.037490  10.707558
+6    mse  0.100  12.754604   9.870897
+7    mse  0.150  14.113241   8.127006
+
+Running wtsr from 2024-07-19 14:22:12.332594
+Experiment ended at 2024-07-19 14:43:35.279215. Total time taken 0:21:22.946621.
+  metric   area       comp       suff
+0    mae  0.050  11.399958  13.573956
+1    mae  0.075  12.579280  12.568334
+2    mae  0.100  13.119598  11.996255
+3    mae  0.150  14.107685  10.721472
+4    mse  0.050  10.697522  12.425354
+5    mse  0.075  12.248204  10.815377
+6    mse  0.100  13.018056   9.961575
+7    mse  0.150  14.409007   8.209301
+

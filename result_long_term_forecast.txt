@@ -501,3 +501,39 @@ flag:val, mse:0.18998, mae:0.31645, rmse: 0.43586.
 long_term_forecast_TimesNet_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag:test, mse:0.11421, mae:0.24493, rmse: 0.33794.
 
+long_term_forecast_iTransformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.16773, mae:0.29609, rmse: 0.40955.
+
+long_term_forecast_iTransformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.10745, mae:0.23576, rmse: 0.32779.
+
+long_term_forecast_iTransformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.17036, mae:0.30024, rmse: 0.41274.
+
+long_term_forecast_iTransformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.10806, mae:0.23633, rmse: 0.32873.
+
+long_term_forecast_iTransformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.17023, mae:0.29882, rmse: 0.41259.
+
+long_term_forecast_iTransformer_electricity_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.10729, mae:0.23458, rmse: 0.32755.
+
+long_term_forecast_iTransformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.051029, mae:0.14614, rmse: 0.2259.
+
+long_term_forecast_iTransformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.16598, mae:0.23693, rmse: 0.40741.
+
+long_term_forecast_iTransformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.051288, mae:0.14673, rmse: 0.22647.
+
+long_term_forecast_iTransformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.16466, mae:0.2357, rmse: 0.40578.
+
+long_term_forecast_iTransformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:val, mse:0.051001, mae:0.14644, rmse: 0.22584.
+
+long_term_forecast_iTransformer_traffic_custom_ftS_sl96_ll12_pl24_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag:test, mse:0.16655, mae:0.23842, rmse: 0.40811.
+

@@ -18,7 +18,7 @@ conda deactivate
 conda activate ml
 
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT tsr wtsr \
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT wtsr tsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
@@ -27,7 +27,7 @@ python interpret.py \
   --model DLinear --n_features 31 --overwrite --disable_progress
 
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT tsr wtsr \
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT wtsr tsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
@@ -36,7 +36,7 @@ python interpret.py \
   --model MICN --n_features 31 --overwrite --disable_progress
 
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT tsr wtsr \
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT wtsr tsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
@@ -45,7 +45,7 @@ python interpret.py \
   --model SegRNN --n_features 31 --overwrite --disable_progress
 
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT tsr wtsr \
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT wtsr tsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \
@@ -54,7 +54,7 @@ python interpret.py \
   --model Crossformer --n_features 31 --overwrite --disable_progress
 
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT tsr wtsr \
+  --explainers feature_ablation occlusion augmented_occlusion feature_permutation winIT wtsr tsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \

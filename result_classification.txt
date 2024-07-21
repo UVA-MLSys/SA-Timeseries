@@ -340,3 +340,21 @@ flag val, acc 0.90300, f1 0.18315, auc 0.81812
 classification_TimesNet_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag test, acc 0.90344, f1 0.22917, auc 0.80298
 
+classification_iTransformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90300, f1 0.20641, auc 0.81897
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90474, f1 0.22064, auc 0.82045
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.89996, f1 0.23333, auc 0.80444
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90648, f1 0.32602, auc 0.80101
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90779, f1 0.23741, auc 0.81746
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90909, f1 0.27682, auc 0.82853
+

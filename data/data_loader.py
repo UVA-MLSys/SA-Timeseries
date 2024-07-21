@@ -520,6 +520,18 @@ class MimicIII(Dataset):
         # init
         assert flag in ['train', 'test', 'val']
         self.flag = flag
+        
+        vital_IDs = ['HeartRate' , 'SysBP' , 'DiasBP' , 'MeanBP' , 'RespRate' , 'SpO2' , 'Glucose' ,'Temp']
+        others = ['gender', 'age', 'ethnicity', 'first_icu_stay']
+        lab_IDs = [
+            'ANION GAP', 'ALBUMIN', 'BICARBONATE', 'BILIRUBIN', 
+            'CREATININE', 'CHLORIDE', 'GLUCOSE', 'HEMATOCRIT', 
+            # 'HEMOGLOBIN' 'LACTATE' -> 'HEMOGLOBIN', 'LACTATE'. But the source preprocessing uses it like this
+            'HEMOGLOBIN' 'LACTATE', 'MAGNESIUM', 'PHOSPHATE', 
+            'PLATELET', 'POTASSIUM', 'PTT', 'INR', 
+            'PT', 'SODIUM', 'BUN', 'WBC'
+        ]
+        self.feature_columns = vital_IDs + others + lab_IDs
 
         self.scale = scale
         self.size = size

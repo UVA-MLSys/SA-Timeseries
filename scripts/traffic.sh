@@ -56,14 +56,13 @@ python interpret.py \
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
-  --explainers winIT \
+  --explainers wtsr \
   --root_path ./dataset/traffic/ \
   --data_path traffic.csv \
-  --model MICN \
+  --model iTransformer \
   --features S \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
   --n_features 1 \
-  --conv_kernel 18 12 \
   --result_path scratch --overwrite --itr_no 1

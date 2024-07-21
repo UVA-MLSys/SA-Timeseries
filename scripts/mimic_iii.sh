@@ -12,7 +12,7 @@ python run.py \
   --train \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --model MICN --n_features 31
+  --model iTransformer --n_features 31
 
 python run.py \
   --task_name classification \
@@ -33,7 +33,7 @@ python run.py \
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
 python interpret.py \
-  --explainers feature_ablation occlusion augmented_occlusion deep_lift fit winIT tsr wtsr \
+  --explainers feature_ablation occlusion augmented_occlusion deep_lift fit winIT wtsr tsr \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \

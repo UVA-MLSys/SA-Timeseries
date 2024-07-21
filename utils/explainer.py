@@ -102,8 +102,9 @@ def compute_attr(
                         additional_forward_args=new_additional_forward_args
                     )
                     
-                    zero_attr = torch.zeros_like(inputs[0], device=inputs[0].device)
-                    attr = tuple([attr] + [zero_attr for i in range(1, len(inputs))])
+                    attr = tuple([attr] + [
+                        torch.zeros_like(inputs[i], device=inputs[i].device) for i in range(1, len(inputs))]
+                    )
                     
                 else: attr = explainer.attribute(
                     inputs=inputs, baselines=baselines, target=target,
@@ -140,6 +141,12 @@ def compute_attr(
     elif name in ['feature_permutation', 'winIT']:
         attr = explainer.attribute(
             inputs=inputs, attributions_fn=abs,
+            additional_forward_args=additional_forward_args
+        )
+    elif name in ['winIT2', 'winIT3', 'tsr2']:
+        attr = explainer.attribute(
+            inputs=inputs,
+            baselines=baselines,
             additional_forward_args=additional_forward_args
         )
     elif name == 'fit':

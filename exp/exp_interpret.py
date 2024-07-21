@@ -2,9 +2,10 @@ import os, torch, copy, gc
 from tqdm import tqdm 
 import pandas as pd
 from utils.explainer import *
-from attrs.tsr import TSR
+from attrs.tsr import TSR, TSR2
 from attrs.winTSR import WinTSR
 from attrs.winIT import WinIT
+from attrs.wip import WinIT2, WinIT3
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds
 from utils.auc import auc
 from datetime import datetime
@@ -43,7 +44,8 @@ explainer_name_map = {
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
-    "tsr": TSR, "wtsr": WinTSR
+    "tsr": TSR, "wtsr": WinTSR,
+    'winIT2': WinIT2, 'winIT3': WinIT3, 'tsr2': TSR2
     # "ozyegen":FeatureAblation
 }
 
@@ -88,11 +90,11 @@ class Exp_Interpret:
             metric = 'js' if args.task_name == 'classification' else 'pd'
             explainer = WinTSR(base_explainer, metric)
             
-        elif name in ['augmented_occlusion', 'winIT', 'fit']:
+        elif name in ['augmented_occlusion', 'winIT', 'fit', 'winIT2', 'winIT3']:
             add_x_mark = args.task_name != 'classification'
             all_inputs = get_total_data(dataloader, device, add_x_mark=add_x_mark)
             
-            if name == 'winIT':
+            if name in ['winIT', 'winIT2', 'winIT3']:
                 explainer = explainer_name_map[name](
                     model, all_inputs, args
                 )
@@ -108,6 +110,8 @@ class Exp_Interpret:
             else: explainer = explainer_name_map[name](
                 model, data=all_inputs
             )
+        elif name == 'tsr2':
+            explainer = TSR2(model, args)
         else:
             explainer = explainer_name_map[name](model) 
         

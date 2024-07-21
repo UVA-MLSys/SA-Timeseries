@@ -57,7 +57,7 @@ def get_parser():
     parser.add_argument('--areas', nargs='*', type=float, default=[0.05, 0.075, 0.1, 0.15],
         help='top k features to keep or mask during evaluation')
     parser.add_argument('--baseline_mode', type=str, default='random',
-        choices=['random', 'aug', 'zero', 'mean'],
+        choices=['random', 'aug', 'zero', 'mean', 'normal'],
         help='how to create the baselines for the interepretation methods')
     parser.add_argument('--metrics', nargs='*', type=str, default=['mae', 'mse'], 
         help='interpretation evaluation metrics')

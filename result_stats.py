@@ -138,3 +138,40 @@ for dataset in datasets:
                     print_row(score)
             print('\\\\')
         print('\\hline\n')
+
+print('\n\nResult after normalizing by baseline')
+results = {}
+for dataset in datasets:
+    # use the first or second on
+    for metric in int_metric_map[dataset]:
+        print(f'Dataset {dataset}, metric {metric}.\n')
+        print(f" & {' & '.join(models)} & {' & '.join(models)} \\\\ \\hline")
+        
+        for attr_method in attr_methods:
+            print(f'{short_form[attr_method]} ', end='')
+            for metric_type in ['comp', 'suff']:
+                for model in models:
+                    scores = []
+                    dfs = []
+                    for itr_no in range(1, NUM_ITERATIONS+1):
+                        df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
+                        # df = reduce_df(df)
+                    
+                        df = df[df['metric']==metric][['area', metric_type]]
+                        dfs.append(df)
+                        # if metric in ['auc', 'accuracy']:
+                        #     score = 1-score
+                
+                        # scores.append(score)
+                    df = pd.concat(dfs, axis=0)
+                    df.replace([np.inf, -np.inf], np.nan, inplace=True)
+                    
+                    score = df[metric_type].mean()
+                    if metric in ['auc', 'accuracy']:
+                        score = 1-score
+                    
+                    results[(dataset, metric, attr_method,metric_type, model)] = score
+                    baseline = results[(dataset, metric, 'feature_ablation', metric_type, model)]
+                    print_row(score/baseline)
+            print('\\\\')
+        print('\\hline\n')

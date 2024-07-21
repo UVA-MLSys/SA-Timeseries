@@ -118,6 +118,11 @@ class Exp_Interpret:
         return explainer    
     
     def run_classifier(self, dataloader, name):
+        # this assumes the data is from same flag (train, val, test)
+        batch_filename = os.path.join(self.result_folder, f'batch_{name}.csv')
+        if os.path.exists(batch_filename): 
+            results_df = pd.read_csv(batch_filename)
+        
         results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
         attrs = []
         
@@ -126,6 +131,11 @@ class Exp_Interpret:
             disable=self.args.disable_progress
         )
         for batch_index, (batch_x, _, padding_mask) in progress_bar:
+            if not self.args.overwrite and os.path.exists(batch_filename):
+                if batch_index in results_df['batch_index']: 
+                    results.extend(results_df[results_df['batch_index'] == batch_index].values.tolist())
+                    continue
+            
             batch_x = batch_x.float().to(self.device)
             padding_mask = padding_mask.float().to(self.device)
              
@@ -249,7 +259,7 @@ class Exp_Interpret:
                         self.model, inputs=inputs, 
                         attributions=attr_per_pred, baselines=baselines, 
                         additional_forward_args=additional_forward_args,
-                        topk=area # , mask_largest=True # this is default
+                        topk=area, mask_largest=True # this is default
                     )
                     
                     if metric_name in ['comprehensiveness', 'sufficiency', 'log_odds']:

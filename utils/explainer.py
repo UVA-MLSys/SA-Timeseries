@@ -170,7 +170,7 @@ def compute_attr(
             attributions_fn=abs
         )
     else:
-        raise NotImplementedError
+        raise NotImplementedError(f'Explainer {name} is not implemented')
         
     return reshape_over_output_horizon(attr, inputs, args)
 

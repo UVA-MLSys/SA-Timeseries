@@ -19,7 +19,7 @@ from typing import Any, Callable, Tuple, Union
 from utils.tools import normalize_scale
 from tint.attr.occlusion import FeatureAblation, Occlusion
 
-from captum.attr import IntegratedGradients
+from captum.attr import IntegratedGradients, FeaturePermutation
 from utils.explainer import compute_attr
 
 class WinIT3:
@@ -31,76 +31,6 @@ class WinIT3:
         self.data = data
         self.explainer = IntegratedGradients(self.model)
         self.occluder = Occlusion(self.model)
-        
-        if self.task_name =='classification':
-            self.metric = 'js'
-        else:
-            self.metric = 'pd'
-        
-    def _compute_metric(
-        self, p_y_exp: torch.Tensor, p_y_hat: torch.Tensor
-    ) -> torch.Tensor:
-        """
-        Compute the metric for comparisons of two distributions.
-
-        Args:
-            p_y_exp:
-                The current expected distribution. Shape = (batch_size, num_states)
-            p_y_hat:
-                The modified (counterfactual) distribution. Shape = (batch_size, num_states)
-
-        Returns:
-            The result Tensor of shape (batch_size).
-
-        """
-        if self.metric == "kl":
-            p_y_hat = torch.softmax(p_y_hat, dim=1)
-            p_y_exp = torch.softmax(p_y_exp, dim=1)
-            
-            kl_loss = torch.nn.KLDivLoss(reduction="none")(torch.log(p_y_hat), p_y_exp)
-            # return torch.sum(kl_loss, -1)
-            return kl_loss
-        if self.metric == "js":
-            p_y_hat = torch.softmax(p_y_hat, dim=1)
-            p_y_exp = torch.softmax(p_y_exp, dim=1)
-            
-            average = (p_y_hat + p_y_exp) / 2
-            lhs = torch.nn.KLDivLoss(reduction="none")(torch.log(average), p_y_hat)
-            rhs = torch.nn.KLDivLoss(reduction="none")(torch.log(average), p_y_exp)
-            return (lhs + rhs) / 2
-        if self.metric == "pd":
-            # batch_size x output_horizon x num_states
-            diff = torch.abs(p_y_hat - p_y_exp)
-            # sum over all dimension except batch, output_horizon
-            # multioutput multi-horizon not supported yet
-            return torch.sum(diff, dim=-1)
-        
-        raise Exception(f"unknown metric. {self.metric}")
-    
-    def generate_counterfactuals(self, batch_size, input_index, feature_index):
-        if input_index is None:
-            n_features = self.data.shape[-1]
-            if feature_index is None:
-                # take all features
-                choices = self.data.reshape((-1, n_features))
-            else:
-                # take one feature
-                choices = self.data[:, :, feature_index].reshape(-1)
-        else:
-            n_features = self.data[input_index].shape[-1]
-            if feature_index is None:
-                choices = self.data[input_index][:].reshape((-1, n_features))    
-            else:
-                choices = self.data[input_index][:].reshape(-1)
-
-        sampled_index = np.random.choice(range(len(choices)), size=(batch_size*self.seq_len))
-        
-        if feature_index is None:
-            samples = choices[sampled_index].reshape((batch_size, self.seq_len, n_features))
-        else:
-            samples = choices[sampled_index].reshape((batch_size, self.seq_len))
-        
-        return samples
     
     def format_output(self, outputs):
         if self.task_name == 'classification':
@@ -184,24 +114,14 @@ class WinIT3:
         baselines,
         attributions_fn=None, threshold=0.55
     ):
-        # model = self.model
         input_is_tuple = type(inputs) == tuple
         if not input_is_tuple:
             inputs = tuple([inputs])
             baselines = tuple([baselines])
             
-        # attr = []
         with torch.no_grad():
-            # y_original = self.format_output(
-            #     model(*inputs, *additional_forward_args)
-            # ) 
-            
             # (batch_size x n_output) x seq_len
             time_relevance_score = self.get_time_relevance_score(
-                inputs, additional_forward_args, baselines
-            )
-            
-            feature_score = self.get_feature_relevance_score(
                 inputs, additional_forward_args, baselines
             )
             
@@ -210,40 +130,34 @@ class WinIT3:
             )
             
             # batch_size x n_output x seq_len x features
-            features_relevance_score = compute_attr(
-                'integrated_gradients', inputs, baselines, 
-                self.explainer, additional_forward_args, self.args
+            attrs = compute_attr(
+                'occlusion', inputs, baselines, 
+                self.occluder, additional_forward_args, self.args
             )
-            # print(len(features_relevance_score), features_relevance_score[0].shape)
             
             # (batch_size x n_output) x seq_len x features
-            # features_relevance_score = tuple([
-            #     frs.reshape((-1, frs.shape[-2], frs.shape[-1])) for frs in features_relevance_score
-            # ])
-            # feature_score = tuple(
-            #     tsr.reshape((f_imp.shape[0], 1, f_imp.shape[2]))
-            #     for f_imp, tsr in zip(features_relevance_score, feature_score)
-            # )
+            attrs = tuple([
+                attr.reshape((-1, attr.shape[-2], attr.shape[-1])) for attr in attrs
+            ])
             
             time_relevance_score = tuple(
-                tsr.reshape(f_imp.shape[:2] + (1,) * len(f_imp.shape[2:]))
-                for f_imp, tsr in zip(features_relevance_score, time_relevance_score)
+                tsr.reshape(attr.shape[:2] + (1,) * len(attr.shape[2:]))
+                for attr, tsr in zip(attrs, time_relevance_score)
             )
 
             is_above_threshold = tuple(
-                is_above.reshape(f_imp.shape[:2] + (1,) * len(f_imp.shape[2:]))
-                for f_imp, is_above in zip(features_relevance_score, is_above_threshold)
+                is_above.reshape(attr.shape[:2] + (1,) * len(attr.shape[2:]))
+                for attr, is_above in zip(attrs, is_above_threshold)
             )
             attributions = tuple(
-                # tsr * frs * feature / (tsr + frs) # * is_above.float()
-                tsr * frs * is_above.float()
-                for tsr, frs, is_above in zip(
+                tsr * attr * is_above.float()
+                for tsr, is_above, attr in zip(
                     time_relevance_score,
-                    features_relevance_score,
                     is_above_threshold,
-                    # feature_score
+                    attrs
                 )
             )
+
             if input_is_tuple: return attributions
             else: return attributions[0]
     

@@ -16,7 +16,7 @@ python run.py \
   --result_path scratch \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model Crossformer \
+  --model MICN \
   --features S \
   --seq_len 96 \
   --label_len 12 \
@@ -29,13 +29,25 @@ python run.py \
   --result_path scratch \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model MICN \
+  --model SegRNN \
   --features S \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1 \
-  --conv_kernel 18 12
+  --n_features 1
+
+python run.py \
+  --task_name long_term_forecast \
+  --train \
+  --result_path scratch \
+  --root_path ./dataset/electricity/ \
+  --data_path electricity.csv \
+  --model Crossformer \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1
 
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models

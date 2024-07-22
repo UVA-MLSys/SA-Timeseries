@@ -72,7 +72,7 @@ NUM_ITERATIONS = 3
 #         and sufficiency on {wtsr_better_suff*100.0/suff_count:0.4f}\% cases.\n')
 
 def print_row(item):
-    print(f'& {np.round(item, 3):0.3g} ', end='')
+    print(f'& {np.round(item, 2):0.3g} ', end='')
     
 print(f"Dataset & Metric &" + " & ".join(models) + " \\\\ \\hline")
 for dataset in datasets:
@@ -120,21 +120,16 @@ for dataset in datasets:
                     dfs = []
                     for itr_no in range(1, NUM_ITERATIONS+1):
                         df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
-                        # df = reduce_df(df)
                     
                         df = df[df['metric']==metric][['area', metric_type]]
                         dfs.append(df)
-                        # if metric in ['auc', 'accuracy']:
-                        #     score = 1-score
                 
-                        # scores.append(score)
                     df = pd.concat(dfs, axis=0)
                     df.replace([np.inf, -np.inf], np.nan, inplace=True)
+                    if metric in ['auc', 'accuracy']:
+                        df[metric_type] = 1-df[metric_type]
                     
                     score = df[metric_type].mean()
-                    if metric in ['auc', 'accuracy']:
-                        score = 1-score
-                    
                     print_row(score)
             print('\\\\')
         print('\\hline\n')
@@ -155,14 +150,10 @@ for dataset in datasets:
                     dfs = []
                     for itr_no in range(1, NUM_ITERATIONS+1):
                         df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
-                        # df = reduce_df(df)
                     
                         df = df[df['metric']==metric][['area', metric_type]]
                         dfs.append(df)
-                        # if metric in ['auc', 'accuracy']:
-                        #     score = 1-score
-                
-                        # scores.append(score)
+
                     df = pd.concat(dfs, axis=0)
                     df.replace([np.inf, -np.inf], np.nan, inplace=True)
                     

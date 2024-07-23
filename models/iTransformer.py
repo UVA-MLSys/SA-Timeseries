@@ -55,7 +55,7 @@ class Model(nn.Module):
         stdev = torch.sqrt(torch.var(x_enc, dim=1, keepdim=True, unbiased=False) + 1e-5)
         
         # FIX: RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation
-        # previousbly x_enc /= stdev, which performs inplace operation on x_enc
+        # previousbly x_enc = x_enc / stdev, which performs inplace operation on x_enc
         x_enc = x_enc / stdev
 
         _, _, N = x_enc.shape

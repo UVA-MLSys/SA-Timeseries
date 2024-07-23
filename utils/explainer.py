@@ -91,7 +91,9 @@ def compute_attr(
                 )
             # gradient based methods can't differentiate when an input isn't used in the model
             elif name in ['deep_lift', 'integrated_gradients', 'gradient_shap']:
-                if type(inputs) == tuple:
+                dual_input_users = ['iTransformer', 'Autoformer', 'ETSformer', 'FEDformer', 'Informer', 'Nonstationary_Transformer', 'Reformer', 'RNN', 'TimesNet', 'Transformer']
+                # these models use the multiple inputs in the forward function
+                if type(inputs) == tuple and args.model not in dual_input_users:
                     new_additional_forward_args = tuple([
                         input for input in inputs[1:]
                     ]) + additional_forward_args

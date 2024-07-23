@@ -55,7 +55,15 @@
     ],
     "p_hidden_layers": 2,
     "explainers": [
-        "wtsr"
+        "feature_ablation",
+        "occlusion",
+        "augmented_occlusion",
+        "feature_permutation",
+        "integrated_gradients",
+        "gradient_shap",
+        "winIT",
+        "wtsr",
+        "tsr"
     ],
     "areas": [
         0.05,
@@ -68,7 +76,7 @@
         "mae",
         "mse"
     ],
-    "overwrite": true,
+    "overwrite": false,
     "dump_attrs": false,
     "disable_progress": true,
     "use_gpu": true,

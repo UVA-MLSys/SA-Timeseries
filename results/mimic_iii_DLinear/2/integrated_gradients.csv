@@ -1,0 +1,13 @@
+metric,area,comp,suff
+accuracy,0.05,0.562323,0.531724
+accuracy,0.075,0.503038,0.500868
+accuracy,0.1,0.5,0.5
+accuracy,0.15,0.5,0.5
+auc,0.05,0.404907,0.302802
+auc,0.075,0.379647,0.30364
+auc,0.1,0.362881,0.303961
+auc,0.15,0.338416,0.301836
+cross_entropy,0.05,inf,inf
+cross_entropy,0.075,inf,inf
+cross_entropy,0.1,inf,inf
+cross_entropy,0.15,inf,inf

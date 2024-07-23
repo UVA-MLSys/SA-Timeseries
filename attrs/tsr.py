@@ -574,38 +574,41 @@ class TSR2:
             self.explainer, additional_forward_args, self.args
         )
             
-        time_relevance_score = []
-        for input_index in range(len(inputs)):
-            cloned = inputs[input_index].clone()
-            batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
-            score = torch.zeros(
-                (batch_size*n_output, seq_len), device=inputs[input_index].device
-            )
-            assignment = inputs[input_index][0, 0, 0]
-             
-            for t in range(inputs[input_index].shape[1]):
-                prev_value = cloned[:, t]
-                cloned[:, t] = assignment
-                
-                inputs_hat = []
-                for i in range(len(inputs)):
-                    if i == input_index:
-                        inputs_hat.append(cloned)
-                    else:
-                        inputs_hat.append(inputs[i])
-            
-                attr_perturbed = compute_attr(
-                    'integrated_gradients', tuple(inputs_hat), baselines, 
-                    self.explainer, additional_forward_args, self.args
+        with torch.no_grad():
+            time_relevance_score = []
+            for input_index in range(len(inputs)):
+                cloned = inputs[input_index].clone()
+                batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
+                score = torch.zeros(
+                    (batch_size*n_output, seq_len), device=inputs[input_index].device
                 )
+                assignment = inputs[input_index][0, 0, 0]
                 
-                attr_diff = abs(attr_perturbed[0] - attr_original[0])
-                score[:, t] = torch.sum(attr_diff, dim=(2, 3)).flatten()
-                cloned[:, t] = prev_value
-            
-            time_relevance_score.append(score)
+                for t in range(inputs[input_index].shape[1]):
+                    prev_value = cloned[:, t]
+                    cloned[:, t] = assignment
+                    
+                    inputs_hat = []
+                    for i in range(len(inputs)):
+                        if i == input_index:
+                            inputs_hat.append(cloned)
+                        else:
+                            inputs_hat.append(inputs[i])
+                
+                    attr_perturbed = compute_attr(
+                        'integrated_gradients', tuple(inputs_hat), baselines, 
+                        self.explainer, additional_forward_args, self.args
+                    )
+                    
+                    attr_diff = abs(attr_perturbed[0] - attr_original[0])
+                    score[:, t] = torch.sum(attr_diff, dim=(2, 3)).flatten()
+                    cloned[:, t] = prev_value
+                    
+                    del attr_perturbed, attr_diff
+                    gc.collect()
+                
+                time_relevance_score.append(score)
         
-    
         # time_relevance_score shape will be ((N x O) x seq_len) after summation
         time_relevance_score = tuple(
             # tsr.sum((tuple(i for i in range(2, len(tsr.shape)))))
@@ -647,44 +650,48 @@ class TSR2:
             score > torch.quantile(score, threshold, dim=1, keepdim=True) for score in time_relevance_score
         )
         
-        feature_relevance_score = []
-        for input_index in range(len(inputs)):
-            batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
-            
-            assignment = inputs[input_index][0, 0, 0]
-            score = torch.zeros(
-                (batch_size*n_output, seq_len, n_features), 
-                device=inputs[input_index].device
-            )
-            
-            for t in range(seq_len):
-                #TODO: revise
-                above_threshold = is_above_threshold[input_index][:, t]
-
-                for f in range(n_features):
-                    if above_threshold.all():
-                        score[:, t] = 0.1
-                        continue
-                    
-                    prev_value = inputs[input_index][:, t, f]
-                    inputs[input_index][:, t, f] = assignment
-                    
-                    attr_perturbed = compute_attr(
-                        'integrated_gradients', inputs, baselines, 
-                        self.explainer, additional_forward_args, self.args
-                    )
-
-                    inputs[input_index][:, t, f] = prev_value
-                    # right now only the first element in the tuple is used
-                    for original, perturbed in zip(attr_original, attr_perturbed):
-                        diff = abs(perturbed - original)
-                        score[:, t, f] += torch.sum(diff, dim=(2, 3)).flatten()
-                        
-                    score[~above_threshold, t] = 0.1
+        with torch.no_grad():
+            feature_relevance_score = []
+            for input_index in range(len(inputs)):
+                batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
                 
-                # normalize across the feature dimension
-                score = normalize_scale(score, dim=-1, norm_type="minmax")
-            feature_relevance_score.append(score)
+                assignment = inputs[input_index][0, 0, 0]
+                score = torch.zeros(
+                    (batch_size*n_output, seq_len, n_features), 
+                    device=inputs[input_index].device
+                )
+                
+                for t in range(seq_len):
+                    #TODO: revise
+                    above_threshold = is_above_threshold[input_index][:, t]
+
+                    for f in range(n_features):
+                        if above_threshold.all():
+                            score[:, t] = 0.1
+                            continue
+                        
+                        prev_value = inputs[input_index][:, t, f]
+                        inputs[input_index][:, t, f] = assignment
+                        
+                        attr_perturbed = compute_attr(
+                            'integrated_gradients', inputs, baselines, 
+                            self.explainer, additional_forward_args, self.args
+                        )
+
+                        inputs[input_index][:, t, f] = prev_value
+                        # right now only the first element in the tuple is used
+                        for original, perturbed in zip(attr_original, attr_perturbed):
+                            diff = abs(perturbed - original)
+                            score[:, t, f] += torch.sum(diff, dim=(2, 3)).flatten()
+                            
+                        score[~above_threshold, t] = 0.1
+                        del attr_perturbed
+                        gc.collect()
+                        
+                    # normalize across the feature dimension
+                    score = normalize_scale(score, dim=-1, norm_type="minmax")
+                    
+                feature_relevance_score.append(score)
             
         time_relevance_score = tuple(
             tsr.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))

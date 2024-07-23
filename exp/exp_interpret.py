@@ -74,7 +74,8 @@ class Exp_Interpret:
     def initialize_explainer(
         name, model, args, device, dataloader
     ):
-        if name == 'deep_lift':
+        # RuntimeError: cudnn RNN backward can only be called in training mode
+        if name == 'deep_lift' or ('gradient' in name and 'RNN' in args.model):
             # torch.backends.cudnn.enabled=False
             clone = copy.deepcopy(model)
             clone.train() # deep lift moedl needs to be in training mode

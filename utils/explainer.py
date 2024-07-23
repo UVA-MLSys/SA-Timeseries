@@ -68,7 +68,7 @@ def compute_attr(
             sliding_window_shapes=sliding_window_shapes,
             baselines=baselines,
             additional_forward_args=additional_forward_args,
-            threshold=0.5, normalize=False,
+            threshold=0.5, normalize=True,
             attributions_fn=abs
         )
     
@@ -86,7 +86,7 @@ def compute_attr(
                     sliding_window_shapes=sliding_window_shapes,
                     baselines=baselines, target=target,
                     additional_forward_args=additional_forward_args,
-                    threshold=0.55, normalize=False,
+                    threshold=0.55, normalize=True,
                     attributions_fn=abs
                 )
             # gradient based methods can't differentiate when an input isn't used in the model

@@ -6,9 +6,9 @@ def reduce_df(df:pd.DataFrame):
     return df.groupby('metric').aggregate('mean')[['comp', 'suff']].reset_index()
 
 int_metric_map = {
-    'electricity': ['mae', 'mse'],
-    'traffic': ['mae', 'mse'],
-    'mimic_iii': ['auc', 'cross_entropy']
+    'electricity': ['mae'], #, 'mse'],
+    'traffic': ['mae'], #, 'mse'],
+    'mimic_iii': ['auc'] #, 'cross_entropy']
 }
 
 test_metric_map = {
@@ -18,10 +18,12 @@ test_metric_map = {
 }
 
 datasets = ['electricity', 'traffic', 'mimic_iii']
-models = ['DLinear', 'MICN', 'SegRNN', 'Crossformer']
+models = ['DLinear', 'MICN', 'SegRNN', 'Crossformer', 'iTransformer']
 attr_methods = [
     'feature_ablation', 'augmented_occlusion', 
-    'feature_permutation', 'winIT', 'tsr' ,'wtsr'
+    'feature_permutation',
+    'integrated_gradients', 'gradient_shap', 
+    'winIT', 'tsr' ,'wtsr'
 ]
 
 short_form = {
@@ -31,7 +33,9 @@ short_form = {
     'feature_permutation': 'FP',
     'winIT': 'WinIT',
     'tsr':'TSR',
-    'wtsr': 'WinTSR'
+    'wtsr': 'WinTSR',
+    'gradient_shap': 'GS',
+    'integrated_gradients': 'IG'
 }
 NUM_ITERATIONS = 3
 
@@ -134,35 +138,35 @@ for dataset in datasets:
             print('\\\\')
         print('\\hline\n')
 
-print('\n\nResult after normalizing by baseline')
-results = {}
-for dataset in datasets:
-    # use the first or second on
-    for metric in int_metric_map[dataset]:
-        print(f'Dataset {dataset}, metric {metric}.\n')
-        print(f" & {' & '.join(models)} & {' & '.join(models)} \\\\ \\hline")
+# print('\n\nResult after normalizing by baseline')
+# results = {}
+# for dataset in datasets:
+#     # use the first or second on
+#     for metric in int_metric_map[dataset]:
+#         print(f'Dataset {dataset}, metric {metric}.\n')
+#         print(f" & {' & '.join(models)} & {' & '.join(models)} \\\\ \\hline")
         
-        for attr_method in attr_methods:
-            print(f'{short_form[attr_method]} ', end='')
-            for metric_type in ['comp', 'suff']:
-                for model in models:
-                    scores = []
-                    dfs = []
-                    for itr_no in range(1, NUM_ITERATIONS+1):
-                        df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
+#         for attr_method in attr_methods:
+#             print(f'{short_form[attr_method]} ', end='')
+#             for metric_type in ['comp', 'suff']:
+#                 for model in models:
+#                     scores = []
+#                     dfs = []
+#                     for itr_no in range(1, NUM_ITERATIONS+1):
+#                         df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
                     
-                        df = df[df['metric']==metric][['area', metric_type]]
-                        dfs.append(df)
+#                         df = df[df['metric']==metric][['area', metric_type]]
+#                         dfs.append(df)
 
-                    df = pd.concat(dfs, axis=0)
-                    df.replace([np.inf, -np.inf], np.nan, inplace=True)
+#                     df = pd.concat(dfs, axis=0)
+#                     df.replace([np.inf, -np.inf], np.nan, inplace=True)
                     
-                    score = df[metric_type].mean()
-                    if metric in ['auc', 'accuracy']:
-                        score = 1-score
+#                     score = df[metric_type].mean()
+#                     if metric in ['auc', 'accuracy']:
+#                         score = 1-score
                     
-                    results[(dataset, metric, attr_method,metric_type, model)] = score
-                    baseline = results[(dataset, metric, 'feature_ablation', metric_type, model)]
-                    print_row(score/baseline)
-            print('\\\\')
-        print('\\hline\n')
+#                     results[(dataset, metric, attr_method,metric_type, model)] = score
+#                     baseline = results[(dataset, metric, 'feature_ablation', metric_type, model)]
+#                     print_row(score/baseline)
+#             print('\\\\')
+#         print('\\hline\n')

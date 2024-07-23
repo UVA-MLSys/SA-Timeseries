@@ -59,9 +59,11 @@
         "occlusion",
         "augmented_occlusion",
         "feature_permutation",
+        "integrated_gradients",
+        "gradient_shap",
         "winIT",
-        "tsr",
-        "wtsr"
+        "wtsr",
+        "tsr"
     ],
     "areas": [
         0.05,
@@ -74,9 +76,9 @@
         "mae",
         "mse"
     ],
-    "overwrite": true,
+    "overwrite": false,
     "dump_attrs": false,
-    "disable_progress": false,
+    "disable_progress": true,
     "use_gpu": true,
     "enc_in": 1,
     "dec_in": 1,

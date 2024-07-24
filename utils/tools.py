@@ -8,6 +8,26 @@ from captum._utils.typing import (
 
 plt.switch_backend('agg')
 
+def avg_over_output_horizon(attr, inputs, args):
+    if type(inputs) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            attr_.reshape(
+                # batch x pred_len x seq_len x features
+                (inputs[0].shape[0], -1, args.seq_len, attr_.shape[-1])
+            # take mean over the output horizon
+            ).mean(axis=1) for attr_ in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = attr.reshape(
+            # batch x pred_len x seq_len x features
+            (inputs.shape[0], -1, args.seq_len, attr.shape[-1])
+        # take mean over the output horizon
+        ).mean(axis=1)
+    
+    return attr
+
 def reshape_over_output_horizon(attr, inputs, args):
     if type(inputs) == tuple:
         # tuple of batch x seq_len x features

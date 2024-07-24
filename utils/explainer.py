@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 from utils.tools import reshape_over_output_horizon
+from pytorch_lightning import Trainer
 
 def get_total_data(dataloader, device, add_x_mark=True):        
     if add_x_mark:
@@ -61,6 +62,11 @@ def compute_attr(
             (1,1) for _ in inputs
         ])
     else: sliding_window_shapes = (1,1)
+    dual_input_users = [
+        'iTransformer', 'Autoformer', 'ETSformer', 'FEDformer', 
+        'Informer', 'Nonstationary_Transformer', 'Reformer', 
+        'RNN', 'TimesNet', 'Transformer'
+    ]
     
     if name == 'wtsr':
         attr = explainer.attribute(
@@ -91,7 +97,7 @@ def compute_attr(
                 )
             # gradient based methods can't differentiate when an input isn't used in the model
             elif name in ['deep_lift', 'integrated_gradients', 'gradient_shap']:
-                dual_input_users = ['iTransformer', 'Autoformer', 'ETSformer', 'FEDformer', 'Informer', 'Nonstationary_Transformer', 'Reformer', 'RNN', 'TimesNet', 'Transformer']
+                
                 # these models use the multiple inputs in the forward function
                 if type(inputs) == tuple and args.model not in dual_input_users:
                     new_additional_forward_args = tuple([
@@ -151,8 +157,61 @@ def compute_attr(
             baselines=baselines,
             additional_forward_args=additional_forward_args
         )
+    elif name == 'dyna_mask':
+        # the parameters ensure Trainer doesn't flood the output with logs and create log folders
+        trainer = Trainer(
+            logger=False, enable_checkpointing=False,
+            enable_progress_bar=False, max_epochs=5,accelerator="gpu",
+            enable_model_summary=False
+        )
+        if type(inputs) == tuple:
+            new_additional_forward_args = tuple([
+                input for input in inputs[1:]
+            ]) + additional_forward_args
+            
+            # output is a tuple of length 1, since only one input is used
+            attr = explainer.attribute(
+                inputs=inputs[0],
+                additional_forward_args=new_additional_forward_args,
+                trainer=trainer
+            )
+            # output isn't for each target, unlike other methods
+            # batch_size x seq_len x features -> (targets x batch_size) x seq_len x features
+            attr = attr.repeat(targets, 1, 1)
+            
+            attr = tuple([attr] + [
+                torch.zeros(
+                    (inputs[i].shape[0]*targets, inputs[i].shape[1], inputs[i].shape[2]), 
+                    device=inputs[i].device) for i in range(1, len(inputs))]
+            )
+        else: 
+            # batch_size x seq_len x features
+            attr = explainer.attribute(
+                inputs=inputs,
+                additional_forward_args=additional_forward_args,
+                trainer=trainer
+            )
+            # output isn't for each target, unlike other methods
+            # batch_size x seq_len x features -> (targets x batch_size) x seq_len x features
+            attr = attr.repeat(targets, 1, 1)
+        
     elif name == 'fit':
-        attr = explainer.attribute(
+        if type(inputs) == tuple:
+            new_additional_forward_args = tuple([
+                input for input in inputs[1:]
+            ]) + additional_forward_args
+            
+            # output is a tuple of length 1, since only one input is used
+            attr = explainer.attribute(
+                inputs=inputs[0], baselines=baselines[0],
+                additional_forward_args=new_additional_forward_args
+            )
+            
+            attr = tuple([attr] + [
+                torch.zeros_like_like(inputs[i], device=inputs[i].device) 
+                for i in range(1, len(inputs))]
+            )
+        else: attr = explainer.attribute(
             inputs=inputs,
             additional_forward_args=additional_forward_args
         )
@@ -175,23 +234,3 @@ def compute_attr(
         raise NotImplementedError(f'Explainer {name} is not implemented')
         
     return reshape_over_output_horizon(attr, inputs, args)
-
-def avg_over_output_horizon(attr, inputs, args):
-    if type(inputs) == tuple:
-        # tuple of batch x seq_len x features
-        attr = tuple([
-            attr_.reshape(
-                # batch x pred_len x seq_len x features
-                (inputs[0].shape[0], -1, args.seq_len, attr_.shape[-1])
-            # take mean over the output horizon
-            ).mean(axis=1) for attr_ in attr
-        ])
-    else:
-        # batch x seq_len x features
-        attr = attr.reshape(
-            # batch x pred_len x seq_len x features
-            (inputs.shape[0], -1, args.seq_len, attr.shape[-1])
-        # take mean over the output horizon
-        ).mean(axis=1)
-    
-    return attr

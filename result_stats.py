@@ -18,7 +18,7 @@ test_metric_map = {
 }
 
 datasets = ['electricity', 'traffic', 'mimic_iii']
-models = ['DLinear', 'MICN', 'SegRNN', 'Crossformer', 'iTransformer']
+models = ['DLinear', 'MICN', 'SegRNN', 'iTransformer']
 attr_methods = [
     'feature_ablation', 'augmented_occlusion', 
     'feature_permutation',

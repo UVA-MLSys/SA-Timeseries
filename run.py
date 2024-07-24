@@ -100,7 +100,7 @@ def get_parser():
     # forecasting task
     parser.add_argument('--seq_len', type=int, default=96, help='input sequence length')
     parser.add_argument('--label_len', type=int, default=48, help='start token length')
-    parser.add_argument('--pred_len', type=int, default=96, help='prediction sequence length')
+    parser.add_argument('--pred_len', type=int, default=24, help='prediction sequence length')
     parser.add_argument('--seasonal_patterns', type=str, default='Monthly', help='subset for M4')
 
     # model define

@@ -39,8 +39,8 @@ explainer_name_map = {
     "lime":Lime, # very slow
     "occlusion":Occlusion,
     "augmented_occlusion":AugmentedOcclusion, # requires data when initializing
-    # "dyna_mask":DynaMask, # Multiple inputs are not accepted for this method
-    # "fit": Fit, # only supports classification
+    "dyna_mask":DynaMask, # Multiple inputs are not accepted for this method
+    "fit": Fit, # only supports classification
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
@@ -99,11 +99,14 @@ class Exp_Interpret:
                     model, all_inputs, args
                 )
             elif name == 'fit':
+                assert args.task_name == 'classification', 'fit only supports classification'
+                # the parameters ensure Trainer doesn't flood the output with logs and create log folders
                 trainer = Trainer(
-                    logger=False,
+                    logger=False, enable_checkpointing=False,
                     enable_progress_bar=False, max_epochs=5,
-                    enable_model_summary=False
+                    enable_model_summary=False,accelerator='auto'
                 )
+                # fit doesn't support multiple inputs
                 explainer = explainer_name_map[name](
                     model, features=all_inputs, trainer=trainer
                 )
@@ -214,9 +217,10 @@ class Exp_Interpret:
             
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
-            self.dump_results(results, f'{name}.csv')
+            if not self.args.dry_run:
+                self.dump_results(results, f'{name}.csv')
                 
-            if self.args.dump_attrs:
+            if self.args.dump_attrs and not self.args.dry_run:
                 attr_output_file = f'{self.args.flag}_{name}.pt' 
                 attr_output_path = os.path.join(self.result_folder, attr_output_file)
                 
@@ -224,7 +228,7 @@ class Exp_Interpret:
                     attr_numpy = [a.detach().cpu().numpy() for a in attrs]
                 else:
                     attr_numpy = tuple([a.detach().cpu().numpy() for a in attrs])
-                torch.save(attr_numpy, attr_output_path)
+                    torch.save(attr_numpy, attr_output_path)
             
             gc.collect()
             print()

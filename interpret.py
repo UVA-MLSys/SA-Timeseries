@@ -6,9 +6,14 @@ from exp.exp_classification import Exp_Classification
 from utils.explainer import *
 from exp.exp_interpret import Exp_Interpret, explainer_name_map
 
+# Following disables pl logging for GPU
+# https://github.com/Lightning-AI/pytorch-lightning/issues/3431
+import logging
+logging.getLogger("pytorch_lightning").setLevel(logging.WARNING)
+
 def main(args):
     initial_setup(args)
-    print(args)
+    # print(args)
 
     # Disable cudnn if using cuda accelerator throws error.
     # Please see https://captum.ai/docs/faq#how-can-i-resolve-cudnn-rnn-backward-error-for-rnn-or-lstm-network

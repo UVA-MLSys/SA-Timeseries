@@ -33,7 +33,7 @@ expl_metric_map = {
 }
 
 explainer_name_map = {
-    "deep_lift":DeepLift, # throws "One of the differentiated Tensors appears to not have been used in the graph"
+    # "deep_lift":DeepLift, # throws RuntimeError: A Module Tanh() was detected that does not contain some of the input/output attributes that are required for DeepLift computations. This can occur, for example, if your module is being used more than once in the network.Please, ensure that module is being used only once in the network.
     "gradient_shap":GradientShap,
     "integrated_gradients":IntegratedGradients,
     "lime":Lime, # very slow
@@ -75,7 +75,7 @@ class Exp_Interpret:
         name, model, args, device, dataloader
     ):
         # RuntimeError: cudnn RNN backward can only be called in training mode
-        if name == 'deep_lift' or ('gradient' in name and 'RNN' in args.model):
+        if name == 'deep_lift' or (('gradient' in name or name == 'dyna_mask') and 'RNN' in args.model):
             # torch.backends.cudnn.enabled=False
             clone = copy.deepcopy(model)
             clone.train() # deep lift moedl needs to be in training mode

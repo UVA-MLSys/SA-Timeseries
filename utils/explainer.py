@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from utils.tools import reshape_over_output_horizon
+from utils.tools import reshape_over_output_horizon, round_up
 from pytorch_lightning import Trainer
 
 def get_total_data(dataloader, device, add_x_mark=True):        
@@ -232,5 +232,7 @@ def compute_attr(
         )
     else:
         raise NotImplementedError(f'Explainer {name} is not implemented')
-        
-    return reshape_over_output_horizon(attr, inputs, args)
+      
+    attr = reshape_over_output_horizon(attr, inputs, args)
+    attr = round_up(attr, decimals=6)  
+    return attr

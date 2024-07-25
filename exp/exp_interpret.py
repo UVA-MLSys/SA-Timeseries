@@ -1,6 +1,7 @@
 import os, torch, copy, gc
 from tqdm import tqdm 
 import pandas as pd
+import csv
 from utils.explainer import *
 from attrs.tsr import TSR, TSR2
 from attrs.winTSR import WinTSR
@@ -121,23 +122,42 @@ class Exp_Interpret:
         return explainer    
     
     def run_classifier(self, dataloader, name):
+        results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
+        
         # this assumes the data is from same flag (train, val, test)
         batch_filename = os.path.join(self.result_folder, f'batch_{name}.csv')
-        if os.path.exists(batch_filename): 
-            results_df = pd.read_csv(batch_filename)
         
-        results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
+        min_batch_index = 0
+        # no writing or resume needed for dry run
+        if not self.args.dry_run:
+            if os.path.exists(batch_filename) and not self.args.overwrite: 
+                results_df = pd.read_csv(batch_filename)
+                # https://stackoverflow.com/questions/3348460/csv-file-written-with-python-has-blank-lines-between-each-row
+                result_file = open(batch_filename, 'a', newline='')
+                writer = csv.writer(result_file) 
+                
+                rows = results_df.values.tolist()
+                results.extend(rows)
+                if results_df.shape[0]>0: 
+                    min_batch_index = results_df['batch_index'].max() + 1
+            else:
+                # create and write header row if the file doesn't exists or it is to be overwritten
+                result_file = open(batch_filename, 'w', newline='')
+                writer = csv.writer(result_file) 
+                writer.writerow(results[0])
+            
         attrs = []
+        if min_batch_index>0:
+            print(f'Resuming from batch {min_batch_index}')
         
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), 
             disable=self.args.disable_progress
         )
+        
         for batch_index, (batch_x, _, padding_mask) in progress_bar:
-            if not self.args.overwrite and os.path.exists(batch_filename):
-                if batch_index in results_df['batch_index']: 
-                    results.extend(results_df[results_df['batch_index'] == batch_index].values.tolist())
-                    continue
+            if batch_index < min_batch_index:
+                continue
             
             batch_x = batch_x.float().to(self.device)
             padding_mask = padding_mask.float().to(self.device)
@@ -153,23 +173,56 @@ class Exp_Interpret:
                 additional_forward_args, batch_index
             )
             
+            if self.args.dry_run: break
+            
+            writer.writerows(batch_results)
+            result_file.flush()
+            
             results.extend(batch_results)  
             attrs.append(batch_attr)
+            gc.collect()
             
-            if self.args.dry_run: break
-        
         attrs = torch.vstack(attrs)
         return results, attrs
                 
     def run_regressor(self, dataloader, name):
         results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
-        attrs = []
         
+        # this assumes the data is from same flag (train, val, test)
+        batch_filename = os.path.join(self.result_folder, f'batch_{name}.csv')
+        
+        min_batch_index = 0
+        # no writing or resume needed for dry run
+        if not self.args.dry_run:
+            if os.path.exists(batch_filename) and not self.args.overwrite: 
+                results_df = pd.read_csv(batch_filename)
+                # https://stackoverflow.com/questions/3348460/csv-file-written-with-python-has-blank-lines-between-each-row
+                result_file = open(batch_filename, 'a', newline='')
+                writer = csv.writer(result_file) 
+                
+                rows = results_df.values.tolist()
+                results.extend(rows)
+                if results_df.shape[0]>0: 
+                    min_batch_index = results_df['batch_index'].max() + 1
+            else:
+                # create and write header row if the file doesn't exists or it is to be overwritten
+                result_file = open(batch_filename, 'w', newline='')
+                writer = csv.writer(result_file) 
+                writer.writerow(results[0])
+        
+        attrs = []
+        if min_batch_index > 0:
+            print(f'Resuming from batch {min_batch_index}')
+            
         progress_bar = tqdm(
             enumerate(dataloader), total=len(dataloader), 
             disable=self.args.disable_progress
         )
+            
         for batch_index, (batch_x, batch_y, batch_x_mark, batch_y_mark) in progress_bar:
+            if batch_index < min_batch_index:
+                continue
+            
             batch_x = batch_x.float().to(self.device)
             batch_y = batch_y.float().to(self.device)
 
@@ -190,9 +243,15 @@ class Exp_Interpret:
                 name, inputs, baselines, 
                 additional_forward_args, batch_index
             )
+
+            if self.args.dry_run: break
+            
+            writer.writerows(batch_results)
+            result_file.flush()
+            
             results.extend(batch_results)
             attrs.append(batch_attr)
-            if self.args.dry_run: break
+            gc.collect()
         
         attrs = tuple(torch.vstack([a[i] for a in attrs]) for i in range(2))
         return results, attrs
@@ -202,9 +261,12 @@ class Exp_Interpret:
         
         for name in self.args.explainers:
             explainer_result_file = os.path.join(self.result_folder, f'{name}.csv')
-            if (not self.args.overwrite) and os.path.exists(explainer_result_file): 
-                print(f'{explainer_result_file} exists. Skipping ...')
-                continue
+            explainer_batch_file = os.path.join(self.result_folder, f'batch_{name}.csv')
+            if (not self.args.overwrite) and os.path.exists(explainer_result_file) and os.path.exists(explainer_batch_file):
+                df = pd.read_csv(explainer_batch_file)
+                if df.shape[0] > 0 and df['batch_index'].max() + 1 == len(dataloader):
+                    print(f'{explainer_result_file} exists. Skipping ...')
+                    continue
             
             results = []
             start = datetime.now()
@@ -220,6 +282,7 @@ class Exp_Interpret:
             if not self.args.dry_run:
                 self.dump_results(results, f'{name}.csv')
                 
+            # don't dump attr if dry run
             if self.args.dump_attrs and not self.args.dry_run:
                 attr_output_file = f'{self.args.flag}_{name}.pt' 
                 attr_output_path = os.path.join(self.result_folder, attr_output_file)
@@ -277,7 +340,8 @@ class Exp_Interpret:
                     )
             
                     result_row = [
-                        batch_index, metric_name, tau, area, error_comp, error_suff
+                        batch_index, metric_name, tau, area, 
+                        np.round(error_comp, 6), np.round(error_suff, 6)
                     ]
                     results.append(result_row)
     

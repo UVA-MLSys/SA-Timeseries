@@ -7,7 +7,13 @@ from models import Autoformer, Transformer, TimesNet, Nonstationary_Transformer,
 
 def stringify_setting(args, complete=False):
     if not complete:
-        return f"{args.data_path.split('.')[0]}_{args.model}"
+        # first two conditions for specific ablations
+        if args.task_name == 'classification' and args.seq_len != 48:
+            return f"{args.data_path.split('.')[0]}_{args.model}_sl_{args.seq_len}"
+        elif args.seq_len != 96:
+            return f"{args.data_path.split('.')[0]}_{args.model}_sl_{args.seq_len}"
+        else: 
+            return f"{args.data_path.split('.')[0]}_{args.model}"
     
     setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}'.format(
         args.task_name,

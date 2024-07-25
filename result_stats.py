@@ -22,7 +22,7 @@ models = ['DLinear', 'MICN', 'SegRNN', 'iTransformer']
 attr_methods = [
     'feature_ablation', 'augmented_occlusion', 
     'feature_permutation',
-    'integrated_gradients', 'gradient_shap', 
+    'integrated_gradients', 'gradient_shap', 'dyna_mask',
     'winIT', 'tsr' ,'wtsr'
 ]
 
@@ -35,7 +35,8 @@ short_form = {
     'tsr':'TSR',
     'wtsr': 'WinTSR',
     'gradient_shap': 'GS',
-    'integrated_gradients': 'IG'
+    'integrated_gradients': 'IG',
+    'dyna_mask': 'DM'
 }
 NUM_ITERATIONS = 3
 

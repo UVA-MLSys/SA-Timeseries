@@ -3,12 +3,12 @@ python run.py \
   --train \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
+  --model DLinear \
   --features S \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1 \
-  --model iTransformer 
+  --n_features 1
 
 python run.py \
   --task_name long_term_forecast \
@@ -39,12 +39,12 @@ python run.py \
   --train \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model Crossformer \
   --features S \
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1
+  --n_features 1 \
+  --model iTransformer 
 
 # feature_ablation occlusion augmented_occlusion feature_permutation
 # deep_lift gradient_shap integrated_gradients -- only for transformer models
@@ -53,7 +53,7 @@ python interpret.py \
   --explainers feature_ablation occlusion augmented_occlusion feature_permutation integrated_gradients gradient_shap winIT wtsr tsr\
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
-  --model Crossformer \
+  --model DLinear \
   --features S \
   --seq_len 96 \
   --label_len 12 \

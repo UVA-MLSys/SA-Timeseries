@@ -28,6 +28,18 @@ def avg_over_output_horizon(attr, inputs, args):
     
     return attr
 
+def round_up(attr, decimals=6):
+    if type(attr) == tuple:
+        # tuple of batch x seq_len x features
+        attr = tuple([
+            torch.round(a, decimals=decimals) for a in attr
+        ])
+    else:
+        # batch x seq_len x features
+        attr = torch.round(attr, decimals=decimals)
+    
+    return attr
+
 def reshape_over_output_horizon(attr, inputs, args):
     if type(inputs) == tuple:
         # tuple of batch x seq_len x features

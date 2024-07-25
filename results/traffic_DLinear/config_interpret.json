@@ -55,15 +55,7 @@
     ],
     "p_hidden_layers": 2,
     "explainers": [
-        "feature_ablation",
-        "occlusion",
-        "augmented_occlusion",
-        "feature_permutation",
-        "integrated_gradients",
-        "gradient_shap",
-        "winIT",
-        "wtsr",
-        "tsr"
+        "tsr2"
     ],
     "areas": [
         0.05,

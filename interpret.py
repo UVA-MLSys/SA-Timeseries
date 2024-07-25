@@ -49,8 +49,8 @@ def main(args):
     args.seed = parent_seed
     config_filepath = os.path.join(args.result_path, stringify_setting(args), 'config_interpret.json')
     args.seeds = [int(seed) for seed in experiment_seeds]
-    with open(config_filepath, 'w') as output_file:
-        json.dump(vars(args), output_file, indent=4)
+    # with open(config_filepath, 'w') as output_file:
+    #     json.dump(vars(args), output_file, indent=4)
     return
     
 def get_parser():

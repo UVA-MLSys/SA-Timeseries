@@ -1,0 +1,779 @@
+
+
+Namespace(task_name='classification', train=False, dry_run=False, model='DLinear', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_DLinear/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:54:33.094916
+Experiment ended at 2024-07-23 20:54:46.990420. Total time taken 0:00:13.895504.
+           metric   area      comp      suff
+0        accuracy  0.050  0.989366  0.981771
+1        accuracy  0.075  0.986762  0.981337
+2        accuracy  0.100  0.985460  0.981554
+3        accuracy  0.150  0.983507  0.981554
+4             auc  0.050  0.401404  0.304342
+5             auc  0.075  0.398631  0.332065
+6             auc  0.100  0.396296  0.346229
+7             auc  0.150  0.394423  0.357076
+8   cross_entropy  0.050  0.093167  0.110945
+9   cross_entropy  0.075  0.094578  0.109023
+10  cross_entropy  0.100  0.095936  0.107319
+11  cross_entropy  0.150  0.097925  0.105947
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_DLinear/2/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:54:49.402842
+Experiment ended at 2024-07-23 20:54:59.375416. Total time taken 0:00:09.972574.
+           metric   area      comp      suff
+0        accuracy  0.050  0.988932  0.979818
+1        accuracy  0.075  0.987196  0.978950
+2        accuracy  0.100  0.987196  0.978516
+3        accuracy  0.150  0.984375  0.978299
+4             auc  0.050  0.463056  0.380417
+5             auc  0.075  0.458221  0.387358
+6             auc  0.100  0.455171  0.402404
+7             auc  0.150  0.451225  0.415132
+8   cross_entropy  0.050  0.104787  0.121822
+9   cross_entropy  0.075  0.106143  0.137922
+10  cross_entropy  0.100  0.107297  0.127886
+11  cross_entropy  0.150  0.109691  0.131330
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_DLinear/3/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:55:01.791898
+Experiment ended at 2024-07-23 20:55:11.720247. Total time taken 0:00:09.928349.
+           metric   area      comp      suff
+0        accuracy  0.050  0.981731  0.961468
+1        accuracy  0.075  0.978395  0.962119
+2        accuracy  0.100  0.975357  0.961942
+3        accuracy  0.150  0.969497  0.963421
+4             auc  0.050  0.714311  0.554202
+5             auc  0.075  0.709806  0.583790
+6             auc  0.100  0.705909  0.615669
+7             auc  0.150  0.694097  0.648910
+8   cross_entropy  0.050  0.112835  0.154878
+9   cross_entropy  0.075  0.114733  0.150082
+10  cross_entropy  0.100  0.117508  0.144937
+11  cross_entropy  0.150  0.123084  0.137549
+
+
+
+Namespace(task_name='classification', train=False, dry_run=False, model='MICN', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:55:19.653850
+Experiment ended at 2024-07-23 20:55:50.342682. Total time taken 0:00:30.688832.
+           metric   area      comp      suff
+0        accuracy  0.050  0.989800  0.981771
+1        accuracy  0.075  0.989366  0.981988
+2        accuracy  0.100  0.988715  0.981337
+3        accuracy  0.150  0.986111  0.982205
+4             auc  0.050  0.428228  0.291600
+5             auc  0.075  0.427116  0.313400
+6             auc  0.100  0.424925  0.329651
+7             auc  0.150  0.424258  0.355163
+8   cross_entropy  0.050  0.101771  0.142921
+9   cross_entropy  0.075  0.103127  0.140689
+10  cross_entropy  0.100  0.105103  0.138689
+11  cross_entropy  0.150  0.109835  0.135482
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/2/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:55:53.021411
+Experiment ended at 2024-07-23 20:56:18.668137. Total time taken 0:00:25.646726.
+           metric   area      comp      suff
+0        accuracy  0.050  0.984769  0.966065
+1        accuracy  0.075  0.983901  0.967761
+2        accuracy  0.100  0.981297  0.967110
+3        accuracy  0.150  0.977173  0.968019
+4             auc  0.050  0.587023  0.420316
+5             auc  0.075  0.579004  0.448851
+6             auc  0.100  0.571243  0.476953
+7             auc  0.150  0.561569  0.501110
+8   cross_entropy  0.050  0.126967  0.198482
+9   cross_entropy  0.075  0.133229  0.194831
+10  cross_entropy  0.100  0.138436  0.192382
+11  cross_entropy  0.150  0.146913  0.189089
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/3/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:56:21.324789
+Experiment ended at 2024-07-23 20:56:47.119269. Total time taken 0:00:25.794480.
+           metric   area      comp      suff
+0        accuracy  0.050  0.981948  0.958036
+1        accuracy  0.075  0.978652  0.959555
+2        accuracy  0.100  0.976265  0.959121
+3        accuracy  0.150  0.971491  0.961508
+4             auc  0.050  0.810224  0.697811
+5             auc  0.075  0.805400  0.727565
+6             auc  0.100  0.801442  0.739986
+7             auc  0.150  0.789341  0.763535
+8   cross_entropy  0.050  0.139959  0.204284
+9   cross_entropy  0.075  0.144210  0.200515
+10  cross_entropy  0.100  0.147678  0.197198
+11  cross_entropy  0.150  0.153643  0.191630
+
+
+
+Namespace(task_name='classification', train=False, dry_run=False, model='SegRNN', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_SegRNN/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:56:55.603999
+Traceback (most recent call last):
+  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 73, in <module>
+    main(args)
+  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 42, in main
+    interpreter.interpret(dataloader)
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 214, in interpret
+    results, attrs = self.run_classifier(dataloader, name)
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 151, in run_classifier
+    batch_results, batch_attr = self.evaluate(
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 242, in evaluate
+    attr = compute_attr(
+  File "/u/mi3se/projects/SA-Timeseries/utils/explainer.py", line 189, in compute_attr
+    attr = explainer.attribute(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/log/__init__.py", line 42, in wrapper
+    return func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/tint/attr/dynamic_masks.py", line 181, in attribute
+    trainer.fit(mask_net, train_dataloaders=dataloader)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 543, in fit
+    call._call_and_handle_interrupt(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 579, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 986, in _run
+    results = self._run_stage()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1030, in _run_stage
+    self.fit_loop.run()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 205, in run
+    self.advance()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 363, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 140, in run
+    self.advance(data_fetcher)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 250, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 190, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 268, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 159, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1308, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/optimizer.py", line 153, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 238, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 122, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/optimizer.py", line 391, in wrapper
+    out = func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/optimizer.py", line 76, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/adam.py", line 148, in step
+    loss = closure()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 108, in _wrap_closure
+    closure_result = closure()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 144, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 138, in closure
+    self._backward_fn(step_output.closure_loss)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 239, in backward_fn
+    call._call_strategy_hook(self.trainer, "backward", loss, optimizer)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 311, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 212, in backward
+    self.precision_plugin.backward(closure_loss, self.lightning_module, optimizer, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 72, in backward
+    model.backward(tensor, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1103, in backward
+    loss.backward(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: cudnn RNN backward can only be called in training mode
+
+
+Namespace(task_name='classification', train=False, dry_run=False, model='iTransformer', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:57:04.393392
+Experiment ended at 2024-07-23 20:57:25.642969. Total time taken 0:00:21.249577.
+           metric   area      comp      suff
+0        accuracy  0.050  0.989503  0.966636
+1        accuracy  0.075  0.985733  0.963381
+2        accuracy  0.100  0.983780  0.964466
+3        accuracy  0.150  0.979400  0.965768
+4             auc  0.050  0.481778  0.306762
+5             auc  0.075  0.476081  0.333391
+6             auc  0.100  0.472966  0.348138
+7             auc  0.150  0.467950  0.371606
+8   cross_entropy  0.050  0.110035  0.184506
+9   cross_entropy  0.075  0.111129  0.181141
+10  cross_entropy  0.100  0.112371  0.179396
+11  cross_entropy  0.150  0.115801  0.175704
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/2/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:57:28.089432
+Experiment ended at 2024-07-23 20:57:48.885347. Total time taken 0:00:20.795915.
+           metric   area      comp      suff
+0        accuracy  0.050  0.982816  0.944935
+1        accuracy  0.075  0.977607  0.943335
+2        accuracy  0.100  0.973661  0.943118
+3        accuracy  0.150  0.969972  0.943809
+4             auc  0.050  0.698464  0.494451
+5             auc  0.075  0.695204  0.524013
+6             auc  0.100  0.691251  0.548042
+7             auc  0.150  0.676585  0.578757
+8   cross_entropy  0.050  0.102705  0.211893
+9   cross_entropy  0.075  0.105466  0.207261
+10  cross_entropy  0.100  0.108739  0.203823
+11  cross_entropy  0.150  0.115990  0.199514
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/3/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:57:51.246511
+Experiment ended at 2024-07-23 20:58:11.676959. Total time taken 0:00:20.430448.
+           metric   area      comp      suff
+0        accuracy  0.050  0.986505  0.970406
+1        accuracy  0.075  0.983467  0.969321
+2        accuracy  0.100  0.982205  0.968412
+3        accuracy  0.150  0.979778  0.970285
+4             auc  0.050  0.577770  0.376273
+5             auc  0.075  0.573136  0.422740
+6             auc  0.100  0.568806  0.445932
+7             auc  0.150  0.557892  0.467276
+8   cross_entropy  0.050  0.103580  0.169800
+9   cross_entropy  0.075  0.107020  0.163711
+10  cross_entropy  0.100  0.110256  0.160340
+11  cross_entropy  0.150  0.118132  0.155080
+
+
+
+Namespace(task_name='classification', train=False, dry_run=False, model='Crossformer', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_Crossformer/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:58:20.518160
+Experiment ended at 2024-07-23 20:58:58.331897. Total time taken 0:00:37.813737.
+           metric   area     comp     suff
+0        accuracy  0.050  1.00000  1.00000
+1        accuracy  0.075  1.00000  1.00000
+2        accuracy  0.100  1.00000  1.00000
+3        accuracy  0.150  1.00000  1.00000
+4             auc  0.050  0.00000  0.00000
+5             auc  0.075  0.00000  0.00000
+6             auc  0.100  0.00000  0.00000
+7             auc  0.150  0.00000  0.00000
+8   cross_entropy  0.050  0.09172  0.09172
+9   cross_entropy  0.075  0.09172  0.09172
+10  cross_entropy  0.100  0.09172  0.09172
+11  cross_entropy  0.150  0.09172  0.09172
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_Crossformer/2/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:59:01.461769
+Experiment ended at 2024-07-23 20:59:40.189924. Total time taken 0:00:38.728155.
+           metric   area      comp      suff
+0        accuracy  0.050  0.992839  0.987196
+1        accuracy  0.075  0.992188  0.986762
+2        accuracy  0.100  0.991102  0.986979
+3        accuracy  0.150  0.990234  0.986979
+4             auc  0.050  0.372297  0.267257
+5             auc  0.075  0.370621  0.283214
+6             auc  0.100  0.370281  0.300833
+7             auc  0.150  0.369045  0.320822
+8   cross_entropy  0.050  0.105134  0.120303
+9   cross_entropy  0.075  0.104137  0.121553
+10  cross_entropy  0.100  0.103314  0.121530
+11  cross_entropy  0.150  0.102494  0.120324
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_Crossformer/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_Crossformer/3/checkpoint.pth
+Running dyna_mask from 2024-07-23 20:59:43.090918
+Experiment ended at 2024-07-23 21:00:21.880363. Total time taken 0:00:38.789445.
+           metric   area      comp      suff
+0        accuracy  0.050  0.995226  0.991319
+1        accuracy  0.075  0.994575  0.991319
+2        accuracy  0.100  0.993924  0.991319
+3        accuracy  0.150  0.993707  0.991319
+4             auc  0.050  0.249429  0.212720
+5             auc  0.075  0.249089  0.227091
+6             auc  0.100  0.249089  0.234151
+7             auc  0.150  0.248981  0.242462
+8   cross_entropy  0.050  0.039507  0.044835
+9   cross_entropy  0.075  0.038634  0.042944
+10  cross_entropy  0.100  0.037836  0.041380
+11  cross_entropy  0.150  0.036545  0.039851
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='DLinear', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_DLinear/1
+test 2607
+Loading model from ./results/electricity_DLinear/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:00:28.383795
+Experiment ended at 2024-07-23 21:01:09.710849. Total time taken 0:00:41.327054.
+  metric   area      comp       suff
+0    mae  0.050  2.214735  17.308975
+1    mae  0.075  3.380937  16.734754
+2    mae  0.100  4.125068  16.319728
+3    mae  0.150  5.743799  15.394098
+4    mse  0.050  0.680679  19.877872
+5    mse  0.075  1.334489  18.864868
+6    mse  0.100  1.859977  18.154461
+7    mse  0.150  3.181815  16.616230
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='MICN', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_MICN/1
+test 2607
+Loading model from ./results/electricity_MICN/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:01:15.728867
+Experiment ended at 2024-07-23 21:03:52.195571. Total time taken 0:02:36.466704.
+  metric   area      comp       suff
+0    mae  0.050  5.129409  15.323310
+1    mae  0.075  6.797729  14.599831
+2    mae  0.100  7.677155  14.220985
+3    mae  0.150  9.138455  13.498753
+4    mse  0.050  2.998824  15.727608
+5    mse  0.075  4.434717  14.496379
+6    mse  0.100  5.290787  13.869153
+7    mse  0.150  6.837967  12.703453
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='SegRNN', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_SegRNN/1
+test 2607
+Loading model from ./results/electricity_SegRNN/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:03:59.214917
+Traceback (most recent call last):
+  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 73, in <module>
+    main(args)
+  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 42, in main
+    interpreter.interpret(dataloader)
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 216, in interpret
+    results, attrs = self.run_regressor(dataloader, name)
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 189, in run_regressor
+    batch_results, batch_attr = self.evaluate(
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 242, in evaluate
+    attr = compute_attr(
+  File "/u/mi3se/projects/SA-Timeseries/utils/explainer.py", line 173, in compute_attr
+    attr = explainer.attribute(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/log/__init__.py", line 42, in wrapper
+    return func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/tint/attr/dynamic_masks.py", line 181, in attribute
+    trainer.fit(mask_net, train_dataloaders=dataloader)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 543, in fit
+    call._call_and_handle_interrupt(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 579, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 986, in _run
+    results = self._run_stage()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1030, in _run_stage
+    self.fit_loop.run()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 205, in run
+    self.advance()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 363, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 140, in run
+    self.advance(data_fetcher)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 250, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 190, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 268, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 159, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1308, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/optimizer.py", line 153, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 238, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 122, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/optimizer.py", line 391, in wrapper
+    out = func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/optimizer.py", line 76, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/adam.py", line 148, in step
+    loss = closure()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 108, in _wrap_closure
+    closure_result = closure()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 144, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 138, in closure
+    self._backward_fn(step_output.closure_loss)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 239, in backward_fn
+    call._call_strategy_hook(self.trainer, "backward", loss, optimizer)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 311, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 212, in backward
+    self.precision_plugin.backward(closure_loss, self.lightning_module, optimizer, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 72, in backward
+    model.backward(tensor, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1103, in backward
+    loss.backward(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: cudnn RNN backward can only be called in training mode
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='iTransformer', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer/1
+test 2607
+Loading model from ./results/electricity_iTransformer/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:04:05.435105
+Experiment ended at 2024-07-23 21:06:09.117842. Total time taken 0:02:03.682737.
+  metric   area      comp       suff
+0    mae  0.050  2.749331  20.916950
+1    mae  0.075  3.664351  20.569300
+2    mae  0.100  4.401216  20.330567
+3    mae  0.150  5.671701  19.656339
+4    mse  0.050  0.841053  28.251233
+5    mse  0.075  1.334386  27.423761
+6    mse  0.100  1.804159  26.814456
+7    mse  0.150  2.725307  25.273801
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='Crossformer', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_Crossformer/1
+test 2607
+Loading model from ./results/electricity_Crossformer/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:06:16.240282
+Experiment ended at 2024-07-23 21:15:44.568593. Total time taken 0:09:28.328311.
+  metric   area      comp       suff
+0    mae  0.050  2.041750  17.705973
+1    mae  0.075  3.144620  17.354686
+2    mae  0.100  3.850032  17.109263
+3    mae  0.150  5.588449  16.365811
+4    mse  0.050  0.521004  20.214768
+5    mse  0.075  1.102945  19.527317
+6    mse  0.100  1.562616  19.051375
+7    mse  0.150  2.957714  17.658249
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='DLinear', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/1
+test 1731
+Loading model from ./results/traffic_DLinear/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:15:51.874767
+Experiment ended at 2024-07-23 21:16:19.936876. Total time taken 0:00:28.062109.
+  metric   area      comp       suff
+0    mae  0.050  2.736226  26.866393
+1    mae  0.075  4.079678  26.068181
+2    mae  0.100  4.906726  25.555605
+3    mae  0.150  6.723655  24.313053
+4    mse  0.050  0.815481  41.753576
+5    mse  0.075  1.601002  39.802607
+6    mse  0.100  2.209239  38.592002
+7    mse  0.150  3.864513  35.801815
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='MICN', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN/1
+test 1731
+Loading model from ./results/traffic_MICN/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:16:26.742345
+Experiment ended at 2024-07-23 21:18:11.836234. Total time taken 0:01:45.093889.
+  metric   area      comp       suff
+0    mae  0.050  3.283509  22.304400
+1    mae  0.075  4.307085  21.443401
+2    mae  0.100  4.804390  20.988329
+3    mae  0.150  5.804291  20.001172
+4    mse  0.050  1.155527  28.744019
+5    mse  0.075  1.749669  26.751350
+6    mse  0.100  2.074378  25.734567
+7    mse  0.150  2.779951  23.617544
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='SegRNN', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_SegRNN/1
+test 1731
+Loading model from ./results/traffic_SegRNN/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:18:19.095410
+Traceback (most recent call last):
+  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 73, in <module>
+    main(args)
+  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 42, in main
+    interpreter.interpret(dataloader)
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 216, in interpret
+    results, attrs = self.run_regressor(dataloader, name)
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 189, in run_regressor
+    batch_results, batch_attr = self.evaluate(
+  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 242, in evaluate
+    attr = compute_attr(
+  File "/u/mi3se/projects/SA-Timeseries/utils/explainer.py", line 173, in compute_attr
+    attr = explainer.attribute(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/log/__init__.py", line 42, in wrapper
+    return func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/tint/attr/dynamic_masks.py", line 181, in attribute
+    trainer.fit(mask_net, train_dataloaders=dataloader)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 543, in fit
+    call._call_and_handle_interrupt(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 579, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 986, in _run
+    results = self._run_stage()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 1030, in _run_stage
+    self.fit_loop.run()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 205, in run
+    self.advance()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/fit_loop.py", line 363, in advance
+    self.epoch_loop.run(self._data_fetcher)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 140, in run
+    self.advance(data_fetcher)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/training_epoch_loop.py", line 250, in advance
+    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 190, in run
+    self._optimizer_step(batch_idx, closure)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 268, in _optimizer_step
+    call._call_lightning_module_hook(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 159, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1308, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/optimizer.py", line 153, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 238, in optimizer_step
+    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 122, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/optimizer.py", line 391, in wrapper
+    out = func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/optimizer.py", line 76, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/optim/adam.py", line 148, in step
+    loss = closure()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 108, in _wrap_closure
+    closure_result = closure()
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 144, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 138, in closure
+    self._backward_fn(step_output.closure_loss)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/loops/optimization/automatic.py", line 239, in backward_fn
+    call._call_strategy_hook(self.trainer, "backward", loss, optimizer)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/trainer/call.py", line 311, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/strategies/strategy.py", line 212, in backward
+    self.precision_plugin.backward(closure_loss, self.lightning_module, optimizer, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/plugins/precision/precision.py", line 72, in backward
+    model.backward(tensor, *args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/pytorch_lightning/core/module.py", line 1103, in backward
+    loss.backward(*args, **kwargs)
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/_tensor.py", line 525, in backward
+    torch.autograd.backward(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/__init__.py", line 267, in backward
+    _engine_run_backward(
+  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: cudnn RNN backward can only be called in training mode
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='iTransformer', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer/1
+test 1731
+Loading model from ./results/traffic_iTransformer/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:18:25.608000
+Experiment ended at 2024-07-23 21:19:49.063211. Total time taken 0:01:23.455211.
+  metric   area      comp       suff
+0    mae  0.050  2.705080  28.689271
+1    mae  0.075  3.576292  27.635579
+2    mae  0.100  4.280816  26.891406
+3    mae  0.150  5.556324  25.154600
+4    mse  0.050  0.683999  46.536606
+5    mse  0.075  1.094303  43.576688
+6    mse  0.100  1.515898  41.496630
+7    mse  0.150  2.446534  36.873784
+
+
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='Crossformer', seed=2024, itrs=3, itr_no=1, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['dyna_mask'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_Crossformer/1
+test 1731
+Loading model from ./results/traffic_Crossformer/1/checkpoint.pth
+Running dyna_mask from 2024-07-23 21:19:56.950725
+Experiment ended at 2024-07-23 21:26:20.453463. Total time taken 0:06:23.502738.
+  metric   area      comp       suff
+0    mae  0.050  2.037111  25.582582
+1    mae  0.075  2.941839  24.305138
+2    mae  0.100  3.442662  23.482696
+3    mae  0.150  4.517929  21.482503
+4    mse  0.050  0.471571  37.667930
+5    mse  0.075  0.851660  34.397015
+6    mse  0.100  1.096189  32.370480
+7    mse  0.150  1.728568  27.693655
+

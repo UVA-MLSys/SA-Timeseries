@@ -394,3 +394,39 @@ flag val, acc 0.90474, f1 0.20939, auc 0.82262
 classification_iTransformer_mimic_iii_mimic_ftMS_sl48_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
 flag test, acc 0.90866, f1 0.28571, auc 0.83000
 
+classification_iTransformer_mimic_iii_mimic_ftMS_sl36_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90648, f1 0.26117, auc 0.81606
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl36_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90257, f1 0.21678, auc 0.80865
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl36_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90692, f1 0.15748, auc 0.81558
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl36_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90561, f1 0.17490, auc 0.80604
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl36_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90953, f1 0.31579, auc 0.82431
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl36_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.91040, f1 0.36810, auc 0.82902
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl24_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90387, f1 0.24573, auc 0.82312
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl24_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90822, f1 0.24373, auc 0.81126
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl24_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90605, f1 0.12903, auc 0.80522
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl24_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90561, f1 0.15564, auc 0.80759
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl24_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag val, acc 0.90474, f1 0.22064, auc 0.81748
+
+classification_iTransformer_mimic_iii_mimic_ftMS_sl24_ll48_pl0_dm128_nh4_el2_dl1_df256_fc3_ebtimeF_dtTrue  
+flag test, acc 0.90953, f1 0.26761, auc 0.81491
+

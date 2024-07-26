@@ -1,0 +1,354 @@
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_36/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_36/1/checkpoint.pth
+Running winIT from 2024-07-26 11:31:40.444651
+Experiment ended at 2024-07-26 11:41:06.032288. Total time taken 0:09:25.587637.
+           metric   area      comp      suff
+0        accuracy  0.050  0.985460  0.973661
+1        accuracy  0.075  0.980903  0.972142
+2        accuracy  0.100  0.979167  0.974529
+3        accuracy  0.150  0.975397  0.976916
+4             auc  0.050  0.533683  0.403805
+5             auc  0.075  0.527609  0.441123
+6             auc  0.100  0.524890  0.458859
+7             auc  0.150  0.512130  0.490905
+8   cross_entropy  0.050  0.112377  0.137811
+9   cross_entropy  0.075  0.116124  0.133188
+10  cross_entropy  0.100  0.118557  0.128111
+11  cross_entropy  0.150  0.124794  0.120464
+
+Running wtsr from 2024-07-26 11:41:06.191333
+Experiment ended at 2024-07-26 11:45:37.084009. Total time taken 0:04:30.892676.
+           metric   area      comp      suff
+0        accuracy  0.050  0.973307  0.973741
+1        accuracy  0.075  0.971788  0.976345
+2        accuracy  0.100  0.970052  0.976128
+3        accuracy  0.150  0.966757  0.976997
+4             auc  0.050  0.503478  0.469775
+5             auc  0.075  0.484002  0.485831
+6             auc  0.100  0.476431  0.501893
+7             auc  0.150  0.448586  0.520790
+8   cross_entropy  0.050  0.132229  0.125726
+9   cross_entropy  0.075  0.139345  0.120204
+10  cross_entropy  0.100  0.143685  0.117552
+11  cross_entropy  0.150  0.151569  0.112567
+
+Running tsr from 2024-07-26 11:45:37.250999
+Experiment ended at 2024-07-26 11:53:22.982528. Total time taken 0:07:45.731529.
+           metric   area      comp      suff
+0        accuracy  0.050  0.977214  0.975043
+1        accuracy  0.075  0.971571  0.975260
+2        accuracy  0.100  0.968750  0.977214
+3        accuracy  0.150  0.967014  0.977648
+4             auc  0.050  0.566098  0.498615
+5             auc  0.075  0.539969  0.536409
+6             auc  0.100  0.524135  0.554796
+7             auc  0.150  0.483469  0.575012
+8   cross_entropy  0.050  0.123221  0.129335
+9   cross_entropy  0.075  0.132587  0.124899
+10  cross_entropy  0.100  0.140304  0.122121
+11  cross_entropy  0.150  0.152493  0.117888
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_36/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_36/2/checkpoint.pth
+Running winIT from 2024-07-26 11:53:25.494229
+Experiment ended at 2024-07-26 12:02:54.971246. Total time taken 0:09:29.477017.
+           metric   area      comp      suff
+0        accuracy  0.050  0.991753  0.976562
+1        accuracy  0.075  0.990451  0.976780
+2        accuracy  0.100  0.990451  0.976345
+3        accuracy  0.150  0.988932  0.976088
+4             auc  0.050  0.373734  0.283434
+5             auc  0.075  0.372260  0.297065
+6             auc  0.100  0.371588  0.317977
+7             auc  0.150  0.369000  0.331433
+8   cross_entropy  0.050  0.097427  0.131652
+9   cross_entropy  0.075  0.099400  0.130438
+10  cross_entropy  0.100  0.102357  0.127563
+11  cross_entropy  0.150  0.106246  0.123559
+
+Running wtsr from 2024-07-26 12:02:55.122869
+Experiment ended at 2024-07-26 12:07:28.218080. Total time taken 0:04:33.095211.
+           metric   area      comp      suff
+0        accuracy  0.050  0.982559  0.983941
+1        accuracy  0.075  0.980822  0.985460
+2        accuracy  0.100  0.981867  0.985677
+3        accuracy  0.150  0.977961  0.984375
+4             auc  0.050  0.423783  0.380556
+5             auc  0.075  0.415603  0.395897
+6             auc  0.100  0.408766  0.407467
+7             auc  0.150  0.393336  0.419665
+8   cross_entropy  0.050  0.124660  0.105488
+9   cross_entropy  0.075  0.129915  0.101983
+10  cross_entropy  0.100  0.133050  0.100744
+11  cross_entropy  0.150  0.137463  0.099411
+
+Running tsr from 2024-07-26 12:07:28.372202
+Experiment ended at 2024-07-26 12:15:16.579809. Total time taken 0:07:48.207607.
+           metric   area      comp      suff
+0        accuracy  0.050  0.985460  0.983644
+1        accuracy  0.075  0.980903  0.982776
+2        accuracy  0.100  0.977431  0.982124
+3        accuracy  0.150  0.972005  0.984335
+4             auc  0.050  0.365013  0.330254
+5             auc  0.075  0.345139  0.350211
+6             auc  0.100  0.324470  0.363359
+7             auc  0.150  0.312377  0.366021
+8   cross_entropy  0.050  0.116833  0.110497
+9   cross_entropy  0.075  0.126825  0.106867
+10  cross_entropy  0.100  0.135963  0.104066
+11  cross_entropy  0.150  0.147317  0.100930
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_36/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_36/3/checkpoint.pth
+Running winIT from 2024-07-26 12:15:18.879105
+Experiment ended at 2024-07-26 12:24:46.534395. Total time taken 0:09:27.655290.
+           metric   area      comp      suff
+0        accuracy  0.050  0.982422  0.947266
+1        accuracy  0.075  0.976562  0.950481
+2        accuracy  0.100  0.972656  0.952651
+3        accuracy  0.150  0.966797  0.955038
+4             auc  0.050  0.758469  0.525553
+5             auc  0.075  0.755801  0.570463
+6             auc  0.100  0.751093  0.602098
+7             auc  0.150  0.732318  0.641396
+8   cross_entropy  0.050  0.125440  0.197809
+9   cross_entropy  0.075  0.130667  0.186487
+10  cross_entropy  0.100  0.137363  0.177967
+11  cross_entropy  0.150  0.147157  0.164897
+
+Running wtsr from 2024-07-26 12:24:46.689853
+Experiment ended at 2024-07-26 12:29:18.734872. Total time taken 0:04:32.045019.
+           metric   area      comp      suff
+0        accuracy  0.050  0.968670  0.955038
+1        accuracy  0.075  0.962593  0.957031
+2        accuracy  0.100  0.959121  0.958470
+3        accuracy  0.150  0.953262  0.961982
+4             auc  0.050  0.689203  0.618110
+5             auc  0.075  0.673384  0.637309
+6             auc  0.100  0.651341  0.649384
+7             auc  0.150  0.611738  0.673412
+8   cross_entropy  0.050  0.138941  0.175537
+9   cross_entropy  0.075  0.149504  0.168498
+10  cross_entropy  0.100  0.159206  0.163003
+11  cross_entropy  0.150  0.172757  0.156292
+
+Running tsr from 2024-07-26 12:29:18.889821
+Experiment ended at 2024-07-26 12:37:06.753545. Total time taken 0:07:47.863724.
+           metric   area      comp      suff
+0        accuracy  0.050  0.962674  0.954861
+1        accuracy  0.075  0.956163  0.960069
+2        accuracy  0.100  0.952474  0.960503
+3        accuracy  0.150  0.945530  0.963501
+4             auc  0.050  0.700722  0.621971
+5             auc  0.075  0.660739  0.659886
+6             auc  0.100  0.620945  0.684917
+7             auc  0.150  0.558919  0.721394
+8   cross_entropy  0.050  0.147511  0.172923
+9   cross_entropy  0.075  0.162817  0.163966
+10  cross_entropy  0.100  0.176553  0.158930
+11  cross_entropy  0.150  0.197380  0.148975
+
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_24/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_24/1/checkpoint.pth
+Running winIT from 2024-07-26 12:37:17.971616
+Experiment ended at 2024-07-26 12:45:27.694370. Total time taken 0:08:09.722754.
+           metric   area      comp      suff
+0        accuracy  0.050  0.981433  0.946534
+1        accuracy  0.075  0.979874  0.948487
+2        accuracy  0.100  0.976739  0.944975
+3        accuracy  0.150  0.975911  0.943673
+4             auc  0.050  0.465295  0.328865
+5             auc  0.075  0.462992  0.344130
+6             auc  0.100  0.462299  0.362990
+7             auc  0.150  0.455157  0.375721
+8   cross_entropy  0.050  0.119330  0.180335
+9   cross_entropy  0.075  0.123272  0.178064
+10  cross_entropy  0.100  0.126440  0.178444
+11  cross_entropy  0.150  0.132794  0.178442
+
+Running wtsr from 2024-07-26 12:45:27.867097
+Experiment ended at 2024-07-26 12:48:38.500636. Total time taken 0:03:10.633539.
+           metric   area      comp      suff
+0        accuracy  0.050  0.954427  0.968099
+1        accuracy  0.075  0.950738  0.966363
+2        accuracy  0.100  0.942548  0.966974
+3        accuracy  0.150  0.931994  0.968316
+4             auc  0.050  0.410415  0.248092
+5             auc  0.075  0.405080  0.260553
+6             auc  0.100  0.399870  0.279653
+7             auc  0.150  0.385626  0.319508
+8   cross_entropy  0.050  0.161454  0.159486
+9   cross_entropy  0.075  0.170795  0.154001
+10  cross_entropy  0.100  0.183894  0.149649
+11  cross_entropy  0.150  0.202472  0.138701
+
+Running tsr from 2024-07-26 12:48:38.656648
+Experiment ended at 2024-07-26 12:54:08.279788. Total time taken 0:05:29.623140.
+           metric   area      comp      suff
+0        accuracy  0.050  0.944895  0.965824
+1        accuracy  0.075  0.928755  0.966299
+2        accuracy  0.100  0.914215  0.969297
+3        accuracy  0.150  0.897995  0.972592
+4             auc  0.050  0.485173  0.375456
+5             auc  0.075  0.471835  0.400896
+6             auc  0.100  0.448632  0.408577
+7             auc  0.150  0.424823  0.427708
+8   cross_entropy  0.050  0.178004  0.150409
+9   cross_entropy  0.075  0.204549  0.141678
+10  cross_entropy  0.100  0.231009  0.136494
+11  cross_entropy  0.150  0.260276  0.128264
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_24/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_24/2/checkpoint.pth
+Running winIT from 2024-07-26 12:54:10.397966
+Experiment ended at 2024-07-26 13:02:22.051536. Total time taken 0:08:11.653570.
+           metric   area      comp      suff
+0        accuracy  0.050  0.994358  0.979384
+1        accuracy  0.075  0.992622  0.979818
+2        accuracy  0.100  0.991319  0.977648
+3        accuracy  0.150  0.989149  0.978082
+4             auc  0.050  0.318209  0.209110
+5             auc  0.075  0.317197  0.236309
+6             auc  0.100  0.315730  0.256784
+7             auc  0.150  0.312687  0.274156
+8   cross_entropy  0.050  0.084344  0.140919
+9   cross_entropy  0.075  0.086233  0.138634
+10  cross_entropy  0.100  0.088438  0.135670
+11  cross_entropy  0.150  0.091021  0.129981
+
+Running wtsr from 2024-07-26 13:02:22.207762
+Experiment ended at 2024-07-26 13:05:33.090409. Total time taken 0:03:10.882647.
+           metric   area      comp      suff
+0        accuracy  0.050  0.985026  0.984592
+1        accuracy  0.075  0.984375  0.985026
+2        accuracy  0.100  0.983290  0.984592
+3        accuracy  0.150  0.980035  0.986979
+4             auc  0.050  0.367477  0.307224
+5             auc  0.075  0.355768  0.319661
+6             auc  0.100  0.346345  0.336022
+7             auc  0.150  0.331646  0.345878
+8   cross_entropy  0.050  0.116673  0.115604
+9   cross_entropy  0.075  0.124040  0.109887
+10  cross_entropy  0.100  0.131209  0.106257
+11  cross_entropy  0.150  0.140467  0.102212
+
+Running tsr from 2024-07-26 13:05:33.246288
+Experiment ended at 2024-07-26 13:11:07.529744. Total time taken 0:05:34.283456.
+           metric   area      comp      suff
+0        accuracy  0.050  0.987807  0.984158
+1        accuracy  0.075  0.984118  0.984158
+2        accuracy  0.100  0.980646  0.985026
+3        accuracy  0.150  0.973918  0.986545
+4             auc  0.050  0.308172  0.260192
+5             auc  0.075  0.301983  0.273947
+6             auc  0.100  0.295032  0.287860
+7             auc  0.150  0.285492  0.298976
+8   cross_entropy  0.050  0.108635  0.118151
+9   cross_entropy  0.075  0.118926  0.113585
+10  cross_entropy  0.100  0.130350  0.107878
+11  cross_entropy  0.150  0.146632  0.101810
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_24/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_24/3/checkpoint.pth
+Running winIT from 2024-07-26 13:11:09.469438
+Experiment ended at 2024-07-26 13:19:17.315631. Total time taken 0:08:07.846193.
+           metric   area      comp      suff
+0        accuracy  0.050  0.988024  0.976482
+1        accuracy  0.075  0.985894  0.976699
+2        accuracy  0.100  0.982124  0.976482
+3        accuracy  0.150  0.977093  0.978001
+4             auc  0.050  0.579299  0.481023
+5             auc  0.075  0.578271  0.504305
+6             auc  0.100  0.576058  0.521860
+7             auc  0.150  0.568013  0.552234
+8   cross_entropy  0.050  0.119481  0.150648
+9   cross_entropy  0.075  0.123473  0.147276
+10  cross_entropy  0.100  0.124808  0.145652
+11  cross_entropy  0.150  0.125904  0.141637
+
+Running wtsr from 2024-07-26 13:19:17.471079
+Experiment ended at 2024-07-26 13:22:29.257317. Total time taken 0:03:11.786238.
+           metric   area      comp      suff
+0        accuracy  0.050  0.978001  0.975751
+1        accuracy  0.075  0.975831  0.977053
+2        accuracy  0.100  0.974312  0.979657
+3        accuracy  0.150  0.973227  0.981176
+4             auc  0.050  0.501375  0.477013
+5             auc  0.075  0.492390  0.486754
+6             auc  0.100  0.488059  0.494886
+7             auc  0.150  0.473912  0.512444
+8   cross_entropy  0.050  0.131309  0.138769
+9   cross_entropy  0.075  0.137653  0.135125
+10  cross_entropy  0.100  0.142486  0.131620
+11  cross_entropy  0.150  0.150470  0.125652
+
+Running tsr from 2024-07-26 13:22:29.413268
+Experiment ended at 2024-07-26 13:28:04.406134. Total time taken 0:05:34.992866.
+           metric   area      comp      suff
+0        accuracy  0.050  0.980686  0.976997
+1        accuracy  0.075  0.976562  0.978516
+2        accuracy  0.100  0.970703  0.979167
+3        accuracy  0.150  0.968710  0.982639
+4             auc  0.050  0.520530  0.460419
+5             auc  0.075  0.506838  0.480074
+6             auc  0.100  0.498152  0.488563
+7             auc  0.150  0.473015  0.508421
+8   cross_entropy  0.050  0.133982  0.139402
+9   cross_entropy  0.075  0.141843  0.133760
+10  cross_entropy  0.100  0.149358  0.129614
+11  cross_entropy  0.150  0.162863  0.122940
+

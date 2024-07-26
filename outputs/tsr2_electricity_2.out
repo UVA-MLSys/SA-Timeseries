@@ -1,0 +1,32 @@
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_DLinear/1
+test 2607
+Loading model from ./results/electricity_DLinear/1/checkpoint.pth
+./results/electricity_DLinear/1/tsr2.csv exists. Skipping ...
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_DLinear/2
+test 2607
+Loading model from ./results/electricity_DLinear/2/checkpoint.pth
+./results/electricity_DLinear/2/tsr2.csv exists. Skipping ...
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_DLinear/3
+test 2607
+Loading model from ./results/electricity_DLinear/3/checkpoint.pth
+Running tsr2 from 2024-07-25 10:58:36.989797
+Experiment ended at 2024-07-26 03:01:24.893349. Total time taken 16:02:47.903552.
+  metric   area      comp       suff
+0    mae  0.050  1.895845  10.894158
+1    mae  0.075  2.055839  10.249172
+2    mae  0.100  2.116669   9.820922
+3    mae  0.150  2.269258   8.606270
+4    mse  0.050  0.285929   7.916548
+5    mse  0.075  0.310780   7.036966
+6    mse  0.100  0.321397   6.468805
+7    mse  0.150  0.363243   4.920616
+

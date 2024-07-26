@@ -17,18 +17,11 @@ module load cuda-toolkit cudnn-8.9.5_cuda12.x anaconda3
 conda deactivate
 conda activate ml
 
-python run.py \
-  --task_name long_term_forecast \
-  --train \
-  --root_path ./dataset/traffic/ \
-  --data_path traffic.csv \
-  --features S \
-  --seq_len 96 \
-  --label_len 12 \
-  --pred_len 24 \
-  --n_features 1 \
-  --model DLinear 
+models=("DLinear" "MICN" "SegRNN" "iTransformer")
 
+for model in ${models[@]}
+do 
+echo "Running for model:$model"
 python run.py \
   --task_name long_term_forecast \
   --train \
@@ -39,40 +32,5 @@ python run.py \
   --label_len 12 \
   --pred_len 24 \
   --n_features 1 \
-  --model SegRNN
-
-python run.py \
-  --task_name long_term_forecast \
-  --train \
-  --root_path ./dataset/traffic/ \
-  --data_path traffic.csv \
-  --features S \
-  --seq_len 96 \
-  --label_len 12 \
-  --pred_len 24 \
-  --n_features 1 \
-  --model MICN
-
-python run.py \
-  --task_name long_term_forecast \
-  --train \
-  --root_path ./dataset/traffic/ \
-  --data_path traffic.csv \
-  --features S \
-  --seq_len 96 \
-  --label_len 12 \
-  --pred_len 24 \
-  --n_features 1 \
-  --model Crossformer 
-
-python run.py \
-  --task_name long_term_forecast \
-  --train \
-  --root_path ./dataset/traffic/ \
-  --data_path traffic.csv \
-  --features S \
-  --seq_len 96 \
-  --label_len 12 \
-  --pred_len 24 \
-  --n_features 1 \
-  --model TimesNet   
+  --model $model
+done

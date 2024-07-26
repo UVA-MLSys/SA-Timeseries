@@ -1,0 +1,724 @@
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_48/1
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_48/1/checkpoint.pth
+Running winIT from 2024-07-25 12:23:23.340380
+Experiment ended at 2024-07-25 12:28:35.285652. Total time taken 0:05:11.945272.
+  metric   area       comp       suff
+0    mae  0.050  10.167955  18.304158
+1    mae  0.075  11.079990  17.974617
+2    mae  0.100  11.748251  17.650682
+3    mae  0.150  13.010777  16.807624
+4    mse  0.050   9.465940  22.131128
+5    mse  0.075  10.721774  21.414705
+6    mse  0.100  11.691363  20.723688
+7    mse  0.150  13.490285  18.981181
+
+Running wtsr from 2024-07-25 12:28:35.724537
+Experiment ended at 2024-07-25 12:33:26.446033. Total time taken 0:04:50.721496.
+  metric   area       comp       suff
+0    mae  0.050  13.482775  16.663656
+1    mae  0.075  14.624187  15.741527
+2    mae  0.100  15.410538  15.009219
+3    mae  0.150  16.858351  13.374425
+4    mse  0.050  15.118594  18.636181
+5    mse  0.075  16.974564  16.838698
+6    mse  0.100  18.299169  15.450924
+7    mse  0.150  20.812851  12.527000
+
+Running tsr from 2024-07-25 12:33:26.706716
+Experiment ended at 2024-07-25 13:14:12.981288. Total time taken 0:40:46.274572.
+  metric   area       comp       suff
+0    mae  0.050  12.642127  17.093371
+1    mae  0.075  13.947376  16.202191
+2    mae  0.100  14.855893  15.441247
+3    mae  0.150  16.494138  13.690243
+4    mse  0.050  13.669579  19.500462
+5    mse  0.075  15.717985  17.675121
+6    mse  0.100  17.238246  16.189939
+7    mse  0.150  20.086570  13.019164
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_48/2
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_48/2/checkpoint.pth
+Running winIT from 2024-07-25 13:14:14.654084
+Experiment ended at 2024-07-25 13:19:23.208504. Total time taken 0:05:08.554420.
+  metric   area       comp       suff
+0    mae  0.050  10.227238  18.770189
+1    mae  0.075  11.141053  18.413990
+2    mae  0.100  11.825185  18.087980
+3    mae  0.150  13.128538  17.201900
+4    mse  0.050  10.000427  23.139578
+5    mse  0.075  11.185923  22.332563
+6    mse  0.100  12.147737  21.624262
+7    mse  0.150  14.027537  19.730109
+
+Running wtsr from 2024-07-25 13:19:23.453740
+Experiment ended at 2024-07-25 13:24:11.018678. Total time taken 0:04:47.564938.
+  metric   area       comp       suff
+0    mae  0.050  13.230534  17.012464
+1    mae  0.075  14.344894  16.027407
+2    mae  0.100  15.145421  15.251065
+3    mae  0.150  16.597353  13.538045
+4    mse  0.050  14.808604  19.469442
+5    mse  0.075  16.532270  17.482030
+6    mse  0.100  17.835911  15.977200
+7    mse  0.150  20.257557  12.835540
+
+Running tsr from 2024-07-25 13:24:11.235711
+Experiment ended at 2024-07-25 14:05:04.214769. Total time taken 0:40:52.979058.
+  metric   area       comp       suff
+0    mae  0.050  12.617326  17.221500
+1    mae  0.075  13.859009  16.371703
+2    mae  0.100  14.687260  15.619621
+3    mae  0.150  16.222054  13.836052
+4    mse  0.050  13.817518  19.753078
+5    mse  0.075  15.714624  17.999596
+6    mse  0.100  16.957814  16.510944
+7    mse  0.150  19.452028  13.238053
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_48/3
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_48/3/checkpoint.pth
+Running winIT from 2024-07-25 14:05:06.060137
+Experiment ended at 2024-07-25 14:10:14.548756. Total time taken 0:05:08.488619.
+  metric   area       comp       suff
+0    mae  0.050  10.001949  18.419013
+1    mae  0.075  10.930509  18.078774
+2    mae  0.100  11.591133  17.735583
+3    mae  0.150  12.820407  16.875213
+4    mse  0.050   9.156232  22.270551
+5    mse  0.075  10.369958  21.524764
+6    mse  0.100  11.283597  20.797170
+7    mse  0.150  13.030725  19.014328
+
+Running wtsr from 2024-07-25 14:10:14.784831
+Experiment ended at 2024-07-25 14:15:02.988326. Total time taken 0:04:48.203495.
+  metric   area       comp       suff
+0    mae  0.050  13.020499  16.602133
+1    mae  0.075  14.127957  15.700619
+2    mae  0.100  14.926542  14.963905
+3    mae  0.150  16.443623  13.284500
+4    mse  0.050  14.452154  18.525353
+5    mse  0.075  16.165853  16.735676
+6    mse  0.100  17.448223  15.328338
+7    mse  0.150  19.970302  12.339160
+
+Running tsr from 2024-07-25 14:15:03.208604
+Experiment ended at 2024-07-25 14:55:57.046455. Total time taken 0:40:53.837851.
+  metric   area       comp       suff
+0    mae  0.050  12.067236  16.902433
+1    mae  0.075  13.390186  16.043642
+2    mae  0.100  14.295068  15.298378
+3    mae  0.150  15.982858  13.576119
+4    mse  0.050  12.663281  19.073794
+5    mse  0.075  14.662142  17.355563
+6    mse  0.100  16.090183  15.918876
+7    mse  0.150  18.871264  12.792686
+
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_24/1
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_24/1/checkpoint.pth
+Running winIT from 2024-07-25 14:56:22.311896
+Experiment ended at 2024-07-25 15:01:00.321386. Total time taken 0:04:38.009490.
+  metric   area       comp       suff
+0    mae  0.050  12.680787  25.045270
+1    mae  0.075  13.295375  24.815530
+2    mae  0.100  15.121492  23.920258
+3    mae  0.150  16.627004  22.921589
+4    mse  0.050  15.833946  42.350526
+5    mse  0.075  16.688271  41.610635
+6    mse  0.100  19.924659  39.001371
+7    mse  0.150  22.607455  36.101171
+
+Running wtsr from 2024-07-25 15:01:00.549262
+Experiment ended at 2024-07-25 15:05:01.341654. Total time taken 0:04:00.792392.
+  metric   area       comp       suff
+0    mae  0.050  16.432902  23.377883
+1    mae  0.075  16.658763  23.059161
+2    mae  0.100  18.685724  21.254618
+3    mae  0.150  20.204889  19.398942
+4    mse  0.050  23.322242  37.886274
+5    mse  0.075  23.466396  36.985336
+6    mse  0.100  27.694491  31.962000
+7    mse  0.150  30.727882  27.143742
+
+Running tsr from 2024-07-25 15:05:01.577392
+Experiment ended at 2024-07-25 15:27:06.912979. Total time taken 0:22:05.335587.
+  metric   area       comp       suff
+0    mae  0.050  15.665848  23.959172
+1    mae  0.075  15.971844  23.667912
+2    mae  0.100  18.217994  21.948973
+3    mae  0.150  19.750096  20.202251
+4    mse  0.050  22.088117  39.335919
+5    mse  0.075  22.063634  38.455705
+6    mse  0.100  26.981919  33.597260
+7    mse  0.150  30.014293  28.874602
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_24/2
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_24/2/checkpoint.pth
+Running winIT from 2024-07-25 15:27:08.697282
+Experiment ended at 2024-07-25 15:31:46.449607. Total time taken 0:04:37.752325.
+  metric   area       comp       suff
+0    mae  0.050  12.674503  24.072365
+1    mae  0.075  13.369978  23.909331
+2    mae  0.100  15.311554  23.120551
+3    mae  0.150  16.940264  22.236462
+4    mse  0.050  14.910449  39.329707
+5    mse  0.075  16.108013  38.810894
+6    mse  0.100  19.673401  36.531016
+7    mse  0.150  22.880279  33.998114
+
+Running wtsr from 2024-07-25 15:31:46.677729
+Experiment ended at 2024-07-25 15:35:47.553738. Total time taken 0:04:00.876009.
+  metric   area       comp       suff
+0    mae  0.050  16.014162  22.417305
+1    mae  0.075  16.430494  22.119522
+2    mae  0.100  18.849301  20.439873
+3    mae  0.150  20.596803  18.775011
+4    mse  0.050  21.520890  34.526012
+5    mse  0.075  22.239586  33.760634
+6    mse  0.100  27.919432  29.332557
+7    mse  0.150  31.956624  25.247537
+
+Running tsr from 2024-07-25 15:35:47.771761
+Experiment ended at 2024-07-25 15:57:54.366850. Total time taken 0:22:06.595089.
+  metric   area       comp       suff
+0    mae  0.050  15.093719  22.822332
+1    mae  0.075  15.642886  22.568701
+2    mae  0.100  18.106400  20.899575
+3    mae  0.150  19.759600  19.237323
+4    mse  0.050  20.217258  35.564659
+5    mse  0.075  20.862928  34.808039
+6    mse  0.100  26.190973  30.339705
+7    mse  0.150  29.601389  26.145881
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_24/3
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_24/3/checkpoint.pth
+Running winIT from 2024-07-25 15:57:56.005335
+Experiment ended at 2024-07-25 16:02:34.765771. Total time taken 0:04:38.760436.
+  metric   area       comp       suff
+0    mae  0.050  12.592117  22.043780
+1    mae  0.075  13.150839  21.970300
+2    mae  0.100  14.772129  21.199238
+3    mae  0.150  16.031268  20.426429
+4    mse  0.050  15.066233  32.960203
+5    mse  0.075  15.764207  32.742476
+6    mse  0.100  18.550866  30.599344
+7    mse  0.150  20.749632  28.546587
+
+Running wtsr from 2024-07-25 16:02:34.987631
+Experiment ended at 2024-07-25 16:06:36.662923. Total time taken 0:04:01.675292.
+  metric   area       comp       suff
+0    mae  0.050  16.263175  20.764274
+1    mae  0.075  16.445422  20.447390
+2    mae  0.100  18.293049  18.837970
+3    mae  0.150  19.639013  17.246551
+4    mse  0.050  22.338079  29.232658
+5    mse  0.075  22.323951  28.486829
+6    mse  0.100  26.529203  24.592008
+7    mse  0.150  29.450976  21.063379
+
+Running tsr from 2024-07-25 16:06:36.882166
+Experiment ended at 2024-07-25 16:28:46.197279. Total time taken 0:22:09.315113.
+  metric   area       comp       suff
+0    mae  0.050  15.499028  20.630755
+1    mae  0.075  15.884597  20.442591
+2    mae  0.100  18.009387  18.921818
+3    mae  0.150  19.256321  17.444899
+4    mse  0.050  21.162901  28.894752
+5    mse  0.075  21.429124  28.469290
+6    mse  0.100  26.075566  24.769521
+7    mse  0.150  28.362993  21.329822
+
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_48/1
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_48/1/checkpoint.pth
+Running winIT from 2024-07-25 16:29:05.492453
+Experiment ended at 2024-07-25 16:32:31.717061. Total time taken 0:03:26.224608.
+  metric   area      comp       suff
+0    mae  0.050  6.658675  27.323091
+1    mae  0.075  7.390318  26.657295
+2    mae  0.100  8.006596  26.004387
+3    mae  0.150  9.289578  24.027271
+4    mse  0.050  4.014875  42.853039
+5    mse  0.075  4.684017  41.000202
+6    mse  0.100  5.295123  39.211754
+7    mse  0.150  6.691005  34.016925
+
+Running wtsr from 2024-07-25 16:32:31.919747
+Experiment ended at 2024-07-25 16:35:45.082047. Total time taken 0:03:13.162300.
+  metric   area       comp       suff
+0    mae  0.050   9.534636  25.272348
+1    mae  0.075  10.742343  23.887700
+2    mae  0.100  11.635773  22.598555
+3    mae  0.150  13.499811  19.222808
+4    mse  0.050   7.285871  37.121372
+5    mse  0.075   8.775825  33.540670
+6    mse  0.100   9.970115  30.335891
+7    mse  0.150  12.835774  22.640203
+
+Running tsr from 2024-07-25 16:35:45.281513
+Experiment ended at 2024-07-25 17:02:55.643602. Total time taken 0:27:10.362089.
+  metric   area       comp       suff
+0    mae  0.050   9.176246  24.828147
+1    mae  0.075  10.431815  23.448341
+2    mae  0.100  11.347580  22.179452
+3    mae  0.150  13.295816  18.905354
+4    mse  0.050   6.899486  36.009008
+5    mse  0.075   8.413382  32.463735
+6    mse  0.100   9.615518  29.345532
+7    mse  0.150  12.508892  21.967851
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_48/2
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_48/2/checkpoint.pth
+Running winIT from 2024-07-25 17:02:58.117355
+Experiment ended at 2024-07-25 17:06:24.562333. Total time taken 0:03:26.444978.
+  metric   area      comp       suff
+0    mae  0.050  6.175314  27.484740
+1    mae  0.075  6.917696  26.792611
+2    mae  0.100  7.539950  26.113103
+3    mae  0.150  8.860011  24.112260
+4    mse  0.050  3.536700  43.230629
+5    mse  0.075  4.152845  41.288545
+6    mse  0.100  4.736974  39.429734
+7    mse  0.150  6.099024  34.166350
+
+Running wtsr from 2024-07-25 17:06:24.755003
+Experiment ended at 2024-07-25 17:09:37.597352. Total time taken 0:03:12.842349.
+  metric   area       comp       suff
+0    mae  0.050   9.676889  25.330541
+1    mae  0.075  10.807551  23.915301
+2    mae  0.100  11.629384  22.599958
+3    mae  0.150  13.356837  19.246860
+4    mse  0.050   7.593635  37.384246
+5    mse  0.075   8.912710  33.713620
+6    mse  0.100   9.944904  30.455973
+7    mse  0.150  12.454321  22.804886
+
+Running tsr from 2024-07-25 17:09:37.787260
+Experiment ended at 2024-07-25 17:36:48.704158. Total time taken 0:27:10.916898.
+  metric   area       comp       suff
+0    mae  0.050   9.176606  25.108934
+1    mae  0.075  10.488410  23.675771
+2    mae  0.100  11.416033  22.354962
+3    mae  0.150  13.335030  19.000002
+4    mse  0.050   6.933433  36.719516
+5    mse  0.075   8.477835  33.045678
+6    mse  0.100   9.687663  29.810539
+7    mse  0.150  12.505998  22.241933
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_48/3
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_48/3/checkpoint.pth
+Running winIT from 2024-07-25 17:36:51.085174
+Experiment ended at 2024-07-25 17:40:18.113065. Total time taken 0:03:27.027891.
+  metric   area      comp       suff
+0    mae  0.050  6.143572  27.616907
+1    mae  0.075  6.835224  26.914617
+2    mae  0.100  7.422976  26.207587
+3    mae  0.150  8.730217  24.177620
+4    mse  0.050  3.330625  43.564653
+5    mse  0.075  3.940694  41.603682
+6    mse  0.100  4.498035  39.666483
+7    mse  0.150  5.844280  34.338144
+
+Running wtsr from 2024-07-25 17:40:18.308849
+Experiment ended at 2024-07-25 17:43:31.187536. Total time taken 0:03:12.878687.
+  metric   area       comp       suff
+0    mae  0.050   9.492076  25.227756
+1    mae  0.075  10.648433  23.790704
+2    mae  0.100  11.482654  22.441933
+3    mae  0.150  13.311323  19.032873
+4    mse  0.050   7.187502  37.025231
+5    mse  0.075   8.578076  33.305984
+6    mse  0.100   9.650162  29.971260
+7    mse  0.150  12.332811  22.262268
+
+Running tsr from 2024-07-25 17:43:31.382639
+Experiment ended at 2024-07-25 18:10:43.872276. Total time taken 0:27:12.489637.
+  metric   area       comp       suff
+0    mae  0.050   8.949585  24.868956
+1    mae  0.075  10.228873  23.442368
+2    mae  0.100  11.152335  22.130378
+3    mae  0.150  13.117164  18.800229
+4    mse  0.050   6.501561  35.933526
+5    mse  0.075   8.012506  32.314726
+6    mse  0.100   9.199539  29.120683
+7    mse  0.150  12.037185  21.699907
+
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_24/1
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_24/1/checkpoint.pth
+Running winIT from 2024-07-25 18:10:57.398814
+Experiment ended at 2024-07-25 18:14:07.419725. Total time taken 0:03:10.020911.
+  metric   area       comp       suff
+0    mae  0.050   8.092868  26.050104
+1    mae  0.075   8.594866  26.025437
+2    mae  0.100   9.586819  24.833281
+3    mae  0.150  10.642485  23.658770
+4    mse  0.050   6.136221  40.451550
+5    mse  0.075   6.628159  40.382896
+6    mse  0.100   7.679043  37.190201
+7    mse  0.150   8.940233  34.161373
+
+Running wtsr from 2024-07-25 18:14:07.613977
+Experiment ended at 2024-07-25 18:16:51.716948. Total time taken 0:02:44.102971.
+  metric   area       comp       suff
+0    mae  0.050   9.628026  25.024161
+1    mae  0.075  10.143203  24.964864
+2    mae  0.100  11.856382  22.904268
+3    mae  0.150  13.300866  20.976892
+4    mse  0.050   7.519594  37.706690
+5    mse  0.075   8.122885  37.537718
+6    mse  0.100  10.450979  32.240441
+7    mse  0.150  12.726480  27.564741
+
+Running tsr from 2024-07-25 18:16:51.939885
+Experiment ended at 2024-07-25 18:31:48.777441. Total time taken 0:14:56.837556.
+  metric   area       comp       suff
+0    mae  0.050   9.589606  24.641427
+1    mae  0.075  10.219390  24.562079
+2    mae  0.100  11.972837  22.483614
+3    mae  0.150  13.430033  20.566541
+4    mse  0.050   7.448777  36.420721
+5    mse  0.075   8.174795  36.218229
+6    mse  0.100  10.598574  30.978453
+7    mse  0.150  12.880346  26.459515
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_24/2
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_24/2/checkpoint.pth
+Running winIT from 2024-07-25 18:31:51.187040
+Experiment ended at 2024-07-25 18:34:59.644090. Total time taken 0:03:08.457050.
+  metric   area       comp       suff
+0    mae  0.050   8.214124  26.592392
+1    mae  0.075   8.676319  26.584760
+2    mae  0.100   9.722199  25.388780
+3    mae  0.150  10.786700  24.234968
+4    mse  0.050   5.983545  42.407335
+5    mse  0.075   6.441951  42.373949
+6    mse  0.100   7.631313  39.104637
+7    mse  0.150   8.973086  36.058992
+
+Running wtsr from 2024-07-25 18:34:59.840079
+Experiment ended at 2024-07-25 18:37:43.951866. Total time taken 0:02:44.111787.
+  metric   area       comp       suff
+0    mae  0.050   9.975280  24.929391
+1    mae  0.075  10.537567  24.851976
+2    mae  0.100  12.316463  22.773012
+3    mae  0.150  13.816384  20.808113
+4    mse  0.050   7.799824  37.718679
+5    mse  0.075   8.507033  37.490194
+6    mse  0.100  11.089007  32.103758
+7    mse  0.150  13.572388  27.339011
+
+Running tsr from 2024-07-25 18:37:44.143245
+Experiment ended at 2024-07-25 18:52:41.693514. Total time taken 0:14:57.550269.
+  metric   area       comp       suff
+0    mae  0.050  10.150517  24.866577
+1    mae  0.075  10.839529  24.759418
+2    mae  0.100  12.671530  22.619284
+3    mae  0.150  14.214377  20.629619
+4    mse  0.050   8.052233  37.566413
+5    mse  0.075   8.914329  37.261922
+6    mse  0.100  11.690039  31.730879
+7    mse  0.150  14.299941  26.942413
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_24/3
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_24/3/checkpoint.pth
+Running winIT from 2024-07-25 18:52:44.090754
+Experiment ended at 2024-07-25 18:55:52.825914. Total time taken 0:03:08.735160.
+  metric   area       comp       suff
+0    mae  0.050   7.585644  26.439736
+1    mae  0.075   8.086788  26.403175
+2    mae  0.100   9.078664  25.257948
+3    mae  0.150  10.153437  24.099233
+4    mse  0.050   5.340739  42.264212
+5    mse  0.075   5.769741  42.163007
+6    mse  0.100   6.827603  39.032623
+7    mse  0.150   8.116934  35.949248
+
+Running wtsr from 2024-07-25 18:55:53.022166
+Experiment ended at 2024-07-25 18:58:37.080272. Total time taken 0:02:44.058106.
+  metric   area       comp       suff
+0    mae  0.050   9.599434  24.628988
+1    mae  0.075  10.202559  24.515665
+2    mae  0.100  11.927892  22.435146
+3    mae  0.150  13.397074  20.484206
+4    mse  0.050   7.252739  36.880243
+5    mse  0.075   7.964168  36.584749
+6    mse  0.100  10.411979  31.301970
+7    mse  0.150  12.773304  26.674279
+
+Running tsr from 2024-07-25 18:58:37.288363
+Experiment ended at 2024-07-25 19:13:36.770001. Total time taken 0:14:59.481638.
+  metric   area       comp       suff
+0    mae  0.050   9.749049  24.492638
+1    mae  0.075  10.480368  24.375869
+2    mae  0.100  12.253710  22.241705
+3    mae  0.150  13.770963  20.240315
+4    mse  0.050   7.462077  36.353224
+5    mse  0.075   8.338794  36.053554
+6    mse  0.100  10.932342  30.626994
+7    mse  0.150  13.411535  25.880203
+
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_48/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_48/1/checkpoint.pth
+Running winIT from 2024-07-25 19:13:51.505256
+Experiment ended at 2024-07-25 19:23:42.047642. Total time taken 0:09:50.542386.
+           metric   area      comp      suff
+0        accuracy  0.050  0.988064  0.953929
+1        accuracy  0.075  0.982816  0.957875
+2        accuracy  0.100  0.981731  0.956613
+3        accuracy  0.150  0.977390  0.959828
+4             auc  0.050  0.413580  0.278542
+5             auc  0.075  0.411376  0.290077
+6             auc  0.100  0.409632  0.302290
+7             auc  0.150  0.396276  0.313363
+8   cross_entropy  0.050  0.121232  0.193586
+9   cross_entropy  0.075  0.127282  0.185750
+10  cross_entropy  0.100  0.131194  0.180327
+11  cross_entropy  0.150  0.139035  0.172928
+
+Running wtsr from 2024-07-25 19:23:42.215900
+Experiment ended at 2024-07-25 19:29:39.281352. Total time taken 0:05:57.065452.
+           metric   area      comp      suff
+0        accuracy  0.050  0.965414  0.968533
+1        accuracy  0.075  0.957425  0.972439
+2        accuracy  0.100  0.947105  0.973878
+3        accuracy  0.150  0.939252  0.976482
+4             auc  0.050  0.350111  0.309459
+5             auc  0.075  0.335518  0.328924
+6             auc  0.100  0.319549  0.341037
+7             auc  0.150  0.294737  0.350991
+8   cross_entropy  0.050  0.165367  0.163125
+9   cross_entropy  0.075  0.182766  0.154846
+10  cross_entropy  0.100  0.197938  0.149621
+11  cross_entropy  0.150  0.214637  0.141268
+
+Running tsr from 2024-07-25 19:29:39.445875
+Experiment ended at 2024-07-25 19:40:22.883008. Total time taken 0:10:43.437133.
+           metric   area      comp      suff
+0        accuracy  0.050  0.970325  0.972278
+1        accuracy  0.075  0.959869  0.969497
+2        accuracy  0.100  0.951365  0.969932
+3        accuracy  0.150  0.937950  0.970325
+4             auc  0.050  0.378080  0.311411
+5             auc  0.075  0.360883  0.329160
+6             auc  0.100  0.343389  0.343653
+7             auc  0.150  0.310091  0.363025
+8   cross_entropy  0.050  0.149359  0.166816
+9   cross_entropy  0.075  0.167758  0.160502
+10  cross_entropy  0.100  0.184007  0.156489
+11  cross_entropy  0.150  0.211413  0.148878
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_48/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_48/2/checkpoint.pth
+Running winIT from 2024-07-25 19:40:26.590292
+Experiment ended at 2024-07-25 19:50:15.473898. Total time taken 0:09:48.883606.
+           metric   area      comp      suff
+0        accuracy  0.050  0.985026  0.951228
+1        accuracy  0.075  0.981988  0.954049
+2        accuracy  0.100  0.979046  0.952707
+3        accuracy  0.150  0.976699  0.954009
+4             auc  0.050  0.648489  0.509535
+5             auc  0.075  0.648613  0.533307
+6             auc  0.100  0.645671  0.548497
+7             auc  0.150  0.636298  0.577961
+8   cross_entropy  0.050  0.109200  0.181412
+9   cross_entropy  0.075  0.109280  0.173584
+10  cross_entropy  0.100  0.111675  0.167879
+11  cross_entropy  0.150  0.114971  0.160629
+
+Running wtsr from 2024-07-25 19:50:15.636957
+Experiment ended at 2024-07-25 19:56:13.890239. Total time taken 0:05:58.253282.
+           metric   area      comp      suff
+0        accuracy  0.050  0.965117  0.960086
+1        accuracy  0.075  0.960777  0.965374
+2        accuracy  0.100  0.956219  0.965985
+3        accuracy  0.150  0.953832  0.966636
+4             auc  0.050  0.600937  0.567240
+5             auc  0.075  0.591381  0.586021
+6             auc  0.100  0.580258  0.596372
+7             auc  0.150  0.557290  0.623098
+8   cross_entropy  0.050  0.145759  0.154396
+9   cross_entropy  0.075  0.154067  0.147098
+10  cross_entropy  0.100  0.160557  0.142543
+11  cross_entropy  0.150  0.170991  0.133152
+
+Running tsr from 2024-07-25 19:56:14.041722
+Experiment ended at 2024-07-25 20:06:58.945502. Total time taken 0:10:44.903780.
+           metric   area      comp      suff
+0        accuracy  0.050  0.960600  0.959732
+1        accuracy  0.075  0.956653  0.964546
+2        accuracy  0.100  0.949235  0.961685
+3        accuracy  0.150  0.940771  0.964466
+4             auc  0.050  0.613233  0.588677
+5             auc  0.075  0.586714  0.611817
+6             auc  0.100  0.571045  0.628116
+7             auc  0.150  0.539010  0.642995
+8   cross_entropy  0.050  0.151340  0.158581
+9   cross_entropy  0.075  0.164950  0.152273
+10  cross_entropy  0.100  0.174132  0.148544
+11  cross_entropy  0.150  0.191656  0.140544
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_48/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_48/3/checkpoint.pth
+Running winIT from 2024-07-25 20:07:02.546238
+Experiment ended at 2024-07-25 20:16:52.065882. Total time taken 0:09:49.519644.
+           metric   area      comp      suff
+0        accuracy  0.050  0.985460  0.963461
+1        accuracy  0.075  0.979561  0.964112
+2        accuracy  0.100  0.976997  0.963678
+3        accuracy  0.150  0.973958  0.962159
+4             auc  0.050  0.634436  0.464173
+5             auc  0.075  0.631747  0.506862
+6             auc  0.100  0.625898  0.527478
+7             auc  0.150  0.607894  0.555087
+8   cross_entropy  0.050  0.103399  0.165176
+9   cross_entropy  0.075  0.107055  0.156435
+10  cross_entropy  0.100  0.110815  0.151968
+11  cross_entropy  0.150  0.119370  0.148651
+
+Running wtsr from 2024-07-25 20:16:52.377453
+Experiment ended at 2024-07-25 20:22:49.747650. Total time taken 0:05:57.370197.
+           metric   area      comp      suff
+0        accuracy  0.050  0.969755  0.963976
+1        accuracy  0.075  0.965117  0.963501
+2        accuracy  0.100  0.959692  0.967368
+3        accuracy  0.150  0.955609  0.972616
+4             auc  0.050  0.536979  0.467098
+5             auc  0.075  0.513502  0.504885
+6             auc  0.100  0.489332  0.531969
+7             auc  0.150  0.463141  0.548772
+8   cross_entropy  0.050  0.135897  0.145839
+9   cross_entropy  0.075  0.149984  0.135829
+10  cross_entropy  0.100  0.160550  0.128922
+11  cross_entropy  0.150  0.174945  0.122130
+
+Running tsr from 2024-07-25 20:22:49.898335
+Experiment ended at 2024-07-25 20:33:34.288592. Total time taken 0:10:44.390257.
+           metric   area      comp      suff
+0        accuracy  0.050  0.970623  0.968967
+1        accuracy  0.075  0.966242  0.970486
+2        accuracy  0.100  0.958864  0.970920
+3        accuracy  0.150  0.948881  0.972656
+4             auc  0.050  0.575574  0.518556
+5             auc  0.075  0.551794  0.543535
+6             auc  0.100  0.525713  0.566186
+7             auc  0.150  0.483670  0.582147
+8   cross_entropy  0.050  0.133290  0.140557
+9   cross_entropy  0.075  0.150384  0.133545
+10  cross_entropy  0.100  0.164539  0.126332
+11  cross_entropy  0.150  0.188655  0.118571
+
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_48/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_48/1/checkpoint.pth
+./results/mimic_iii_iTransformer_sl_48/1/winIT.csv exists. Skipping ...
+./results/mimic_iii_iTransformer_sl_48/1/wtsr.csv exists. Skipping ...
+./results/mimic_iii_iTransformer_sl_48/1/tsr.csv exists. Skipping ...
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_48/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_48/2/checkpoint.pth
+./results/mimic_iii_iTransformer_sl_48/2/winIT.csv exists. Skipping ...
+./results/mimic_iii_iTransformer_sl_48/2/wtsr.csv exists. Skipping ...
+./results/mimic_iii_iTransformer_sl_48/2/tsr.csv exists. Skipping ...
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer_sl_48/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer_sl_48/3/checkpoint.pth
+./results/mimic_iii_iTransformer_sl_48/3/winIT.csv exists. Skipping ...
+./results/mimic_iii_iTransformer_sl_48/3/wtsr.csv exists. Skipping ...
+./results/mimic_iii_iTransformer_sl_48/3/tsr.csv exists. Skipping ...
+slurmstepd: error: *** JOB 4882104 ON lynx12 CANCELLED AT 2024-07-25T23:55:31 ***

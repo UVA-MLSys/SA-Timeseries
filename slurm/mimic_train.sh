@@ -17,42 +17,17 @@ module load cuda-toolkit cudnn-8.9.5_cuda12.x anaconda3
 conda deactivate
 conda activate ml
 
-python run.py \
-  --task_name classification \
-  --data mimic \
-  --train \
-  --root_path ./dataset/mimic_iii/ \
-  --data_path mimic_iii.pkl \
-  --model DLinear --n_features 31
+models=("DLinear" "MICN" "SegRNN" "iTransformer")
 
+for model in ${models[@]}
+do 
+echo "Running for model:$model"
 python run.py \
   --task_name classification \
   --data mimic \
   --train \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --model SegRNN --n_features 31
+  --model $model --n_features 31
 
-python run.py \
-  --task_name classification \
-  --data mimic \
-  --train \
-  --root_path ./dataset/mimic_iii/ \
-  --data_path mimic_iii.pkl \
-  --model MICN --n_features 31
-
-python run.py \
-  --task_name classification \
-  --data mimic \
-  --train \
-  --root_path ./dataset/mimic_iii/ \
-  --data_path mimic_iii.pkl \
-  --model Crossformer --n_features 31
-
-python run.py \
-  --task_name classification \
-  --data mimic \
-  --train \
-  --root_path ./dataset/mimic_iii/ \
-  --data_path mimic_iii.pkl \
-  --model TimesNet --n_features 31
+done

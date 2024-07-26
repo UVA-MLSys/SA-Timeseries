@@ -1,0 +1,21 @@
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/1
+test 1731
+Loading model from ./results/traffic_DLinear/1/checkpoint.pth
+./results/traffic_DLinear/1/tsr2.csv exists. Skipping ...
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/2
+test 1731
+Loading model from ./results/traffic_DLinear/2/checkpoint.pth
+./results/traffic_DLinear/2/tsr2.csv exists. Skipping ...
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/3
+test 1731
+Loading model from ./results/traffic_DLinear/3/checkpoint.pth
+./results/traffic_DLinear/3/tsr2.csv exists. Skipping ...

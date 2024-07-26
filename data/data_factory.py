@@ -30,7 +30,7 @@ def data_provider(args, flag):
         data_set = Data(
             root_path=args.root_path,
             flag=flag, data_path=args.data_path, 
-            seed=args.seed
+            seed=args.seed, seq_len=args.seq_len
         )
         print(flag, len(data_set))
         data_loader = DataLoader(

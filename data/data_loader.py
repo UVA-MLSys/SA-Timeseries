@@ -515,7 +515,7 @@ class MimicIII(Dataset):
     def __init__(
         self, root_path='./dataset/mimic_iii', flag='train', 
         data_path='patient_vital_preprocessed.pkl', 
-        scale=True, size= [0.8, 0.1, 0.1], seed=7
+        scale=True, size= [0.8, 0.1, 0.1], seed=7, seq_len=48
     ):
         # init
         assert flag in ['train', 'test', 'val']
@@ -539,6 +539,7 @@ class MimicIII(Dataset):
         
         self.num_classes = 2
         self.class_names = [0, 1]
+        self.seq_len = seq_len
 
         self.root_path = root_path
         self.data_path = data_path
@@ -553,6 +554,9 @@ class MimicIII(Dataset):
         X = np.array([row[0] for row in data])
         # batch x features x seq_len -> batch x seq_len x features
         X = X.transpose((0, 2, 1))
+        assert self.seq_len <= X.shape[1], f'Please set seq_len smaller than {X.shape[1]}'
+        # save the most recent sequence
+        X = X[:, -self.seq_len:]
         
         Y = np.array([int(row[1]) for row in data])
         

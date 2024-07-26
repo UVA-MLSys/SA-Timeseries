@@ -175,7 +175,6 @@ class Exp_Classification(Exp_Basic):
             probs = torch.nn.functional.sigmoid(preds)
             predictions = torch.round(probs).squeeze().cpu().numpy()
 
-        print(trues.shape, probs.shape)
         probs = probs.detach().cpu().numpy()
         
         # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html

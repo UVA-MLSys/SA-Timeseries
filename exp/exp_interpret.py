@@ -256,6 +256,32 @@ class Exp_Interpret:
         attrs = tuple(torch.vstack([a[i] for a in attrs]) for i in range(2))
         return results, attrs
     
+    def record_time_efficiency(self, start, end, name):
+        if self.args.dry_run or not self.args.overwrite: return
+                
+        time_efficiency_file = os.path.join(
+            self.args.result_path, f'time_efficiency.csv'
+        )
+        if not os.path.exists(time_efficiency_file):
+            time_efficiency_file = open(time_efficiency_file, 'w', newline='')
+            writer = csv.writer(time_efficiency_file) 
+            writer.writerow(
+                ['dataset', 'model', 'iteration', 
+                 'name', 'timestamp', 'duration']
+            )
+        else:
+            time_efficiency_file = open(
+                time_efficiency_file, 'a', newline=''
+            )
+            writer = csv.writer(time_efficiency_file)
+        
+        writer.writerow(
+            [self.args.data_path.split('.')[0], self.args.model, 
+             self.args.itr_no, name, end, end - start]
+        )
+        time_efficiency_file.flush()
+        time_efficiency_file.close()
+    
     def interpret(self, dataloader):
         task = self.args.task_name
         
@@ -268,7 +294,6 @@ class Exp_Interpret:
                     print(f'{explainer_result_file} exists. Skipping ...')
                     continue
             
-            results = []
             start = datetime.now()
             print(f'Running {name} from {start}')
             
@@ -277,8 +302,11 @@ class Exp_Interpret:
             else:
                 results, attrs = self.run_regressor(dataloader, name)
             
+            # this might not reflect the correct time if the results are resumed from a checkpoint
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
+            self.record_time_efficiency(start, end, name)
+            
             if not self.args.dry_run:
                 self.dump_results(results, f'{name}.csv')
                 

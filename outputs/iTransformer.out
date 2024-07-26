@@ -1,1 +1,367 @@
-slurmstepd: error: *** JOB 4880124 ON adriatic01 CANCELLED AT 2024-07-22T19:56:01 DUE TO TIME LIMIT ***
+slurmstepd: error: *** JOB 4880473 ON jaguar04 CANCELLED AT 2024-07-22T21:55:13 ***
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='iTransformer', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer/1
+test 2607
+Loading model from ./results/electricity_iTransformer/1/checkpoint.pth
+./results/electricity_iTransformer/1/feature_ablation.csv exists. Skipping ...
+./results/electricity_iTransformer/1/occlusion.csv exists. Skipping ...
+./results/electricity_iTransformer/1/augmented_occlusion.csv exists. Skipping ...
+./results/electricity_iTransformer/1/feature_permutation.csv exists. Skipping ...
+./results/electricity_iTransformer/1/winIT.csv exists. Skipping ...
+./results/electricity_iTransformer/1/wtsr.csv exists. Skipping ...
+./results/electricity_iTransformer/1/tsr.csv exists. Skipping ...
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer/2
+test 2607
+Loading model from ./results/electricity_iTransformer/2/checkpoint.pth
+./results/electricity_iTransformer/2/feature_ablation.csv exists. Skipping ...
+./results/electricity_iTransformer/2/occlusion.csv exists. Skipping ...
+./results/electricity_iTransformer/2/augmented_occlusion.csv exists. Skipping ...
+./results/electricity_iTransformer/2/feature_permutation.csv exists. Skipping ...
+./results/electricity_iTransformer/2/winIT.csv exists. Skipping ...
+./results/electricity_iTransformer/2/wtsr.csv exists. Skipping ...
+./results/electricity_iTransformer/2/tsr.csv exists. Skipping ...
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer/3
+test 2607
+Loading model from ./results/electricity_iTransformer/3/checkpoint.pth
+./results/electricity_iTransformer/3/feature_ablation.csv exists. Skipping ...
+./results/electricity_iTransformer/3/occlusion.csv exists. Skipping ...
+./results/electricity_iTransformer/3/augmented_occlusion.csv exists. Skipping ...
+Running feature_permutation from 2024-07-22 21:55:41.244095
+Experiment ended at 2024-07-22 21:58:51.720027. Total time taken 0:03:10.475932.
+  metric   area      comp       suff
+0    mae  0.050  5.392450  20.167362
+1    mae  0.075  6.690042  19.657536
+2    mae  0.100  7.432215  19.347404
+3    mae  0.150  8.769749  18.662505
+4    mse  0.050  2.805697  25.824420
+5    mse  0.075  3.957305  24.658655
+6    mse  0.100  4.705833  23.965668
+7    mse  0.150  6.201513  22.452463
+
+Running winIT from 2024-07-22 21:58:52.060931
+Experiment ended at 2024-07-22 22:02:27.283045. Total time taken 0:03:35.222114.
+  metric   area       comp       suff
+0    mae  0.050   7.335099  18.399224
+1    mae  0.075   8.255933  17.941457
+2    mae  0.100   8.888510  17.617584
+3    mae  0.150  10.064076  16.812576
+4    mse  0.050   4.937692  21.824710
+5    mse  0.075   5.899654  20.838262
+6    mse  0.100   6.626637  20.162473
+7    mse  0.150   8.063406  18.505973
+
+Running wtsr from 2024-07-22 22:02:27.445475
+Experiment ended at 2024-07-22 22:05:55.244168. Total time taken 0:03:27.798693.
+  metric   area       comp       suff
+0    mae  0.050  11.464547  16.160663
+1    mae  0.075  12.722625  14.917625
+2    mae  0.100  13.365525  14.117360
+3    mae  0.150  14.549691  12.479407
+4    mse  0.050  10.558048  17.184483
+5    mse  0.075  12.343957  14.792228
+6    mse  0.100  13.333082  13.345991
+7    mse  0.150  15.283039  10.606287
+
+Running tsr from 2024-07-22 22:05:55.445315
+Experiment ended at 2024-07-22 22:50:27.140402. Total time taken 0:44:31.695087.
+  metric   area       comp       suff
+0    mae  0.050  11.139262  16.404164
+1    mae  0.075  12.506948  15.110031
+2    mae  0.100  13.220978  14.268676
+3    mae  0.150  14.483917  12.649663
+4    mse  0.050  10.113011  17.714915
+5    mse  0.075  12.020945  15.188819
+6    mse  0.100  13.090374  13.655230
+7    mse  0.150  15.139141  10.919923
+
+Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='iTransformer', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/traffic/', data_path='traffic.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer/1
+test 1731
+Loading model from ./results/traffic_iTransformer/1/checkpoint.pth
+./results/traffic_iTransformer/1/feature_ablation.csv exists. Skipping ...
+./results/traffic_iTransformer/1/occlusion.csv exists. Skipping ...
+./results/traffic_iTransformer/1/augmented_occlusion.csv exists. Skipping ...
+./results/traffic_iTransformer/1/feature_permutation.csv exists. Skipping ...
+Running winIT from 2024-07-22 22:50:58.686181
+Experiment ended at 2024-07-22 22:53:21.997021. Total time taken 0:02:23.310840.
+  metric   area      comp       suff
+0    mae  0.050  5.230132  27.433929
+1    mae  0.075  6.174151  26.187601
+2    mae  0.100  6.847379  25.345602
+3    mae  0.150  8.028802  23.369858
+4    mse  0.050  2.389319  42.672215
+5    mse  0.075  3.150737  39.233571
+6    mse  0.100  3.747195  36.972831
+7    mse  0.150  4.876042  31.910396
+
+Running wtsr from 2024-07-22 22:53:22.160400
+Experiment ended at 2024-07-22 22:55:40.657352. Total time taken 0:02:18.496952.
+  metric   area       comp       suff
+0    mae  0.050   9.726688  24.628541
+1    mae  0.075  10.860960  22.083033
+2    mae  0.100  11.463085  20.558707
+3    mae  0.150  12.722726  17.388266
+4    mse  0.050   7.164283  35.065924
+5    mse  0.075   8.591594  28.668742
+6    mse  0.100   9.396344  25.099384
+7    mse  0.150  11.249175  18.408795
+
+Running tsr from 2024-07-22 22:55:40.837425
+Experiment ended at 2024-07-22 23:25:25.764842. Total time taken 0:29:44.927417.
+  metric   area       comp       suff
+0    mae  0.050   9.367678  24.729234
+1    mae  0.075  10.635245  22.192729
+2    mae  0.100  11.325783  20.684581
+3    mae  0.150  12.664663  17.547814
+4    mse  0.050   6.860244  35.376584
+5    mse  0.075   8.392214  28.974647
+6    mse  0.100   9.292829  25.454573
+7    mse  0.150  11.173777  18.779470
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer/2
+test 1731
+Loading model from ./results/traffic_iTransformer/2/checkpoint.pth
+Running feature_ablation from 2024-07-22 23:25:27.511343
+Experiment ended at 2024-07-22 23:27:25.140213. Total time taken 0:01:57.628870.
+  metric   area       comp       suff
+0    mae  0.050   7.258119  25.723317
+1    mae  0.075   8.866705  23.581692
+2    mae  0.100   9.759798  22.289864
+3    mae  0.150  11.399602  19.474359
+4    mse  0.050   4.396946  38.140996
+5    mse  0.075   6.130890  32.661112
+6    mse  0.100   7.191190  29.499611
+7    mse  0.150   9.340962  23.063398
+
+Running occlusion from 2024-07-22 23:27:25.315887
+Experiment ended at 2024-07-22 23:29:26.159070. Total time taken 0:02:00.843183.
+  metric   area       comp       suff
+0    mae  0.050   9.771792  24.335300
+1    mae  0.075  10.916894  21.792198
+2    mae  0.100  11.532508  20.280297
+3    mae  0.150  12.827861  17.132683
+4    mse  0.050   7.037184  34.329349
+5    mse  0.075   8.472020  28.029970
+6    mse  0.100   9.300969  24.541813
+7    mse  0.150  11.208270  17.942019
+
+Running augmented_occlusion from 2024-07-22 23:29:26.338850
+Experiment ended at 2024-07-22 23:31:28.896458. Total time taken 0:02:02.557608.
+  metric   area      comp       suff
+0    mae  0.050  5.897083  27.149201
+1    mae  0.075  7.125830  25.417605
+2    mae  0.100  7.894950  24.349496
+3    mae  0.150  9.240721  21.939797
+4    mse  0.050  3.033924  42.076405
+5    mse  0.075  4.120011  37.316774
+6    mse  0.100  4.873731  34.491929
+7    mse  0.150  6.298592  28.495890
+
+Running feature_permutation from 2024-07-22 23:31:29.078860
+Experiment ended at 2024-07-22 23:33:29.284965. Total time taken 0:02:00.206105.
+  metric   area      comp       suff
+0    mae  0.050  5.259013  26.738120
+1    mae  0.075  6.745625  25.179372
+2    mae  0.100  7.631964  24.267375
+3    mae  0.150  9.297468  22.313684
+4    mse  0.050  2.347929  40.884073
+5    mse  0.075  3.652835  36.773351
+6    mse  0.100  4.553539  34.478321
+7    mse  0.150  6.518448  29.737944
+
+Running winIT from 2024-07-22 23:33:29.464656
+Experiment ended at 2024-07-22 23:35:52.296352. Total time taken 0:02:22.831696.
+  metric   area      comp       suff
+0    mae  0.050  4.837415  27.554795
+1    mae  0.075  5.744140  26.351508
+2    mae  0.100  6.416380  25.544314
+3    mae  0.150  7.606566  23.599442
+4    mse  0.050  2.073131  43.058300
+5    mse  0.075  2.744805  39.728306
+6    mse  0.100  3.307903  37.563358
+7    mse  0.150  4.395817  32.529266
+
+Running wtsr from 2024-07-22 23:35:52.447399
+Experiment ended at 2024-07-22 23:38:11.119582. Total time taken 0:02:18.672183.
+  metric   area       comp       suff
+0    mae  0.050   9.784886  24.718538
+1    mae  0.075  10.962625  22.128188
+2    mae  0.100  11.579262  20.580546
+3    mae  0.150  12.856365  17.386808
+4    mse  0.050   7.046316  35.300104
+5    mse  0.075   8.536500  28.818146
+6    mse  0.100   9.371886  25.215958
+7    mse  0.150  11.272953  18.445918
+
+Running tsr from 2024-07-22 23:38:11.298066
+Experiment ended at 2024-07-23 00:07:55.971300. Total time taken 0:29:44.673234.
+  metric   area       comp       suff
+0    mae  0.050   9.224544  24.578226
+1    mae  0.075  10.527487  22.065576
+2    mae  0.100  11.256480  20.588881
+3    mae  0.150  12.594657  17.486430
+4    mse  0.050   6.477593  34.867632
+5    mse  0.075   8.057205  28.613369
+6    mse  0.100   9.016599  25.184498
+7    mse  0.150  10.918964  18.605542
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer/3
+test 1731
+Loading model from ./results/traffic_iTransformer/3/checkpoint.pth
+Running feature_ablation from 2024-07-23 00:07:57.696609
+Experiment ended at 2024-07-23 00:09:55.901867. Total time taken 0:01:58.205258.
+  metric   area       comp       suff
+0    mae  0.050   7.187435  25.737980
+1    mae  0.075   8.845704  23.656152
+2    mae  0.100   9.768768  22.406443
+3    mae  0.150  11.431034  19.648265
+4    mse  0.050   4.362246  38.248746
+5    mse  0.075   6.153706  32.915050
+6    mse  0.100   7.270445  29.842753
+7    mse  0.150   9.487149  23.499859
+
+Running occlusion from 2024-07-23 00:09:56.080636
+Experiment ended at 2024-07-23 00:11:56.682583. Total time taken 0:02:00.601947.
+  metric   area       comp       suff
+0    mae  0.050  10.003546  24.663463
+1    mae  0.075  11.194367  22.109797
+2    mae  0.100  11.802197  20.608446
+3    mae  0.150  13.038377  17.436472
+4    mse  0.050   7.391708  35.165207
+5    mse  0.075   8.945729  28.759570
+6    mse  0.100   9.792672  25.257405
+7    mse  0.150  11.672743  18.532120
+
+Running augmented_occlusion from 2024-07-23 00:11:56.860042
+Experiment ended at 2024-07-23 00:13:59.402967. Total time taken 0:02:02.542925.
+  metric   area      comp       suff
+0    mae  0.050  5.960299  26.740254
+1    mae  0.075  7.235367  25.062914
+2    mae  0.100  8.016205  24.028204
+3    mae  0.150  9.364031  21.704581
+4    mse  0.050  3.112056  41.089861
+5    mse  0.075  4.267324  36.528865
+6    mse  0.100  5.044928  33.805623
+7    mse  0.150  6.486156  28.066209
+
+Running feature_permutation from 2024-07-23 00:13:59.577562
+Experiment ended at 2024-07-23 00:16:00.039897. Total time taken 0:02:00.462335.
+  metric   area      comp       suff
+0    mae  0.050  5.321396  26.612577
+1    mae  0.075  6.780737  25.078988
+2    mae  0.100  7.643493  24.192607
+3    mae  0.150  9.277354  22.268207
+4    mse  0.050  2.459329  40.481419
+5    mse  0.075  3.750245  36.440400
+6    mse  0.100  4.628599  34.186506
+7    mse  0.150  6.557784  29.517810
+
+Running winIT from 2024-07-23 00:16:00.214721
+Experiment ended at 2024-07-23 00:18:23.231600. Total time taken 0:02:23.016879.
+  metric   area      comp       suff
+0    mae  0.050  5.020726  27.210487
+1    mae  0.075  5.975737  25.922865
+2    mae  0.100  6.665208  25.095252
+3    mae  0.150  7.890775  23.104877
+4    mse  0.050  2.259410  42.038415
+5    mse  0.075  3.002226  38.478688
+6    mse  0.100  3.598602  36.270770
+7    mse  0.150  4.751328  31.202195
+
+Running wtsr from 2024-07-23 00:18:23.395359
+Experiment ended at 2024-07-23 00:20:42.068404. Total time taken 0:02:18.673045.
+  metric   area       comp       suff
+0    mae  0.050   9.888757  24.301593
+1    mae  0.075  11.036267  21.812002
+2    mae  0.100  11.639992  20.334108
+3    mae  0.150  12.883050  17.250482
+4    mse  0.050   7.265253  34.223531
+5    mse  0.075   8.741994  28.067200
+6    mse  0.100   9.581928  24.668129
+7    mse  0.150  11.439889  18.207759
+
+Running tsr from 2024-07-23 00:20:42.247328
+Experiment ended at 2024-07-23 00:50:28.688073. Total time taken 0:29:46.440745.
+  metric   area       comp       suff
+0    mae  0.050   9.412235  24.612012
+1    mae  0.075  10.728259  22.111582
+2    mae  0.100  11.473239  20.643917
+3    mae  0.150  12.814005  17.568575
+4    mse  0.050   6.776719  35.017857
+5    mse  0.075   8.419343  28.768448
+6    mse  0.100   9.425477  25.357341
+7    mse  0.150  11.379340  18.829420
+
+Namespace(task_name='classification', train=False, dry_run=False, model='iTransformer', seed=2024, itrs=3, itr_no=None, data='mimic', result_path='./results', root_path='./dataset/mimic_iii/', data_path='mimic_iii.pkl', flag='test', features='MS', target='OT', freq='h', seq_len=96, label_len=48, pred_len=96, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=31, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['auc', 'accuracy', 'cross_entropy'], overwrite=False, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=31, dec_in=31, c_out=31)
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/1/checkpoint.pth
+./results/mimic_iii_iTransformer/1/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/1/occlusion.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/1/augmented_occlusion.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/1/feature_permutation.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/1/winIT.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/1/wtsr.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/1/tsr.csv exists. Skipping ...
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/2/checkpoint.pth
+./results/mimic_iii_iTransformer/2/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/2/occlusion.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/2/augmented_occlusion.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/2/feature_permutation.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/2/winIT.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/2/wtsr.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/2/tsr.csv exists. Skipping ...
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/3/checkpoint.pth
+./results/mimic_iii_iTransformer/3/feature_ablation.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/3/occlusion.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/3/augmented_occlusion.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/3/feature_permutation.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/3/winIT.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/3/wtsr.csv exists. Skipping ...
+./results/mimic_iii_iTransformer/3/tsr.csv exists. Skipping ...

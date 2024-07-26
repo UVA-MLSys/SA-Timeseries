@@ -76,8 +76,10 @@ NUM_ITERATIONS = 3
 #     print(f'WinTSR improve comprehensiveness on {100.0* wtsr_better_comp/comp_count:0.4f}\%, \
 #         and sufficiency on {wtsr_better_suff*100.0/suff_count:0.4f}\% cases.\n')
 
-def print_row(item):
-    print(f'& {np.round(item, 2):0.3g} ', end='')
+def print_row(item, decimals=2):
+    if type(item) == str:
+        print(f'& {item} ', end='')    
+    else: print(f'& {np.round(item, decimals):03} ', end='')
     
 print(f"Dataset & Metric &" + " & ".join(models) + " \\\\ \\hline")
 for dataset in datasets:
@@ -91,25 +93,43 @@ for dataset in datasets:
                 score = df[df['metric']==metric]['score'].values[0]
                 scores += score
                 
-            print_row(scores / NUM_ITERATIONS)
+            print_row(scores / NUM_ITERATIONS, decimals=3)
         print('\\\\')
         
-# results = []
-# for dataset in datasets:
-#     for attr_method in attr_methods:
-#         for metric in int_metric_map[dataset]:
-#             for model in models:
-#                 for itr_no in range(1, NUM_ITERATIONS+1):
-#                     df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv')
-#                     df = reduce_df(df)
-#                     comp, suff= df[df['metric']==metric][['comp', 'suff']].values[0]
+# this section finds the ranks for each method 
+results = []
+for dataset in datasets:
+    for attr_method in attr_methods:
+        for metric in int_metric_map[dataset]:
+            for model in models:
+                for itr_no in range(1, NUM_ITERATIONS+1):
+                    df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv')
+                    df = reduce_df(df)
+                    comp, suff= df[df['metric']==metric][['comp', 'suff']].values[0]
                     
-#                     results.append([
-#                         dataset, attr_method, metric, model, itr_no, comp, suff
-#                     ])
+                    results.append([
+                        dataset, attr_method, metric, model, itr_no, comp, suff
+                    ])
 
-# result_df = pd.DataFrame(results, columns=['dataset', 'attr_method', 'metric', 'model', 'itr_no', 'comp', 'suff'])
-# result_df.to_csv('results.csv', index=False)
+result_df = pd.DataFrame(results, columns=['dataset', 'attr_method', 'metric', 'model', 'itr_no', 'comp', 'suff'])
+print(result_df.head(3))
+result_df = result_df.groupby(['dataset', 'attr_method', 'metric', 'model'])[['comp', 'suff']].mean().reset_index()
+result_df = result_df[result_df['metric'].isin(['mae', 'auc'])]
+
+selected = result_df['metric'].isin(['auc', 'accuracy'])
+result_df.loc[selected, ['comp', 'suff']] = 1 - result_df[selected][['comp', 'suff']]
+
+result_df['comp_rank'] = result_df.groupby(['dataset', 'metric', 'model'])['comp'].rank(ascending=False)
+result_df['suff_rank'] = result_df.groupby(['dataset', 'metric', 'model'])['suff'].rank(ascending=True)
+result_df.groupby(['dataset', 'metric', 'attr_method'])[['comp_rank', 'suff_rank']].mean().reset_index()
+
+df = pd.concat([
+    result_df.drop(columns='suff_rank').rename(columns={'comp_rank': 'rank'}), 
+    result_df.drop(columns='comp_rank').rename(columns={'suff_rank': 'rank'})
+], axis=0)
+
+ranks = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].mean().round(1).reset_index(name='mean_rank')
+ranks['rank'] = ranks.groupby(['dataset', 'metric'])['mean_rank'].rank()
     
 for dataset in datasets:
     # use the first or second on
@@ -136,6 +156,12 @@ for dataset in datasets:
                     
                     score = df[metric_type].mean()
                     print_row(score)
+            
+            mean_rank, rank = ranks[
+                (ranks['dataset']==dataset) & (ranks['metric']==metric) & (ranks['attr_method']==attr_method)
+            ][['mean_rank', 'rank']].values[0]
+            
+            print_row(f'{rank:.0f}({mean_rank})')
             print('\\\\')
         print('\\hline\n')
 

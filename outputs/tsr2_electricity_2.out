@@ -30,3 +30,4 @@ Experiment ended at 2024-07-26 03:01:24.893349. Total time taken 16:02:47.903552
 6    mse  0.100  0.321397   6.468805
 7    mse  0.150  0.363243   4.920616
 
+slurmstepd: error: *** JOB 4882080 ON lynx10 CANCELLED AT 2024-07-27T11:12:25 DUE TO TIME LIMIT ***

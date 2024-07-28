@@ -19,3 +19,4 @@ Experiments will be saved in ./results/traffic_DLinear/3
 test 1731
 Loading model from ./results/traffic_DLinear/3/checkpoint.pth
 ./results/traffic_DLinear/3/tsr2.csv exists. Skipping ...
+slurmstepd: error: *** JOB 4882081 ON lynx11 CANCELLED AT 2024-07-27T11:13:26 DUE TO TIME LIMIT ***

@@ -1,1193 +1,1139 @@
-Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='DLinear', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'integrated_gradients', 'gradient_shap', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+Running for model:DLinear
 
 >>>> itr_no: 1, seed: 648 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_DLinear/1
+Experiments will be saved in scratch/electricity_DLinear/1
 test 2607
-Loading model from ./results/electricity_DLinear/1/checkpoint.pth
-Running feature_ablation from 2024-07-21 19:14:34.579495
-Experiment ended at 2024-07-21 19:15:54.101251. Total time taken 0:01:19.521756.
+Loading model from scratch/electricity_DLinear/1/checkpoint.pth
+Running feature_ablation from 2024-07-26 00:26:20.543459
+Experiment ended at 2024-07-26 00:28:09.959615. Total time taken 0:01:49.416156.
   metric   area       comp       suff
-0    mae  0.050  10.034250  13.579582
-1    mae  0.075  10.716838  12.849703
-2    mae  0.100  11.027826  12.405442
-3    mae  0.150  11.662536  11.397442
-4    mse  0.050   8.935555  12.130382
-5    mse  0.075   9.563221  10.942405
-6    mse  0.100   9.885572  10.245459
-7    mse  0.150  10.641376   8.752813
+0    mae  0.050  10.034250  13.579548
+1    mae  0.075  10.716589  12.849709
+2    mae  0.100  11.027756  12.405426
+3    mae  0.150  11.662530  11.397372
+4    mse  0.050   8.935555  12.130281
+5    mse  0.075   9.562893  10.942411
+6    mse  0.100   9.885438  10.245431
+7    mse  0.150  10.641343   8.752690
 
-Running occlusion from 2024-07-21 19:15:54.665856
-Experiment ended at 2024-07-21 19:17:10.886513. Total time taken 0:01:16.220657.
+Running occlusion from 2024-07-26 00:28:10.186027
+Experiment ended at 2024-07-26 00:30:04.016427. Total time taken 0:01:53.830400.
   metric   area       comp       suff
-0    mae  0.050  11.174844  12.544817
-1    mae  0.075  11.728116  11.655937
-2    mae  0.100  12.019717  11.116716
-3    mae  0.150  12.705989   9.887022
-4    mse  0.050  10.120982  10.439034
-5    mse  0.075  10.739857   9.138326
-6    mse  0.100  11.136944   8.377895
-7    mse  0.150  12.124813   6.749636
+0    mae  0.050  11.174878  12.544810
+1    mae  0.075  11.728129  11.655933
+2    mae  0.100  12.019721  11.116738
+3    mae  0.150  12.705973   9.887005
+4    mse  0.050  10.120997  10.439004
+5    mse  0.075  10.739912   9.138325
+6    mse  0.100  11.136973   8.377927
+7    mse  0.150  12.124802   6.749629
 
-Running augmented_occlusion from 2024-07-21 19:17:11.162671
-Experiment ended at 2024-07-21 19:18:31.696616. Total time taken 0:01:20.533945.
+Running augmented_occlusion from 2024-07-26 00:30:04.236746
+Experiment ended at 2024-07-26 00:32:01.384144. Total time taken 0:01:57.147398.
   metric   area       comp       suff
-0    mae  0.050   8.991314  14.086131
-1    mae  0.075   9.902308  13.296066
-2    mae  0.100  10.307175  12.854269
-3    mae  0.150  11.033884  11.919909
-4    mse  0.050   7.603804  13.131971
-5    mse  0.075   8.492249  11.761156
-6    mse  0.100   8.939252  11.028510
-7    mse  0.150   9.797562   9.566347
+0    mae  0.050   8.991310  14.086131
+1    mae  0.075   9.902317  13.296077
+2    mae  0.100  10.307228  12.854256
+3    mae  0.150  11.033865  11.919913
+4    mse  0.050   7.603803  13.131902
+5    mse  0.075   8.492264  11.761168
+6    mse  0.100   8.939291  11.028485
+7    mse  0.150   9.797541   9.566368
 
-Running feature_permutation from 2024-07-21 19:18:31.984212
-Experiment ended at 2024-07-21 19:19:50.911246. Total time taken 0:01:18.927034.
+Running feature_permutation from 2024-07-26 00:32:01.606000
+Experiment ended at 2024-07-26 00:33:54.990071. Total time taken 0:01:53.384071.
   metric   area      comp       suff
-0    mae  0.050  6.004021  16.663684
-1    mae  0.075  7.017339  16.361022
-2    mae  0.100  7.497102  16.183306
-3    mae  0.150  8.409967  15.756058
-4    mse  0.050  4.421366  18.126241
-5    mse  0.075  5.202326  17.559528
-6    mse  0.100  5.597022  17.233505
-7    mse  0.150  6.421783  16.471125
+0    mae  0.050  6.004104  16.663691
+1    mae  0.075  7.017355  16.361005
+2    mae  0.100  7.497096  16.183282
+3    mae  0.150  8.410014  15.756108
+4    mse  0.050  4.421426  18.126250
+5    mse  0.075  5.202329  17.559517
+6    mse  0.100  5.597021  17.233432
+7    mse  0.150  6.421845  16.471210
 
-Running integrated_gradients from 2024-07-21 19:19:51.188950
-Experiment ended at 2024-07-21 19:21:30.880607. Total time taken 0:01:39.691657.
+Running integrated_gradients from 2024-07-26 00:33:55.204833
+Experiment ended at 2024-07-26 00:36:11.855328. Total time taken 0:02:16.650495.
   metric   area       comp       suff
-0    mae  0.050   8.658070  18.643452
-1    mae  0.075  10.575878  19.062282
-2    mae  0.100  11.497911  19.273253
-3    mae  0.150  13.135894  19.658705
-4    mse  0.050   6.638212  22.272682
-5    mse  0.075   8.840147  23.268680
-6    mse  0.100  10.092722  23.774811
-7    mse  0.150  12.620115  24.711143
+0    mae  0.050   8.658069  18.643460
+1    mae  0.075  10.575841  19.062277
+2    mae  0.100  11.497861  19.273256
+3    mae  0.150  13.135862  19.658665
+4    mse  0.050   6.638212  22.272683
+5    mse  0.075   8.840062  23.268680
+6    mse  0.100  10.092675  23.774853
+7    mse  0.150  12.620038  24.711092
 
-Running gradient_shap from 2024-07-21 19:21:31.108167
-Experiment ended at 2024-07-21 19:22:27.602841. Total time taken 0:00:56.494674.
+Running gradient_shap from 2024-07-26 00:36:12.088939
+Experiment ended at 2024-07-26 00:37:40.445017. Total time taken 0:01:28.356078.
   metric   area      comp       suff
-0    mae  0.050  6.306867  17.662641
-1    mae  0.075  7.615216  17.624760
-2    mae  0.100  8.274640  17.564925
-3    mae  0.150  9.507269  17.396983
-4    mse  0.050  4.683426  20.229689
-5    mse  0.075  5.835166  20.251657
-6    mse  0.100  6.495331  20.185107
-7    mse  0.150  7.870105  19.955132
+0    mae  0.050  6.306887  17.662638
+1    mae  0.075  7.615222  17.624748
+2    mae  0.100  8.274639  17.564969
+3    mae  0.150  9.507253  17.396921
+4    mse  0.050  4.683443  20.229777
+5    mse  0.075  5.835173  20.251629
+6    mse  0.100  6.495329  20.185250
+7    mse  0.150  7.870082  19.954976
 
-Running winIT from 2024-07-21 19:22:27.860116
-Experiment ended at 2024-07-21 19:24:37.311692. Total time taken 0:02:09.451576.
-  metric   area       comp       suff
-0    mae  0.050   9.957946  14.156117
-1    mae  0.075  10.408391  13.769266
-2    mae  0.100  10.611026  13.527809
-3    mae  0.150  10.988553  12.936784
-4    mse  0.050   8.571646  13.190425
-5    mse  0.075   9.018138  12.532627
-6    mse  0.100   9.239113  12.134152
-7    mse  0.150   9.663170  11.184539
+Running dyna_mask from 2024-07-26 00:37:40.667349
+Experiment ended at 2024-07-26 00:39:07.786076. Total time taken 0:01:27.118727.
+  metric   area      comp       suff
+0    mae  0.050  2.184793  17.316549
+1    mae  0.075  3.252949  16.890672
+2    mae  0.100  3.883372  16.648872
+3    mae  0.150  5.365948  16.047446
+4    mse  0.050  0.628338  19.870686
+5    mse  0.075  1.166946  19.076712
+6    mse  0.100  1.556950  18.647076
+7    mse  0.150  2.689926  17.649855
 
-Running wtsr from 2024-07-21 19:24:37.651041
-Experiment ended at 2024-07-21 19:25:51.478925. Total time taken 0:01:13.827884.
+Running winIT from 2024-07-26 00:39:08.005590
+Experiment ended at 2024-07-26 00:41:53.238601. Total time taken 0:02:45.233011.
   metric   area       comp       suff
-0    mae  0.050  11.155956  12.624603
-1    mae  0.075  11.640668  11.735183
-2    mae  0.100  11.916750  11.186310
-3    mae  0.150  12.597819   9.948758
-4    mse  0.050   9.889621  10.597923
-5    mse  0.075  10.407646   9.293709
-6    mse  0.100  10.792307   8.516310
-7    mse  0.150  11.757077   6.859974
+0    mae  0.050  10.057964  14.177097
+1    mae  0.075  10.479224  13.783359
+2    mae  0.100  10.653445  13.550002
+3    mae  0.150  11.001686  12.962196
+4    mse  0.050   8.605897  13.203374
+5    mse  0.075   9.008790  12.529591
+6    mse  0.100   9.194509  12.146376
+7    mse  0.150   9.600064  11.207990
 
-Running tsr from 2024-07-21 19:25:51.777501
-Experiment ended at 2024-07-21 19:45:24.802152. Total time taken 0:19:33.024651.
+Running wtsr from 2024-07-26 00:41:53.458800
+Experiment ended at 2024-07-26 00:43:46.606324. Total time taken 0:01:53.147524.
   metric   area       comp       suff
-0    mae  0.050  11.138362  12.618179
-1    mae  0.075  11.677871  11.744238
-2    mae  0.100  11.963284  11.199650
-3    mae  0.150  12.645848   9.956538
-4    mse  0.050   9.993363  10.571213
-5    mse  0.075  10.608421   9.283689
-6    mse  0.100  11.000845   8.513967
-7    mse  0.150  11.964883   6.861292
+0    mae  0.050  11.126032  12.622834
+1    mae  0.075  11.667832  11.747792
+2    mae  0.100  11.953154  11.202820
+3    mae  0.150  12.637802   9.958733
+4    mse  0.050   9.976113  10.576931
+5    mse  0.075  10.596190   9.287345
+6    mse  0.100  10.988771   8.517153
+7    mse  0.150  11.954762   6.863812
+
+Running tsr from 2024-07-26 00:43:46.824463
+Experiment ended at 2024-07-26 01:09:38.315448. Total time taken 0:25:51.490985.
+  metric   area       comp       suff
+0    mae  0.050  11.219601  12.685396
+1    mae  0.075  11.804211  11.757043
+2    mae  0.100  12.113796  11.189263
+3    mae  0.150  12.849808   9.882193
+4    mse  0.050  10.230267  10.687879
+5    mse  0.075  10.846385   9.301758
+6    mse  0.100  11.241115   8.490196
+7    mse  0.150  12.269158   6.743420
 
 
 >>>> itr_no: 2, seed: 506 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_DLinear/2
+Experiments will be saved in scratch/electricity_DLinear/2
 test 2607
-Loading model from ./results/electricity_DLinear/2/checkpoint.pth
-Running feature_ablation from 2024-07-21 19:45:26.394247
-Experiment ended at 2024-07-21 19:46:38.614581. Total time taken 0:01:12.220334.
+Loading model from scratch/electricity_DLinear/2/checkpoint.pth
+Running feature_ablation from 2024-07-26 01:09:40.032018
+Experiment ended at 2024-07-26 01:11:30.430947. Total time taken 0:01:50.398929.
   metric   area       comp       suff
-0    mae  0.050   9.625837  13.185024
-1    mae  0.075  10.296178  12.475790
-2    mae  0.100  10.594850  12.064373
-3    mae  0.150  11.219079  11.118063
-4    mse  0.050   8.159233  11.432352
-5    mse  0.075   8.792547  10.322145
-6    mse  0.100   9.110793   9.697074
-7    mse  0.150   9.849498   8.339440
+0    mae  0.050   9.625830  13.185026
+1    mae  0.075  10.296199  12.475793
+2    mae  0.100  10.594832  12.064309
+3    mae  0.150  11.218997  11.118041
+4    mse  0.050   8.159232  11.432355
+5    mse  0.075   8.792572  10.322142
+6    mse  0.100   9.110762   9.696996
+7    mse  0.150   9.849425   8.339427
 
-Running occlusion from 2024-07-21 19:46:38.872165
-Experiment ended at 2024-07-21 19:47:55.259791. Total time taken 0:01:16.387626.
+Running occlusion from 2024-07-26 01:11:30.647949
+Experiment ended at 2024-07-26 01:13:27.319446. Total time taken 0:01:56.671497.
   metric   area       comp       suff
-0    mae  0.050  11.124203  12.383328
+0    mae  0.050  11.124092  12.383338
 1    mae  0.075  11.641984  11.523456
-2    mae  0.100  11.904025  11.020369
-3    mae  0.150  12.543619   9.852969
-4    mse  0.050   9.899498  10.174936
+2    mae  0.100  11.904071  11.020311
+3    mae  0.150  12.543533   9.852932
+4    mse  0.050   9.899443  10.174931
 5    mse  0.075  10.425771   8.956719
-6    mse  0.100  10.760039   8.272556
-7    mse  0.150  11.648988   6.757795
+6    mse  0.100  10.760147   8.272485
+7    mse  0.150  11.648878   6.757757
 
-Running augmented_occlusion from 2024-07-21 19:47:55.537978
-Experiment ended at 2024-07-21 19:49:14.733912. Total time taken 0:01:19.195934.
+Running augmented_occlusion from 2024-07-26 01:13:27.537215
+Experiment ended at 2024-07-26 01:15:26.806234. Total time taken 0:01:59.269019.
   metric   area       comp       suff
-0    mae  0.050   8.634008  14.111681
-1    mae  0.075   9.584257  13.315266
-2    mae  0.100  10.001243  12.881961
-3    mae  0.150  10.726648  11.938690
-4    mse  0.050   7.060732  13.162985
-5    mse  0.075   7.955982  11.807330
-6    mse  0.100   8.397764  11.104159
-7    mse  0.150   9.215597   9.642619
+0    mae  0.050   8.634000  14.111691
+1    mae  0.075   9.584261  13.315277
+2    mae  0.100  10.001172  12.881981
+3    mae  0.150  10.726564  11.938684
+4    mse  0.050   7.060731  13.163003
+5    mse  0.075   7.955995  11.807443
+6    mse  0.100   8.397724  11.104180
+7    mse  0.150   9.215524   9.642589
 
-Running feature_permutation from 2024-07-21 19:49:15.007830
-Experiment ended at 2024-07-21 19:50:31.345159. Total time taken 0:01:16.337329.
+Running feature_permutation from 2024-07-26 01:15:27.037241
+Experiment ended at 2024-07-26 01:17:22.733244. Total time taken 0:01:55.696003.
   metric   area      comp       suff
-0    mae  0.050  5.642222  16.219412
-1    mae  0.075  6.595660  15.906590
-2    mae  0.100  7.082659  15.725608
-3    mae  0.150  8.014020  15.303394
-4    mse  0.050  4.112063  17.239294
-5    mse  0.075  4.838490  16.655308
-6    mse  0.100  5.240713  16.322629
-7    mse  0.150  6.064884  15.568490
+0    mae  0.050  5.642220  16.219432
+1    mae  0.075  6.595678  15.906415
+2    mae  0.100  7.082604  15.725633
+3    mae  0.150  8.014102  15.303463
+4    mse  0.050  4.112059  17.239340
+5    mse  0.075  4.838514  16.655096
+6    mse  0.100  5.240632  16.322679
+7    mse  0.150  6.064975  15.568583
 
-Running integrated_gradients from 2024-07-21 19:50:31.619141
-Experiment ended at 2024-07-21 19:52:10.015754. Total time taken 0:01:38.396613.
+Running integrated_gradients from 2024-07-26 01:17:23.013968
+Experiment ended at 2024-07-26 01:19:42.056419. Total time taken 0:02:19.042451.
   metric   area       comp       suff
-0    mae  0.050   8.129478  18.416916
-1    mae  0.075   9.982209  18.866091
-2    mae  0.100  10.899708  19.084263
-3    mae  0.150  12.535784  19.482796
-4    mse  0.050   5.947802  21.423659
-5    mse  0.075   7.986870  22.428202
-6    mse  0.100   9.170535  22.924179
-7    mse  0.150  11.557230  23.839675
+0    mae  0.050   8.129461  18.416909
+1    mae  0.075   9.982190  18.866082
+2    mae  0.100  10.899705  19.084278
+3    mae  0.150  12.535784  19.482812
+4    mse  0.050   5.947792  21.423652
+5    mse  0.075   7.986856  22.428193
+6    mse  0.100   9.170541  22.924192
+7    mse  0.150  11.557202  23.839659
 
-Running gradient_shap from 2024-07-21 19:52:10.243394
-Experiment ended at 2024-07-21 19:53:07.382252. Total time taken 0:00:57.138858.
+Running gradient_shap from 2024-07-26 01:19:42.273260
+Experiment ended at 2024-07-26 01:21:12.444191. Total time taken 0:01:30.170931.
   metric   area      comp       suff
-0    mae  0.050  5.851893  17.234745
-1    mae  0.075  7.114801  17.224445
-2    mae  0.100  7.752478  17.194328
-3    mae  0.150  8.981609  17.075800
-4    mse  0.050  4.125714  19.175893
-5    mse  0.075  5.168961  19.211514
-6    mse  0.100  5.774950  19.186812
-7    mse  0.150  7.083341  19.018097
+0    mae  0.050  5.851887  17.234756
+1    mae  0.075  7.114829  17.224422
+2    mae  0.100  7.752473  17.194317
+3    mae  0.150  8.981657  17.075828
+4    mse  0.050  4.125714  19.175931
+5    mse  0.075  5.168975  19.211471
+6    mse  0.100  5.774901  19.186811
+7    mse  0.150  7.083377  19.018119
 
-Running winIT from 2024-07-21 19:53:07.650993
-Experiment ended at 2024-07-21 19:55:18.458929. Total time taken 0:02:10.807936.
-  metric   area       comp       suff
-0    mae  0.050   9.686706  13.960555
-1    mae  0.075  10.109286  13.586983
-2    mae  0.100  10.302314  13.361790
-3    mae  0.150  10.681503  12.778919
-4    mse  0.050   7.982522  12.703340
-5    mse  0.075   8.407703  12.078886
-6    mse  0.100   8.620123  11.721130
-7    mse  0.150   9.066516  10.819126
+Running dyna_mask from 2024-07-26 01:21:12.661454
+Experiment ended at 2024-07-26 01:22:39.407338. Total time taken 0:01:26.745884.
+  metric   area      comp       suff
+0    mae  0.050  2.111511  17.088132
+1    mae  0.075  3.153981  16.663673
+2    mae  0.100  3.785635  16.420004
+3    mae  0.150  5.320092  15.811865
+4    mse  0.050  0.566218  19.325021
+5    mse  0.075  1.084096  18.538148
+6    mse  0.100  1.468551  18.111864
+7    mse  0.150  2.654423  17.092670
 
-Running wtsr from 2024-07-21 19:55:18.698556
-Experiment ended at 2024-07-21 19:56:33.067193. Total time taken 0:01:14.368637.
+Running winIT from 2024-07-26 01:22:39.623630
+Experiment ended at 2024-07-26 01:25:25.338078. Total time taken 0:02:45.714448.
   metric   area       comp       suff
-0    mae  0.050  11.179390  12.382757
-1    mae  0.075  11.663816  11.543107
-2    mae  0.100  11.898869  11.036167
-3    mae  0.150  12.510687   9.862482
-4    mse  0.050   9.934909  10.173560
-5    mse  0.075  10.441791   8.979170
-6    mse  0.100  10.749630   8.283247
-7    mse  0.150  11.602984   6.758852
+0    mae  0.050   9.954982  13.932411
+1    mae  0.075  10.362680  13.554431
+2    mae  0.100  10.558703  13.327313
+3    mae  0.150  10.932984  12.749460
+4    mse  0.050   8.412476  12.713336
+5    mse  0.075   8.836425  12.078233
+6    mse  0.100   9.048097  11.710223
+7    mse  0.150   9.489789  10.794051
 
-Running tsr from 2024-07-21 19:56:33.348450
-Experiment ended at 2024-07-21 20:15:45.898788. Total time taken 0:19:12.550338.
+Running wtsr from 2024-07-26 01:25:25.553980
+Experiment ended at 2024-07-26 01:27:18.860863. Total time taken 0:01:53.306883.
   metric   area       comp       suff
-0    mae  0.050  10.888890  12.358173
-1    mae  0.075  11.414851  11.515954
-2    mae  0.100  11.691786  10.998161
-3    mae  0.150  12.359534   9.819547
-4    mse  0.050   9.469254  10.131576
-5    mse  0.075  10.038498   8.943285
-6    mse  0.100  10.385198   8.243558
-7    mse  0.150  11.294970   6.726559
+0    mae  0.050  10.877465  12.363229
+1    mae  0.075  11.403682  11.520017
+2    mae  0.100  11.680508  11.002054
+3    mae  0.150  12.351165   9.821818
+4    mse  0.050   9.454273  10.136999
+5    mse  0.075  10.025078   8.948706
+6    mse  0.100  10.372546   8.247412
+7    mse  0.150  11.284829   6.729028
+
+Running tsr from 2024-07-26 01:27:19.087482
+Experiment ended at 2024-07-26 01:53:11.853516. Total time taken 0:25:52.766034.
+  metric   area       comp       suff
+0    mae  0.050  10.618442  12.398751
+1    mae  0.075  11.260043  11.494751
+2    mae  0.100  11.582135  10.962529
+3    mae  0.150  12.304282   9.738266
+4    mse  0.050   9.211246  10.154856
+5    mse  0.075   9.931218   8.860788
+6    mse  0.100  10.347435   8.125552
+7    mse  0.150  11.326378   6.542022
 
 
 >>>> itr_no: 3, seed: 608 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_DLinear/3
+Experiments will be saved in scratch/electricity_DLinear/3
 test 2607
-Loading model from ./results/electricity_DLinear/3/checkpoint.pth
-Running feature_ablation from 2024-07-21 20:15:47.530685
-Experiment ended at 2024-07-21 20:17:01.214072. Total time taken 0:01:13.683387.
+Loading model from scratch/electricity_DLinear/3/checkpoint.pth
+Running feature_ablation from 2024-07-26 01:53:13.688405
+Experiment ended at 2024-07-26 01:55:04.541767. Total time taken 0:01:50.853362.
   metric   area       comp       suff
-0    mae  0.050  10.029541  13.429036
-1    mae  0.075  10.716022  12.682237
-2    mae  0.100  11.022409  12.249656
-3    mae  0.150  11.641818  11.263775
-4    mse  0.050   8.811202  11.871318
-5    mse  0.075   9.464794  10.673823
-6    mse  0.100   9.802424  10.004945
-7    mse  0.150  10.546906   8.567331
+0    mae  0.050  10.029493  13.429036
+1    mae  0.075  10.716001  12.682226
+2    mae  0.100  11.022223  12.249625
+3    mae  0.150  11.641757  11.263737
+4    mse  0.050   8.811104  11.871318
+5    mse  0.075   9.464784  10.673805
+6    mse  0.100   9.802211  10.004958
+7    mse  0.150  10.546809   8.567249
 
-Running occlusion from 2024-07-21 20:17:01.486212
-Experiment ended at 2024-07-21 20:18:19.881629. Total time taken 0:01:18.395417.
+Running occlusion from 2024-07-26 01:55:04.761265
+Experiment ended at 2024-07-26 01:57:02.104504. Total time taken 0:01:57.343239.
   metric   area       comp       suff
-0    mae  0.050  11.090411  12.442639
-1    mae  0.075  11.577982  11.574475
-2    mae  0.100  11.843057  11.046765
-3    mae  0.150  12.491221   9.869414
-4    mse  0.050   9.972206  10.264371
-5    mse  0.075  10.468588   9.012742
-6    mse  0.100  10.804531   8.279903
-7    mse  0.150  11.669654   6.746482
+0    mae  0.050  11.090366  12.442639
+1    mae  0.075  11.577970  11.574423
+2    mae  0.100  11.842986  11.046814
+3    mae  0.150  12.491226   9.869376
+4    mse  0.050   9.972166  10.264371
+5    mse  0.075  10.468579   9.012677
+6    mse  0.100  10.804399   8.279963
+7    mse  0.150  11.669696   6.746421
 
-Running augmented_occlusion from 2024-07-21 20:18:20.196575
-Experiment ended at 2024-07-21 20:19:41.248638. Total time taken 0:01:21.052063.
+Running augmented_occlusion from 2024-07-26 01:57:02.319962
+Experiment ended at 2024-07-26 01:59:02.172972. Total time taken 0:01:59.853010.
   metric   area       comp       suff
-0    mae  0.050   9.056641  13.938436
-1    mae  0.075  10.006090  13.132116
-2    mae  0.100  10.414560  12.691289
-3    mae  0.150  11.187074  11.714638
-4    mse  0.050   7.723165  12.951497
-5    mse  0.075   8.622471  11.564128
-6    mse  0.100   9.060655  10.837206
-7    mse  0.150   9.990650   9.316562
+0    mae  0.050   9.056641  13.938437
+1    mae  0.075  10.006114  13.132136
+2    mae  0.100  10.414579  12.691317
+3    mae  0.150  11.187027  11.714615
+4    mse  0.050   7.723165  12.951507
+5    mse  0.075   8.622522  11.564109
+6    mse  0.100   9.060658  10.837209
+7    mse  0.150   9.990572   9.316548
 
-Running feature_permutation from 2024-07-21 20:19:41.533092
-Experiment ended at 2024-07-21 20:20:58.362492. Total time taken 0:01:16.829400.
+Running feature_permutation from 2024-07-26 01:59:02.395892
+Experiment ended at 2024-07-26 02:00:58.410981. Total time taken 0:01:56.015089.
   metric   area      comp       suff
-0    mae  0.050  5.740890  16.489682
-1    mae  0.075  6.679859  16.187825
-2    mae  0.100  7.144238  16.014637
-3    mae  0.150  8.056792  15.591500
-4    mse  0.050  4.102898  17.733146
-5    mse  0.075  4.814391  17.165916
-6    mse  0.100  5.188701  16.855815
-7    mse  0.150  6.002999  16.110416
+0    mae  0.050  5.740890  16.489688
+1    mae  0.075  6.679825  16.187832
+2    mae  0.100  7.144236  16.014611
+3    mae  0.150  8.056778  15.591456
+4    mse  0.050  4.102898  17.733157
+5    mse  0.075  4.814354  17.165917
+6    mse  0.100  5.188689  16.855764
+7    mse  0.150  6.002982  16.110369
 
-Running integrated_gradients from 2024-07-21 20:20:58.623875
-Experiment ended at 2024-07-21 20:22:37.576624. Total time taken 0:01:38.952749.
+Running integrated_gradients from 2024-07-26 02:00:58.627474
+Experiment ended at 2024-07-26 02:03:16.987690. Total time taken 0:02:18.360216.
   metric   area       comp       suff
-0    mae  0.050   8.460078  18.421834
-1    mae  0.075  10.341639  18.862058
-2    mae  0.100  11.254809  19.077791
-3    mae  0.150  12.896175  19.485768
-4    mse  0.050   6.343758  21.627746
-5    mse  0.075   8.451993  22.606826
-6    mse  0.100   9.653113  23.099605
-7    mse  0.150  12.099249  24.044944
+0    mae  0.050   8.460058  18.421810
+1    mae  0.075  10.341602  18.862069
+2    mae  0.100  11.254793  19.077750
+3    mae  0.150  12.896171  19.485739
+4    mse  0.050   6.343750  21.627721
+5    mse  0.075   8.451959  22.606838
+6    mse  0.100   9.653131  23.099560
+7    mse  0.150  12.099246  24.044867
 
-Running gradient_shap from 2024-07-21 20:22:37.843858
-Experiment ended at 2024-07-21 20:23:35.970574. Total time taken 0:00:58.126716.
+Running gradient_shap from 2024-07-26 02:03:17.210046
+Experiment ended at 2024-07-26 02:04:47.149566. Total time taken 0:01:29.939520.
   metric   area      comp       suff
-0    mae  0.050  6.130207  17.410039
-1    mae  0.075  7.392122  17.387474
-2    mae  0.100  8.032081  17.347115
-3    mae  0.150  9.240018  17.220402
-4    mse  0.050  4.545776  19.463862
-5    mse  0.075  5.612943  19.486069
-6    mse  0.100  6.244629  19.441943
-7    mse  0.150  7.546596  19.272657
+0    mae  0.050  6.130214  17.410021
+1    mae  0.075  7.392065  17.387492
+2    mae  0.100  8.032058  17.347159
+3    mae  0.150  9.239973  17.220406
+4    mse  0.050  4.545781  19.463786
+5    mse  0.075  5.612905  19.486137
+6    mse  0.100  6.244593  19.442003
+7    mse  0.150  7.546593  19.272697
 
-Running winIT from 2024-07-21 20:23:36.247282
-Experiment ended at 2024-07-21 20:25:49.000712. Total time taken 0:02:12.753430.
+Running dyna_mask from 2024-07-26 02:04:47.404135
+Experiment ended at 2024-07-26 02:06:14.108626. Total time taken 0:01:26.704491.
+  metric   area      comp       suff
+0    mae  0.050  2.138686  17.325605
+1    mae  0.075  3.207938  16.896944
+2    mae  0.100  3.881024  16.657608
+3    mae  0.150  5.397002  16.026961
+4    mse  0.050  0.584288  20.001592
+5    mse  0.075  1.120128  19.193271
+6    mse  0.100  1.550093  18.766796
+7    mse  0.150  2.717089  17.712269
+
+Running winIT from 2024-07-26 02:06:14.357131
+Experiment ended at 2024-07-26 02:09:00.318435. Total time taken 0:02:45.961304.
   metric   area       comp       suff
-0    mae  0.050  10.096128  14.086295
-1    mae  0.075  10.543443  13.699802
-2    mae  0.100  10.732609  13.467866
-3    mae  0.150  11.083115  12.888723
-4    mse  0.050   8.775673  12.960332
-5    mse  0.075   9.220807  12.315549
-6    mse  0.100   9.422279  11.944367
-7    mse  0.150   9.814829  11.037255
+0    mae  0.050  10.238917  13.974188
+1    mae  0.075  10.691939  13.599345
+2    mae  0.100  10.871233  13.365836
+3    mae  0.150  11.202588  12.792541
+4    mse  0.050   9.033925  12.807434
+5    mse  0.075   9.521164  12.171829
+6    mse  0.100   9.721069  11.792820
+7    mse  0.150  10.112451  10.885308
 
-Running wtsr from 2024-07-21 20:25:49.279944
-Experiment ended at 2024-07-21 20:27:04.451350. Total time taken 0:01:15.171406.
+Running wtsr from 2024-07-26 02:09:00.568705
+Experiment ended at 2024-07-26 02:10:54.408595. Total time taken 0:01:53.839890.
   metric   area       comp       suff
-0    mae  0.050  11.391961  12.410690
-1    mae  0.075  11.862717  11.547935
-2    mae  0.100  12.112609  11.025399
-3    mae  0.150  12.748188   9.838909
-4    mse  0.050  10.441141  10.208232
-5    mse  0.075  10.948989   8.959143
-6    mse  0.100  11.281029   8.232713
-7    mse  0.150  12.181614   6.689444
+0    mae  0.050  11.188873  12.541807
+1    mae  0.075  11.697995  11.663474
+2    mae  0.100  11.965111  11.126131
+3    mae  0.150  12.625525   9.898560
+4    mse  0.050   9.952171  10.422302
+5    mse  0.075  10.518729   9.143152
+6    mse  0.100  10.893502   8.395602
+7    mse  0.150  11.815473   6.784787
 
-Running tsr from 2024-07-21 20:27:04.735842
-Experiment ended at 2024-07-21 20:46:07.557698. Total time taken 0:19:02.821856.
+Running tsr from 2024-07-26 02:10:54.626007
+Experiment ended at 2024-07-26 02:36:49.621537. Total time taken 0:25:54.995530.
   metric   area       comp       suff
-0    mae  0.050  11.201423  12.538813
-1    mae  0.075  11.707434  11.658877
-2    mae  0.100  11.976528  11.123063
-3    mae  0.150  12.633575   9.896608
-4    mse  0.050   9.968562  10.419434
-5    mse  0.075  10.530213   9.137719
-6    mse  0.100  10.908608   8.392385
-7    mse  0.150  11.825701   6.783556
+0    mae  0.050  11.221117  12.439233
+1    mae  0.075  11.814960  11.546062
+2    mae  0.100  12.101594  11.005940
+3    mae  0.150  12.792114   9.754574
+4    mse  0.050  10.328477  10.252006
+5    mse  0.075  10.940511   8.950457
+6    mse  0.100  11.307723   8.196688
+7    mse  0.150  12.261660   6.561732
 
-Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='MICN', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'integrated_gradients', 'gradient_shap', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+Running for model:MICN
 
 >>>> itr_no: 1, seed: 648 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_MICN/1
+Experiments will be saved in scratch/electricity_MICN/1
 test 2607
-Loading model from ./results/electricity_MICN/1/checkpoint.pth
-Running feature_ablation from 2024-07-21 20:46:17.890679
-Experiment ended at 2024-07-21 20:51:14.268264. Total time taken 0:04:56.377585.
+Loading model from scratch/electricity_MICN/1/checkpoint.pth
+Running feature_ablation from 2024-07-26 02:37:01.956290
+Experiment ended at 2024-07-26 02:43:17.606889. Total time taken 0:06:15.650599.
   metric   area       comp       suff
-0    mae  0.050  10.630720  12.628161
-1    mae  0.075  11.739321  11.517838
-2    mae  0.100  12.297678  10.834435
-3    mae  0.150  13.245425   9.449140
-4    mse  0.050   8.836247  10.886148
-5    mse  0.075  10.215333   9.224758
-6    mse  0.100  11.003564   8.234948
-7    mse  0.150  12.360892   6.432877
+0    mae  0.050  10.630713  12.628251
+1    mae  0.075  11.739373  11.517858
+2    mae  0.100  12.297678  10.834487
+3    mae  0.150  13.245291   9.449081
+4    mse  0.050   8.836245  10.886309
+5    mse  0.075  10.215419   9.224774
+6    mse  0.100  11.003564   8.235028
+7    mse  0.150  12.360595   6.432815
 
-Running occlusion from 2024-07-21 20:51:14.562198
-Experiment ended at 2024-07-21 20:56:15.260348. Total time taken 0:05:00.698150.
+Running occlusion from 2024-07-26 02:43:17.826776
+Experiment ended at 2024-07-26 02:49:40.307697. Total time taken 0:06:22.480921.
   metric   area       comp       suff
-0    mae  0.050  11.581989  11.620814
-1    mae  0.075  12.358049  10.207134
-2    mae  0.100  12.823499   9.382001
-3    mae  0.150  13.637818   7.928399
-4    mse  0.050   9.915650   9.439499
-5    mse  0.075  10.970185   7.435649
-6    mse  0.100  11.657247   6.353783
-7    mse  0.150  12.913221   4.682593
+0    mae  0.050  11.581997  11.620814
+1    mae  0.075  12.358075  10.207215
+2    mae  0.100  12.823513   9.382012
+3    mae  0.150  13.637839   7.928424
+4    mse  0.050   9.915653   9.439499
+5    mse  0.075  10.970211   7.435781
+6    mse  0.100  11.657256   6.353799
+7    mse  0.150  12.913228   4.682625
 
-Running augmented_occlusion from 2024-07-21 20:56:15.533390
-Experiment ended at 2024-07-21 21:01:18.035394. Total time taken 0:05:02.502004.
+Running augmented_occlusion from 2024-07-26 02:49:40.531323
+Experiment ended at 2024-07-26 02:56:05.674187. Total time taken 0:06:25.142864.
   metric   area       comp       suff
-0    mae  0.050   9.846498  13.365493
-1    mae  0.075  10.804808  12.548204
-2    mae  0.100  11.285552  12.033246
-3    mae  0.150  12.181100  10.935920
-4    mse  0.050   7.882804  12.032397
-5    mse  0.075   8.982176  10.773429
-6    mse  0.100   9.606282  10.009672
-7    mse  0.150  10.822489   8.460853
+0    mae  0.050   9.846498  13.365494
+1    mae  0.075  10.804673  12.548192
+2    mae  0.100  11.285544  12.033246
+3    mae  0.150  12.181087  10.935925
+4    mse  0.050   7.882804  12.032398
+5    mse  0.075   8.981963  10.773416
+6    mse  0.100   9.606255  10.009672
+7    mse  0.150  10.822468   8.460871
 
-Running feature_permutation from 2024-07-21 21:01:18.303084
-Experiment ended at 2024-07-21 21:06:17.385768. Total time taken 0:04:59.082684.
+Running feature_permutation from 2024-07-26 02:56:05.887697
+Experiment ended at 2024-07-26 03:02:26.335477. Total time taken 0:06:20.447780.
   metric   area       comp       suff
-0    mae  0.050   8.167397  14.650610
-1    mae  0.075   9.235264  14.296954
-2    mae  0.100   9.753820  14.099875
-3    mae  0.150  10.674326  13.724941
-4    mse  0.050   5.871762  14.338524
-5    mse  0.075   6.968598  13.681206
-6    mse  0.100   7.575957  13.309632
-7    mse  0.150   8.748460  12.618102
+0    mae  0.050   8.167323  14.650582
+1    mae  0.075   9.235298  14.296982
+2    mae  0.100   9.753726  14.099841
+3    mae  0.150  10.674332  13.724982
+4    mse  0.050   5.871736  14.338482
+5    mse  0.075   6.968666  13.681268
+6    mse  0.100   7.575906  13.309566
+7    mse  0.150   8.748467  12.618135
 
-Running integrated_gradients from 2024-07-21 21:06:17.730271
-Experiment ended at 2024-07-21 21:11:48.719056. Total time taken 0:05:30.988785.
+Running integrated_gradients from 2024-07-26 03:02:26.609730
+Experiment ended at 2024-07-26 03:09:21.801849. Total time taken 0:06:55.192119.
   metric   area       comp       suff
-0    mae  0.050  10.656537  15.441176
-1    mae  0.075  12.985592  16.045743
-2    mae  0.100  14.266516  16.526515
-3    mae  0.150  16.687446  17.612880
-4    mse  0.050   8.417929  15.318338
-5    mse  0.075  11.570322  16.356441
-6    mse  0.100  13.548210  17.215408
-7    mse  0.150  17.817647  19.244757
+0    mae  0.050  10.656537  15.441144
+1    mae  0.075  12.985600  16.045742
+2    mae  0.100  14.266502  16.526511
+3    mae  0.150  16.687422  17.612897
+4    mse  0.050   8.417930  15.318298
+5    mse  0.075  11.570364  16.356443
+6    mse  0.100  13.548204  17.215398
+7    mse  0.150  17.817619  19.244743
 
-Running gradient_shap from 2024-07-21 21:11:48.989816
-Experiment ended at 2024-07-21 21:15:15.516911. Total time taken 0:03:26.527095.
+Running gradient_shap from 2024-07-26 03:09:22.018627
+Experiment ended at 2024-07-26 03:13:51.732077. Total time taken 0:04:29.713450.
   metric   area       comp       suff
-0    mae  0.050   8.460250  14.805131
-1    mae  0.075   9.958346  14.670618
-2    mae  0.100  10.768194  14.680568
-3    mae  0.150  12.362209  14.835214
-4    mse  0.050   6.247274  14.464849
-5    mse  0.075   7.980388  14.184012
-6    mse  0.100   9.034030  14.178474
-7    mse  0.150  11.352055  14.399856
+0    mae  0.050   8.460243  14.805144
+1    mae  0.075   9.958327  14.670608
+2    mae  0.100  10.768189  14.680638
+3    mae  0.150  12.362210  14.835217
+4    mse  0.050   6.247273  14.464886
+5    mse  0.075   7.980368  14.183984
+6    mse  0.100   9.034020  14.178568
+7    mse  0.150  11.352036  14.399846
 
-Running winIT from 2024-07-21 21:15:15.777477
-Experiment ended at 2024-07-21 21:21:11.060462. Total time taken 0:05:55.282985.
+Running dyna_mask from 2024-07-26 03:13:51.953037
+Experiment ended at 2024-07-26 03:18:19.982320. Total time taken 0:04:28.029283.
   metric   area      comp       suff
-0    mae  0.050  8.808357  13.946107
-1    mae  0.075  9.292800  13.793677
-2    mae  0.100  9.509997  13.718447
-3    mae  0.150  9.932144  13.561007
-4    mse  0.050  7.400923  13.083266
-5    mse  0.075  7.811349  12.819814
-6    mse  0.100  8.000446  12.700230
-7    mse  0.150  8.389708  12.449686
+0    mae  0.050  5.079552  15.297830
+1    mae  0.075  6.723237  14.662973
+2    mae  0.100  7.582917  14.318401
+3    mae  0.150  8.990806  13.693223
+4    mse  0.050  2.958046  15.712185
+5    mse  0.075  4.371257  14.616093
+6    mse  0.100  5.187493  14.036053
+7    mse  0.150  6.641278  13.013377
 
-Running wtsr from 2024-07-21 21:21:11.311119
-Experiment ended at 2024-07-21 21:25:27.168269. Total time taken 0:04:15.857150.
+Running winIT from 2024-07-26 03:18:20.205626
+Experiment ended at 2024-07-26 03:25:46.381086. Total time taken 0:07:26.175460.
   metric   area       comp       suff
-0    mae  0.050  11.741941  11.629823
-1    mae  0.075  12.506877  10.155843
-2    mae  0.100  12.947038   9.325344
-3    mae  0.150  13.737033   7.874812
-4    mse  0.050  10.049173   9.499532
-5    mse  0.075  11.077219   7.377624
-6    mse  0.100  11.737346   6.298722
-7    mse  0.150  12.968459   4.636181
+0    mae  0.050   9.013890  13.892238
+1    mae  0.075   9.501533  13.723795
+2    mae  0.100   9.713242  13.646860
+3    mae  0.150  10.127655  13.482112
+4    mse  0.050   7.644016  13.072113
+5    mse  0.075   8.060057  12.794153
+6    mse  0.100   8.247791  12.677332
+7    mse  0.150   8.634813  12.414379
 
-Running tsr from 2024-07-21 21:25:27.489256
-Experiment ended at 2024-07-21 22:03:15.362791. Total time taken 0:37:47.873535.
+Running wtsr from 2024-07-26 03:25:46.599775
+Experiment ended at 2024-07-26 03:31:26.864689. Total time taken 0:05:40.264914.
   metric   area       comp       suff
-0    mae  0.050  11.704541  11.570921
-1    mae  0.075  12.434350  10.168668
-2    mae  0.100  12.871117   9.325195
-3    mae  0.150  13.639916   7.869612
-4    mse  0.050  10.070687   9.305105
-5    mse  0.075  11.048676   7.328160
-6    mse  0.100  11.673820   6.238665
-7    mse  0.150  12.845160   4.595635
+0    mae  0.050  11.698519  11.575473
+1    mae  0.075  12.415655  10.167099
+2    mae  0.100  12.852150   9.322562
+3    mae  0.150  13.621784   7.869250
+4    mse  0.050  10.062465   9.306123
+5    mse  0.075  11.027649   7.319793
+6    mse  0.100  11.651503   6.229872
+7    mse  0.150  12.822176   4.592871
+
+Running tsr from 2024-07-26 03:31:27.085745
+Experiment ended at 2024-07-26 04:21:27.109967. Total time taken 0:50:00.024222.
+  metric   area       comp       suff
+0    mae  0.050  11.627864  11.696734
+1    mae  0.075  12.403654  10.280286
+2    mae  0.100  12.857717   9.434029
+3    mae  0.150  13.713436   7.935611
+4    mse  0.050  10.010237   9.513198
+5    mse  0.075  11.088612   7.516320
+6    mse  0.100  11.777681   6.385837
+7    mse  0.150  13.109404   4.665596
 
 
 >>>> itr_no: 2, seed: 506 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_MICN/2
+Experiments will be saved in scratch/electricity_MICN/2
 test 2607
-Loading model from ./results/electricity_MICN/2/checkpoint.pth
-Running feature_ablation from 2024-07-21 22:03:17.573058
-Experiment ended at 2024-07-21 22:08:14.506252. Total time taken 0:04:56.933194.
+Loading model from scratch/electricity_MICN/2/checkpoint.pth
+Running feature_ablation from 2024-07-26 04:21:29.771910
+Experiment ended at 2024-07-26 04:28:02.323168. Total time taken 0:06:32.551258.
   metric   area       comp       suff
-0    mae  0.050  10.648054  12.411798
-1    mae  0.075  11.722514  11.328061
-2    mae  0.100  12.221008  10.690160
-3    mae  0.150  13.137336   9.334711
-4    mse  0.050   8.840701  10.539250
-5    mse  0.075  10.133755   8.944086
-6    mse  0.100  10.795057   8.048125
-7    mse  0.150  12.097707   6.304471
+0    mae  0.050  10.648033  12.411797
+1    mae  0.075  11.722518  11.328061
+2    mae  0.100  12.221062  10.690191
+3    mae  0.150  13.137417   9.334648
+4    mse  0.050   8.840688  10.539255
+5    mse  0.075  10.133759   8.944087
+6    mse  0.100  10.795165   8.048195
+7    mse  0.150  12.097802   6.304428
 
-Running occlusion from 2024-07-21 22:08:14.805849
-Experiment ended at 2024-07-21 22:13:16.113879. Total time taken 0:05:01.308030.
+Running occlusion from 2024-07-26 04:28:02.552126
+Experiment ended at 2024-07-26 04:34:39.729792. Total time taken 0:06:37.177666.
   metric   area       comp       suff
-0    mae  0.050  11.835013  11.653685
-1    mae  0.075  12.659374  10.218194
-2    mae  0.100  13.107476   9.377789
-3    mae  0.150  13.944090   7.916348
-4    mse  0.050  10.343724   9.480385
-5    mse  0.075  11.497908   7.459042
-6    mse  0.100  12.151926   6.369817
-7    mse  0.150  13.469729   4.697890
+0    mae  0.050  11.834997  11.653708
+1    mae  0.075  12.659374  10.218200
+2    mae  0.100  13.107285   9.377777
+3    mae  0.150  13.944087   7.916343
+4    mse  0.050  10.343702   9.480398
+5    mse  0.075  11.497909   7.459048
+6    mse  0.100  12.151586   6.369753
+7    mse  0.150  13.469703   4.697864
 
-Running augmented_occlusion from 2024-07-21 22:13:16.391223
-Experiment ended at 2024-07-21 22:18:20.624920. Total time taken 0:05:04.233697.
+Running augmented_occlusion from 2024-07-26 04:34:39.960116
+Experiment ended at 2024-07-26 04:41:19.808731. Total time taken 0:06:39.848615.
   metric   area       comp       suff
-0    mae  0.050   9.961509  13.390179
-1    mae  0.075  11.025898  12.546840
-2    mae  0.100  11.520582  12.032328
-3    mae  0.150  12.377273  10.942600
-4    mse  0.050   8.102705  12.147555
-5    mse  0.075   9.391500  10.802681
-6    mse  0.100  10.050331  10.022514
-7    mse  0.150  11.244682   8.473226
+0    mae  0.050   9.961367  13.390179
+1    mae  0.075  11.025887  12.546779
+2    mae  0.100  11.520634  12.032350
+3    mae  0.150  12.377305  10.942594
+4    mse  0.050   8.102574  12.147556
+5    mse  0.075   9.391497  10.802627
+6    mse  0.100  10.050373  10.022529
+7    mse  0.150  11.244678   8.473220
 
-Running feature_permutation from 2024-07-21 22:18:20.898144
-Experiment ended at 2024-07-21 22:23:21.724165. Total time taken 0:05:00.826021.
+Running feature_permutation from 2024-07-26 04:41:20.070518
+Experiment ended at 2024-07-26 04:47:57.139485. Total time taken 0:06:37.068967.
   metric   area       comp       suff
-0    mae  0.050   8.159194  14.402948
-1    mae  0.075   9.284942  13.997799
-2    mae  0.100   9.805470  13.789497
-3    mae  0.150  10.706361  13.404695
-4    mse  0.050   5.902274  13.864351
-5    mse  0.075   7.096973  13.126564
-6    mse  0.100   7.694060  12.751247
-7    mse  0.150   8.875865  12.063456
+0    mae  0.050   8.159195  14.402920
+1    mae  0.075   9.284932  13.997767
+2    mae  0.100   9.805431  13.789431
+3    mae  0.150  10.706362  13.404726
+4    mse  0.050   5.902274  13.864349
+5    mse  0.075   7.096972  13.126498
+6    mse  0.100   7.694051  12.751134
+7    mse  0.150   8.875863  12.063542
 
-Running integrated_gradients from 2024-07-21 22:23:21.999385
-Experiment ended at 2024-07-21 22:28:53.381621. Total time taken 0:05:31.382236.
+Running integrated_gradients from 2024-07-26 04:47:57.386156
+Experiment ended at 2024-07-26 04:55:13.079190. Total time taken 0:07:15.693034.
   metric   area       comp       suff
-0    mae  0.050  10.896774  15.259269
-1    mae  0.075  13.229035  15.800164
-2    mae  0.100  14.485957  16.223602
-3    mae  0.150  16.825449  17.235854
-4    mse  0.050   8.759232  14.989354
-5    mse  0.075  11.980667  15.938806
-6    mse  0.100  13.968060  16.699990
-7    mse  0.150  18.144822  18.553622
+0    mae  0.050  10.896788  15.259260
+1    mae  0.075  13.229026  15.800160
+2    mae  0.100  14.485954  16.223632
+3    mae  0.150  16.825440  17.235892
+4    mse  0.050   8.759238  14.989351
+5    mse  0.075  11.980665  15.938803
+6    mse  0.100  13.968055  16.700033
+7    mse  0.150  18.144784  18.553693
 
-Running gradient_shap from 2024-07-21 22:28:53.612582
-Experiment ended at 2024-07-21 22:32:20.140691. Total time taken 0:03:26.528109.
+Running gradient_shap from 2024-07-26 04:55:13.299474
+Experiment ended at 2024-07-26 04:59:51.468200. Total time taken 0:04:38.168726.
   metric   area       comp       suff
-0    mae  0.050   8.377826  14.544363
-1    mae  0.075   9.921656  14.366084
-2    mae  0.100  10.723566  14.358863
-3    mae  0.150  12.279264  14.489828
-4    mse  0.050   6.099919  13.912264
-5    mse  0.075   7.895317  13.579861
-6    mse  0.100   8.964556  13.555783
-7    mse  0.150  11.240512  13.761980
+0    mae  0.050   8.377827  14.544342
+1    mae  0.075   9.921658  14.366067
+2    mae  0.100  10.723549  14.358877
+3    mae  0.150  12.279194  14.489850
+4    mse  0.050   6.099919  13.912258
+5    mse  0.075   7.895303  13.579829
+6    mse  0.100   8.964551  13.555805
+7    mse  0.150  11.240448  13.762016
 
-Running winIT from 2024-07-21 22:32:20.400177
-Experiment ended at 2024-07-21 22:38:16.485612. Total time taken 0:05:56.085435.
-  metric   area       comp       suff
-0    mae  0.050   9.052593  14.048556
-1    mae  0.075   9.538743  13.887846
-2    mae  0.100   9.770994  13.811976
-3    mae  0.150  10.190757  13.658254
-4    mse  0.050   7.712317  13.296898
-5    mse  0.075   8.135537  13.028752
-6    mse  0.100   8.347364  12.917451
-7    mse  0.150   8.736666  12.688337
+Running dyna_mask from 2024-07-26 04:59:51.705619
+Experiment ended at 2024-07-26 05:04:19.789094. Total time taken 0:04:28.083475.
+  metric   area      comp       suff
+0    mae  0.050  5.216095  15.393033
+1    mae  0.075  6.843184  14.712527
+2    mae  0.100  7.669684  14.389253
+3    mae  0.150  9.101729  13.742017
+4    mse  0.050  3.086182  15.885680
+5    mse  0.075  4.500051  14.715567
+6    mse  0.100  5.301698  14.193131
+7    mse  0.150  6.802397  13.143052
 
-Running wtsr from 2024-07-21 22:38:16.724434
-Experiment ended at 2024-07-21 22:42:32.968056. Total time taken 0:04:16.243622.
+Running winIT from 2024-07-26 05:04:20.011243
+Experiment ended at 2024-07-26 05:11:47.790360. Total time taken 0:07:27.779117.
   metric   area       comp       suff
-0    mae  0.050  11.982394  11.670525
-1    mae  0.075  12.739804  10.242454
-2    mae  0.100  13.148165   9.409830
-3    mae  0.150  13.925732   7.942946
-4    mse  0.050  10.596609   9.545051
-5    mse  0.075  11.677777   7.461598
-6    mse  0.100  12.282200   6.376675
-7    mse  0.150  13.537392   4.703911
+0    mae  0.050   9.230472  13.955269
+1    mae  0.075   9.703325  13.802342
+2    mae  0.100   9.917008  13.724271
+3    mae  0.150  10.330831  13.564487
+4    mse  0.050   7.999259  13.281587
+5    mse  0.075   8.412171  13.024478
+6    mse  0.100   8.607290  12.902155
+7    mse  0.150   9.006476  12.650847
 
-Running tsr from 2024-07-21 22:42:33.250784
-Experiment ended at 2024-07-21 23:20:31.147690. Total time taken 0:37:57.896906.
+Running wtsr from 2024-07-26 05:11:48.024043
+Experiment ended at 2024-07-26 05:17:29.612354. Total time taken 0:05:41.588311.
   metric   area       comp       suff
-0    mae  0.050  11.904782  11.590136
-1    mae  0.075  12.706685  10.183652
-2    mae  0.100  13.133759   9.370458
-3    mae  0.150  13.948686   7.907144
-4    mse  0.050  10.391100   9.427317
-5    mse  0.075  11.463981   7.413967
-6    mse  0.100  12.086507   6.361012
-7    mse  0.150  13.358082   4.686246
+0    mae  0.050  11.897938  11.592074
+1    mae  0.075  12.689624  10.180117
+2    mae  0.100  13.118042   9.371722
+3    mae  0.150  13.930153   7.904329
+4    mse  0.050  10.380717   9.426598
+5    mse  0.075  11.443034   7.404305
+6    mse  0.100  12.067981   6.358642
+7    mse  0.150  13.335365   4.680594
+
+Running tsr from 2024-07-26 05:17:29.828739
+Experiment ended at 2024-07-26 06:07:40.674388. Total time taken 0:50:10.845649.
+  metric   area       comp       suff
+0    mae  0.050  11.661945  11.706069
+1    mae  0.075  12.490266  10.264411
+2    mae  0.100  12.922527   9.428095
+3    mae  0.150  13.731016   7.963803
+4    mse  0.050  10.028031   9.551203
+5    mse  0.075  11.166737   7.506428
+6    mse  0.100  11.808637   6.412218
+7    mse  0.150  13.050610   4.733291
 
 
 >>>> itr_no: 3, seed: 608 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_MICN/3
+Experiments will be saved in scratch/electricity_MICN/3
 test 2607
-Loading model from ./results/electricity_MICN/3/checkpoint.pth
-Running feature_ablation from 2024-07-21 23:20:33.463146
-Experiment ended at 2024-07-21 23:25:31.015332. Total time taken 0:04:57.552186.
+Loading model from scratch/electricity_MICN/3/checkpoint.pth
+Running feature_ablation from 2024-07-26 06:07:43.144108
+Experiment ended at 2024-07-26 06:14:15.146661. Total time taken 0:06:32.002553.
   metric   area       comp       suff
-0    mae  0.050  10.623156  12.689626
-1    mae  0.075  11.727600  11.516111
-2    mae  0.100  12.279421  10.776640
-3    mae  0.150  13.247114   9.443184
-4    mse  0.050   8.774563  11.003586
-5    mse  0.075  10.099704   9.206164
-6    mse  0.100  10.853470   8.144724
-7    mse  0.150  12.240064   6.442036
+0    mae  0.050  10.623137  12.689629
+1    mae  0.075  11.727626  11.516111
+2    mae  0.100  12.279430  10.776647
+3    mae  0.150  13.247092   9.443213
+4    mse  0.050   8.774556  11.003591
+5    mse  0.075  10.099722   9.206164
+6    mse  0.100  10.853462   8.144756
+7    mse  0.150  12.240041   6.442049
 
-Running occlusion from 2024-07-21 23:25:31.311817
-Experiment ended at 2024-07-21 23:30:33.072007. Total time taken 0:05:01.760190.
+Running occlusion from 2024-07-26 06:14:15.375488
+Experiment ended at 2024-07-26 06:20:51.990877. Total time taken 0:06:36.615389.
   metric   area       comp       suff
-0    mae  0.050  11.509557  11.685634
-1    mae  0.075  12.286490  10.258867
-2    mae  0.100  12.750774   9.443639
-3    mae  0.150  13.581373   7.981014
+0    mae  0.050  11.509558  11.685634
+1    mae  0.075  12.286459  10.258797
+2    mae  0.100  12.750774   9.443640
+3    mae  0.150  13.581297   7.981050
 4    mse  0.050   9.774125   9.543636
-5    mse  0.075  10.802024   7.471206
+5    mse  0.075  10.801963   7.471101
 6    mse  0.100  11.482250   6.412879
-7    mse  0.150  12.774076   4.736228
+7    mse  0.150  12.774015   4.736254
 
-Running augmented_occlusion from 2024-07-21 23:30:33.346347
-Experiment ended at 2024-07-21 23:35:37.811720. Total time taken 0:05:04.465373.
+Running augmented_occlusion from 2024-07-26 06:20:52.205023
+Experiment ended at 2024-07-26 06:27:29.816257. Total time taken 0:06:37.611234.
   metric   area       comp       suff
-0    mae  0.050   9.836922  13.038183
-1    mae  0.075  10.840773  12.218221
-2    mae  0.100  11.325551  11.708295
-3    mae  0.150  12.173492  10.640865
-4    mse  0.050   7.937047  11.625649
-5    mse  0.075   9.147814  10.307769
-6    mse  0.100   9.776997   9.544172
-7    mse  0.150  10.902545   8.060020
+0    mae  0.050   9.836817  13.038184
+1    mae  0.075  10.840730  12.218220
+2    mae  0.100  11.325609  11.708274
+3    mae  0.150  12.173533  10.640917
+4    mse  0.050   7.936984  11.625649
+5    mse  0.075   9.147780  10.307768
+6    mse  0.100   9.777067   9.544135
+7    mse  0.150  10.902577   8.060079
 
-Running feature_permutation from 2024-07-21 23:35:38.098942
-Experiment ended at 2024-07-21 23:40:39.922624. Total time taken 0:05:01.823682.
+Running feature_permutation from 2024-07-26 06:27:30.040300
+Experiment ended at 2024-07-26 06:34:06.884344. Total time taken 0:06:36.844044.
   metric   area       comp       suff
-0    mae  0.050   7.891960  14.701326
-1    mae  0.075   9.011986  14.300367
-2    mae  0.100   9.554192  14.110260
-3    mae  0.150  10.497086  13.762468
-4    mse  0.050   5.511732  14.364529
-5    mse  0.075   6.669358  13.617027
-6    mse  0.100   7.275069  13.260727
-7    mse  0.150   8.461056  12.637923
+0    mae  0.050   7.891956  14.701308
+1    mae  0.075   9.012010  14.300384
+2    mae  0.100   9.554197  14.110255
+3    mae  0.150  10.497056  13.762292
+4    mse  0.050   5.511727  14.364477
+5    mse  0.075   6.669373  13.617061
+6    mse  0.100   7.275074  13.260725
+7    mse  0.150   8.461067  12.637612
 
-Running integrated_gradients from 2024-07-21 23:40:40.201093
-Experiment ended at 2024-07-21 23:46:11.993499. Total time taken 0:05:31.792406.
+Running integrated_gradients from 2024-07-26 06:34:07.112169
+Experiment ended at 2024-07-26 06:41:13.798725. Total time taken 0:07:06.686556.
   metric   area       comp       suff
-0    mae  0.050  10.652675  15.357601
-1    mae  0.075  13.039602  15.974592
-2    mae  0.100  14.343578  16.457648
-3    mae  0.150  16.809261  17.594693
-4    mse  0.050   8.391481  15.317116
-5    mse  0.075  11.590158  16.399929
-6    mse  0.100  13.589157  17.273798
-7    mse  0.150  17.912128  19.391678
+0    mae  0.050  10.652721  15.357609
+1    mae  0.075  13.039546  15.974607
+2    mae  0.100  14.343560  16.457679
+3    mae  0.150  16.809268  17.594768
+4    mse  0.050   8.391507  15.317133
+5    mse  0.075  11.590088  16.399943
+6    mse  0.100  13.589138  17.273834
+7    mse  0.150  17.912134  19.391766
 
-Running gradient_shap from 2024-07-21 23:46:12.229142
-Experiment ended at 2024-07-21 23:49:38.954973. Total time taken 0:03:26.725831.
+Running gradient_shap from 2024-07-26 06:41:14.017203
+Experiment ended at 2024-07-26 06:45:54.124050. Total time taken 0:04:40.106847.
   metric   area       comp       suff
-0    mae  0.050   8.315817  14.665173
-1    mae  0.075   9.884784  14.543698
-2    mae  0.100  10.710208  14.576191
-3    mae  0.150  12.329872  14.767123
-4    mse  0.050   6.039503  14.111996
-5    mse  0.075   7.848878  13.869925
-6    mse  0.100   8.924335  13.907650
-7    mse  0.150  11.269727  14.205512
+0    mae  0.050   8.315773  14.665204
+1    mae  0.075   9.884764  14.543696
+2    mae  0.100  10.710188  14.576155
+3    mae  0.150  12.329885  14.767154
+4    mse  0.050   6.039481  14.112020
+5    mse  0.075   7.848865  13.869927
+6    mse  0.100   8.924280  13.907584
+7    mse  0.150  11.269738  14.205505
 
-Running winIT from 2024-07-21 23:49:39.216787
-Experiment ended at 2024-07-21 23:55:35.432743. Total time taken 0:05:56.215956.
+Running dyna_mask from 2024-07-26 06:45:54.347918
+Experiment ended at 2024-07-26 06:50:21.455487. Total time taken 0:04:27.107569.
+  metric   area      comp       suff
+0    mae  0.050  5.043823  15.347160
+1    mae  0.075  6.715039  14.704487
+2    mae  0.100  7.531043  14.380145
+3    mae  0.150  9.018672  13.672034
+4    mse  0.050  2.881184  15.839260
+5    mse  0.075  4.344708  14.736617
+6    mse  0.100  5.122165  14.203144
+7    mse  0.150  6.704090  13.023024
+
+Running winIT from 2024-07-26 06:50:21.690166
+Experiment ended at 2024-07-26 06:57:48.043253. Total time taken 0:07:26.353087.
   metric   area       comp       suff
-0    mae  0.050   8.879641  13.843023
-1    mae  0.075   9.390710  13.689122
-2    mae  0.100   9.617871  13.612148
-3    mae  0.150  10.023558  13.439294
-4    mse  0.050   7.656557  12.984299
-5    mse  0.075   8.105452  12.727482
-6    mse  0.100   8.309684  12.605159
-7    mse  0.150   8.680880  12.339063
+0    mae  0.050   8.944461  13.791093
+1    mae  0.075   9.447004  13.626494
+2    mae  0.100   9.663688  13.543600
+3    mae  0.150  10.079084  13.394923
+4    mse  0.050   7.776092  12.848329
+5    mse  0.075   8.216057  12.570573
+6    mse  0.100   8.410081  12.434690
+7    mse  0.150   8.798975  12.204602
 
-Running wtsr from 2024-07-21 23:55:35.671058
-Experiment ended at 2024-07-21 23:59:52.045831. Total time taken 0:04:16.374773.
+Running wtsr from 2024-07-26 06:57:48.262968
+Experiment ended at 2024-07-26 07:03:28.973380. Total time taken 0:05:40.710412.
   metric   area       comp       suff
-0    mae  0.050  11.610136  11.592452
-1    mae  0.075  12.448622  10.150283
-2    mae  0.100  12.921661   9.331808
-3    mae  0.150  13.726561   7.901750
-4    mse  0.050  10.027161   9.329971
-5    mse  0.075  11.140518   7.298640
-6    mse  0.100  11.823547   6.256509
-7    mse  0.150  13.074278   4.641705
+0    mae  0.050  11.599998  11.703048
+1    mae  0.075  12.431957  10.288463
+2    mae  0.100  12.912028   9.452262
+3    mae  0.150  13.764397   8.009256
+4    mse  0.050   9.846080   9.534694
+5    mse  0.075  10.973560   7.520394
+6    mse  0.100  11.671384   6.432119
+7    mse  0.150  12.961757   4.775933
 
-Running tsr from 2024-07-21 23:59:52.322885
-Experiment ended at 2024-07-22 00:37:50.627135. Total time taken 0:37:58.304250.
+Running tsr from 2024-07-26 07:03:29.211468
+Experiment ended at 2024-07-26 07:53:32.604429. Total time taken 0:50:03.392961.
   metric   area       comp       suff
-0    mae  0.050  11.609387  11.696633
-1    mae  0.075  12.445663  10.289909
-2    mae  0.100  12.927749   9.452379
-3    mae  0.150  13.778811   8.013303
-4    mse  0.050   9.855019   9.532028
-5    mse  0.075  10.992032   7.526798
-6    mse  0.100  11.689753   6.434602
-7    mse  0.150  12.978105   4.785179
+0    mae  0.050  11.547036  11.547265
+1    mae  0.075  12.365433  10.162793
+2    mae  0.100  12.821068   9.371581
+3    mae  0.150  13.629372   7.960793
+4    mse  0.050   9.979025   9.370148
+5    mse  0.075  11.080432   7.399550
+6    mse  0.100  11.749476   6.373038
+7    mse  0.150  12.978946   4.752339
 
-Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='SegRNN', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'integrated_gradients', 'gradient_shap', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
+Running for model:SegRNN
 
 >>>> itr_no: 1, seed: 648 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_SegRNN/1
+Experiments will be saved in scratch/electricity_SegRNN/1
 test 2607
-Loading model from ./results/electricity_SegRNN/1/checkpoint.pth
-Running feature_ablation from 2024-07-22 00:38:00.592831
-Experiment ended at 2024-07-22 00:39:49.798059. Total time taken 0:01:49.205228.
+Loading model from scratch/electricity_SegRNN/1/checkpoint.pth
+Running feature_ablation from 2024-07-26 07:53:45.621601
+Experiment ended at 2024-07-26 07:56:21.841856. Total time taken 0:02:36.220255.
   metric   area       comp       suff
-0    mae  0.050   9.562654  14.622920
-1    mae  0.075  10.751166  13.890434
-2    mae  0.100  11.327702  13.463838
-3    mae  0.150  12.324916  12.524888
-4    mse  0.050   8.232290  13.988618
-5    mse  0.075   9.467977  12.704198
-6    mse  0.100  10.152148  12.007252
-7    mse  0.150  11.470588  10.558351
+0    mae  0.050   9.562642  14.622901
+1    mae  0.075  10.751171  13.890406
+2    mae  0.100  11.327696  13.463802
+3    mae  0.150  12.325086  12.524917
+4    mse  0.050   8.232283  13.988547
+5    mse  0.075   9.467975  12.704130
+6    mse  0.100  10.152155  12.007240
+7    mse  0.150  11.470957  10.558395
 
-Running occlusion from 2024-07-22 00:39:50.079128
-Experiment ended at 2024-07-22 00:41:43.305474. Total time taken 0:01:53.226346.
+Running occlusion from 2024-07-26 07:56:22.059808
+Experiment ended at 2024-07-26 07:59:02.419907. Total time taken 0:02:40.360099.
   metric   area       comp       suff
-0    mae  0.050  11.472906  13.873898
-1    mae  0.075  12.561418  12.815492
-2    mae  0.100  13.063980  12.215248
-3    mae  0.150  13.912045  10.892503
-4    mse  0.050  10.477802  12.840349
-5    mse  0.075  11.849657  11.078165
-6    mse  0.100  12.544979  10.141176
-7    mse  0.150  13.815783   8.219043
+0    mae  0.050  11.472977  13.873898
+1    mae  0.075  12.561423  12.815540
+2    mae  0.100  13.063974  12.215262
+3    mae  0.150  13.912037  10.892455
+4    mse  0.050  10.477845  12.840349
+5    mse  0.075  11.849672  11.078153
+6    mse  0.100  12.544970  10.141183
+7    mse  0.150  13.815809   8.218979
 
-Running augmented_occlusion from 2024-07-22 00:41:43.583158
-Experiment ended at 2024-07-22 00:43:39.777123. Total time taken 0:01:56.193965.
+Running augmented_occlusion from 2024-07-26 07:59:02.635995
+Experiment ended at 2024-07-26 08:01:45.661561. Total time taken 0:02:43.025566.
   metric   area       comp       suff
-0    mae  0.050   8.587844  15.194607
-1    mae  0.075   9.779113  14.521409
-2    mae  0.100  10.368550  14.122817
-3    mae  0.150  11.454252  13.242613
-4    mse  0.050   7.261437  15.170813
-5    mse  0.075   8.434021  13.909637
-6    mse  0.100   9.096149  13.185677
-7    mse  0.150  10.448884  11.684013
+0    mae  0.050   8.587852  15.194607
+1    mae  0.075   9.779067  14.521409
+2    mae  0.100  10.368552  14.122757
+3    mae  0.150  11.454249  13.242641
+4    mse  0.050   7.261441  15.170813
+5    mse  0.075   8.433989  13.909628
+6    mse  0.100   9.096149  13.185620
+7    mse  0.150  10.448880  11.684049
 
-Running feature_permutation from 2024-07-22 00:43:40.054672
-Experiment ended at 2024-07-22 00:45:33.402785. Total time taken 0:01:53.348113.
+Running feature_permutation from 2024-07-26 08:01:45.878821
+Experiment ended at 2024-07-26 08:04:25.450056. Total time taken 0:02:39.571235.
   metric   area      comp       suff
-0    mae  0.050  6.122348  16.712561
-1    mae  0.075  7.531953  16.244284
-2    mae  0.100  8.232190  15.964835
-3    mae  0.150  9.454025  15.376668
-4    mse  0.050  3.886305  17.984654
-5    mse  0.075  5.147311  17.068023
-6    mse  0.100  5.888213  16.524279
-7    mse  0.150  7.323257  15.429293
+0    mae  0.050  6.122349  16.712524
+1    mae  0.075  7.531964  16.244275
+2    mae  0.100  8.232170  15.964849
+3    mae  0.150  9.454047  15.376560
+4    mse  0.050  3.886306  17.984599
+5    mse  0.075  5.147357  17.068002
+6    mse  0.100  5.888193  16.524312
+7    mse  0.150  7.323273  15.429126
 
-Running integrated_gradients from 2024-07-22 00:45:33.681553
-Traceback (most recent call last):
-  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 73, in <module>
-    main(args)
-  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 42, in main
-    interpreter.interpret(dataloader)
-  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 212, in interpret
-    results, attrs = self.run_regressor(dataloader, name)
-  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 185, in run_regressor
-    batch_results, batch_attr = self.evaluate(
-  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 237, in evaluate
-    attr = compute_attr(
-  File "/u/mi3se/projects/SA-Timeseries/utils/explainer.py", line 100, in compute_attr
-    attr = explainer.attribute(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/log/__init__.py", line 42, in wrapper
-    return func(*args, **kwargs)
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/attr/_core/integrated_gradients.py", line 286, in attribute
-    attributions = self._attribute(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/attr/_core/integrated_gradients.py", line 351, in _attribute
-    grads = self.gradient_func(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/_utils/gradient.py", line 119, in compute_gradients
-    grads = torch.autograd.grad(torch.unbind(outputs), inputs)
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/__init__.py", line 412, in grad
-    result = _engine_run_backward(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
-    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
-RuntimeError: cudnn RNN backward can only be called in training mode
-Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='iTransformer', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'integrated_gradients', 'gradient_shap', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
-
->>>> itr_no: 1, seed: 648 <<<<<<
-Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_iTransformer/1
-test 2607
-Loading model from ./results/electricity_iTransformer/1/checkpoint.pth
-Running feature_ablation from 2024-07-22 00:45:43.347918
-Experiment ended at 2024-07-22 00:50:36.041441. Total time taken 0:04:52.693523.
+Running integrated_gradients from 2024-07-26 08:04:25.695737
+Experiment ended at 2024-07-26 08:07:15.536035. Total time taken 0:02:49.840298.
   metric   area       comp       suff
-0    mae  0.050   8.814405  17.476180
-1    mae  0.075  10.428453  16.606614
-2    mae  0.100  11.304741  16.033471
-3    mae  0.150  12.751735  14.815076
-4    mse  0.050   6.998629  20.003082
-5    mse  0.075   8.986038  18.159397
-6    mse  0.100  10.177185  17.014707
-7    mse  0.150  12.285904  14.679399
+0    mae  0.050   9.248414  16.070724
+1    mae  0.075  11.622274  15.572061
+2    mae  0.100  12.667028  15.337894
+3    mae  0.150  14.356581  14.948753
+4    mse  0.050   6.771808  16.430857
+5    mse  0.075   9.915809  15.455101
+6    mse  0.100  11.547601  15.030655
+7    mse  0.150  14.538702  14.375963
 
-Running occlusion from 2024-07-22 00:50:36.303844
-Experiment ended at 2024-07-22 00:55:34.232179. Total time taken 0:04:57.928335.
+Running gradient_shap from 2024-07-26 08:07:15.767320
+Experiment ended at 2024-07-26 08:09:15.777990. Total time taken 0:02:00.010670.
   metric   area       comp       suff
-0    mae  0.050  11.431595  16.060888
-1    mae  0.075  12.838493  14.748760
-2    mae  0.100  13.530074  13.893521
-3    mae  0.150  14.750451  12.160135
-4    mse  0.050  10.407132  17.146443
-5    mse  0.075  12.470374  14.625011
-6    mse  0.100  13.562173  13.088957
-7    mse  0.150  15.618572  10.198198
+0    mae  0.050   6.738045  16.354925
+1    mae  0.075   8.720551  15.778498
+2    mae  0.100   9.640120  15.460487
+3    mae  0.150  11.213623  14.815552
+4    mse  0.050   4.466686  17.301102
+5    mse  0.075   6.527118  16.123198
+6    mse  0.100   7.642581  15.505985
+7    mse  0.150   9.811043  14.310208
 
-Running augmented_occlusion from 2024-07-22 00:55:34.489847
-Experiment ended at 2024-07-22 01:00:34.795210. Total time taken 0:05:00.305363.
-  metric   area       comp       suff
-0    mae  0.050   7.324989  18.558796
-1    mae  0.075   8.786946  17.738954
-2    mae  0.100   9.622636  17.199176
-3    mae  0.150  11.021153  16.042404
-4    mse  0.050   5.120684  22.573561
-5    mse  0.075   6.750638  20.745719
-6    mse  0.100   7.776610  19.591394
-7    mse  0.150   9.632653  17.212763
-
-Running feature_permutation from 2024-07-22 01:00:35.051982
-Experiment ended at 2024-07-22 01:05:32.530173. Total time taken 0:04:57.478191.
+Running dyna_mask from 2024-07-26 08:09:16.014464
+Experiment ended at 2024-07-26 08:11:14.365774. Total time taken 0:01:58.351310.
   metric   area      comp       suff
-0    mae  0.050  5.373598  20.077597
-1    mae  0.075  6.671551  19.538026
-2    mae  0.100  7.439821  19.217143
-3    mae  0.150  8.852061  18.519868
-4    mse  0.050  2.847562  25.999644
-5    mse  0.075  4.044880  24.685533
-6    mse  0.100  4.841775  23.920448
-7    mse  0.150  6.465503  22.299878
+0    mae  0.050  2.464560  17.595301
+1    mae  0.075  3.604541  17.303084
+2    mae  0.100  4.250753  17.099553
+3    mae  0.150  5.684245  16.618645
+4    mse  0.050  0.655676  20.173072
+5    mse  0.075  1.227850  19.572907
+6    mse  0.100  1.627165  19.162311
+7    mse  0.150  2.708813  18.204506
 
-Running integrated_gradients from 2024-07-22 01:05:32.839756
-Traceback (most recent call last):
-  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 73, in <module>
-    main(args)
-  File "/u/mi3se/projects/SA-Timeseries/interpret.py", line 42, in main
-    interpreter.interpret(dataloader)
-  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 212, in interpret
-    results, attrs = self.run_regressor(dataloader, name)
-  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 185, in run_regressor
-    batch_results, batch_attr = self.evaluate(
-  File "/u/mi3se/projects/SA-Timeseries/exp/exp_interpret.py", line 237, in evaluate
-    attr = compute_attr(
-  File "/u/mi3se/projects/SA-Timeseries/utils/explainer.py", line 100, in compute_attr
-    attr = explainer.attribute(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/log/__init__.py", line 42, in wrapper
-    return func(*args, **kwargs)
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/attr/_core/integrated_gradients.py", line 286, in attribute
-    attributions = self._attribute(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/attr/_core/integrated_gradients.py", line 351, in _attribute
-    grads = self.gradient_func(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/captum/_utils/gradient.py", line 119, in compute_gradients
-    grads = torch.autograd.grad(torch.unbind(outputs), inputs)
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/__init__.py", line 412, in grad
-    result = _engine_run_backward(
-  File "/u/mi3se/anaconda3/envs/ml/lib/python3.10/site-packages/torch/autograd/graph.py", line 744, in _engine_run_backward
-    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
-RuntimeError: one of the variables needed for gradient computation has been modified by an inplace operation: [torch.cuda.FloatTensor [1600, 96, 1]], which is output 0 of DivBackward0, is at version 1; expected version 0 instead. Hint: enable anomaly detection to find the operation that failed to compute its gradient, with torch.autograd.set_detect_anomaly(True).
-Namespace(task_name='long_term_forecast', train=False, dry_run=False, model='Crossformer', seed=2024, itrs=3, itr_no=None, data='custom', result_path='./results', root_path='./dataset/electricity/', data_path='electricity.csv', flag='test', features='S', target='OT', freq='h', seq_len=96, label_len=12, pred_len=24, seasonal_patterns='Monthly', top_k=5, num_kernels=6, n_features=1, d_model=128, n_heads=4, e_layers=2, d_layers=1, d_ff=256, moving_avg=25, factor=3, distil=True, dropout=0.1, embed='timeF', activation='gelu', output_attention=False, conv_kernel=[18, 12], seg_len=24, num_workers=0, train_epochs=10, batch_size=32, patience=3, learning_rate=0.001, lradj='type1', use_amp=False, use_cpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', p_hidden_dims=[128, 128], p_hidden_layers=2, explainers=['feature_ablation', 'occlusion', 'augmented_occlusion', 'feature_permutation', 'integrated_gradients', 'gradient_shap', 'winIT', 'wtsr', 'tsr'], areas=[0.05, 0.075, 0.1, 0.15], baseline_mode='random', metrics=['mae', 'mse'], overwrite=True, dump_attrs=False, disable_progress=True, use_gpu=True, enc_in=1, dec_in=1, c_out=1)
-
->>>> itr_no: 1, seed: 648 <<<<<<
-Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_Crossformer/1
-test 2607
-Loading model from ./results/electricity_Crossformer/1/checkpoint.pth
-Running feature_ablation from 2024-07-22 01:05:44.371111
-Experiment ended at 2024-07-22 01:30:51.331948. Total time taken 0:25:06.960837.
+Running winIT from 2024-07-26 08:11:14.586672
+Experiment ended at 2024-07-26 08:14:49.181928. Total time taken 0:03:34.595256.
   metric   area       comp       suff
-0    mae  0.050   8.734576  14.979029
-1    mae  0.075  10.056061  14.149670
-2    mae  0.100  10.707057  13.674896
-3    mae  0.150  11.944433  12.665044
-4    mse  0.050   7.215952  14.498139
-5    mse  0.075   8.696050  13.008504
-6    mse  0.100   9.488450  12.205556
-7    mse  0.150  11.107344  10.607115
+0    mae  0.050   9.221695  15.286441
+1    mae  0.075   9.795710  15.038649
+2    mae  0.100  10.099102  14.881185
+3    mae  0.150  10.717810  14.461508
+4    mse  0.050   8.324038  15.398045
+5    mse  0.075   8.799429  14.959440
+6    mse  0.100   9.058047  14.688798
+7    mse  0.150   9.603512  13.978340
 
-Running occlusion from 2024-07-22 01:30:51.619433
-Experiment ended at 2024-07-22 01:56:09.503784. Total time taken 0:25:17.884351.
+Running wtsr from 2024-07-26 08:14:49.397217
+Experiment ended at 2024-07-26 08:17:22.974841. Total time taken 0:02:33.577624.
   metric   area       comp       suff
-0    mae  0.050  10.615206  14.002249
-1    mae  0.075  11.952215  12.953518
-2    mae  0.100  12.561516  12.351851
-3    mae  0.150  13.666330  11.020019
-4    mse  0.050   9.381029  12.928317
-5    mse  0.075  11.074268  11.219997
-6    mse  0.100  11.897048  10.301703
-7    mse  0.150  13.452906   8.403245
+0    mae  0.050  11.455984  13.682344
+1    mae  0.075  12.509558  12.692896
+2    mae  0.100  12.999228  12.105517
+3    mae  0.150  13.858194  10.814709
+4    mse  0.050  10.470701  12.474445
+5    mse  0.075  11.808659  10.861523
+6    mse  0.100  12.486019   9.955687
+7    mse  0.150  13.751839   8.095556
 
-Running augmented_occlusion from 2024-07-22 01:56:09.795543
-Experiment ended at 2024-07-22 02:21:26.438028. Total time taken 0:25:16.642485.
+Running tsr from 2024-07-26 08:17:23.203905
+Experiment ended at 2024-07-26 08:48:06.015603. Total time taken 0:30:42.811698.
   metric   area       comp       suff
-0    mae  0.050   7.588033  15.390542
-1    mae  0.075   8.927321  14.656104
-2    mae  0.100   9.558820  14.230193
-3    mae  0.150  10.781664  13.287319
-4    mse  0.050   5.900978  15.291241
-5    mse  0.075   7.278702  13.944579
-6    mse  0.100   7.997355  13.190851
-7    mse  0.150   9.468861  11.612023
-
-Running feature_permutation from 2024-07-22 02:21:26.805919
-Experiment ended at 2024-07-22 02:46:40.487506. Total time taken 0:25:13.681587.
-  metric   area      comp       suff
-0    mae  0.050  5.578407  16.812303
-1    mae  0.075  6.908427  16.326603
-2    mae  0.100  7.567974  16.052175
-3    mae  0.150  8.841974  15.417291
-4    mse  0.050  3.419711  17.966281
-5    mse  0.075  4.602534  17.019348
-6    mse  0.100  5.264483  16.510053
-7    mse  0.150  6.690283  15.375357
-
-Running integrated_gradients from 2024-07-22 02:46:40.867809
-Experiment ended at 2024-07-22 03:04:17.505219. Total time taken 0:17:36.637410.
-  metric   area       comp       suff
-0    mae  0.050   8.699042  17.602335
-1    mae  0.075  10.768804  17.564157
-2    mae  0.100  11.695659  17.540498
-3    mae  0.150  13.170907  17.503545
-4    mse  0.050   6.516657  19.562082
-5    mse  0.075   9.223720  19.625884
-6    mse  0.100  10.616686  19.673814
-7    mse  0.150  13.043075  19.777962
-
-Running gradient_shap from 2024-07-22 03:04:17.765612
-Experiment ended at 2024-07-22 03:21:01.417028. Total time taken 0:16:43.651416.
-  metric   area       comp       suff
-0    mae  0.050   6.233796  16.993046
-1    mae  0.075   7.844375  16.652436
-2    mae  0.100   8.609618  16.461292
-3    mae  0.150  10.042064  16.039172
-4    mse  0.050   4.186198  18.259430
-5    mse  0.075   5.856898  17.617521
-6    mse  0.100   6.751215  17.276910
-7    mse  0.150   8.604364  16.580471
-
-Running winIT from 2024-07-22 03:21:01.676560
-Experiment ended at 2024-07-22 03:47:15.587417. Total time taken 0:26:13.910857.
-  metric   area      comp       suff
-0    mae  0.050  7.516679  15.539918
-1    mae  0.075  8.258050  15.236148
-2    mae  0.100  8.662142  15.037660
-3    mae  0.150  9.524357  14.535636
-4    mse  0.050  5.642845  15.620799
-5    mse  0.075  6.301090  15.067214
-6    mse  0.100  6.691373  14.715626
-7    mse  0.150  7.576031  13.853372
-
-Running wtsr from 2024-07-22 03:47:15.831095
-Experiment ended at 2024-07-22 04:07:59.893132. Total time taken 0:20:44.062037.
-  metric   area       comp       suff
-0    mae  0.050  10.690463  13.918902
-1    mae  0.075  12.007829  12.866697
-2    mae  0.100  12.600224  12.260612
-3    mae  0.150  13.640027  10.935702
-4    mse  0.050   9.540761  12.755224
-5    mse  0.075  11.178276  11.073256
-6    mse  0.100  11.964599  10.154256
-7    mse  0.150  13.426639   8.299931
-
-Running tsr from 2024-07-22 04:08:00.203735
-Experiment ended at 2024-07-22 06:32:49.256015. Total time taken 2:24:49.052280.
-  metric   area       comp       suff
-0    mae  0.050  10.584966  14.046397
-1    mae  0.075  11.919314  12.988427
-2    mae  0.100  12.548481  12.377412
-3    mae  0.150  13.643809  11.016910
-4    mse  0.050   9.387604  12.970219
-5    mse  0.075  11.041592  11.256293
-6    mse  0.100  11.868519  10.329231
-7    mse  0.150  13.411733   8.406315
+0    mae  0.050  11.471009  13.942280
+1    mae  0.075  12.553534  12.900528
+2    mae  0.100  13.048156  12.286505
+3    mae  0.150  13.901778  10.958241
+4    mse  0.050  10.495113  12.951343
+5    mse  0.075  11.866214  11.226491
+6    mse  0.100  12.552118  10.264360
+7    mse  0.150  13.796270   8.332644
 
 
 >>>> itr_no: 2, seed: 506 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_Crossformer/2
+Experiments will be saved in scratch/electricity_SegRNN/2
 test 2607
-Loading model from ./results/electricity_Crossformer/2/checkpoint.pth
-Running feature_ablation from 2024-07-22 06:32:51.546520
-Experiment ended at 2024-07-22 06:58:06.901366. Total time taken 0:25:15.354846.
+Loading model from scratch/electricity_SegRNN/2/checkpoint.pth
+Running feature_ablation from 2024-07-26 08:48:07.823108
+Experiment ended at 2024-07-26 08:50:47.073781. Total time taken 0:02:39.250673.
   metric   area       comp       suff
-0    mae  0.050   9.379907  14.472444
-1    mae  0.075  10.560609  13.683465
-2    mae  0.100  11.128165  13.222631
-3    mae  0.150  12.230583  12.213350
-4    mse  0.050   8.593841  13.900860
-5    mse  0.075   9.862735  12.491004
-6    mse  0.100  10.519017  11.725036
-7    mse  0.150  11.868131  10.161252
+0    mae  0.050   9.752727  14.146784
+1    mae  0.075  10.801888  13.357854
+2    mae  0.100  11.357608  12.888911
+3    mae  0.150  12.346149  11.880089
+4    mse  0.050   8.435435  13.133752
+5    mse  0.075   9.516413  11.786469
+6    mse  0.100  10.189136  11.026419
+7    mse  0.150  11.480346   9.514774
 
-Running occlusion from 2024-07-22 06:58:07.196329
-Experiment ended at 2024-07-22 07:23:29.440380. Total time taken 0:25:22.244051.
+Running occlusion from 2024-07-26 08:50:47.302271
+Experiment ended at 2024-07-26 08:53:32.458119. Total time taken 0:02:45.155848.
   metric   area       comp       suff
-0    mae  0.050  11.400266  13.573984
-1    mae  0.075  12.579021  12.568479
-2    mae  0.100  13.119580  11.996391
-3    mae  0.150  14.107883  10.721510
-4    mse  0.050  10.697920  12.425501
-5    mse  0.075  12.247795  10.815546
-6    mse  0.100  13.018116   9.961915
-7    mse  0.150  14.409156   8.209567
+0    mae  0.050  11.826331  13.227674
+1    mae  0.075  12.833342  12.172903
+2    mae  0.100  13.293232  11.551038
+3    mae  0.150  14.117291  10.216406
+4    mse  0.050  10.860624  11.664074
+5    mse  0.075  12.168637   9.999904
+6    mse  0.100  12.826920   9.081302
+7    mse  0.150  14.065460   7.243913
 
-Running augmented_occlusion from 2024-07-22 07:23:29.720760
-Experiment ended at 2024-07-22 07:48:54.722557. Total time taken 0:25:25.001797.
+Running augmented_occlusion from 2024-07-26 08:53:32.677224
+Experiment ended at 2024-07-26 08:56:21.882565. Total time taken 0:02:49.205341.
   metric   area       comp       suff
-0    mae  0.050   8.258596  15.276587
-1    mae  0.075   9.605352  14.508265
-2    mae  0.100  10.248571  14.069362
-3    mae  0.150  11.436284  13.100676
-4    mse  0.050   6.993576  15.354324
-5    mse  0.075   8.437835  13.918533
-6    mse  0.100   9.185330  13.135211
-7    mse  0.150  10.648890  11.498926
+0    mae  0.050   9.105149  14.683407
+1    mae  0.075  10.242702  14.008559
+2    mae  0.100  10.768091  13.608691
+3    mae  0.150  11.726775  12.724639
+4    mse  0.050   7.949752  14.272615
+5    mse  0.075   9.106946  13.037570
+6    mse  0.100   9.714711  12.333605
+7    mse  0.150  10.923777  10.854540
 
-Running feature_permutation from 2024-07-22 07:48:54.991399
-Experiment ended at 2024-07-22 08:14:15.620727. Total time taken 0:25:20.629328.
+Running feature_permutation from 2024-07-26 08:56:22.100409
+Experiment ended at 2024-07-26 08:59:06.386915. Total time taken 0:02:44.286506.
   metric   area      comp       suff
-0    mae  0.050  5.699567  16.657787
-1    mae  0.075  7.014227  16.160408
-2    mae  0.100  7.657184  15.884535
-3    mae  0.150  8.902919  15.291222
-4    mse  0.050  3.742803  18.020322
-5    mse  0.075  4.937930  17.018649
-6    mse  0.100  5.587354  16.479421
-7    mse  0.150  6.978368  15.351772
+0    mae  0.050  6.230540  16.014979
+1    mae  0.075  7.615704  15.569034
+2    mae  0.100  8.302008  15.314427
+3    mae  0.150  9.557732  14.752722
+4    mse  0.050  4.284779  16.724619
+5    mse  0.075  5.487025  15.825800
+6    mse  0.100  6.187793  15.335967
+7    mse  0.150  7.639041  14.326618
 
-Running integrated_gradients from 2024-07-22 08:14:15.944295
-Experiment ended at 2024-07-22 08:31:54.351176. Total time taken 0:17:38.406881.
+Running integrated_gradients from 2024-07-26 08:59:06.604769
+Experiment ended at 2024-07-26 09:01:58.988448. Total time taken 0:02:52.383679.
   metric   area       comp       suff
-0    mae  0.050   9.010140  17.724483
-1    mae  0.075  11.239977  17.747525
-2    mae  0.100  12.233970  17.742629
-3    mae  0.150  13.833354  17.691796
-4    mse  0.050   6.994837  19.785807
-5    mse  0.075  10.023279  19.900353
-6    mse  0.100  11.552837  19.940593
-7    mse  0.150  14.295512  19.959006
+0    mae  0.050   9.554400  15.387542
+1    mae  0.075  11.509692  14.932840
+2    mae  0.100  12.389205  14.719472
+3    mae  0.150  13.886328  14.375974
+4    mse  0.050   7.412049  15.262058
+5    mse  0.075   9.917558  14.362270
+6    mse  0.100  11.271323  13.970642
+7    mse  0.150  13.855005  13.390109
 
-Running gradient_shap from 2024-07-22 08:31:54.611700
-Experiment ended at 2024-07-22 08:48:36.452203. Total time taken 0:16:41.840503.
+Running gradient_shap from 2024-07-26 09:01:59.205856
+Experiment ended at 2024-07-26 09:04:00.272666. Total time taken 0:02:01.066810.
   metric   area       comp       suff
-0    mae  0.050   6.242165  17.185689
-1    mae  0.075   7.911433  16.880369
-2    mae  0.100   8.763947  16.702006
-3    mae  0.150  10.297576  16.292958
-4    mse  0.050   4.271047  18.842124
-5    mse  0.075   6.004297  18.256654
-6    mse  0.100   7.018552  17.936166
-7    mse  0.150   9.045760  17.243145
+0    mae  0.050   7.343574  15.847247
+1    mae  0.075   9.060682  15.268724
+2    mae  0.100   9.882232  14.953412
+3    mae  0.150  11.338159  14.294276
+4    mse  0.050   5.441318  16.404591
+5    mse  0.075   7.110336  15.242692
+6    mse  0.100   8.073333  14.642219
+7    mse  0.150  10.041459  13.463804
 
-Running winIT from 2024-07-22 08:48:36.729411
-Experiment ended at 2024-07-22 09:14:55.717286. Total time taken 0:26:18.987875.
-  metric   area       comp       suff
-0    mae  0.050   8.439005  15.199295
-1    mae  0.075   9.125709  14.892436
-2    mae  0.100   9.473399  14.691086
-3    mae  0.150  10.236706  14.216123
-4    mse  0.050   7.142450  15.229987
-5    mse  0.075   7.780415  14.695418
-6    mse  0.100   8.108900  14.352174
-7    mse  0.150   8.878373  13.565452
+Running dyna_mask from 2024-07-26 09:04:00.502255
+Experiment ended at 2024-07-26 09:05:58.314267. Total time taken 0:01:57.812012.
+  metric   area      comp       suff
+0    mae  0.050  2.285520  17.289003
+1    mae  0.075  3.373401  16.957629
+2    mae  0.100  4.001127  16.733844
+3    mae  0.150  5.457800  16.204941
+4    mse  0.050  0.563263  19.560775
+5    mse  0.075  1.102699  18.890231
+6    mse  0.100  1.480278  18.445141
+7    mse  0.150  2.566314  17.418322
 
-Running wtsr from 2024-07-22 09:14:56.004442
-Experiment ended at 2024-07-22 09:35:43.263741. Total time taken 0:20:47.259299.
+Running winIT from 2024-07-26 09:05:58.619076
+Experiment ended at 2024-07-26 09:09:33.153704. Total time taken 0:03:34.534628.
   metric   area       comp       suff
-0    mae  0.050  11.531070  13.562898
-1    mae  0.075  12.691505  12.567447
-2    mae  0.100  13.229448  12.006190
-3    mae  0.150  14.251031  10.748095
-4    mse  0.050  11.009318  12.440063
-5    mse  0.075  12.541442  10.857035
-6    mse  0.100  13.281681  10.018814
-7    mse  0.150  14.770470   8.262312
+0    mae  0.050   9.499319  14.837956
+1    mae  0.075   9.979277  14.596462
+2    mae  0.100  10.228598  14.443347
+3    mae  0.150  10.783106  14.037503
+4    mse  0.050   8.528374  14.547724
+5    mse  0.075   8.903139  14.131516
+6    mse  0.100   9.110105  13.870707
+7    mse  0.150   9.600165  13.194378
 
-Running tsr from 2024-07-22 09:35:43.573922
-Experiment ended at 2024-07-22 12:00:14.513027. Total time taken 2:24:30.939105.
+Running wtsr from 2024-07-26 09:09:33.370491
+Experiment ended at 2024-07-26 09:12:06.914868. Total time taken 0:02:33.544377.
   metric   area       comp       suff
-0    mae  0.050  11.331917  13.515257
-1    mae  0.075  12.540201  12.486040
-2    mae  0.100  13.083915  11.900682
-3    mae  0.150  14.059187  10.644383
-4    mse  0.050  10.575184  12.298550
-5    mse  0.075  12.153695  10.691220
-6    mse  0.100  12.905789   9.835761
-7    mse  0.150  14.282328   8.109749
+0    mae  0.050  11.573791  13.193625
+1    mae  0.075  12.625551  12.176161
+2    mae  0.100  13.115535  11.577739
+3    mae  0.150  13.953125  10.259975
+4    mse  0.050  10.507669  11.592908
+5    mse  0.075  11.848292   9.987977
+6    mse  0.100  12.533965   9.098871
+7    mse  0.150  13.754538   7.292600
+
+Running tsr from 2024-07-26 09:12:07.146441
+Experiment ended at 2024-07-26 09:42:53.197897. Total time taken 0:30:46.051456.
+  metric   area       comp       suff
+0    mae  0.050  11.530778  13.295473
+1    mae  0.075  12.534286  12.280792
+2    mae  0.100  12.987491  11.698214
+3    mae  0.150  13.802330  10.375266
+4    mse  0.050  10.503398  11.827613
+5    mse  0.075  11.768562  10.217464
+6    mse  0.100  12.397480   9.341670
+7    mse  0.150  13.559872   7.494851
 
 
 >>>> itr_no: 3, seed: 608 <<<<<<
 Use GPU: cuda:0
-Experiments will be saved in ./results/electricity_Crossformer/3
+Experiments will be saved in scratch/electricity_SegRNN/3
 test 2607
-Loading model from ./results/electricity_Crossformer/3/checkpoint.pth
-Running feature_ablation from 2024-07-22 12:00:16.323219
-Experiment ended at 2024-07-22 12:25:28.062817. Total time taken 0:25:11.739598.
+Loading model from scratch/electricity_SegRNN/3/checkpoint.pth
+Running feature_ablation from 2024-07-26 09:42:55.088866
+Experiment ended at 2024-07-26 09:45:35.459131. Total time taken 0:02:40.370265.
   metric   area       comp       suff
-0    mae  0.050   8.772000  15.187296
-1    mae  0.075  10.083893  14.330467
-2    mae  0.100  10.746374  13.843951
-3    mae  0.150  12.031246  12.776744
-4    mse  0.050   6.932984  15.109616
-5    mse  0.075   8.420873  13.544306
-6    mse  0.100   9.249639  12.708513
-7    mse  0.150  11.037053  10.979190
+0    mae  0.050   9.383794  14.430259
+1    mae  0.075  10.580496  13.720213
+2    mae  0.100  11.175858  13.303968
+3    mae  0.150  12.222285  12.351127
+4    mse  0.050   8.041721  13.756940
+5    mse  0.075   9.247635  12.530752
+6    mse  0.100   9.954672  11.853512
+7    mse  0.150  11.305280  10.389379
 
-Running occlusion from 2024-07-22 12:25:28.359029
-Experiment ended at 2024-07-22 12:50:48.173696. Total time taken 0:25:19.814667.
+Running occlusion from 2024-07-26 09:45:35.689385
+Experiment ended at 2024-07-26 09:48:21.595152. Total time taken 0:02:45.905767.
   metric   area       comp       suff
-0    mae  0.050  10.530355  14.263603
-1    mae  0.075  11.817479  13.197124
-2    mae  0.100  12.429905  12.567991
-3    mae  0.150  13.553238  11.204421
-4    mse  0.050   8.949921  13.556539
-5    mse  0.075  10.615887  11.786475
-6    mse  0.100  11.457532  10.805451
-7    mse  0.150  13.121085   8.818546
+0    mae  0.050  11.032470  13.631029
+1    mae  0.075  12.198222  12.625583
+2    mae  0.100  12.728702  12.024695
+3    mae  0.150  13.656311  10.711263
+4    mse  0.050   9.810006  12.501927
+5    mse  0.075  11.211867  10.855857
+6    mse  0.100  11.906432   9.934155
+7    mse  0.150  13.227352   8.058289
 
-Running augmented_occlusion from 2024-07-22 12:50:48.479228
-Experiment ended at 2024-07-22 13:16:08.654263. Total time taken 0:25:20.175035.
+Running augmented_occlusion from 2024-07-26 09:48:21.822371
+Experiment ended at 2024-07-26 09:51:11.073243. Total time taken 0:02:49.250872.
   metric   area       comp       suff
-0    mae  0.050   7.734606  15.623129
-1    mae  0.075   9.096698  14.856976
-2    mae  0.100   9.756869  14.427410
-3    mae  0.150  10.999702  13.468117
-4    mse  0.050   5.818177  15.929144
-5    mse  0.075   7.221789  14.483989
-6    mse  0.100   7.980787  13.705400
-7    mse  0.150   9.549607  12.068928
+0    mae  0.050   8.570996  14.740226
+1    mae  0.075   9.775952  14.081430
+2    mae  0.100  10.354258  13.698195
+3    mae  0.150  11.428211  12.863166
+4    mse  0.050   7.240454  14.380923
+5    mse  0.075   8.395238  13.144430
+6    mse  0.100   9.024673  12.460117
+7    mse  0.150  10.338386  11.059612
 
-Running feature_permutation from 2024-07-22 13:16:08.935489
-Experiment ended at 2024-07-22 13:41:24.520604. Total time taken 0:25:15.585115.
+Running feature_permutation from 2024-07-26 09:51:11.294160
+Experiment ended at 2024-07-26 09:53:55.924498. Total time taken 0:02:44.630338.
   metric   area      comp       suff
-0    mae  0.050  5.497637  16.923640
-1    mae  0.075  6.794110  16.464946
-2    mae  0.100  7.441419  16.216576
-3    mae  0.150  8.694128  15.620808
-4    mse  0.050  3.241657  18.317437
-5    mse  0.075  4.379398  17.363106
-6    mse  0.100  5.009406  16.858359
-7    mse  0.150  6.380212  15.720203
+0    mae  0.050  6.156354  15.993821
+1    mae  0.075  7.541330  15.523816
+2    mae  0.100  8.226629  15.238879
+3    mae  0.150  9.496877  14.630325
+4    mse  0.050  4.079469  16.475873
+5    mse  0.075  5.322978  15.525225
+6    mse  0.100  6.034561  14.983891
+7    mse  0.150  7.511489  13.886056
 
-Running integrated_gradients from 2024-07-22 13:41:24.878596
-Experiment ended at 2024-07-22 13:59:01.205265. Total time taken 0:17:36.326669.
+Running integrated_gradients from 2024-07-26 09:53:56.143094
+Experiment ended at 2024-07-26 09:56:46.596454. Total time taken 0:02:50.453360.
   metric   area       comp       suff
-0    mae  0.050   9.114823  17.953460
-1    mae  0.075  11.567891  18.032142
-2    mae  0.100  12.680550  18.083656
-3    mae  0.150  14.540025  18.158808
-4    mse  0.050   6.686690  20.109453
-5    mse  0.075   9.992228  20.274335
-6    mse  0.100  11.734743  20.399733
-7    mse  0.150  15.007920  20.628502
+0    mae  0.050   8.901915  15.495733
+1    mae  0.075  11.253026  14.965999
+2    mae  0.100  12.289721  14.719989
+3    mae  0.150  13.958873  14.323734
+4    mse  0.050   6.464771  15.332529
+5    mse  0.075   9.501638  14.303768
+6    mse  0.100  11.085629  13.857241
+7    mse  0.150  13.948374  13.222306
 
-Running gradient_shap from 2024-07-22 13:59:01.471905
-Experiment ended at 2024-07-22 14:15:43.090488. Total time taken 0:16:41.618583.
+Running gradient_shap from 2024-07-26 09:56:46.855121
+Experiment ended at 2024-07-26 09:58:47.895096. Total time taken 0:02:01.039975.
   metric   area       comp       suff
-0    mae  0.050   6.376026  17.239353
-1    mae  0.075   8.141376  16.897610
-2    mae  0.100   9.024137  16.697747
-3    mae  0.150  10.634311  16.260621
-4    mse  0.050   4.213577  18.809990
-5    mse  0.075   6.081997  18.105787
-6    mse  0.100   7.137929  17.728007
-7    mse  0.150   9.290739  16.945303
+0    mae  0.050   6.518650  15.887854
+1    mae  0.075   8.446771  15.317820
+2    mae  0.100   9.364551  14.995452
+3    mae  0.150  10.960534  14.320936
+4    mse  0.050   4.370114  16.409418
+5    mse  0.075   6.282917  15.237753
+6    mse  0.100   7.354256  14.611378
+7    mse  0.150   9.481689  13.391907
 
-Running winIT from 2024-07-22 14:15:43.346966
-Experiment ended at 2024-07-22 14:41:56.767492. Total time taken 0:26:13.420526.
+Running dyna_mask from 2024-07-26 09:58:48.118009
+Experiment ended at 2024-07-26 10:00:46.265926. Total time taken 0:01:58.147917.
   metric   area      comp       suff
-0    mae  0.050  7.640457  15.801930
-1    mae  0.075  8.357947  15.495129
-2    mae  0.100  8.731271  15.295033
-3    mae  0.150  9.574621  14.782828
-4    mse  0.050  5.599270  16.398544
-5    mse  0.075  6.236332  15.848504
-6    mse  0.100  6.592137  15.482144
-7    mse  0.150  7.460698  14.571126
+0    mae  0.050  2.403258  17.232921
+1    mae  0.075  3.527254  16.917799
+2    mae  0.100  4.170986  16.714345
+3    mae  0.150  5.627110  16.204214
+4    mse  0.050  0.644615  19.331800
+5    mse  0.075  1.240095  18.699628
+6    mse  0.100  1.646808  18.300446
+7    mse  0.150  2.744261  17.306172
 
-Running wtsr from 2024-07-22 14:41:57.036489
-Experiment ended at 2024-07-22 15:02:43.981235. Total time taken 0:20:46.944746.
+Running winIT from 2024-07-26 10:00:46.486790
+Experiment ended at 2024-07-26 10:04:21.502008. Total time taken 0:03:35.015218.
   metric   area       comp       suff
-0    mae  0.050  10.753518  14.108542
-1    mae  0.075  12.036204  13.034388
-2    mae  0.100  12.629715  12.412547
-3    mae  0.150  13.702797  11.037125
-4    mse  0.050   9.285967  13.307303
-5    mse  0.075  10.971617  11.534439
-6    mse  0.100  11.808970  10.580666
-7    mse  0.150  13.386855   8.604056
+0    mae  0.050   8.858708  14.863584
+1    mae  0.075   9.385247  14.624983
+2    mae  0.100   9.663432  14.471353
+3    mae  0.150  10.270551  14.069468
+4    mse  0.050   7.962273  14.757749
+5    mse  0.075   8.365492  14.352916
+6    mse  0.100   8.589015  14.095617
+7    mse  0.150   9.094705  13.430661
 
-Running tsr from 2024-07-22 15:02:44.327348
-Experiment ended at 2024-07-22 17:29:31.350902. Total time taken 2:26:47.023554.
+Running wtsr from 2024-07-26 10:04:21.718121
+Experiment ended at 2024-07-26 10:06:55.675871. Total time taken 0:02:33.957750.
   metric   area       comp       suff
-0    mae  0.050  10.633604  14.248249
-1    mae  0.075  11.918973  13.204815
-2    mae  0.100  12.536076  12.602056
-3    mae  0.150  13.682988  11.225251
-4    mse  0.050   9.000929  13.546182
-5    mse  0.075  10.688102  11.808062
-6    mse  0.100  11.555267  10.865772
-7    mse  0.150  13.292102   8.862004
+0    mae  0.050  11.119071  13.550675
+1    mae  0.075  12.258553  12.538129
+2    mae  0.100  12.782686  11.950490
+3    mae  0.150  13.695572  10.646344
+4    mse  0.050   9.902416  12.393712
+5    mse  0.075  11.300648  10.767538
+6    mse  0.100  12.014994   9.872818
+7    mse  0.150  13.349276   8.004087
 
+Running tsr from 2024-07-26 10:06:55.895807
+Experiment ended at 2024-07-26 10:37:43.783477. Total time taken 0:30:47.887670.
+  metric   area       comp       suff
+0    mae  0.050  11.182045  13.640790
+1    mae  0.075  12.333624  12.647582
+2    mae  0.100  12.854129  12.059977
+3    mae  0.150  13.727813  10.771180
+4    mse  0.050  10.012217  12.520122
+5    mse  0.075  11.407414  10.906522
+6    mse  0.100  12.104124  10.000796
+7    mse  0.150  13.343043   8.149867
+
+Running for model:iTransformer
+slurmstepd: error: *** JOB 4882240 ON lynx12 CANCELLED AT 2024-07-26T16:41:19 DUE TO TIME LIMIT ***

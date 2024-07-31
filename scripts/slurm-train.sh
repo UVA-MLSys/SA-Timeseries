@@ -123,7 +123,7 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model DLinear --n_features 31 --overwrite --disable_progress
+  --model DLinear --n_features 31 --seq_len 48 --overwrite --disable_progress
 
 python interpret.py \
   --explainers feature_ablation occlusion augmented_occlusion winIT tsr \
@@ -132,7 +132,7 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model SegRNN --n_features 31 --overwrite --disable_progress
+  --model SegRNN --n_features 31 --seq_len 48 --overwrite --disable_progress
 
 python interpret.py \
   --explainers feature_ablation occlusion augmented_occlusion winIT tsr \
@@ -141,7 +141,7 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model MICN --n_features 31 --overwrite --disable_progress
+  --model MICN --n_features 31 --seq_len 48 --overwrite --disable_progress
 
 python interpret.py \
   --explainers feature_ablation occlusion augmented_occlusion winIT tsr \
@@ -150,7 +150,7 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model Crossformer --n_features 31 --overwrite --disable_progress
+  --model Crossformer --n_features 31 --seq_len 48 --overwrite --disable_progress
 
 python interpret.py \
   --result_path scratch \
@@ -159,4 +159,4 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model DLinear --n_features 31 --explainers wtsr
+  --model DLinear --n_features 31 --seq_len 48 --explainers wtsr

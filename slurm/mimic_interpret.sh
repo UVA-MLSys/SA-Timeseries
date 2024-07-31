@@ -30,6 +30,6 @@ python interpret.py \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
   --metrics auc accuracy cross_entropy \
-  --model $model --n_features 31 --disable_progress --overwrite
+  --model $model --n_features 31 --seq_len 48 --disable_progress --overwrite
 
 done

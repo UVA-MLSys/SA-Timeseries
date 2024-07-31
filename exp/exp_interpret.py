@@ -183,7 +183,9 @@ class Exp_Interpret:
             gc.collect()
             
         attrs = torch.vstack(attrs)
-        return results, attrs
+        
+        run_fraction = 1.0 * (batch_index - min_batch_index) / len(dataloader)
+        return results, attrs, run_fraction
                 
     def run_regressor(self, dataloader, name):
         results = [['batch_index', 'metric', 'tau', 'area', 'comp', 'suff']]
@@ -254,10 +256,16 @@ class Exp_Interpret:
             gc.collect()
         
         attrs = tuple(torch.vstack([a[i] for a in attrs]) for i in range(2))
-        return results, attrs
+        run_fraction = 1.0* (batch_index - min_batch_index) / len(dataloader)
+        return results, attrs, run_fraction
     
-    def record_time_efficiency(self, start, end, name):
-        if self.args.dry_run or not self.args.overwrite: return
+    def record_time_efficiency(self, start, end, name, run_fraction):
+        if self.args.dry_run or (not self.args.overwrite and run_fraction == 0): return
+        
+        duration = end - start
+        if run_fraction < 1:
+            print(f'Method resumed for {run_fraction:.3f} fraction of the batch. Adjusting the time efficiency {duration} to {duration / run_fraction}.\n')
+            duration = duration / run_fraction
                 
         time_efficiency_file = os.path.join(
             self.args.result_path, f'time_efficiency.csv'
@@ -277,7 +285,7 @@ class Exp_Interpret:
         
         writer.writerow(
             [self.args.data_path.split('.')[0], self.args.model, 
-             self.args.itr_no, name, end, end - start]
+             self.args.itr_no, name, end, duration]
         )
         time_efficiency_file.flush()
         time_efficiency_file.close()
@@ -295,17 +303,17 @@ class Exp_Interpret:
                     continue
             
             start = datetime.now()
-            print(f'Running {name} from {start}')
+            print(f'\nRunning {name} from {start}')
             
             if task == 'classification':
-                results, attrs = self.run_classifier(dataloader, name)
+                results, attrs, run_fraction = self.run_classifier(dataloader, name)
             else:
-                results, attrs = self.run_regressor(dataloader, name)
+                results, attrs, run_fraction = self.run_regressor(dataloader, name)
             
             # this might not reflect the correct time if the results are resumed from a checkpoint
             end = datetime.now()
             print(f'Experiment ended at {end}. Total time taken {end - start}.')
-            self.record_time_efficiency(start, end, name)
+            self.record_time_efficiency(start, end, name, run_fraction)
             
             if not self.args.dry_run:
                 self.dump_results(results, f'{name}.csv')

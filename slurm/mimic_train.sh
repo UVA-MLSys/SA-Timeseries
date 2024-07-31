@@ -28,6 +28,6 @@ python run.py \
   --train \
   --root_path ./dataset/mimic_iii/ \
   --data_path mimic_iii.pkl \
-  --model $model --n_features 31
+  --model $model --n_features 31 --seq_len 48
 
 done

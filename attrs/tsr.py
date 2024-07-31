@@ -20,7 +20,6 @@ from typing import Any, Callable, Tuple, Union
 from utils.tools import normalize_scale
 from tint.attr.occlusion import FeatureAblation, Occlusion
 from captum.attr import IntegratedGradients
-from utils.explainer import compute_attr
 
 class TSR(Occlusion):
     r"""
@@ -569,10 +568,7 @@ class TSR2:
             inputs = tuple([inputs])
             baselines = tuple([baselines])
             
-        attr_original = compute_attr(
-            'integrated_gradients', inputs, baselines, 
-            self.explainer, additional_forward_args, self.args
-        )
+        attr_original = self.compute_grads(inputs, additional_forward_args, baselines)
             
         with torch.no_grad():
             time_relevance_score = []
@@ -595,10 +591,7 @@ class TSR2:
                         else:
                             inputs_hat.append(inputs[i])
                 
-                    attr_perturbed = compute_attr(
-                        'integrated_gradients', tuple(inputs_hat), baselines, 
-                        self.explainer, additional_forward_args, self.args
-                    )
+                    attr_perturbed = self.compute_grads(tuple(inputs_hat), additional_forward_args, baselines)
                     
                     attr_diff = abs(attr_perturbed[0] - attr_original[0])
                     score[:, t] = torch.sum(attr_diff, dim=(2, 3)).flatten()
@@ -624,6 +617,60 @@ class TSR2:
         if input_is_tuple:
             return time_relevance_score
         else: return time_relevance_score[0]
+        
+    def compute_grads(self, inputs,additional_forward_args, baselines):
+        attr_list = []
+        if self.args.task_name == 'classification':
+            targets = self.args.num_class
+        else: targets = self.args.pred_len
+        dual_input_users = [
+            'iTransformer', 'Autoformer', 'ETSformer', 'FEDformer', 
+            'Informer', 'Nonstationary_Transformer', 'Reformer', 
+            'RNN', 'TimesNet', 'Transformer'
+        ]
+        
+        for target in range(targets):
+            # temporary speedup
+            if target > 0:
+                attr_list.append(attr)
+                continue
+            
+            # these models use the multiple inputs in the forward function
+            if type(inputs) == tuple and self.args.model not in dual_input_users:
+                new_additional_forward_args = tuple([
+                    input for input in inputs[1:]
+                ]) + additional_forward_args
+                
+                # output is a tuple of length 1, since only one input is used
+                attr = self.explainer.attribute(
+                    inputs=inputs[0], baselines=baselines[0], target=target,
+                    additional_forward_args=new_additional_forward_args
+                )
+                
+                attr = tuple([attr] + [
+                    torch.zeros_like(inputs[i], device=inputs[i].device) for i in range(1, len(inputs))]
+                )
+                
+            else: attr = self.explainer.attribute(
+                inputs=inputs, baselines=baselines, target=target,
+                additional_forward_args=additional_forward_args
+            )
+            attr_list.append(attr)
+            
+        if type(inputs) == tuple:
+            attr = []
+            for input_index in range(len(inputs)):
+                attr_per_input = torch.stack([score[input_index] for score in attr_list])
+                # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+                attr_per_input = attr_per_input.permute(1, 0, 2, 3)
+                attr.append(attr_per_input)
+                
+            attr = tuple(attr)
+        else:
+            attr = torch.stack(attr_list)
+            # pred_len x batch x seq_len x features -> batch x pred_len x seq_len x features
+            attr = attr.permute(1, 0, 2, 3)
+        return attr
             
     def attribute(
         self, inputs:Union[torch.Tensor , Tuple[torch.Tensor]], 
@@ -641,10 +688,7 @@ class TSR2:
             )
         
         # batch_size x n_output x seq_len x n_features
-        attr_original = compute_attr(
-            'integrated_gradients', inputs, baselines, 
-            self.explainer, additional_forward_args, self.args
-        )
+        attr_original = self.compute_grads(inputs, additional_forward_args, baselines)
             
         is_above_threshold = tuple(
             score > torch.quantile(score, threshold, dim=1, keepdim=True) for score in time_relevance_score
@@ -666,16 +710,15 @@ class TSR2:
                     above_threshold = is_above_threshold[input_index][:, t]
 
                     for f in range(n_features):
-                        if above_threshold.all():
+                        if not above_threshold.all():
                             score[:, t] = 0.1
                             continue
                         
                         prev_value = inputs[input_index][:, t, f]
                         inputs[input_index][:, t, f] = assignment
                         
-                        attr_perturbed = compute_attr(
-                            'integrated_gradients', inputs, baselines, 
-                            self.explainer, additional_forward_args, self.args
+                        attr_perturbed = self.compute_grads(
+                            inputs, additional_forward_args, baselines
                         )
 
                         inputs[input_index][:, t, f] = prev_value
@@ -689,7 +732,7 @@ class TSR2:
                         gc.collect()
                         
                     # normalize across the feature dimension
-                    score = normalize_scale(score, dim=-1, norm_type="minmax")
+                    # score = normalize_scale(score, dim=-1, norm_type="minmax")
                     
                 feature_relevance_score.append(score)
             

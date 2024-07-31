@@ -1,5 +1,5 @@
 import numpy as np
-import torch, gc
+import torch, gc, copy
 
 from captum.attr._utils.attribution import Attribution, GradientAttribution
 from captum.attr._utils.common import (
@@ -552,13 +552,19 @@ class TSR(Occlusion):
     
     @staticmethod
     def get_name():
-        return 'TSR'
-    
+        return 'TSR' 
+
 class TSR2:
     def __init__(self, model, args):
         self.model = model
         self.args = args
-        self.explainer = IntegratedGradients(self.model)
+        
+        if 'RNN' in args.model:
+            clone = copy.deepcopy(model)
+            clone.train() # deep lift moedl needs to be in training mode
+            self.explainer = IntegratedGradients(clone)
+        else:
+            self.explainer = IntegratedGradients(model)
         
     def get_time_relevance_score(
         self, inputs, additional_forward_args, baselines

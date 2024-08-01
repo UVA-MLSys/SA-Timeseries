@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --partition=gpu
 #SBATCH --time=2:00:00
-#SBATCH --output=outputs/slurm-%j.out
+#SBATCH --output=outputs/wtsr-%j.out
 #SBATCH --gres=gpu:1
 #---SBATCH --nodelist=lynx01
 #SBATCH --mem=16GB
@@ -29,7 +29,7 @@ function interpret {
     echo "Running electricity with $model"
     python interpret.py \
       --task_name long_term_forecast \
-      --explainers tsr2\
+      --explainers wtsr\
       --root_path ./dataset/electricity/ \
       --data_path electricity.csv \
       --model $model \
@@ -44,7 +44,7 @@ function interpret {
     echo "Running traffic with $model"
     python interpret.py \
       --task_name long_term_forecast \
-      --explainers tsr2\
+      --explainers wtsr\
       --root_path ./dataset/traffic/ \
       --data_path traffic.csv \
       --model $model \
@@ -56,7 +56,7 @@ function interpret {
   else
     echo "Running MIMIC $model"
     python interpret.py \
-      --explainers  tsr2 \
+      --explainers  wtsr \
       --task_name classification \
       --data mimic \
       --root_path ./dataset/mimic_iii/ \

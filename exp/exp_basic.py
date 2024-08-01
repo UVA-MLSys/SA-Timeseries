@@ -15,26 +15,24 @@ def stringify_setting(args, complete=False):
         
         return f"{args.data_path.split('.')[0]}_{args.model}"
     
-    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}'.format(
-        args.task_name,
+    setting = '{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}'.format(
         args.model,
         args.data_path.split('.')[0],
-        args.data,
         args.features,
         args.seq_len,
         args.label_len,
         args.pred_len,
         args.d_model,
-        args.n_heads,
-        args.e_layers,
-        args.d_layers,
-        args.d_ff,
-        args.factor,
-        args.embed,
-        args.distil
+        args.n_heads
     )
     
     return setting
+
+dual_input_users = [
+    'iTransformer', 'Autoformer', 'ETSformer', 'FEDformer', 
+    'Informer', 'Nonstationary_Transformer', 'Reformer', 
+    'RNN', 'TimesNet', 'Transformer'
+]
 
 class Exp_Basic(object):
     model_dict = {

@@ -50,6 +50,7 @@ def reshape_over_output_horizon(attr, inputs, args):
             # take mean over the output horizon
             ) for attr_ in attr
         ])
+        # print([a.shape for a in attr])
     else:
         # batch x seq_len x features
         attr = attr.reshape(
@@ -57,7 +58,7 @@ def reshape_over_output_horizon(attr, inputs, args):
             (inputs.shape[0], -1, args.seq_len, attr.shape[-1])
         # take mean over the output horizon
         )
-    
+        # print(attr.shape)
     return attr
 
 #TODO: debug error for some cases

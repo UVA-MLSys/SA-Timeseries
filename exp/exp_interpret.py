@@ -25,6 +25,7 @@ from tint.attr import (
     Occlusion, 
     FeatureAblation
 )
+from exp.exp_basic import stringify_setting
 
 expl_metric_map = {
     'mae': mae, 'mse': mse, 'accuracy': accuracy, 
@@ -127,10 +128,9 @@ class Exp_Interpret:
         # this assumes the data is from same flag (train, val, test)
         batch_filename = os.path.join(self.result_folder, f'batch_{name}.csv')
         
-        min_batch_index = 0
         # no writing or resume needed for dry run
         if not self.args.dry_run:
-            if os.path.exists(batch_filename) and not self.args.overwrite: 
+            if os.path.exists(batch_filename) and (not self.args.overwrite): 
                 results_df = pd.read_csv(batch_filename)
                 # https://stackoverflow.com/questions/3348460/csv-file-written-with-python-has-blank-lines-between-each-row
                 result_file = open(batch_filename, 'a', newline='')
@@ -141,6 +141,7 @@ class Exp_Interpret:
                 if results_df.shape[0]>0: 
                     min_batch_index = results_df['batch_index'].max() + 1
             else:
+                min_batch_index = 0
                 # create and write header row if the file doesn't exists or it is to be overwritten
                 result_file = open(batch_filename, 'w', newline='')
                 writer = csv.writer(result_file) 
@@ -173,18 +174,17 @@ class Exp_Interpret:
                 additional_forward_args, batch_index
             )
             
-            if self.args.dry_run: break
-            
-            writer.writerows(batch_results)
-            result_file.flush()
-            
             results.extend(batch_results)  
             attrs.append(batch_attr)
             gc.collect()
             
+            if self.args.dry_run: break
+            writer.writerows(batch_results)
+            result_file.flush()
+            
         attrs = torch.vstack(attrs)
         
-        run_fraction = 1.0 * (batch_index - min_batch_index) / len(dataloader)
+        run_fraction = 1.0 * (batch_index + 1 - min_batch_index) / len(dataloader)
         return results, attrs, run_fraction
                 
     def run_regressor(self, dataloader, name):
@@ -245,18 +245,17 @@ class Exp_Interpret:
                 name, inputs, baselines, 
                 additional_forward_args, batch_index
             )
-
-            if self.args.dry_run: break
-            
-            writer.writerows(batch_results)
-            result_file.flush()
-            
             results.extend(batch_results)
             attrs.append(batch_attr)
             gc.collect()
+            
+            if self.args.dry_run: break
+            # writing must appear after dry run break
+            writer.writerows(batch_results)
+            result_file.flush()
         
         attrs = tuple(torch.vstack([a[i] for a in attrs]) for i in range(2))
-        run_fraction = 1.0* (batch_index - min_batch_index) / len(dataloader)
+        run_fraction = 1.0* (batch_index + 1 - min_batch_index) / len(dataloader)
         return results, attrs, run_fraction
     
     def record_time_efficiency(self, start, end, name, run_fraction):
@@ -264,7 +263,7 @@ class Exp_Interpret:
         
         duration = end - start
         if run_fraction < 1:
-            print(f'Method resumed for {run_fraction:.3f} fraction of the batch. Adjusting the time efficiency {duration} to {duration / run_fraction}.\n')
+            print(f'Method resumed at {1-run_fraction:.3f} fraction. Adjusting the time efficiency {duration} to {duration / run_fraction}.\n')
             duration = duration / run_fraction
                 
         time_efficiency_file = os.path.join(
@@ -275,7 +274,7 @@ class Exp_Interpret:
             writer = csv.writer(time_efficiency_file) 
             writer.writerow(
                 ['dataset', 'model', 'iteration', 
-                 'name', 'timestamp', 'duration']
+                 'name', 'timestamp', 'duration', 'settings']
             )
         else:
             time_efficiency_file = open(
@@ -285,7 +284,9 @@ class Exp_Interpret:
         
         writer.writerow(
             [self.args.data_path.split('.')[0], self.args.model, 
-             self.args.itr_no, name, end, duration]
+             self.args.itr_no, name, end, duration, 
+             stringify_setting(self.args, complete=True)
+            ]
         )
         time_efficiency_file.flush()
         time_efficiency_file.close()
@@ -317,6 +318,13 @@ class Exp_Interpret:
             
             if not self.args.dry_run:
                 self.dump_results(results, f'{name}.csv')
+            else:
+                results_df = pd.DataFrame(results[1:], columns=results[0])
+                results_df = results_df.groupby(['metric', 'area'])[
+                    ['comp', 'suff']
+                ].aggregate('mean').reset_index()
+                print('Dry run results')
+                print(results_df)
                 
             # don't dump attr if dry run
             if self.args.dump_attrs and not self.args.dry_run:

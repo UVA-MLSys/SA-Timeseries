@@ -749,3 +749,244 @@ class Decoupled(Occlusion):
     @staticmethod
     def get_name():
         return 'WIP'
+    
+class WinTSR2(Occlusion):
+    def __init__(
+        self, model, args, metric='pd'
+    ) -> None:
+        self.model = model
+        self.occluder = Occlusion(self.model)
+        self.gradient = IntegratedGradients(self.model)
+        
+        assert metric in ['kl', 'js', 'pd'], 'metric must be one of kl, js or pd'
+        self.metric = metric
+        self.args = args
+
+    def _compute_metric(
+        self, p_y_exp: torch.Tensor, p_y_hat: torch.Tensor
+    ) -> torch.Tensor:
+        """
+        Compute the metric for comparisons of two distributions.
+
+        Args:
+            p_y_exp:
+                The current expected distribution. Shape = (batch_size, num_states)
+            p_y_hat:
+                The modified (counterfactual) distribution. Shape = (batch_size, num_states)
+
+        Returns:
+            The result Tensor of shape (batch_size).
+
+        """
+        if self.metric == "kl":
+            # p_y_hat = torch.softmax(p_y_hat, dim=1)
+            # p_y_exp = torch.softmax(p_y_exp, dim=1)
+            
+            kl_loss = torch.nn.KLDivLoss(reduction="none")(torch.log(p_y_hat), p_y_exp)
+            # return torch.sum(kl_loss, -1)
+            return kl_loss
+        if self.metric == "js":
+            p_y_hat = torch.softmax(p_y_hat, dim=1)
+            p_y_exp = torch.softmax(p_y_exp, dim=1)
+            
+            average = (p_y_hat + p_y_exp) / 2
+            lhs = torch.nn.KLDivLoss(reduction="none")(torch.log(average), p_y_hat)
+            rhs = torch.nn.KLDivLoss(reduction="none")(torch.log(average), p_y_exp)
+            return (lhs + rhs) / 2
+        if self.metric == "pd":
+            # batch_size x output_horizon x num_states
+            diff = torch.abs(p_y_hat - p_y_exp)
+            
+            
+            # sum over all dimension except batch, output_horizon
+            # multioutput multi-horizon not supported yet
+            # return torch.sum(diff, dim=-1)
+            return diff
+        
+        raise Exception(f"unknown metric. {self.metric}")
+
+    def attribute(
+        self,
+        inputs: TensorOrTupleOfTensorsGeneric,
+        sliding_window_shapes: Union[
+            Tuple[int, ...], Tuple[Tuple[int, ...], ...]
+        ],
+        strides: Union[
+            None, int, Tuple[int, ...], Tuple[Union[int, Tuple[int, ...]], ...]
+        ] = None,
+        baselines: BaselineType = None,
+        target: TargetType = None,
+        additional_forward_args: Any = None,
+        threshold: float = 0.0,
+        normalize: bool = True,
+        perturbations_per_eval: int = 1,
+        show_progress: bool = False,
+        **kwargs: Any,
+    ) -> TensorOrTupleOfTensorsGeneric:
+        # Keeps track whether original input is a tuple or not before
+        # converting it into a tuple.
+        is_inputs_tuple = isinstance(inputs, tuple)
+
+        inputs, baselines = _format_input_baseline(inputs, baselines)
+
+        assert all(
+            x.shape[1] == inputs[0].shape[1] for x in inputs
+        ), "All inputs must have the same time dimension. (dimension 1)"
+
+        # Compute sliding window for the Time-Relevance Score
+        # Only the time dimension (dim 1) has a sliding window of 1
+        # shape (batch_size * n_output) x seq_len  
+        time_relevance_score = self.get_time_relevance_score(
+            inputs=inputs,
+            baselines=baselines,
+            target=target,
+            additional_forward_args=additional_forward_args,
+            perturbations_per_eval=perturbations_per_eval,
+            show_progress=show_progress
+        )  
+        
+        # Normalize if required along the time axis
+        if normalize:
+            # normalize the last dimension
+            time_relevance_score = tuple(
+                normalize_scale(
+                    tsr, dim=-1, norm_type="minmax"
+                ) for tsr in time_relevance_score
+            )
+            
+        # print([score for score in time_relevance_score])   
+        # Get indexes where the Time-Relevance Score is
+        # higher than the threshold
+        is_above_threshold = tuple(
+            score > torch.quantile(score, threshold, dim=-1, keepdim=True) for score in time_relevance_score
+        )
+        # is_above_threshold = tuple(
+        #     is_above.reshape(f_imp.shape[:2] + (1,) * len(f_imp.shape[2:]))
+        #     for f_imp, is_above in zip(features_relevance_score, is_above_threshold)
+        # )
+        # feature_relevance_score = self.occluder.attribute(
+        #     inputs=inputs,
+        #     sliding_window_shapes=sliding_window_shapes,
+        #     strides=strides,
+        #     baselines=baselines,
+        #     target=target,
+        #     additional_forward_args=additional_forward_args,
+        #     attributions_fn=abs,
+        # )
+        
+        # batch_size x output_horizon x seq_len x features
+        feature_relevance_score = compute_attr(
+            'integrated_gradients', inputs, baselines, 
+            self.gradient, additional_forward_args,
+            args=self.args
+        )
+        
+        feature_relevance_score = tuple([
+            score.reshape((-1,score.shape[-2], score.shape[-1])) for score in feature_relevance_score
+        ])
+        
+        time_relevance_score = tuple(
+            tsr.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
+            for input, tsr in zip(feature_relevance_score, time_relevance_score)
+        )
+        
+        attributions = tuple(
+            (tsr * frs) for tsr, frs in zip(
+                time_relevance_score,
+                feature_relevance_score
+            )
+        )
+            
+        if is_inputs_tuple: return attributions
+        else: return attributions[0]  
+        
+        with torch.no_grad():
+            y_original = self.model(*inputs, *additional_forward_args)
+            
+            features_relevance_score = []
+            
+            for input_index in range(len(inputs)):
+                batch_size, seq_len, n_features = inputs[input_index].shape
+                cloned = inputs[input_index].clone()
+            
+                # batch_size, n_output, seq_len, n_features
+                iS_array = torch.zeros(size=(
+                    batch_size * y_original.shape[1], seq_len, n_features
+                ), device=inputs[input_index].device) 
+                
+                for feature in range(n_features):
+                    for t in range(seq_len):
+                        if not is_above_threshold[input_index][t].any(): continue
+                        
+                        prev_value = cloned[:, t, feature]
+                        cloned[:, t, feature] = baselines[input_index][:, t, feature] # 
+                        
+                        inputs_hat = []
+                        for i in range(len(inputs)):
+                            if i == input_index: inputs_hat.append(cloned)
+                            else: inputs_hat.append(inputs[i])
+                        
+                        y_perturbed = self.model(*tuple(inputs_hat), *additional_forward_args)
+
+                        iSab = self._compute_metric(y_original, y_perturbed) # abs(y_original - y_perturbed)
+                        iSab = torch.clip(iSab, -1e6, 1e6)
+                        
+                        iS_array[:, t, feature] = iSab.flatten()
+                        cloned[:, t, feature] = prev_value
+                        
+                        del y_perturbed, inputs_hat, iSab
+                    gc.collect()
+                del cloned
+                
+                # if normalize:
+                #     iS_array = normalize_scale(
+                #         iS_array, dim=0, norm_type="minmax"
+                #     )
+
+                # print('2 ', iS_array)   
+                # iS_array = (iS_array.T * time_relevance_score[input_index].T * is_above_threshold[input_index].T).T
+                iS_array = (iS_array.T * time_relevance_score[input_index].T ).T
+                # print('3 ', iS_array)   
+                
+                features_relevance_score.append(iS_array)
+          
+        if is_inputs_tuple:
+            return tuple(features_relevance_score)
+        else:
+            return features_relevance_score[0]
+    
+    def get_time_relevance_score(
+            self, inputs: TensorOrTupleOfTensorsGeneric,
+            baselines: BaselineType = None,
+            target: TargetType = None,
+            additional_forward_args: Any = None,
+            perturbations_per_eval=1,
+            show_progress=False
+        ):
+        tsr_sliding_window_shapes = tuple(
+            (1,) + input.shape[2:] for input in inputs
+        )
+        time_relevance_score = self.occluder.attribute(
+            inputs=inputs,
+            sliding_window_shapes=tsr_sliding_window_shapes,
+            strides=None,
+            baselines=baselines,
+            target=target,
+            additional_forward_args=additional_forward_args,
+            perturbations_per_eval=perturbations_per_eval,
+            attributions_fn=abs,
+            show_progress=show_progress,
+            #TODO: uncomment after new release
+            # kwargs_run_forward=kwargs,
+        )
+        
+        # time_relevance_score shape will be ((N x O) x seq_len) after summation
+        time_relevance_score = tuple(
+            tsr.sum((tuple(i for i in range(2, len(tsr.shape)))))
+            for tsr in time_relevance_score
+        )
+        return time_relevance_score
+    
+    @staticmethod
+    def get_name():
+        return 'WinTSR'

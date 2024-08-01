@@ -2,6 +2,7 @@ import torch
 import numpy as np
 from utils.tools import reshape_over_output_horizon, round_up
 from pytorch_lightning import Trainer
+from exp.exp_basic import dual_input_users
 
 def get_total_data(dataloader, device, add_x_mark=True):        
     if add_x_mark:
@@ -62,11 +63,6 @@ def compute_attr(
             (1,1) for _ in inputs
         ])
     else: sliding_window_shapes = (1,1)
-    dual_input_users = [
-        'iTransformer', 'Autoformer', 'ETSformer', 'FEDformer', 
-        'Informer', 'Nonstationary_Transformer', 'Reformer', 
-        'RNN', 'TimesNet', 'Transformer'
-    ]
     
     if name == 'wtsr':
         attr = explainer.attribute(

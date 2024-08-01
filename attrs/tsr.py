@@ -637,9 +637,9 @@ class TSR2:
         
         for target in range(targets):
             # temporary speedup
-            if target > 0:
-                attr_list.append(attr)
-                continue
+            # if target > 0:
+            #     attr_list.append(attr)
+            #     continue
             
             # these models use the multiple inputs in the forward function
             if type(inputs) == tuple and self.args.model not in dual_input_users:
@@ -738,7 +738,7 @@ class TSR2:
                         gc.collect()
                         
                     # normalize across the feature dimension
-                    # score = normalize_scale(score, dim=-1, norm_type="minmax")
+                    score = normalize_scale(score, dim=0, norm_type="minmax")
                     
                 feature_relevance_score.append(score)
             

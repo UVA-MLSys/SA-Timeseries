@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #SBATCH --job-name="var_seq_interpret"
-#SBATCH --output=outputs/slurm-%j.out
+#SBATCH --output=outputs/var_seq_interpret-%j.out
 #SBATCH --partition=gpu
-#SBATCH --time=1:00:00
+#SBATCH --time=24:00:00
 #SBATCH --gres=gpu:1
 #---SBATCH --nodelist=lynx01
 #SBATCH --cpus-per-task 1
@@ -18,6 +18,8 @@ conda deactivate
 conda activate ml
 
 model=iTransformer
+explainers=("winIT" "wtsr" "tsr")
+
 function interpret {
   let index=$1-1
   let dataset=$index/2
@@ -41,7 +43,7 @@ function interpret {
     echo "Running electricity with seq_len $seq_len"
     python interpret.py \
       --task_name long_term_forecast \
-      --explainers tsr2\
+      --explainers $explainers\
       --root_path ./dataset/electricity/ \
       --data_path electricity.csv \
       --model $model \
@@ -56,7 +58,7 @@ function interpret {
     echo "Running traffic with seq_len $seq_len"
     python interpret.py \
       --task_name long_term_forecast \
-      --explainers tsr2\
+      --explainers $explainers\
       --root_path ./dataset/traffic/ \
       --data_path traffic.csv \
       --model $model \
@@ -68,7 +70,7 @@ function interpret {
   else
     echo "Running MIMIC with seq_len $seq_len"
     python interpret.py \
-      --explainers  tsr2 \
+      --explainers $explainers \
       --task_name classification \
       --data mimic \
       --root_path ./dataset/mimic_iii/ \
@@ -76,7 +78,6 @@ function interpret {
       --metrics auc accuracy cross_entropy \
       --model $model --n_features 31 \
       --seq_len $seq_len --disable_progress --overwrite
-      --overwrite
   fi
 }
 

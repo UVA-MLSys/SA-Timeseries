@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --partition=gpu
-#SBATCH --time=2:00:00
-#SBATCH --output=outputs/slurm-%j.out
+#SBATCH --time=24:00:00
+#SBATCH --output=outputs/tsr2-%j.out
 #SBATCH --gres=gpu:1
 #---SBATCH --nodelist=lynx01
 #SBATCH --mem=16GB

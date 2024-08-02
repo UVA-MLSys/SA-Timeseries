@@ -1,0 +1,59 @@
+Running 3-th job 4892865, dataset serial 1, seq_len 24
+Running traffic with seq_len 24
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_24/1
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_24/1/checkpoint.pth
+
+Running tsr2 from 2024-08-01 22:33:18.814721
+Experiment ended at 2024-08-02 02:07:05.651477. Total time taken 3:33:46.836756.
+  metric   area       comp       suff
+0    mae  0.050   4.516179  26.725104
+1    mae  0.075   4.526754  26.778225
+2    mae  0.100   6.921840  25.212097
+3    mae  0.150   8.856320  23.812075
+4    mse  0.050   4.917942  71.473712
+5    mse  0.075   4.960322  71.497660
+6    mse  0.100   8.543198  64.401810
+7    mse  0.150  12.225315  58.552559
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_24/2
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_24/2/checkpoint.pth
+
+Running tsr2 from 2024-08-02 02:07:08.537437
+Experiment ended at 2024-08-02 05:42:58.304133. Total time taken 3:35:49.766696.
+  metric   area       comp       suff
+0    mae  0.050   4.340867  27.153118
+1    mae  0.075   4.320384  27.230080
+2    mae  0.100   6.611055  25.675424
+3    mae  0.150   8.473349  24.282516
+4    mse  0.050   5.400695  73.002083
+5    mse  0.075   5.353183  73.221628
+6    mse  0.100   8.439840  65.476378
+7    mse  0.150  11.461106  59.149494
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer_sl_24/3
+test 1731
+Loading model from ./results/traffic_iTransformer_sl_24/3/checkpoint.pth
+
+Running tsr2 from 2024-08-02 05:43:00.743743
+Experiment ended at 2024-08-02 09:18:36.056457. Total time taken 3:35:35.312714.
+  metric   area       comp       suff
+0    mae  0.050   4.502774  27.029072
+1    mae  0.075   4.516156  27.075731
+2    mae  0.100   6.863241  25.478043
+3    mae  0.150   8.776985  24.047696
+4    mse  0.050   4.777027  77.124703
+5    mse  0.075   4.799206  77.153968
+6    mse  0.100   7.987064  69.364544
+7    mse  0.150  11.191831  62.772753
+

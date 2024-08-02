@@ -1,0 +1,59 @@
+Running 1-th job 4892863, dataset serial 0, seq_len 24
+Running electricity with seq_len 24
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_24/1
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_24/1/checkpoint.pth
+
+Running tsr2 from 2024-08-01 22:32:18.992769
+Experiment ended at 2024-08-02 03:47:45.539889. Total time taken 5:15:26.547120.
+  metric   area       comp       suff
+0    mae  0.050   6.159508  23.621536
+1    mae  0.075   6.044764  23.493030
+2    mae  0.100   8.862541  22.483258
+3    mae  0.150  10.751759  21.310514
+4    mse  0.050   4.932530  39.086303
+5    mse  0.075   4.710347  38.627671
+6    mse  0.100   8.161635  35.813169
+7    mse  0.150  10.766055  32.584818
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_24/2
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_24/2/checkpoint.pth
+
+Running tsr2 from 2024-08-02 03:47:47.447002
+Experiment ended at 2024-08-02 09:03:00.293172. Total time taken 5:15:12.846170.
+  metric   area       comp       suff
+0    mae  0.050   6.015028  22.852162
+1    mae  0.075   5.901730  22.776704
+2    mae  0.100   8.878647  21.626271
+3    mae  0.150  10.913615  20.493469
+4    mse  0.050   4.745259  36.218611
+5    mse  0.075   4.528330  35.971742
+6    mse  0.100   8.082901  32.950590
+7    mse  0.150  10.913873  29.989077
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer_sl_24/3
+test 2607
+Loading model from ./results/electricity_iTransformer_sl_24/3/checkpoint.pth
+
+Running tsr2 from 2024-08-02 09:03:02.454483
+Experiment ended at 2024-08-02 14:17:13.895670. Total time taken 5:14:11.441187.
+  metric   area       comp       suff
+0    mae  0.050   5.845510  20.694840
+1    mae  0.075   5.738902  20.596392
+2    mae  0.100   8.347127  19.684316
+3    mae  0.150  10.214143  18.656248
+4    mse  0.050   4.042517  30.032490
+5    mse  0.075   3.897930  29.697613
+6    mse  0.100   6.765637  27.505170
+7    mse  0.150   9.297895  24.993079
+

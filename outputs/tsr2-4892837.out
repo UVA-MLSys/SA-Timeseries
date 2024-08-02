@@ -1,0 +1,86 @@
+Running 12-th job 4892837, dataset serial 2 and model iTransformer
+Running MIMIC iTransformer
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/1/checkpoint.pth
+
+Running tsr2 from 2024-08-01 21:58:46.576541
+Experiment ended at 2024-08-02 02:09:55.118185. Total time taken 4:11:08.541644.
+           metric   area      comp      suff
+0        accuracy  0.050  0.990234  0.977214
+1        accuracy  0.075  0.988064  0.979167
+2        accuracy  0.100  0.986762  0.976997
+3        accuracy  0.150  0.985677  0.980903
+4             auc  0.050  0.177647  0.097807
+5             auc  0.075  0.175837  0.105933
+6             auc  0.100  0.175378  0.107471
+7             auc  0.150  0.171651  0.110992
+8   cross_entropy  0.050  0.128385  0.161169
+9   cross_entropy  0.075  0.128453  0.158697
+10  cross_entropy  0.100  0.128542  0.157010
+11  cross_entropy  0.150  0.126174  0.152822
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/2/checkpoint.pth
+
+Running tsr2 from 2024-08-02 02:09:58.927700
+Experiment ended at 2024-08-02 06:16:37.573609. Total time taken 4:06:38.645909.
+           metric   area      comp      suff
+0        accuracy  0.050  0.973444  0.912029
+1        accuracy  0.075  0.967151  0.913982
+2        accuracy  0.100  0.962457  0.916369
+3        accuracy  0.150  0.956597  0.917888
+4             auc  0.050  0.267805  0.122380
+5             auc  0.075  0.259915  0.124323
+6             auc  0.100  0.254445  0.128956
+7             auc  0.150  0.247588  0.119783
+8   cross_entropy  0.050  0.164086  0.308558
+9   cross_entropy  0.075  0.166115  0.300426
+10  cross_entropy  0.100  0.168739  0.289538
+11  cross_entropy  0.150  0.174269  0.274756
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/3/checkpoint.pth
+
+Running tsr2 from 2024-08-02 06:16:41.145678
+Experiment ended at 2024-08-02 10:38:15.241118. Total time taken 4:21:34.095440.
+           metric   area      comp      suff
+0        accuracy  0.050  0.997532  0.995226
+1        accuracy  0.075  0.996013  0.995009
+2        accuracy  0.100  0.994141  0.995443
+3        accuracy  0.150  0.991753  0.994575
+4             auc  0.050  0.083109  0.049283
+5             auc  0.075  0.082885  0.048835
+6             auc  0.100  0.081989  0.040547
+7             auc  0.150  0.080421  0.050851
+8   cross_entropy  0.050  0.107694  0.121454
+9   cross_entropy  0.075  0.109837  0.119854
+10  cross_entropy  0.100  0.111506  0.119429
+11  cross_entropy  0.150  0.117334  0.116685
+

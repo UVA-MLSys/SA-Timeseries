@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --partition=gpu
-#SBATCH --time=2:00:00
+#SBATCH --time=3:00:00
 #SBATCH --output=outputs/wtsr-%j.out
 #SBATCH --gres=gpu:1
 #---SBATCH --nodelist=lynx01
@@ -37,7 +37,7 @@ function interpret {
       --seq_len 96 \
       --label_len 12 \
       --pred_len 24 \
-      --n_features 1 --disable_progress --overwrite
+      --n_features 1 --disable_progress --overwrite --result_path scratch
     
   elif [ $dataset = 1 ]
   then
@@ -52,7 +52,7 @@ function interpret {
       --seq_len 96 \
       --label_len 12 \
       --pred_len 24 \
-      --n_features 1 --disable_progress --overwrite
+      --n_features 1 --disable_progress --overwrite --result_path scratch
   else
     echo "Running MIMIC $model"
     python interpret.py \
@@ -63,7 +63,7 @@ function interpret {
       --data_path mimic_iii.pkl \
       --metrics auc accuracy cross_entropy \
       --model $model --n_features 31 \
-      --seq_len 48 --disable_progress --overwrite
+      --seq_len 48 --disable_progress --overwrite --result_path scratch
   fi
 }
 

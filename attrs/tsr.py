@@ -716,7 +716,7 @@ class TSR2:
                     above_threshold = is_above_threshold[input_index][:, t]
 
                     for f in range(n_features):
-                        if not above_threshold.all():
+                        if not above_threshold.any():
                             score[:, t] = 0.1
                             continue
                         

@@ -397,3 +397,16 @@ electricity,iTransformer,1,tsr2,2024-08-02 12:21:01.531273,13:48:42.842713,iTran
 electricity,iTransformer,3,tsr2,2024-08-02 14:17:13.895670,5:14:11.441187,iTransformer_electricity_ftS_sl24_ll12_pl24_dm128_nh4
 mimic_iii,MICN,2,tsr2,2024-08-02 15:02:21.196795,9:46:04.872780,MICN_mimic_iii_ftMS_sl48_ll48_pl0_dm128_nh4
 traffic,MICN,2,tsr2,2024-08-02 15:28:16.707046,8:45:17.494474,MICN_traffic_ftS_sl96_ll12_pl24_dm128_nh4
+mimic_iii,SegRNN,3,tsr2,2024-08-02 16:38:41.551272,6:12:38.234479,SegRNN_mimic_iii_ftMS_sl48_ll48_pl0_dm128_nh4
+traffic,iTransformer,3,tsr2,2024-08-02 17:34:42.476687,6:20:01.769683,iTransformer_traffic_ftS_sl48_ll12_pl24_dm128_nh4
+electricity,MICN,2,tsr2,2024-08-02 18:42:27.319082,10:13:53.336468,MICN_electricity_ftS_sl96_ll12_pl24_dm128_nh4
+traffic,SegRNN,2,tsr2,2024-08-02 20:56:46.041135,11:28:57.962079,SegRNN_traffic_ftS_sl96_ll12_pl24_dm128_nh4
+mimic_iii,MICN,3,tsr2,2024-08-02 21:47:39.496005,6:45:14.495683,MICN_mimic_iii_ftMS_sl48_ll48_pl0_dm128_nh4
+electricity,SegRNN,2,tsr2,2024-08-02 22:08:35.056431,11:30:39.594925,SegRNN_electricity_ftS_sl96_ll12_pl24_dm128_nh4
+traffic,iTransformer,2,tsr2,2024-08-03 00:27:14.518387,11:26:36.572670,iTransformer_traffic_ftS_sl96_ll12_pl24_dm128_nh4
+traffic,MICN,3,tsr2,2024-08-03 01:33:00.472157,8:23:23.435287,MICN_traffic_ftS_sl96_ll12_pl24_dm128_nh4
+electricity,iTransformer,2,tsr2,2024-08-03 02:47:47.773404,13:32:35.128623,iTransformer_electricity_ftS_sl48_ll12_pl24_dm128_nh4
+electricity,iTransformer,2,tsr2,2024-08-03 03:47:32.448584,17:57:11.374225,iTransformer_electricity_ftS_sl96_ll12_pl24_dm128_nh4
+traffic,SegRNN,3,tsr2,2024-08-03 06:56:33.573662,8:17:45.231397,SegRNN_traffic_ftS_sl96_ll12_pl24_dm128_nh4
+electricity,iTransformer,3,tsr2,2024-08-03 07:10:18.123649,13:47:48.413760,iTransformer_electricity_ftS_sl48_ll12_pl24_dm128_nh4
+electricity,MICN,3,tsr2,2024-08-03 08:22:51.136829,13:22:06.502224,MICN_electricity_ftS_sl96_ll12_pl24_dm128_nh4

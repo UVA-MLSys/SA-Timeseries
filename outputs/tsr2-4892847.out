@@ -1,2 +1,86 @@
 Running 10-th job 4892847, dataset serial 2 and model MICN
 Running MIMIC MICN
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/1/checkpoint.pth
+
+Running tsr2 from 2024-08-01 21:58:47.317429
+Experiment ended at 2024-08-02 05:16:12.634813. Total time taken 7:17:25.317384.
+           metric   area      comp      suff
+0        accuracy  0.050  0.986762  0.884983
+1        accuracy  0.075  0.978733  0.896701
+2        accuracy  0.100  0.967882  0.907986
+3        accuracy  0.150  0.952257  0.930339
+4             auc  0.050  0.077523  0.038531
+5             auc  0.075  0.075847  0.040707
+6             auc  0.100  0.075159  0.036134
+7             auc  0.150  0.074057  0.039198
+8   cross_entropy  0.050  0.105053  0.310844
+9   cross_entropy  0.075  0.111687  0.277104
+10  cross_entropy  0.100  0.119723  0.249279
+11  cross_entropy  0.150  0.141527  0.200900
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/2/checkpoint.pth
+
+Running tsr2 from 2024-08-02 05:16:16.324015
+Experiment ended at 2024-08-02 15:02:21.196795. Total time taken 9:46:04.872780.
+           metric   area      comp      suff
+0        accuracy  0.050  0.985356  0.901010
+1        accuracy  0.075  0.982141  0.910992
+2        accuracy  0.100  0.975823  0.915847
+3        accuracy  0.150  0.963349  0.925082
+4             auc  0.050  0.084744  0.046174
+5             auc  0.075  0.086022  0.043317
+6             auc  0.100  0.083574  0.044788
+7             auc  0.150  0.085079  0.042381
+8   cross_entropy  0.050  0.133511  0.306553
+9   cross_entropy  0.075  0.137420  0.286505
+10  cross_entropy  0.100  0.141647  0.269713
+11  cross_entropy  0.150  0.153945  0.237896
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/3/checkpoint.pth
+
+Running tsr2 from 2024-08-02 15:02:25.000322
+Experiment ended at 2024-08-02 21:47:39.496005. Total time taken 6:45:14.495683.
+           metric   area      comp      suff
+0        accuracy  0.050  0.977214  0.896267
+1        accuracy  0.075  0.968967  0.898220
+2        accuracy  0.100  0.962240  0.900825
+3        accuracy  0.150  0.949436  0.914280
+4             auc  0.050  0.146101  0.072418
+5             auc  0.075  0.145514  0.072422
+6             auc  0.100  0.144001  0.073910
+7             auc  0.150  0.142157  0.076854
+8   cross_entropy  0.050  0.135959  0.305118
+9   cross_entropy  0.075  0.142271  0.289828
+10  cross_entropy  0.100  0.150325  0.275094
+11  cross_entropy  0.150  0.171803  0.243275
+

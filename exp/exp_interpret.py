@@ -3,10 +3,9 @@ from tqdm import tqdm
 import pandas as pd
 import csv
 from utils.explainer import *
-from attrs.tsr import TSR, TSR2
+from attrs.tsr import TSR
 from attrs.winTSR import WinTSR
 from attrs.winIT import WinIT
-from attrs.wip import WinIT2, WinIT3
 from tint.metrics import mae, mse, accuracy, cross_entropy, lipschitz_max, log_odds
 from utils.auc import auc
 from datetime import datetime
@@ -46,8 +45,7 @@ explainer_name_map = {
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
     "winIT": WinIT,
-    "tsr": TSR, "wtsr": WinTSR,
-    'winIT2': WinIT2, 'winIT3': WinIT3, 'tsr2': TSR2
+    "tsr": TSR, "wtsr": WinTSR
     # "ozyegen":FeatureAblation
 }
 
@@ -84,7 +82,7 @@ class Exp_Interpret:
             explainer = explainer_name_map[name](clone)
             
         elif name == 'tsr':
-            explainer = TSR(IntegratedGradients(model))
+            explainer = TSR(model, args)
             
         elif name == 'wtsr':
             base_explainer = Exp_Interpret.initialize_explainer(
@@ -115,8 +113,6 @@ class Exp_Interpret:
             else: explainer = explainer_name_map[name](
                 model, data=all_inputs
             )
-        elif name == 'tsr2':
-            explainer = TSR2(model, args)
         else:
             explainer = explainer_name_map[name](model) 
         

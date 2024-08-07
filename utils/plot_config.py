@@ -33,7 +33,7 @@ DPI = 200
 FIGSIZE = (12.5, 7)
 DATE_TICKS = 5
 
-markers = ['s', 'x', '+',  'h', 'D', '.', '^', '>', 'p', '<', '*', 'P', 'v']
+markers = ['o', 'D','P',  '*','s',  'p',  'h', 'x', '+',  '.', '^', '>','<', 'v']
 
 def get_formatter(scale):
     return FuncFormatter(lambda x, pos: '{0:g}'.format(x/scale))

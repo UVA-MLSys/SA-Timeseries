@@ -77,22 +77,12 @@ def compute_attr(
     # these methods need a target specified for multi-output models
     elif name in [
         'deep_lift', 'lime', 'integrated_gradients', 
-        'gradient_shap', 'tsr'
+        'gradient_shap'
     ]:
         attr_list = []
         
         for target in range(targets):
-            if name == 'tsr':
-                attr = explainer.attribute(
-                    inputs=inputs,
-                    sliding_window_shapes=sliding_window_shapes,
-                    baselines=baselines, target=target,
-                    additional_forward_args=additional_forward_args,
-                    threshold=0.55, normalize=True,
-                    attributions_fn=abs
-                )
-            # gradient based methods can't differentiate when an input isn't used in the model
-            elif name in ['deep_lift', 'integrated_gradients', 'gradient_shap']:
+            if name in ['deep_lift', 'integrated_gradients', 'gradient_shap']:
                 
                 # these models use the multiple inputs in the forward function
                 if type(inputs) == tuple and args.model not in dual_input_users:
@@ -147,11 +137,13 @@ def compute_attr(
             inputs=inputs, attributions_fn=abs,
             additional_forward_args=additional_forward_args
         )
-    elif name in ['winIT2', 'winIT3', 'tsr2']:
+    elif name =='tsr':
         attr = explainer.attribute(
             inputs=inputs,
             baselines=baselines,
-            additional_forward_args=additional_forward_args
+            additional_forward_args=additional_forward_args,
+            # set the threshold to 0 if you want to avoid skipping any time steps
+            threshold=0.55 
         )
     elif name == 'dyna_mask':
         # the parameters ensure Trainer doesn't flood the output with logs and create log folders

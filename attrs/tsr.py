@@ -32,8 +32,13 @@ class TSR:
                 cloned = inputs[input_index].clone()
                 batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
                 score = torch.zeros(
-                    (batch_size*n_output, seq_len), device=inputs[input_index].device
+                    (batch_size * n_output, seq_len), device=inputs[input_index].device
                 )
+                
+                if self.args.model not in dual_input_users and input_index > 0:
+                    time_relevance_score.append(score)
+                    continue
+                
                 assignment = inputs[input_index][0, 0, 0]
                 
                 for t in range(inputs[input_index].shape[1]):
@@ -49,14 +54,17 @@ class TSR:
                 
                     attr_perturbed = self.compute_grads(tuple(inputs_hat), additional_forward_args, baselines)
                     
-                    attr_diff = abs(attr_perturbed[0] - attr_original[0])
-                    score[:, t] = torch.sum(attr_diff, dim=(2, 3)).flatten()
+                    for i in range(0, len(attr_perturbed)):
+                        attr_diff = abs(attr_perturbed[i] - attr_original[i])
+                        score[:, t] += torch.sum(attr_diff, dim=(2, 3)).flatten()
+                    
                     cloned[:, t] = prev_value
                     
                     del attr_perturbed, attr_diff
                     gc.collect()
                 
                 time_relevance_score.append(score)
+                del cloned
         
         # time_relevance_score shape will be ((N x O) x seq_len) after summation
         time_relevance_score = tuple(
@@ -148,53 +156,70 @@ class TSR:
             feature_relevance_score = []
             for input_index in range(len(inputs)):
                 batch_size, n_output, seq_len, n_features = attr_original[input_index].shape
-                
-                assignment = inputs[input_index][0, 0, 0]
                 score = torch.zeros(
-                    (batch_size*n_output, seq_len, n_features), 
+                    (batch_size * n_output, seq_len, n_features), 
                     device=inputs[input_index].device
                 )
                 
+                if self.args.model not in dual_input_users and input_index>0:
+                    feature_relevance_score.append(score)
+                    continue
+                
+                cloned = inputs[input_index].clone()
+                assignment = inputs[input_index][0, 0, 0]
                 for t in range(seq_len):
                     #TODO: revise
                     above_threshold = is_above_threshold[input_index][:, t]
 
                     for f in range(n_features):
-                        if not above_threshold.any():
-                            score[:, t] = 0.1
-                            continue
+                        # if not above_threshold.any():
+                        #     score[:, t] = 0.1
+                        #     continue
                         
-                        prev_value = inputs[input_index][:, t, f]
-                        inputs[input_index][:, t, f] = assignment
+                        cloned = inputs[input_index].clone()
+                        cloned[:, t, f] = assignment
+                        
+                        inputs_hat = []
+                        for i in range(len(inputs)):
+                            if i == input_index:
+                                inputs_hat.append(cloned)
+                            else:
+                                inputs_hat.append(inputs[i])
                         
                         attr_perturbed = self.compute_grads(
-                            inputs, additional_forward_args, baselines
+                            tuple(inputs_hat), additional_forward_args, baselines
                         )
 
-                        inputs[input_index][:, t, f] = prev_value
+                        # cloned[:, t, f] = prev_value
                         # right now only the first element in the tuple is used
                         for original, perturbed in zip(attr_original, attr_perturbed):
                             diff = abs(perturbed - original)
                             score[:, t, f] += torch.sum(diff, dim=(2, 3)).flatten()
                             
-                        score[~above_threshold, t] = 0.1
+                        # score[~above_threshold, t] = 0.1
                         del attr_perturbed
                         gc.collect()
                         
                     # normalize across the feature dimension
-                    score = normalize_scale(score, dim=0, norm_type="minmax")
+                    # score = normalize_scale(score, dim=0, norm_type="minmax")
                     
                 feature_relevance_score.append(score)
+                print(score)
+                del cloned
             
         time_relevance_score = tuple(
             tsr.reshape(input.shape[:2] + (1,) * len(input.shape[2:]))
             for input, tsr in zip(feature_relevance_score, time_relevance_score)
         )
+        is_above_threshold = tuple(
+            is_above.reshape(attr.shape[:2] + (1,) * len(attr.shape[2:]))
+            for attr, is_above in zip(feature_relevance_score, is_above_threshold)
+        )
         
         attributions = tuple(
-            (tsr * frs) for tsr, frs in zip(
+            (tsr * frs)*is_above for tsr, frs, is_above in zip(
                 time_relevance_score,
-                feature_relevance_score
+                feature_relevance_score, is_above_threshold
             )
         )
             

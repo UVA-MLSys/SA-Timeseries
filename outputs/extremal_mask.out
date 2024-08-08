@@ -1,0 +1,816 @@
+Running 1-th job dataset serial 0 and model DLinear
+Running electricity with DLinear
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_DLinear/1
+test 2607
+Loading model from ./results/electricity_DLinear/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:01:26.580797
+Experiment ended at 2024-08-08 16:02:54.136648. Total time taken 0:01:27.555851.
+  metric   area       comp       suff
+0    mae  0.050   5.576909  15.355451
+1    mae  0.075   8.153722  14.100143
+2    mae  0.100   9.558951  13.435882
+3    mae  0.150  11.776419  12.272170
+4    mse  0.050   3.959359  16.198293
+5    mse  0.075   6.704357  13.868310
+6    mse  0.100   8.408935  12.671635
+7    mse  0.150  11.366400  10.723567
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_DLinear/2
+test 2607
+Loading model from ./results/electricity_DLinear/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:02:56.722283
+Experiment ended at 2024-08-08 16:04:16.044424. Total time taken 0:01:19.322141.
+  metric   area       comp       suff
+0    mae  0.050   5.352444  14.944976
+1    mae  0.075   7.865580  13.747542
+2    mae  0.100   9.245110  13.041978
+3    mae  0.150  11.394675  11.889762
+4    mse  0.050   3.590382  15.264305
+5    mse  0.075   6.137787  13.124061
+6    mse  0.100   7.770354  11.880751
+7    mse  0.150  10.571522   9.992796
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_DLinear/3
+test 2607
+Loading model from ./results/electricity_DLinear/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:04:17.635449
+Experiment ended at 2024-08-08 16:05:37.333735. Total time taken 0:01:19.698286.
+  metric   area       comp       suff
+0    mae  0.050   5.566127  15.306900
+1    mae  0.075   8.117582  14.014968
+2    mae  0.100   9.525731  13.318598
+3    mae  0.150  11.789584  12.073511
+4    mse  0.050   3.907916  16.069486
+5    mse  0.075   6.554327  13.699869
+6    mse  0.100   8.233772  12.461220
+7    mse  0.150  11.208090  10.382874
+
+Running 2-th job dataset serial 0 and model MICN
+Running electricity with MICN
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_MICN/1
+test 2607
+Loading model from ./results/electricity_MICN/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:05:56.547142
+Experiment ended at 2024-08-08 16:10:28.191215. Total time taken 0:04:31.644073.
+  metric   area       comp       suff
+0    mae  0.050   7.584103  14.316482
+1    mae  0.075   9.388794  13.429799
+2    mae  0.100  10.203377  13.072902
+3    mae  0.150  11.724200  12.291743
+4    mse  0.050   5.256080  13.958857
+5    mse  0.075   7.145990  12.533609
+6    mse  0.100   8.079430  12.003597
+7    mse  0.150  10.039089  10.823000
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_MICN/2
+test 2607
+Loading model from ./results/electricity_MICN/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:10:30.088121
+Experiment ended at 2024-08-08 16:14:55.461253. Total time taken 0:04:25.373132.
+  metric   area       comp       suff
+0    mae  0.050   7.557627  14.079256
+1    mae  0.075   9.469158  13.161859
+2    mae  0.100  10.277356  12.781174
+3    mae  0.150  11.740221  12.077617
+4    mse  0.050   5.154340  13.522122
+5    mse  0.075   7.193707  12.059787
+6    mse  0.100   8.144264  11.508219
+7    mse  0.150  10.024489  10.474619
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_MICN/3
+test 2607
+Loading model from ./results/electricity_MICN/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:14:57.364033
+Experiment ended at 2024-08-08 16:19:23.237660. Total time taken 0:04:25.873627.
+  metric   area       comp       suff
+0    mae  0.050   7.510310  14.380621
+1    mae  0.075   9.393841  13.460558
+2    mae  0.100  10.189569  13.041405
+3    mae  0.150  11.696153  12.324472
+4    mse  0.050   5.089949  14.046751
+5    mse  0.075   7.068574  12.556797
+6    mse  0.100   8.000612  11.922293
+7    mse  0.150   9.931531  10.859058
+
+Running 3-th job dataset serial 0 and model SegRNN
+Running electricity with SegRNN
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_SegRNN/1
+test 2607
+Loading model from ./results/electricity_SegRNN/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:19:35.621626
+Experiment ended at 2024-08-08 16:21:31.200547. Total time taken 0:01:55.578921.
+  metric   area      comp       suff
+0    mae  0.050  2.942199  17.420819
+1    mae  0.075  4.356095  17.002503
+2    mae  0.100  5.153572  16.729828
+3    mae  0.150  6.794866  16.085918
+4    mse  0.050  0.858169  19.811258
+5    mse  0.075  1.763532  18.971268
+6    mse  0.100  2.403743  18.444650
+7    mse  0.150  3.986307  17.234059
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_SegRNN/2
+test 2607
+Loading model from ./results/electricity_SegRNN/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:21:32.851076
+Experiment ended at 2024-08-08 16:23:26.092490. Total time taken 0:01:53.241414.
+  metric   area      comp       suff
+0    mae  0.050  2.874677  17.355423
+1    mae  0.075  4.332958  16.836853
+2    mae  0.100  5.171784  16.528887
+3    mae  0.150  6.938541  15.776141
+4    mse  0.050  0.879123  19.675406
+5    mse  0.075  1.846128  18.638356
+6    mse  0.100  2.531786  18.039029
+7    mse  0.150  4.269655  16.648931
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_SegRNN/3
+test 2607
+Loading model from ./results/electricity_SegRNN/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:23:27.690516
+Experiment ended at 2024-08-08 16:25:20.415005. Total time taken 0:01:52.724489.
+  metric   area      comp       suff
+0    mae  0.050  2.861909  16.967063
+1    mae  0.075  4.212770  16.545096
+2    mae  0.100  4.988663  16.271301
+3    mae  0.150  6.653530  15.596281
+4    mse  0.050  0.856951  18.749006
+5    mse  0.075  1.704879  17.942332
+6    mse  0.100  2.319376  17.431837
+7    mse  0.150  3.898497  16.222812
+
+Running 4-th job dataset serial 0 and model iTransformer
+Running electricity with iTransformer
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer/1
+test 2607
+Loading model from ./results/electricity_iTransformer/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:25:31.168680
+Experiment ended at 2024-08-08 16:30:13.853460. Total time taken 0:04:42.684780.
+  metric   area      comp       suff
+0    mae  0.050  3.214248  20.441054
+1    mae  0.075  4.823901  19.674180
+2    mae  0.100  6.012703  19.174890
+3    mae  0.150  8.220796  17.933041
+4    mse  0.050  1.180377  27.226306
+5    mse  0.075  2.351338  25.487094
+6    mse  0.100  3.348593  24.320788
+7    mse  0.150  5.650127  21.545810
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer/2
+test 2607
+Loading model from ./results/electricity_iTransformer/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:30:15.529732
+Experiment ended at 2024-08-08 16:34:57.463319. Total time taken 0:04:41.933587.
+  metric   area      comp       suff
+0    mae  0.050  3.045818  20.072261
+1    mae  0.075  4.547043  19.315800
+2    mae  0.100  5.629107  18.837851
+3    mae  0.150  7.722575  17.704820
+4    mse  0.050  0.992136  26.034621
+5    mse  0.075  2.023685  24.372769
+6    mse  0.100  2.873458  23.335323
+7    mse  0.150  4.943377  20.848629
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/electricity_iTransformer/3
+test 2607
+Loading model from ./results/electricity_iTransformer/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:34:59.089656
+Experiment ended at 2024-08-08 16:39:39.542231. Total time taken 0:04:40.452575.
+  metric   area      comp       suff
+0    mae  0.050  3.120557  20.504969
+1    mae  0.075  4.692662  19.690162
+2    mae  0.100  5.828640  19.185218
+3    mae  0.150  7.905899  18.027834
+4    mse  0.050  1.044331  27.007340
+5    mse  0.075  2.172975  25.213913
+6    mse  0.100  3.114624  24.111011
+7    mse  0.150  5.217983  21.625565
+
+Running 5-th job dataset serial 1 and model DLinear
+Running traffic with DLinear
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/1
+test 1731
+Loading model from ./results/traffic_DLinear/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:39:58.231779
+Experiment ended at 2024-08-08 16:40:51.996078. Total time taken 0:00:53.764299.
+  metric   area      comp       suff
+0    mae  0.050  3.194689  25.826645
+1    mae  0.075  4.974887  24.510724
+2    mae  0.100  6.025724  23.731838
+3    mae  0.150  9.024283  22.126574
+4    mse  0.050  1.152320  38.838086
+5    mse  0.075  2.447648  35.605302
+6    mse  0.100  3.398482  33.745354
+7    mse  0.150  6.908531  29.946601
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/2
+test 1731
+Loading model from ./results/traffic_DLinear/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:40:54.381760
+Experiment ended at 2024-08-08 16:41:47.361586. Total time taken 0:00:52.979826.
+  metric   area      comp       suff
+0    mae  0.050  3.244275  26.048332
+1    mae  0.075  5.046985  24.678950
+2    mae  0.100  6.112633  23.905905
+3    mae  0.150  9.117763  22.282692
+4    mse  0.050  1.204443  39.610417
+5    mse  0.075  2.542019  36.247984
+6    mse  0.100  3.515817  34.412395
+7    mse  0.150  7.068808  30.582564
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_DLinear/3
+test 1731
+Loading model from ./results/traffic_DLinear/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:41:49.299689
+Experiment ended at 2024-08-08 16:42:42.362523. Total time taken 0:00:53.062834.
+  metric   area      comp       suff
+0    mae  0.050  3.160346  25.783609
+1    mae  0.075  4.921632  24.502706
+2    mae  0.100  5.937241  23.741348
+3    mae  0.150  8.913684  22.161849
+4    mse  0.050  1.128243  38.679095
+5    mse  0.075  2.396160  35.524253
+6    mse  0.100  3.293413  33.705345
+7    mse  0.150  6.775112  30.026212
+
+Running 6-th job dataset serial 1 and model MICN
+Running traffic with MICN
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN/1
+test 1731
+Loading model from ./results/traffic_MICN/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:42:54.005571
+Experiment ended at 2024-08-08 16:45:52.356386. Total time taken 0:02:58.350815.
+  metric   area      comp       suff
+0    mae  0.050  3.995432  21.812378
+1    mae  0.075  5.189796  20.823698
+2    mae  0.100  5.793467  20.248236
+3    mae  0.150  7.402823  18.837147
+4    mse  0.050  1.622823  27.573640
+5    mse  0.075  2.451371  25.332191
+6    mse  0.100  2.921098  24.087434
+7    mse  0.150  4.398813  21.200986
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN/2
+test 1731
+Loading model from ./results/traffic_MICN/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:45:54.924383
+Experiment ended at 2024-08-08 16:48:52.566662. Total time taken 0:02:57.642279.
+  metric   area      comp       suff
+0    mae  0.050  4.015911  21.578885
+1    mae  0.075  5.274394  20.540197
+2    mae  0.100  5.991431  19.958196
+3    mae  0.150  7.690374  18.494268
+4    mse  0.050  1.658514  27.147697
+5    mse  0.075  2.565354  24.830741
+6    mse  0.100  3.159176  23.582487
+7    mse  0.150  4.750342  20.613427
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_MICN/3
+test 1731
+Loading model from ./results/traffic_MICN/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:48:55.071332
+Experiment ended at 2024-08-08 16:51:52.906503. Total time taken 0:02:57.835171.
+  metric   area      comp       suff
+0    mae  0.050  3.931480  22.644349
+1    mae  0.075  5.118385  21.630823
+2    mae  0.100  5.743056  21.052966
+3    mae  0.150  7.351311  19.648232
+4    mse  0.050  1.594648  29.548536
+5    mse  0.075  2.405621  27.194151
+6    mse  0.100  2.875998  25.907743
+7    mse  0.150  4.300360  22.939127
+
+Running 7-th job dataset serial 1 and model SegRNN
+Running traffic with SegRNN
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_SegRNN/1
+test 1731
+Loading model from ./results/traffic_SegRNN/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:52:04.207258
+Experiment ended at 2024-08-08 16:53:20.219069. Total time taken 0:01:16.011811.
+  metric   area      comp       suff
+0    mae  0.050  3.743509  24.850246
+1    mae  0.075  5.863338  23.425359
+2    mae  0.100  7.014466  22.521687
+3    mae  0.150  9.435876  20.497900
+4    mse  0.050  1.749892  37.014137
+5    mse  0.075  3.772690  33.573984
+6    mse  0.100  4.971902  31.466586
+7    mse  0.150  7.942258  26.963499
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_SegRNN/2
+test 1731
+Loading model from ./results/traffic_SegRNN/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:53:22.492667
+Experiment ended at 2024-08-08 16:54:37.094815. Total time taken 0:01:14.602148.
+  metric   area      comp       suff
+0    mae  0.050  4.013255  24.494741
+1    mae  0.075  6.165207  23.066590
+2    mae  0.100  7.328539  22.141801
+3    mae  0.150  9.712086  20.038580
+4    mse  0.050  2.012057  35.878360
+5    mse  0.075  3.955279  32.473172
+6    mse  0.100  5.188519  30.320469
+7    mse  0.150  8.219354  25.599733
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_SegRNN/3
+test 1731
+Loading model from ./results/traffic_SegRNN/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:54:39.438722
+Experiment ended at 2024-08-08 16:55:54.228816. Total time taken 0:01:14.790094.
+  metric   area      comp       suff
+0    mae  0.050  3.609616  24.448983
+1    mae  0.075  5.509791  22.959484
+2    mae  0.100  6.664142  22.067567
+3    mae  0.150  9.014550  20.054807
+4    mse  0.050  1.668266  35.243972
+5    mse  0.075  3.268367  31.696852
+6    mse  0.100  4.472139  29.689907
+7    mse  0.150  7.226573  25.377077
+
+Running 8-th job dataset serial 1 and model iTransformer
+Running traffic with iTransformer
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer/1
+test 1731
+Loading model from ./results/traffic_iTransformer/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:56:08.142019
+Experiment ended at 2024-08-08 16:59:17.013862. Total time taken 0:03:08.871843.
+  metric   area      comp       suff
+0    mae  0.050  2.551977  28.551245
+1    mae  0.075  3.419895  27.390417
+2    mae  0.100  4.157756  26.556141
+3    mae  0.150  5.678216  24.731663
+4    mse  0.050  0.616754  46.252160
+5    mse  0.075  1.000939  42.998597
+6    mse  0.100  1.426397  40.705660
+7    mse  0.150  2.510846  35.935168
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer/2
+test 1731
+Loading model from ./results/traffic_iTransformer/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 16:59:19.356079
+Experiment ended at 2024-08-08 17:02:27.255335. Total time taken 0:03:07.899256.
+  metric   area      comp       suff
+0    mae  0.050  2.580257  28.825955
+1    mae  0.075  3.470623  27.711512
+2    mae  0.100  4.150607  26.914834
+3    mae  0.150  5.670488  25.001902
+4    mse  0.050  0.593413  47.111499
+5    mse  0.075  1.012308  43.946567
+6    mse  0.100  1.397584  41.730528
+7    mse  0.150  2.488663  36.727476
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Experiments will be saved in ./results/traffic_iTransformer/3
+test 1731
+Loading model from ./results/traffic_iTransformer/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:02:29.577896
+Experiment ended at 2024-08-08 17:05:37.422328. Total time taken 0:03:07.844432.
+  metric   area      comp       suff
+0    mae  0.050  2.683901  28.826129
+1    mae  0.075  3.675037  27.636858
+2    mae  0.100  4.364427  26.789727
+3    mae  0.150  5.903147  24.882722
+4    mse  0.050  0.668498  47.282637
+5    mse  0.075  1.164545  43.948583
+6    mse  0.100  1.579158  41.619447
+7    mse  0.150  2.708287  36.667838
+
+Running 9-th job dataset serial 2 and model DLinear
+Running MIMIC DLinear
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_DLinear/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:05:54.768888
+Experiment ended at 2024-08-08 17:06:23.975397. Total time taken 0:00:29.206509.
+           metric   area      comp      suff
+0        accuracy  0.050  0.985677  0.977648
+1        accuracy  0.075  0.982422  0.975477
+2        accuracy  0.100  0.980252  0.974175
+3        accuracy  0.150  0.977214  0.970840
+4             auc  0.050  0.386256  0.353797
+5             auc  0.075  0.367530  0.356552
+6             auc  0.100  0.349059  0.360270
+7             auc  0.150  0.309400  0.357889
+8   cross_entropy  0.050  0.100646  0.113333
+9   cross_entropy  0.075  0.108651  0.117197
+10  cross_entropy  0.100  0.115858  0.122709
+11  cross_entropy  0.150  0.128394  0.130190
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_DLinear/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:06:27.868794
+Experiment ended at 2024-08-08 17:06:53.852067. Total time taken 0:00:25.983273.
+           metric   area      comp      suff
+0        accuracy  0.050  0.986545  0.972142
+1        accuracy  0.075  0.981771  0.967585
+2        accuracy  0.100  0.975694  0.967585
+3        accuracy  0.150  0.971571  0.964763
+4             auc  0.050  0.438796  0.383162
+5             auc  0.075  0.413960  0.384461
+6             auc  0.100  0.387862  0.396487
+7             auc  0.150  0.353879  0.409382
+8   cross_entropy  0.050  0.113738  0.133880
+9   cross_entropy  0.075  0.122562  0.160678
+10  cross_entropy  0.100       inf  0.167810
+11  cross_entropy  0.150       inf  0.178292
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_DLinear/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_DLinear/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:06:57.610522
+Experiment ended at 2024-08-08 17:07:23.528641. Total time taken 0:00:25.918119.
+           metric   area      comp      suff
+0        accuracy  0.050  0.975220  0.957779
+1        accuracy  0.075  0.968927  0.953398
+2        accuracy  0.100  0.965197  0.952096
+3        accuracy  0.150  0.962199  0.952313
+4             auc  0.050  0.704332  0.586947
+5             auc  0.075  0.684295  0.603867
+6             auc  0.100  0.666687  0.615340
+7             auc  0.150  0.625730  0.632615
+8   cross_entropy  0.050  0.120121  0.155957
+9   cross_entropy  0.075  0.129332  0.157787
+10  cross_entropy  0.100  0.138002  0.160788
+11  cross_entropy  0.150  0.153033  0.165399
+
+Running 10-th job dataset serial 2 and model MICN
+Running MIMIC MICN
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:07:36.886937
+Experiment ended at 2024-08-08 17:08:32.718108. Total time taken 0:00:55.831171.
+           metric   area      comp      suff
+0        accuracy  0.050  0.992188  0.980903
+1        accuracy  0.075  0.989800  0.977214
+2        accuracy  0.100  0.989583  0.976562
+3        accuracy  0.150  0.985637  0.971788
+4             auc  0.050  0.429132  0.260566
+5             auc  0.075  0.427064  0.299159
+6             auc  0.100  0.423695  0.314450
+7             auc  0.150  0.413126  0.333336
+8   cross_entropy  0.050  0.102433  0.150513
+9   cross_entropy  0.075  0.104255  0.152756
+10  cross_entropy  0.100  0.106268  0.154153
+11  cross_entropy  0.150  0.111251  0.158646
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:08:37.008444
+Experiment ended at 2024-08-08 17:09:32.313141. Total time taken 0:00:55.304697.
+           metric   area      comp      suff
+0        accuracy  0.050  0.988932  0.966282
+1        accuracy  0.075  0.983901  0.965414
+2        accuracy  0.100  0.979480  0.962159
+3        accuracy  0.150  0.971627  0.954741
+4             auc  0.050  0.595017  0.329289
+5             auc  0.075  0.591480  0.349575
+6             auc  0.100  0.586222  0.376782
+7             auc  0.150  0.570514  0.435931
+8   cross_entropy  0.050  0.125695  0.225825
+9   cross_entropy  0.075  0.130589  0.231063
+10  cross_entropy  0.100  0.135703       inf
+11  cross_entropy  0.150  0.145902  0.219180
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_MICN/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_MICN/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:09:36.338609
+Experiment ended at 2024-08-08 17:10:31.113847. Total time taken 0:00:54.775238.
+           metric   area      comp      suff
+0        accuracy  0.050  0.984986  0.954998
+1        accuracy  0.075  0.980863  0.954130
+2        accuracy  0.100  0.976482  0.952177
+3        accuracy  0.150  0.970623  0.946968
+4             auc  0.050  0.814467  0.614949
+5             auc  0.075  0.805772  0.663644
+6             auc  0.100  0.797169  0.693800
+7             auc  0.150  0.778367  0.723695
+8   cross_entropy  0.050  0.135533  0.218204
+9   cross_entropy  0.075  0.139850  0.216199
+10  cross_entropy  0.100  0.144307  0.215667
+11  cross_entropy  0.150  0.154045  0.215644
+
+Running 11-th job dataset serial 2 and model SegRNN
+Running MIMIC SegRNN
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_SegRNN/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:10:44.211228
+Experiment ended at 2024-08-08 17:11:47.034528. Total time taken 0:01:02.823300.
+           metric   area      comp      suff
+0        accuracy  0.050  0.982124  0.878352
+1        accuracy  0.075  0.973918  0.880048
+2        accuracy  0.100  0.966716  0.881744
+3        accuracy  0.150  0.953832  0.890601
+4             auc  0.050  0.797621  0.426155
+5             auc  0.075  0.792578  0.456057
+6             auc  0.100  0.783837  0.485895
+7             auc  0.150  0.758828  0.527464
+8   cross_entropy  0.050  0.098021  0.337151
+9   cross_entropy  0.075  0.109896  0.329579
+10  cross_entropy  0.100  0.124308  0.323270
+11  cross_entropy  0.150  0.157343  0.309439
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_SegRNN/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:11:50.996314
+Experiment ended at 2024-08-08 17:12:53.112127. Total time taken 0:01:02.115813.
+           metric   area      comp      suff
+0        accuracy  0.050  0.987550  0.930652
+1        accuracy  0.075  0.983644  0.927357
+2        accuracy  0.100  0.981514  0.928442
+3        accuracy  0.150  0.975477  0.926842
+4             auc  0.050  0.608624  0.339915
+5             auc  0.075  0.606057  0.347306
+6             auc  0.100  0.602609  0.356270
+7             auc  0.150  0.596632  0.372013
+8   cross_entropy  0.050  0.103936  0.272337
+9   cross_entropy  0.075  0.110155  0.272197
+10  cross_entropy  0.100  0.117834  0.270762
+11  cross_entropy  0.150  0.129301  0.270319
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_SegRNN/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_SegRNN/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:12:56.900834
+Experiment ended at 2024-08-08 17:13:59.067646. Total time taken 0:01:02.166812.
+           metric   area      comp      suff
+0        accuracy  0.050  0.982382  0.914199
+1        accuracy  0.075  0.975003  0.915935
+2        accuracy  0.100  0.970189  0.914850
+3        accuracy  0.150  0.965848  0.912776
+4             auc  0.050  0.856445  0.466766
+5             auc  0.075  0.853425  0.491896
+6             auc  0.100  0.849362  0.507847
+7             auc  0.150  0.840257  0.548197
+8   cross_entropy  0.050  0.107925  0.310396
+9   cross_entropy  0.075  0.112567  0.307652
+10  cross_entropy  0.100  0.116577  0.305785
+11  cross_entropy  0.150  0.125824  0.300324
+
+Running 12-th job dataset serial 2 and model iTransformer
+Running MIMIC iTransformer
+
+>>>> itr_no: 1, seed: 648 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/1
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/1/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:14:12.246657
+Experiment ended at 2024-08-08 17:15:06.984641. Total time taken 0:00:54.737984.
+           metric   area      comp      suff
+0        accuracy  0.050  0.983684  0.953101
+1        accuracy  0.075  0.979778  0.951188
+2        accuracy  0.100  0.973484  0.950063
+3        accuracy  0.150  0.961468  0.947499
+4             auc  0.050  0.477553  0.318377
+5             auc  0.075  0.471966  0.331880
+6             auc  0.100  0.463701  0.349845
+7             auc  0.150  0.444940  0.374156
+8   cross_entropy  0.050  0.125554  0.193152
+9   cross_entropy  0.075  0.135619  0.193088
+10  cross_entropy  0.100  0.146660  0.192531
+11  cross_entropy  0.150  0.168871  0.189918
+
+
+>>>> itr_no: 2, seed: 506 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/2
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/2/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:15:11.036285
+Experiment ended at 2024-08-08 17:16:05.054651. Total time taken 0:00:54.018366.
+           metric   area      comp      suff
+0        accuracy  0.050  0.978218  0.932485
+1        accuracy  0.075  0.971925  0.923804
+2        accuracy  0.100  0.969321  0.916426
+3        accuracy  0.150  0.962810  0.909264
+4             auc  0.050  0.696094  0.439372
+5             auc  0.075  0.686840  0.459882
+6             auc  0.100  0.676657  0.471960
+7             auc  0.150  0.655991  0.503624
+8   cross_entropy  0.050  0.108734  0.235366
+9   cross_entropy  0.075  0.115810  0.241611
+10  cross_entropy  0.100  0.122930  0.249888
+11  cross_entropy  0.150  0.133830  0.259110
+
+
+>>>> itr_no: 3, seed: 608 <<<<<<
+Use GPU: cuda:0
+Dead patients 1832, percentage 9.96.
+train 18390
+Dead patients 229, percentage 9.96.
+test 2299
+Experiments will be saved in ./results/mimic_iii_iTransformer/3
+Dead patients 229, percentage 9.96.
+test 2299
+Loading model from ./results/mimic_iii_iTransformer/3/checkpoint.pth
+
+Running extremal_mask from 2024-08-08 17:16:08.881754
+Experiment ended at 2024-08-08 17:17:03.264788. Total time taken 0:00:54.383034.
+           metric   area      comp      suff
+0        accuracy  0.050  0.983901  0.964940
+1        accuracy  0.075  0.981731  0.964032
+2        accuracy  0.100  0.978829  0.963164
+3        accuracy  0.150  0.972102  0.961862
+4             auc  0.050  0.576052  0.393680
+5             auc  0.075  0.568812  0.425190
+6             auc  0.100  0.561183  0.445290
+7             auc  0.150  0.537949  0.468918
+8   cross_entropy  0.050  0.114615  0.170330
+9   cross_entropy  0.075  0.120608  0.168227
+10  cross_entropy  0.100  0.127798  0.166323
+11  cross_entropy  0.150  0.141579  0.165611
+

@@ -19,7 +19,7 @@ from captum.attr import (
 from pytorch_lightning import Trainer
 from tint.attr import (
     AugmentedOcclusion,
-    DynaMask,
+    DynaMask, ExtremalMask,
     Fit,
     Occlusion, 
     FeatureAblation
@@ -41,6 +41,7 @@ explainer_name_map = {
     "occlusion":Occlusion,
     "augmented_occlusion":AugmentedOcclusion, # requires data when initializing
     "dyna_mask":DynaMask, # Multiple inputs are not accepted for this method
+    "extremal_mask":ExtremalMask,
     "fit": Fit, # only supports classification
     "feature_ablation":FeatureAblation,
     "feature_permutation":FeaturePermutation,
@@ -75,7 +76,7 @@ class Exp_Interpret:
         name, model, args, device, dataloader
     ):
         # RuntimeError: cudnn RNN backward can only be called in training mode
-        if name == 'deep_lift' or (('gradient' in name or name == 'dyna_mask') and 'RNN' in args.model):
+        if name == 'deep_lift' or (('gradient' in name or name in ['dyna_mask', 'extremal_mask']) and 'RNN' in args.model):
             # torch.backends.cudnn.enabled=False
             clone = copy.deepcopy(model)
             clone.train() # deep lift moedl needs to be in training mode

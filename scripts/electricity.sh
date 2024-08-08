@@ -62,7 +62,7 @@ python interpret.py \
 
 python interpret.py \
   --task_name long_term_forecast \
-  --explainers tsr2 \
+  --explainers wtsr \
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model DLinear \

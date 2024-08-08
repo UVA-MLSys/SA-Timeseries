@@ -145,7 +145,7 @@ def compute_attr(
             # set the threshold to 0 if you want to avoid skipping any time steps
             threshold=0.55 
         )
-    elif name == 'dyna_mask':
+    elif name in ['dyna_mask', 'extremal_mask']:
         # the parameters ensure Trainer doesn't flood the output with logs and create log folders
         trainer = Trainer(
             logger=False, enable_checkpointing=False,

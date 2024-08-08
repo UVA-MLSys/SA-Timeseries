@@ -1,6 +1,6 @@
 #/bin/bash
 
-explainers=("feature_ablation" "occlusion" "augmented_occlusion" "feature_permutation" "integrated_gradients" "gradient_shap" "dyna_mask" "winIT" "wtsr" "tsr")
+explainers=("feature_ablation" "occlusion" "augmented_occlusion" "feature_permutation" "integrated_gradients" "gradient_shap" "dyna_mask" "extremal_mask" "winIT" "wtsr" "tsr")
 models=("DLinear" "MICN" "SegRNN" "iTransformer" "Crossformer")
 
 for model in ${models[@]}

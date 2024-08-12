@@ -27,25 +27,32 @@ TSlib is an open-source library for deep learning researchers, especially deep t
 
 The following local intepretation methods are supported till now:
 
-1. [Feature Ablation](https://josephenguehard.github.io/time_interpret/build/html/attr.html#tint.attr.FeatureAblation)
-2. [Occlusion](https://josephenguehard.github.io/time_interpret/build/html/attr.html#tint.attr.Occlusion)
-3. [Feature Permutation](https://captum.ai/api/feature_permutation.html)
-4. [Augmented Occlusion](https://josephenguehard.github.io/time_interpret/build/html/attr.html#tint.attr.AugmentedOcclusion)
-5. [Gradient Shap](https://captum.ai/api/gradient_shap.html)
-6. [Integreated Gradients](https://captum.ai/api/integrated_gradients.html)
-7. [Deep Lift](https://captum.ai/api/deep_lift.html)
-8. [Lime](https://captum.ai/api/lime.html)
-9. [WinIT](https://openreview.net/forum?id=C0q9oBc3n4)
+1. *Feature Ablation* [[2017]](https://arxiv.org/abs/1705.08498)
+2. *Dyna Mask* [[ICML 2021]](https://arxiv.org/abs/2106.05303)
+3. *Extremal Mask* [[ICML 2023]](https://proceedings.mlr.press/v202/enguehard23a/enguehard23a.pdf)
+4. *Feature Permutation* [[Molnar 2020]](https://christophm.github.io/interpretable-ml-book/)
+5. *Augmented Feature Occlusion* [[NeurIPS 2020]](https://proceedings.neurips.cc/paper/2020/file/08fa43588c2571ade19bc0fa5936e028-Paper.pdf)
+6. *Gradient Shap* [[NeurIPS 2017]](https://proceedings.neurips.cc/paper/2017/file/8a20a8621978632d76c43dfd28b67767-Paper.pdf)
+7. *Integreated Gradients* [[ICML 2017]](https://proceedings.mlr.press/v70/sundararajan17a/sundararajan17a.pdf)
+8. *WinIT* [[ICLR 2023 poster]](https://openreview.net/forum?id=C0q9oBc3n4)
+9.  *TSR* [[NeurIPS]](https://proceedings.neurips.cc/paper_files/paper/2020/file/47a3893cc405396a5c30d91320572d6d-Paper.pdf)
+10. *WinTSR* - proposed new method
 
 
 ## Time Series Models 
 This repository currently has the following models collected from [Time-Series-Library](https://github.com/thuml/Time-Series-Library).
 
+- [x] **TimeMixer** - TimeMixer: Decomposable Multiscale Mixing for Time Series Forecasting [[ICLR 2024]](https://openreview.net/pdf?id=7oLshfEIC2) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/TimeMixer.py).
+- [x] **TSMixer** - TSMixer: An All-MLP Architecture for Time Series Forecasting [[arXiv 2023]](https://arxiv.org/pdf/2303.06053.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/TSMixer.py)
 - [x] **TimesNet** - TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis [[ICLR 2023]](https://openreview.net/pdf?id=ju_Uqw384Oq) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/TimesNet.py)
 - [x] **DLinear** - Are Transformers Effective for Time Series Forecasting? [[AAAI 2023]](https://arxiv.org/pdf/2205.13504.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/DLinear.py)
 - [x] **PatchTST** - A Time Series is Worth 64 Words: Long-term Forecasting with Transformers. [[ICLR 2023]](https://openreview.net/pdf?id=Jbdc0vTOcol) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/PatchTST.py)
 - [x] **MICN** - MICN: Multi-scale Local and Global Context Modeling for Long-term Series Forecasting [[ICLR 2023]](https://openreview.net/pdf?id=zt53IDUR1U)[[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/MICN.py)
 - [x] **Crossformer** - Crossformer: Transformer Utilizing Cross-Dimension Dependency for Multivariate Time Series Forecasting [[ICLR 2023]](https://openreview.net/pdf?id=vSVLM2j9eie)[[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/Crossformer.py)
+- [x] **SegRNN** - SegRNN: Segment Recurrent Neural Network for Long-Term Time Series Forecasting [[arXiv 2023]](https://arxiv.org/abs/2308.11200.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/SegRNN.py).
+- [x] **Koopa** - Koopa: Learning Non-stationary Time Series Dynamics with Koopman Predictors [[NeurIPS 2023]](https://arxiv.org/pdf/2305.18803.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/Koopa.py).
+- [x] **FreTS** - Frequency-domain MLPs are More Effective Learners in Time Series Forecasting [[NeurIPS 2023]](https://arxiv.org/pdf/2311.06184.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/FreTS.py).
+- [x] **TiDE** - Long-term Forecasting with TiDE: Time-series Dense Encoder [[arXiv 2023]](https://arxiv.org/pdf/2304.08424.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/TiDE.py).
 - [x] **LightTS** - Less Is More: Fast Multivariate Time Series Forecasting with Light Sampling-oriented MLP Structures [[arXiv 2022]](https://arxiv.org/abs/2207.01186) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/LightTS.py)
 - [x] **ETSformer** - ETSformer: Exponential Smoothing Transformers for Time-series Forecasting [[arXiv 2022]](https://arxiv.org/abs/2202.01381) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/ETSformer.py)
 - [x] **Non-stationary Transformer** - Non-stationary Transformers: Exploring the Stationarity in Time Series Forecasting [[NeurIPS 2022]](https://openreview.net/pdf?id=ucNDIDRNjjv) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/Nonstationary_Transformer.py)

@@ -204,7 +204,6 @@ class TSR:
                     # score = normalize_scale(score, dim=0, norm_type="minmax")
                     
                 feature_relevance_score.append(score)
-                print(score)
                 del cloned
             
         time_relevance_score = tuple(

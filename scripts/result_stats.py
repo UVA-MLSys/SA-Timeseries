@@ -49,10 +49,10 @@ NUM_ITERATIONS = 3
 #     for itr_no in range(1,NUM_ITERATIONS+1):
 #         for attr_method in attr_methods:
 #             for model in models: # , 'Crossformer'
-#                 df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
+#                 df = pd.read_csv(f'../results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
 #                 df = reduce_df(df)
                 
-#                 df_wtsr = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/wtsr.csv')
+#                 df_wtsr = pd.read_csv(f'../results/{dataset}_{model}/{itr_no}/wtsr.csv')
 #                 df_wtsr = reduce_df(df_wtsr)
                 
 #                 for metric in metric_map[dataset]:
@@ -89,7 +89,7 @@ for dataset in datasets:
             
             scores = 0
             for itr_no in range(1, NUM_ITERATIONS+1):
-                df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/test_metrics.csv')
+                df = pd.read_csv(f'../results/{dataset}_{model}/{itr_no}/test_metrics.csv')
                 score = df[df['metric']==metric]['score'].values[0]
                 scores += score
                 
@@ -103,7 +103,7 @@ for dataset in datasets:
         for metric in int_metric_map[dataset]:
             for model in models:
                 for itr_no in range(1, NUM_ITERATIONS+1):
-                    df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv')
+                    df = pd.read_csv(f'../results/{dataset}_{model}/{itr_no}/{attr_method}.csv')
                     df = reduce_df(df)
                     comp, suff= df[df['metric']==metric][['comp', 'suff']].values[0]
                     
@@ -144,7 +144,7 @@ for dataset in datasets:
                     scores = []
                     dfs = []
                     for itr_no in range(1, NUM_ITERATIONS+1):
-                        df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
+                        df = pd.read_csv(f'../results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
                     
                         df = df[df['metric']==metric][['area', metric_type]]
                         dfs.append(df)
@@ -180,7 +180,7 @@ for dataset in datasets:
 #                     scores = []
 #                     dfs = []
 #                     for itr_no in range(1, NUM_ITERATIONS+1):
-#                         df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
+#                         df = pd.read_csv(f'../results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
                     
 #                         df = df[df['metric']==metric][['area', metric_type]]
 #                         dfs.append(df)

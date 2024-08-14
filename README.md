@@ -104,21 +104,17 @@ This is a private dataset. Refer to [the official MIMIC-III documentation](https
 
 The module was developed using python 3.10.
 
-### Option 1. Use Singularity Container
+### Option 1. Use Container
 
-Ensure you have `singularity` installed. On Rivanna you might need to load singularity first with `module load singularity`. Pull the singularity container from the remote library,
-```bash
-singularity pull timeseries.sif library://khairulislam/collection/timeseries:latest
-
-## uncomment the following if you want to build it from scratch instead
-# sudo singularity build timeseries.sif singularity.def
+[Dockerfile](/Dockerfile) contains the docker buidling definitions. You can build the container using 
 ```
-
-This saves the pulled container with name `timeseries.sif` in the current directory. You can use the container to run the scripts. For example, 
-```bash
-singularity run --nv timeseries.sif python run.py
+docker build -t timeseries
 ```
-Here `--nv` option enforces using the NVIDIA GPU. 
+This creates a docker container with name tag timeseries. The run our scripts inside the container. To create a `Singularity` container use the following [definition file](/singularity.def).
+```
+sudo singularity build timeseries.sif singularity.def
+```
+This will create a singularity container with name `timeseries.sif`. Note that, this requires `sudo` privilege.
 
 ### Option 2. Use Virtual Environment
 First create a virtual environment with the required libraries. For example, to create an venv named `ml`, you can either use the `Anaconda` library or your locally installed `python`. An example code using Anaconda,
@@ -127,7 +123,13 @@ First create a virtual environment with the required libraries. For example, to 
 conda create -n ml python=3.10
 conda activate ml
 ```
-This will activate the venv `ml`. If you want to run code on your GPU, you need to have CUDA installed. Check if you already have CUDA installed. 
+This will activate the venv `ml`. Install the required libraries,
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+If you want to run code on your GPU, you need to have CUDA installed. Check if you already have CUDA installed. 
 
 ```python
 import torch
@@ -138,18 +140,11 @@ print(f'Using {device} backend')
 
 If this fails to detect your GPU, install CUDA using,
 ```bash
-pip install torch==1.11.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
-```
-
-Then install the rest of the required libraries,
-
-```bash
-python3 -m pip install -r requirements.txt
+pip install torch==2.2 --index-url https://download.pytorch.org/whl/cu118
 ```
 
 ## References
 <!-- https://docs.github.com/en/enterprise-cloud@latest/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#footnotes -->
-
 [^1]: https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014.
 
 [^2]: https://pems.dot.ca.gov/.

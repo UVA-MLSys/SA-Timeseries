@@ -190,7 +190,7 @@ class Exp_Classification(Exp_Basic):
         # save results
         result_string = f'acc {accuracy:0.5f}, f1 {f1:0.5f}, auc {auc:0.5f}'
         print(result_string)
-        with open("result_classification.txt", 'a') as f:
+        with open(os.path.join(self.args.result_path, "result_classification.txt"), 'a') as f:
             f.write(stringify_setting(self.args, complete=True)  + "  \n")
             f.write(f'flag {flag}, {result_string}\n\n')
             

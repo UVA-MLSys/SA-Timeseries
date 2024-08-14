@@ -3,16 +3,21 @@ From: python:3.10
 %post 
     apt-get -y update
     python -m pip install --upgrade pip
-    pip install torch==1.11+cu113 -f https://download.pytorch.org/whl/torch_stable.html \
-        tqdm matplotlib numpy \
-        requests scikit-learn \
+    pip install matplotlib numpy pandas scikit-learn sympy tqdm scipy einops
+    pip install time-interpret captum
+    pip install torch==2.2 --index-url https://download.pytorch.org/whl/cu118
+    pip install pytorch-lightning==1.8.6 \\
+        ipykernel \
+        ipywidgets \
+        jupyter_client \
+        notebook \
+        numpy \
         setuptools \
-        pandas einops scipy sympy \
-        SALib captum time-interpret reformer-pytorch
+        reformer-pytorch
 
 %labels
-    Author Khairul
-    Version v1.2.0
+    Author TimeSeries
+    Version v1.0
 
 %help
     A container for Time Series Forecasting.

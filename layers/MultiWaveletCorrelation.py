@@ -8,7 +8,6 @@ import math
 from functools import partial
 from torch import nn, einsum, diagonal
 from math import log2, ceil
-import pdb
 from sympy import Poly, legendre, Symbol, chebyshevt
 from scipy.special import eval_legendre
 

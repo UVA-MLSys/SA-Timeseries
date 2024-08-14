@@ -8,4 +8,6 @@ scikit-learn
 sympy
 time-interpret # ==0.3.0
 captum
-tqdm 
+tqdm
+einops
+# install pytorch and cuda following readme

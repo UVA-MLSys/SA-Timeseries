@@ -1,22 +1,16 @@
-# Temporal Saliency Analysis for Multi-Horizon Time Series Forecasting using Deep Learning
+# Interpreting Multi-Horizon Time Series Deep Learning Models
 
-Interpreting the model's behavior is important in understanding decision-making in practice. However, explaining complex time series forecasting models faces challenges due to temporal dependencies between subsequent time steps and the varying importance of input features over time. Many time series forecasting models use input context with a look-back window for better prediction performance. However, the existing studies (1) do not consider the temporal dependencies among the feature vectors in the input window and (2) separately consider the time dimension that the feature dimension when calculating the importance scores. In this work, we propose a novel **Windowed Temporal Saliency Analysis** method to address these issues. 
+Interpreting the model's behavior is important in understanding decision-making in practice. However, explaining complex time series forecasting models faces challenges due to temporal dependencies between subsequent time steps and the varying importance of input features over time. Many time series forecasting models use input context with a look-back window for better prediction performance. However, the existing studies (1) do not consider the temporal dependencies among the feature vectors in the input window and (2) separately consider the time dimension that the feature dimension when calculating the importance scores. In this work, we propose a novel **Windowed Temporal Saliency Rescaling** method to address these issues. 
 
-## Saliency Analysis
-
-Saliency Analysis is the study of input feature importance to model output using black-box interpretation techniques. We use the following libraries to perform the saliency analysis methods.
+## Core Libraries
+The following libraries are used as a core in this framework.
 
 ### [Captum](https://captum.ai/docs/introduction)
 (“comprehension” in Latin) is an open source library for model interpretability built on PyTorch.
 
 ### [Time Interpret (tint)](https://josephenguehard.github.io/time_interpret/build/html/index.html)
 
-This package expands the Captum library with a specific focus on time-series. As such, it includes various interpretability methods specifically designed to handle time series data.
-
-## Multi-Horizon Forecasting
-Multi-horizon forecasting is the prediction of variables-of-interest at multiple future time steps. It is a crucial challenge in time series machine learning. Most real-world datasets have a time component, and forecasting the future can unlock great value. For example, retailers can use future sales to optimize their supply chain and promotions, investment managers are interested in forecasting the future prices of financial assets to maximize their performance, and healthcare institutions can use the number of future patient admissions to have sufficient personnel and equipment. 
-
-We use the following library for implementing the time series models,
+Expands the Captum library with a specific focus on time-series. It includes various interpretability methods specifically designed to handle time series data.
 
 ### [Time-Series-Library (TSlib)](https://github.com/thuml/Time-Series-Library)
 
@@ -25,8 +19,8 @@ TSlib is an open-source library for deep learning researchers, especially deep t
 
 ## Interpretation Methods
 
-The following local intepretation methods are supported till now:
-
+The following local intepretation methods are supported at present:
+<details>
 1. *Feature Ablation* [[2017]](https://arxiv.org/abs/1705.08498)
 2. *Dyna Mask* [[ICML 2021]](https://arxiv.org/abs/2106.05303)
 3. *Extremal Mask* [[ICML 2023]](https://proceedings.mlr.press/v202/enguehard23a/enguehard23a.pdf)
@@ -37,10 +31,12 @@ The following local intepretation methods are supported till now:
 8. *WinIT* [[ICLR 2023 poster]](https://openreview.net/forum?id=C0q9oBc3n4)
 9.  *TSR* [[NeurIPS]](https://proceedings.neurips.cc/paper_files/paper/2020/file/47a3893cc405396a5c30d91320572d6d-Paper.pdf)
 10. *WinTSR* - proposed new method
-
+</details>
 
 ## Time Series Models 
-This repository currently has the following models collected from [Time-Series-Library](https://github.com/thuml/Time-Series-Library).
+This repository currently supports the following models:
+
+<details>
 
 - [x] **TimeMixer** - TimeMixer: Decomposable Multiscale Mixing for Time Series Forecasting [[ICLR 2024]](https://openreview.net/pdf?id=7oLshfEIC2) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/TimeMixer.py).
 - [x] **TSMixer** - TSMixer: An All-MLP Architecture for Time Series Forecasting [[arXiv 2023]](https://arxiv.org/pdf/2303.06053.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/TSMixer.py)
@@ -63,6 +59,45 @@ This repository currently has the following models collected from [Time-Series-L
 - [x] **Informer** - Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting [[AAAI 2021]](https://ojs.aaai.org/index.php/AAAI/article/view/17325/17132) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/Informer.py)
 - [x] **Reformer** - Reformer: The Efficient Transformer [[ICLR 2020]](https://openreview.net/forum?id=rkgNKkHtvB) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/Reformer.py)
 - [x] **Transformer** - Attention is All You Need [[NeurIPS 2017]](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) [[Code]](https://github.com/thuml/Time-Series-Library/blob/main/models/Transformer.py)
+  
+</details>
+
+## Train & Test
+
+Use the [run.py](/run.py) script to train and test the time series models. Check the [scripts](/scripts/) and [slurm](/slurm/) folder to see sample scripts. Make sure you have the datasets downloaded in the `dataset` folder following the `Datasets` section. Following is a sample code to train the electricity dataset using the DLinear model. To test an already trained model, just remove the `--train` parameter.
+
+```
+python run.py \
+  --task_name long_term_forecast \
+  --train \
+  --root_path ./dataset/electricity/ \
+  --data_path electricity.csv \
+  --model DLinear \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1
+```
+
+## Interpret
+
+Use the [interpret.py](/interpret.py) script to interpret a trained model. Check the [scripts](/scripts/) and [slurm](/slurm/) folder to see more sample scripts. Following is a sample code to interpret the `iTransformer` model trained on the electricity dataset using using some of the interpretation methods. This evaluates the 1st iteration among the default 3 in the result folder.
+
+```
+python interpret.py \
+  --task_name long_term_forecast \
+  --explainers feature_ablation augmented_occlusion feature_permutation integrated_gradients gradient_shap wtsr\
+  --root_path ./dataset/electricity/ \
+  --data_path electricity.csv \
+  --model iTransformer \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1 \
+  --itr_no 1
+```
 
 ## Datasets
 
@@ -81,7 +116,10 @@ This dataset [^2] records the road occupancy rates from different sensors on San
 
 ### Mimic-III
 
-MIMIC-III is a multivariate clinical time series dataset with a range of vital and lab measurements taken over time for around 40,000 patients at the Beth Israel Deaconess Medical Center in Boston, MA (Johnson et al. [^3], 2016). It is widely used in healthcare and medical AI-related research. There are multiple tasks associated, including mortality, length-of-stay prediction, and phenotyping. We follow the pre-processing procedure described in Tonekaboni et al. (2020) [^4] and use 8 vitals and 20 lab measurements hourly over a 48-hour period to predict patient mortality. For more visit the [source description](https://physionet.org/content/mimiciii/1.4/).
+MIMIC-III is a multivariate clinical time series dataset with a range of vital and lab measurements taken over time for around 40,000 patients at the Beth Israel Deaconess Medical Center in Boston, MA (Johnson et al. [^3], 2016). It is widely used in healthcare and medical AI-related research. There are multiple tasks associated, including mortality, length-of-stay prediction, and phenotyping. 
+
+<details>
+We follow the pre-processing procedure described in Tonekaboni et al. (2020) [^4] and use 8 vitals and 20 lab measurements hourly over a 48-hour period to predict patient mortality. For more visit the [source description](https://physionet.org/content/mimiciii/1.4/).
 
 This is a private dataset. Refer to [the official MIMIC-III documentation](https://mimic.mit.edu/iii/gettingstarted/dbsetup/). ReadMe and datagen of MIMIC is from [Dynamask Repo](https://github.com/JonathanCrabbe/Dynamask). This repository followed the database setup instructions from [the offficial site here](https://mimic.mit.edu/docs/gettingstarted/local/install-mimic-locally-windows/). 
 
@@ -99,8 +137,9 @@ This is a private dataset. Refer to [the official MIMIC-III documentation](https
   If everything happens properly, a file `mimic_iii.pkl` is stored in `dataset/mimic_iii`.
  
 <!-- > Before data was incorporated into the MIMIC-III database, it was first deidentified in accordance with Health Insurance Portability and Accountability Act (HIPAA) standards using structured data cleansing and date shifting. The deidentification process for structured data required the removal of all eighteen of the identifying data elements listed in HIPAA, including fields such as patient name, telephone number, address, and dates. In particular, dates were shifted into the future by a random offset for each individual patient in a consistent manner to preserve intervals, resulting in stays which occur sometime between the years 2100 and 2200. Time of day, day of the week, and approximate seasonality were conserved during date shifting. Dates of birth for patients aged over 89 were shifted to obscure their true age and comply with HIPAA regulations: these patients appear in the database with ages of over 300 years. -->
+</details>
 
-## How to Reproduce
+## Reproduce
 
 The module was developed using python 3.10.
 
